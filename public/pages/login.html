@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Mekar Jaya</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 25%, #2563eb 50%, #3b82f6 75%, #60a5fa 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Bubbles Animation */
+        .bubble {
+            position: absolute;
+            bottom: -100px;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 50%;
+            animation: rise 15s infinite ease-in;
+        }
+
+        .bubble:nth-child(1) { width: 40px; height: 40px; left: 10%; animation-duration: 12s; }
+        .bubble:nth-child(2) { width: 60px; height: 60px; left: 25%; animation-duration: 14s; animation-delay: 2s; }
+        .bubble:nth-child(3) { width: 30px; height: 30px; left: 45%; animation-duration: 10s; animation-delay: 4s; }
+        .bubble:nth-child(4) { width: 50px; height: 50px; left: 65%; animation-duration: 16s; animation-delay: 1s; }
+        .bubble:nth-child(5) { width: 35px; height: 35px; left: 80%; animation-duration: 13s; animation-delay: 3s; }
+        .bubble:nth-child(6) { width: 45px; height: 45px; left: 90%; animation-duration: 11s; animation-delay: 5s; }
+
+        @keyframes rise {
+            0% {
+                bottom: -100px;
+                transform: translateX(0) scale(1);
+                opacity: 0;
+            }
+            50% {
+                opacity: 0.4;
+                transform: translateX(100px) scale(1.1);
+            }
+            100% {
+                bottom: 110vh;
+                transform: translateX(-100px) scale(0.8);
+                opacity: 0;
+            }
+        }
+
+        /* Animated Waves */
+        .ocean {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 150px;
+            overflow: hidden;
+        }
+
+        .wave {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 200%;
+            height: 100%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120"><path d="M0,50 Q300,100 600,50 T1200,50 L1200,120 L0,120 Z" fill="%23004080" opacity="0.3"/></svg>');
+            background-size: 50% 100%;
+            animation: wave-motion 15s linear infinite;
+        }
+
+        .wave:nth-child(2) {
+            bottom: -10px;
+            animation: wave-motion 10s linear infinite reverse;
+            opacity: 0.5;
+        }
+
+        .wave:nth-child(3) {
+            bottom: -20px;
+            animation: wave-motion 20s linear infinite;
+            opacity: 0.3;
+        }
+
+        @keyframes wave-motion {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        /* Swimming Fish */
+        .fish {
+            position: absolute;
+            font-size: 35px;
+            animation: swim 20s linear infinite;
+            opacity: 0.7;
+            filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.3));
+        }
+
+        .fish:nth-child(7) { top: 15%; animation-duration: 18s; animation-delay: 0s; }
+        .fish:nth-child(8) { top: 35%; animation-duration: 22s; animation-delay: 3s; font-size: 28px; }
+        .fish:nth-child(9) { top: 55%; animation-duration: 16s; animation-delay: 6s; font-size: 32px; }
+        .fish:nth-child(10) { top: 75%; animation-duration: 24s; animation-delay: 2s; }
+
+        @keyframes swim {
+            0% { 
+                left: -100px;
+                transform: scaleX(1) translateY(0);
+            }
+            48% {
+                transform: scaleX(1) translateY(-20px);
+            }
+            50% {
+                left: 50%;
+                transform: scaleX(1) translateY(-20px);
+            }
+            52% {
+                transform: scaleX(1) translateY(0);
+            }
+            100% { 
+                left: calc(100% + 100px);
+                transform: scaleX(1) translateY(0);
+            }
+        }
+
+        /* Login Container - Enhanced */
+        .login-container {
+            background: linear-gradient(145deg, rgba(255, 255, 255, 0.98), rgba(255, 255, 255, 0.95));
+            backdrop-filter: blur(20px);
+            border-radius: 30px;
+            padding: 50px 45px;
+            width: 450px;
+            max-width: 90%;
+            box-shadow: 
+                0 30px 80px rgba(0, 0, 0, 0.4),
+                0 0 0 1px rgba(255, 255, 255, 0.3) inset,
+                0 10px 30px rgba(59, 130, 246, 0.3);
+            position: relative;
+            z-index: 10;
+            animation: fadeInScale 1s ease;
+            border: 2px solid rgba(255, 255, 255, 0.5);
+        }
+
+        @keyframes fadeInScale {
+            from { 
+                opacity: 0; 
+                transform: translateY(-30px) scale(0.9);
+            }
+            to { 
+                opacity: 1; 
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        /* Decorative Corner Elements */
+        .login-container::before,
+        .login-container::after {
+            content: '🌊';
+            position: absolute;
+            font-size: 40px;
+            opacity: 0.1;
+        }
+
+        .login-container::before {
+            top: 15px;
+            left: 15px;
+            transform: rotate(-15deg);
+        }
+
+        .login-container::after {
+            bottom: 15px;
+            right: 15px;
+            transform: rotate(15deg);
+        }
+
+        .logo {
+            text-align: center;
+            margin-bottom: 35px;
+            position: relative;
+        }
+
+        .logo-icon {
+            font-size: 80px;
+            margin-bottom: 15px;
+            animation: float 4s ease-in-out infinite;
+            filter: drop-shadow(0 5px 15px rgba(0, 102, 204, 0.3));
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(-5deg); }
+            50% { transform: translateY(-15px) rotate(5deg); }
+        }
+
+        h1 {
+            color: #1e40af;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 32px;
+            font-weight: 700;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #64748b;
+            margin-bottom: 35px;
+            font-size: 15px;
+            font-weight: 400;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+            position: relative;
+        }
+
+        label {
+            display: block;
+            color: #1e293b;
+            margin-bottom: 10px;
+            font-weight: 600;
+            font-size: 14px;
+            letter-spacing: 0.3px;
+        }
+
+        input {
+            width: 100%;
+            padding: 15px 15px 15px 50px;
+            border: 2px solid #e2e8f0;
+            border-radius: 15px;
+            font-size: 15px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            background: #f8fafc;
+            color: #1e293b;
+        }
+
+        input:hover {
+            border-color: #cbd5e1;
+            background: #fff;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #3b82f6;
+            background: white;
+            box-shadow: 
+                0 0 0 4px rgba(59, 130, 246, 0.1),
+                0 4px 12px rgba(59, 130, 246, 0.15);
+            transform: translateY(-2px);
+        }
+
+        .input-icon {
+            position: absolute;
+            left: 18px;
+            top: 45px;
+            font-size: 20px;
+            transition: all 0.3s;
+        }
+
+        input:focus + .input-icon {
+            transform: scale(1.1);
+        }
+
+        .forgot-password {
+            text-align: right;
+            margin-top: 12px;
+        }
+
+        .forgot-password a {
+            color: #3b82f6;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+
+        .forgot-password a:hover {
+            color: #1e40af;
+            text-decoration: underline;
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 50%, #1e40af 100%);
+            color: white;
+            border: none;
+            border-radius: 15px;
+            font-size: 17px;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 25px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 
+                0 8px 20px rgba(59, 130, 246, 0.4),
+                0 2px 8px rgba(0, 0, 0, 0.1);
+            letter-spacing: 0.5px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .login-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .login-btn:hover::before {
+            left: 100%;
+        }
+
+        .login-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 
+                0 12px 30px rgba(59, 130, 246, 0.5),
+                0 4px 12px rgba(0, 0, 0, 0.15);
+            background: linear-gradient(135deg, #2563eb 0%, #1e40af 50%, #1e3a8a 100%);
+        }
+
+        .login-btn:active {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 15px rgba(59, 130, 246, 0.4);
+        }
+
+        .register-link {
+            text-align: center;
+            margin-top: 25px;
+            color: #64748b;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .register-link a {
+            color: #3b82f6;
+            text-decoration: none;
+            font-weight: 700;
+            transition: all 0.3s;
+        }
+
+        .register-link a:hover {
+            color: #1e40af;
+            text-decoration: underline;
+        }
+
+        .divider {
+            display: flex;
+            align-items: center;
+            margin: 30px 0;
+            color: #94a3b8;
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        .divider::before,
+        .divider::after {
+            content: '';
+            flex: 1;
+            height: 2px;
+            background: linear-gradient(to right, transparent, #e2e8f0, transparent);
+        }
+
+        .divider span {
+            padding: 0 20px;
+            background: linear-gradient(145deg, rgba(255, 255, 255, 0.98), rgba(255, 255, 255, 0.95));
+        }
+
+        /* Checkbox Remember Me */
+        .remember-me {
+            display: flex;
+            align-items: center;
+            margin-top: 15px;
+            font-size: 14px;
+            color: #475569;
+        }
+
+        .remember-me input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            margin-right: 8px;
+            cursor: pointer;
+            padding: 0;
+        }
+
+        /* Responsive */
+        @media (max-width: 500px) {
+            .login-container {
+                padding: 40px 30px;
+            }
+            
+            h1 {
+                font-size: 28px;
+            }
+            
+            .logo-icon {
+                font-size: 65px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Bubbles -->
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+
+    <!-- Ocean Waves -->
+    <div class="ocean">
+        <div class="wave"></div>
+        <div class="wave"></div>
+        <div class="wave"></div>
+    </div>
+
+    <!-- Swimming Fish -->
+    <div class="fish">🐟</div>
+    <div class="fish">🐠</div>
+    <div class="fish">🐡</div>
+    <div class="fish">🦈</div>
+
+    <!-- Login Container -->
+    <div class="login-container">
+        <div class="logo">
+            <div class="logo-icon">🎣</div>
+            <h1>Mekar Jaya</h1>
+            <p class="subtitle">Selamat datang kembali! Masuk untuk melanjutkan</p>
+        </div>
+
+        <form id="loginForm">
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" placeholder="nama@email.com" required>
+                <span class="input-icon">📧</span>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" placeholder="Masukkan password Anda" required>
+                <span class="input-icon">🔒</span>
+            </div>
+
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <div class="remember-me">
+                    <input type="checkbox" id="remember">
+                    <label for="remember" style="margin: 0; font-weight: 500;">Ingat Saya</label>
+                </div>
+                <div class="forgot-password" style="margin: 0;">
+                    <a href="lupa_password.html">Lupa password?</a>
+                </div>
+            </div>
+
+            <button type="submit" class="login-btn">🎣 Masuk Sekarang</button>
+
+            <div class="divider">
+                <span>atau</span>
+            </div>
+
+            <div class="register-link">
+                Belum punya akun? <a href="register.html">Daftar Sekarang</a>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const remember = document.getElementById('remember').checked;
+            
+            // Simple validation
+            if (email && password) {
+                // Add loading state
+                const btn = document.querySelector('.login-btn');
+                const originalText = btn.innerHTML;
+                btn.innerHTML = '⏳ Memproses...';
+                btn.disabled = true;
+                
+                // Simulate login process
+                setTimeout(() => {
+                    btn.innerHTML = '✅ Berhasil!';
+                    
+                    setTimeout(() => {
+                        alert(`Login berhasil!\n\nEmail: ${email}\nIngat Saya: ${remember ? 'Ya' : 'Tidak'}\n\n🎣 Selamat datang di Mekar Jaya!`);
+                        btn.innerHTML = originalText;
+                        btn.disabled = false;
+                    }, 800);
+                }, 1500);
+            }
+        });
+
+        // Input animation on focus
+        const inputs = document.querySelectorAll('input[type="email"], input[type="password"]');
+        inputs.forEach(input => {
+            input.addEventListener('focus', function() {
+                this.parentElement.style.transform = 'scale(1.02)';
+            });
+            
+            input.addEventListener('blur', function() {
+                this.parentElement.style.transform = 'scale(1)';
+            });
+        });
+    </script>
+</body>
+</html>

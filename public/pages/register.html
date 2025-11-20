@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daftar Akun - Mekar Jaya</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 25%, #2563eb 50%, #3b82f6 75%, #60a5fa 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow-x: hidden;
+            position: relative;
+            padding: 40px 20px;
+        }
+
+        /* Bubbles Animation */
+        .bubble {
+            position: absolute;
+            bottom: -100px;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 50%;
+            animation: rise 15s infinite ease-in;
+        }
+
+        .bubble:nth-child(1) { width: 40px; height: 40px; left: 10%; animation-duration: 12s; }
+        .bubble:nth-child(2) { width: 60px; height: 60px; left: 25%; animation-duration: 14s; animation-delay: 2s; }
+        .bubble:nth-child(3) { width: 30px; height: 30px; left: 45%; animation-duration: 10s; animation-delay: 4s; }
+        .bubble:nth-child(4) { width: 50px; height: 50px; left: 65%; animation-duration: 16s; animation-delay: 1s; }
+        .bubble:nth-child(5) { width: 35px; height: 35px; left: 80%; animation-duration: 13s; animation-delay: 3s; }
+        .bubble:nth-child(6) { width: 45px; height: 45px; left: 90%; animation-duration: 11s; animation-delay: 5s; }
+
+        
+        /* Animated Waves */
+        .ocean {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 150px;
+            overflow: hidden;
+        }
+
+        .wave {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 200%;
+            height: 100%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120"><path d="M0,50 Q300,100 600,50 T1200,50 L1200,120 L0,120 Z" fill="%23004080" opacity="0.3"/></svg>');
+            background-size: 50% 100%;
+            animation: wave-motion 15s linear infinite;
+        }
+
+        .wave:nth-child(2) {
+            bottom: -10px;
+            animation: wave-motion 10s linear infinite reverse;
+            opacity: 0.5;
+        }
+
+        .wave:nth-child(3) {
+            bottom: -20px;
+            animation: wave-motion 20s linear infinite;
+            opacity: 0.3;
+        }
+
+        @keyframes wave-motion {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        /* Swimming Fish */
+        .fish {
+            position: absolute;
+            font-size: 35px;
+            animation: swim 20s linear infinite;
+            opacity: 0.7;
+            filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.3));
+        }
+
+        .fish:nth-child(7) { top: 15%; animation-duration: 18s; animation-delay: 0s; }
+        .fish:nth-child(8) { top: 35%; animation-duration: 22s; animation-delay: 3s; font-size: 28px; }
+        .fish:nth-child(9) { top: 55%; animation-duration: 16s; animation-delay: 6s; font-size: 32px; }
+        .fish:nth-child(10) { top: 75%; animation-duration: 24s; animation-delay: 2s; }
+
+        @keyframes swim {
+            0% { 
+                left: -100px;
+                transform: scaleX(1) translateY(0);
+            }
+            48% {
+                transform: scaleX(1) translateY(-20px);
+            }
+            50% {
+                left: 50%;
+                transform: scaleX(1) translateY(-20px);
+            }
+            52% {
+                transform: scaleX(1) translateY(0);
+            }
+            100% { 
+                left: calc(100% + 100px);
+                transform: scaleX(1) translateY(0);
+            }
+        }
+
+        /* Register Container */
+        .register-container {
+            background: linear-gradient(145deg, rgba(255, 255, 255, 0.98), rgba(255, 255, 255, 0.95));
+            backdrop-filter: blur(20px);
+            border-radius: 30px;
+            padding: 45px 40px;
+            width: 520px;
+            max-width: 90%;
+            box-shadow: 
+                0 30px 80px rgba(0, 0, 0, 0.4),
+                0 0 0 1px rgba(255, 255, 255, 0.3) inset,
+                0 10px 30px rgba(59, 130, 246, 0.3);
+            position: relative;
+            z-index: 10;
+            animation: fadeInScale 1s ease;
+            border: 2px solid rgba(255, 255, 255, 0.5);
+        }
+
+        @keyframes fadeInScale {
+            from { 
+                opacity: 0; 
+                transform: translateY(-30px) scale(0.9);
+            }
+            to { 
+                opacity: 1; 
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        /* Decorative Corner Elements */
+        .register-container::before,
+        .register-container::after {
+            content: '🌊';
+            position: absolute;
+            font-size: 40px;
+            opacity: 0.1;
+        }
+
+        .register-container::before {
+            top: 15px;
+            left: 15px;
+            transform: rotate(-15deg);
+        }
+
+        .register-container::after {
+            bottom: 15px;
+            right: 15px;
+            transform: rotate(15deg);
+        }
+
+        .logo {
+            text-align: center;
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .logo-icon {
+            font-size: 70px;
+            margin-bottom: 12px;
+            animation: float 4s ease-in-out infinite;
+            filter: drop-shadow(0 5px 15px rgba(0, 102, 204, 0.3));
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(-5deg); }
+            50% { transform: translateY(-15px) rotate(5deg); }
+        }
+
+        h1 {
+            color: #1e40af;
+            text-align: center;
+            margin-bottom: 8px;
+            font-size: 30px;
+            font-weight: 700;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #64748b;
+            margin-bottom: 30px;
+            font-size: 14px;
+            font-weight: 400;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+
+        label {
+            display: block;
+            color: #1e293b;
+            margin-bottom: 8px;
+            font-weight: 600;
+            font-size: 13px;
+            letter-spacing: 0.3px;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 13px 13px 13px 45px;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            font-size: 14px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            background: #f8fafc;
+            color: #1e293b;
+            font-family: inherit;
+        }
+
+        select {
+            cursor: pointer;
+        }
+
+        input:hover, select:hover {
+            border-color: #cbd5e1;
+            background: #fff;
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            border-color: #3b82f6;
+            background: white;
+            box-shadow: 
+                0 0 0 4px rgba(59, 130, 246, 0.1),
+                0 4px 12px rgba(59, 130, 246, 0.15);
+            transform: translateY(-2px);
+        }
+
+        .input-icon {
+            position: absolute;
+            left: 15px;
+            top: 39px;
+            font-size: 18px;
+            transition: all 0.3s;
+            pointer-events: none;
+        }
+
+        input:focus + .input-icon,
+        select:focus + .input-icon {
+            transform: scale(1.1);
+        }
+
+        /* Password Strength Indicator */
+        .password-strength {
+            margin-top: 8px;
+            height: 4px;
+            background: #e2e8f0;
+            border-radius: 2px;
+            overflow: hidden;
+            display: none;
+        }
+
+        .password-strength.show {
+            display: block;
+        }
+
+        .password-strength-bar {
+            height: 100%;
+            width: 0%;
+            transition: all 0.3s;
+            border-radius: 2px;
+        }
+
+        .password-strength-bar.weak {
+            width: 33%;
+            background: #ef4444;
+        }
+
+        .password-strength-bar.medium {
+            width: 66%;
+            background: #f59e0b;
+        }
+
+        .password-strength-bar.strong {
+            width: 100%;
+            background: #10b981;
+        }
+
+        .password-hint {
+            font-size: 11px;
+            color: #64748b;
+            margin-top: 5px;
+            display: none;
+        }
+
+        .password-hint.show {
+            display: block;
+        }
+
+        /* Terms and Conditions */
+        .terms-group {
+            display: flex;
+            align-items: flex-start;
+            margin: 20px 0;
+            font-size: 13px;
+            color: #475569;
+        }
+
+        .terms-group input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            margin-right: 10px;
+            margin-top: 2px;
+            cursor: pointer;
+            padding: 0;
+            flex-shrink: 0;
+        }
+
+        .terms-group label {
+            margin: 0;
+            font-weight: 400;
+            line-height: 1.5;
+        }
+
+        .terms-group a {
+            color: #3b82f6;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .terms-group a:hover {
+            text-decoration: underline;
+        }
+
+        .register-btn {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 50%, #1e40af 100%);
+            color: white;
+            border: none;
+            border-radius: 15px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 
+                0 8px 20px rgba(59, 130, 246, 0.4),
+                0 2px 8px rgba(0, 0, 0, 0.1);
+            letter-spacing: 0.5px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .register-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .register-btn:hover::before {
+            left: 100%;
+        }
+
+        .register-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 
+                0 12px 30px rgba(59, 130, 246, 0.5),
+                0 4px 12px rgba(0, 0, 0, 0.15);
+            background: linear-gradient(135deg, #2563eb 0%, #1e40af 50%, #1e3a8a 100%);
+        }
+
+        .register-btn:active {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 15px rgba(59, 130, 246, 0.4);
+        }
+
+        .register-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .login-link {
+            text-align: center;
+            margin-top: 20px;
+            color: #64748b;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .login-link a {
+            color: #3b82f6;
+            text-decoration: none;
+            font-weight: 700;
+            transition: all 0.3s;
+        }
+
+        .login-link a:hover {
+            color: #1e40af;
+            text-decoration: underline;
+        }
+
+        .divider {
+            display: flex;
+            align-items: center;
+            margin: 25px 0;
+            color: #94a3b8;
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        .divider::before,
+        .divider::after {
+            content: '';
+            flex: 1;
+            height: 2px;
+            background: linear-gradient(to right, transparent, #e2e8f0, transparent);
+        }
+
+        .divider span {
+            padding: 0 20px;
+            background: linear-gradient(145deg, rgba(255, 255, 255, 0.98), rgba(255, 255, 255, 0.95));
+        }
+
+        /* Success Message */
+        .success-message {
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+            padding: 12px 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            display: none;
+            align-items: center;
+            gap: 10px;
+            font-size: 14px;
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+        }
+
+        .success-message.show {
+            display: flex;
+            animation: slideDown 0.5s ease;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .register-container {
+                padding: 35px 25px;
+            }
+            
+            .form-row {
+                grid-template-columns: 1fr;
+                gap: 0;
+            }
+            
+            h1 {
+                font-size: 26px;
+            }
+            
+            .logo-icon {
+                font-size: 60px;
+            }
+        }
+    </style>
+</head>
+<body>
+   
+
+    <!-- Ocean Waves -->
+    <div class="ocean">
+        <div class="wave"></div>
+        <div class="wave"></div>
+        <div class="wave"></div>
+    </div>
+
+
+    <!-- Register Container -->
+    <div class="register-container">
+        <div class="logo">
+            <div class="logo-icon">🎣</div>
+            <h1>Daftar Akun Baru</h1>
+            <p class="subtitle">Bergabunglah dengan komunitas pemancing Mekar Jaya</p>
+        </div>
+
+        <div class="success-message" id="successMessage">
+            <span style="font-size: 20px;">✅</span>
+            <span>Akun berhasil dibuat! Silakan login.</span>
+        </div>
+
+        <form id="registerForm">
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="firstName">Nama Depan *</label>
+                    <input type="text" id="firstName" placeholder="John" required>
+                    <span class="input-icon">👤</span>
+                </div>
+
+                <div class="form-group">
+                    <label for="lastName">Nama Belakang *</label>
+                    <input type="text" id="lastName" placeholder="Doe" required>
+                    <span class="input-icon">👤</span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email *</label>
+                <input type="email" id="email" placeholder="nama@email.com" required>
+                <span class="input-icon">📧</span>
+            </div>
+
+            <div class="form-group">
+                <label for="phone">Nomor Telepon *</label>
+                <input type="tel" id="phone" placeholder="08123456789" required>
+                <span class="input-icon">📱</span>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password *</label>
+                <input type="password" id="password" placeholder="Min. 8 karakter" required>
+                <span class="input-icon">🔒</span>
+                <div class="password-strength" id="passwordStrength">
+                    <div class="password-strength-bar" id="passwordStrengthBar"></div>
+                </div>
+                <div class="password-hint" id="passwordHint">
+                    Password harus mengandung minimal 8 karakter
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="confirmPassword">Konfirmasi Password *</label>
+                <input type="password" id="confirmPassword" placeholder="Ulangi password" required>
+                <span class="input-icon">🔒</span>
+            </div>
+
+            <div class="terms-group">
+                <input type="checkbox" id="terms" required>
+                <label for="terms">
+                    Saya setuju dengan <a href="#syarat">Syarat & Ketentuan</a> dan <a href="#privasi">Kebijakan Privasi</a> Mekar Jaya
+                </label>
+            </div>
+
+            <button type="submit" class="register-btn" id="registerBtn">🎣 Daftar Sekarang</button>
+
+            <div class="divider">
+                <span>atau</span>
+            </div>
+
+            <div class="login-link">
+                Sudah punya akun? <a href="login.html">Masuk Sekarang</a>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        // Password Strength Checker
+        const passwordInput = document.getElementById('password');
+        const passwordStrength = document.getElementById('passwordStrength');
+        const passwordStrengthBar = document.getElementById('passwordStrengthBar');
+        const passwordHint = document.getElementById('passwordHint');
+
+        passwordInput.addEventListener('input', function() {
+            const value = this.value;
+            
+            if (value.length > 0) {
+                passwordStrength.classList.add('show');
+                passwordHint.classList.add('show');
+                
+                let strength = 0;
+                if (value.length >= 8) strength++;
+                if (/[a-z]/.test(value) && /[A-Z]/.test(value)) strength++;
+                if (/[0-9]/.test(value)) strength++;
+                if (/[^a-zA-Z0-9]/.test(value)) strength++;
+                
+                passwordStrengthBar.className = 'password-strength-bar';
+                
+                if (strength <= 2) {
+                    passwordStrengthBar.classList.add('weak');
+                    passwordHint.textContent = 'Password lemah. Tambahkan huruf besar, angka, dan karakter khusus.';
+                    passwordHint.style.color = '#ef4444';
+                } else if (strength === 3) {
+                    passwordStrengthBar.classList.add('medium');
+                    passwordHint.textContent = 'Password cukup kuat. Tambahkan karakter khusus untuk lebih aman.';
+                    passwordHint.style.color = '#f59e0b';
+                } else {
+                    passwordStrengthBar.classList.add('strong');
+                    passwordHint.textContent = 'Password sangat kuat! ✓';
+                    passwordHint.style.color = '#10b981';
+                }
+            } else {
+                passwordStrength.classList.remove('show');
+                passwordHint.classList.remove('show');
+            }
+        });
+
+        // Form Submission
+        document.getElementById('registerForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const firstName = document.getElementById('firstName').value;
+            const lastName = document.getElementById('lastName').value;
+            const email = document.getElementById('email').value;
+            const phone = document.getElementById('phone').value;
+            const city = document.getElementById('city').value;
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            const terms = document.getElementById('terms').checked;
+            
+            // Validation
+            if (password !== confirmPassword) {
+                alert('⚠️ Password tidak cocok! Silakan periksa kembali.');
+                return;
+            }
+            
+            if (password.length < 8) {
+                alert('⚠️ Password minimal 8 karakter!');
+                return;
+            }
+            
+            if (!terms) {
+                alert('⚠️ Anda harus menyetujui Syarat & Ketentuan!');
+                return;
+            }
+            
+            // Simulate registration
+            const btn = document.getElementById('registerBtn');
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '⏳ Mendaftarkan...';
+            btn.disabled = true;
+            
+            setTimeout(() => {
+                btn.innerHTML = '✅ Berhasil!';
+                
+                setTimeout(() => {
+                    document.getElementById('successMessage').classList.add('show');
+                    this.reset();
+                    passwordStrength.classList.remove('show');
+                    passwordHint.classList.remove('show');
+                    btn.innerHTML = originalText;
+                    btn.disabled = false;
+                    
+                    // Hide success message after 5 seconds
+                    setTimeout(() => {
+                        document.getElementById('successMessage').classList.remove('show');
+                    }, 5000);
+                }, 800);
+            }, 2000);
+        });
+
+        // Input animation on focus
+        const inputs = document.querySelectorAll('input, select');
+        inputs.forEach(input => {
+            input.addEventListener('focus', function() {
+                if (this.type !== 'checkbox') {
+                    this.parentElement.style.transform = 'scale(1.02)';
+                }
+            });
+            
+            input.addEventListener('blur', function() {
+                if (this.type !== 'checkbox') {
+                    this.parentElement.style.transform = 'scale(1)';
+                }
+            });
+        });
+    </script>
+</body>
+</html>

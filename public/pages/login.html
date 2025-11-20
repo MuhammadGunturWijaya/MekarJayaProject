@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -31,12 +32,52 @@
             animation: rise 15s infinite ease-in;
         }
 
-        .bubble:nth-child(1) { width: 40px; height: 40px; left: 10%; animation-duration: 12s; }
-        .bubble:nth-child(2) { width: 60px; height: 60px; left: 25%; animation-duration: 14s; animation-delay: 2s; }
-        .bubble:nth-child(3) { width: 30px; height: 30px; left: 45%; animation-duration: 10s; animation-delay: 4s; }
-        .bubble:nth-child(4) { width: 50px; height: 50px; left: 65%; animation-duration: 16s; animation-delay: 1s; }
-        .bubble:nth-child(5) { width: 35px; height: 35px; left: 80%; animation-duration: 13s; animation-delay: 3s; }
-        .bubble:nth-child(6) { width: 45px; height: 45px; left: 90%; animation-duration: 11s; animation-delay: 5s; }
+        .bubble:nth-child(1) {
+            width: 40px;
+            height: 40px;
+            left: 10%;
+            animation-duration: 12s;
+        }
+
+        .bubble:nth-child(2) {
+            width: 60px;
+            height: 60px;
+            left: 25%;
+            animation-duration: 14s;
+            animation-delay: 2s;
+        }
+
+        .bubble:nth-child(3) {
+            width: 30px;
+            height: 30px;
+            left: 45%;
+            animation-duration: 10s;
+            animation-delay: 4s;
+        }
+
+        .bubble:nth-child(4) {
+            width: 50px;
+            height: 50px;
+            left: 65%;
+            animation-duration: 16s;
+            animation-delay: 1s;
+        }
+
+        .bubble:nth-child(5) {
+            width: 35px;
+            height: 35px;
+            left: 80%;
+            animation-duration: 13s;
+            animation-delay: 3s;
+        }
+
+        .bubble:nth-child(6) {
+            width: 45px;
+            height: 45px;
+            left: 90%;
+            animation-duration: 11s;
+            animation-delay: 5s;
+        }
 
         @keyframes rise {
             0% {
@@ -44,10 +85,12 @@
                 transform: translateX(0) scale(1);
                 opacity: 0;
             }
+
             50% {
                 opacity: 0.4;
                 transform: translateX(100px) scale(1.1);
             }
+
             100% {
                 bottom: 110vh;
                 transform: translateX(-100px) scale(0.8);
@@ -89,8 +132,13 @@
         }
 
         @keyframes wave-motion {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); }
+            0% {
+                transform: translateX(0);
+            }
+
+            100% {
+                transform: translateX(-50%);
+            }
         }
 
         /* Swimming Fish */
@@ -102,27 +150,52 @@
             filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.3));
         }
 
-        .fish:nth-child(7) { top: 15%; animation-duration: 18s; animation-delay: 0s; }
-        .fish:nth-child(8) { top: 35%; animation-duration: 22s; animation-delay: 3s; font-size: 28px; }
-        .fish:nth-child(9) { top: 55%; animation-duration: 16s; animation-delay: 6s; font-size: 32px; }
-        .fish:nth-child(10) { top: 75%; animation-duration: 24s; animation-delay: 2s; }
+        .fish:nth-child(7) {
+            top: 15%;
+            animation-duration: 18s;
+            animation-delay: 0s;
+        }
+
+        .fish:nth-child(8) {
+            top: 35%;
+            animation-duration: 22s;
+            animation-delay: 3s;
+            font-size: 28px;
+        }
+
+        .fish:nth-child(9) {
+            top: 55%;
+            animation-duration: 16s;
+            animation-delay: 6s;
+            font-size: 32px;
+        }
+
+        .fish:nth-child(10) {
+            top: 75%;
+            animation-duration: 24s;
+            animation-delay: 2s;
+        }
 
         @keyframes swim {
-            0% { 
+            0% {
                 left: -100px;
                 transform: scaleX(1) translateY(0);
             }
+
             48% {
                 transform: scaleX(1) translateY(-20px);
             }
+
             50% {
                 left: 50%;
                 transform: scaleX(1) translateY(-20px);
             }
+
             52% {
                 transform: scaleX(1) translateY(0);
             }
-            100% { 
+
+            100% {
                 left: calc(100% + 100px);
                 transform: scaleX(1) translateY(0);
             }
@@ -136,7 +209,7 @@
             padding: 50px 45px;
             width: 450px;
             max-width: 90%;
-            box-shadow: 
+            box-shadow:
                 0 30px 80px rgba(0, 0, 0, 0.4),
                 0 0 0 1px rgba(255, 255, 255, 0.3) inset,
                 0 10px 30px rgba(59, 130, 246, 0.3);
@@ -147,12 +220,13 @@
         }
 
         @keyframes fadeInScale {
-            from { 
-                opacity: 0; 
+            from {
+                opacity: 0;
                 transform: translateY(-30px) scale(0.9);
             }
-            to { 
-                opacity: 1; 
+
+            to {
+                opacity: 1;
                 transform: translateY(0) scale(1);
             }
         }
@@ -192,8 +266,15 @@
         }
 
         @keyframes float {
-            0%, 100% { transform: translateY(0px) rotate(-5deg); }
-            50% { transform: translateY(-15px) rotate(5deg); }
+
+            0%,
+            100% {
+                transform: translateY(0px) rotate(-5deg);
+            }
+
+            50% {
+                transform: translateY(-15px) rotate(5deg);
+            }
         }
 
         h1 {
@@ -247,7 +328,7 @@
             outline: none;
             border-color: #3b82f6;
             background: white;
-            box-shadow: 
+            box-shadow:
                 0 0 0 4px rgba(59, 130, 246, 0.1),
                 0 4px 12px rgba(59, 130, 246, 0.15);
             transform: translateY(-2px);
@@ -261,7 +342,7 @@
             transition: all 0.3s;
         }
 
-        input:focus + .input-icon {
+        input:focus+.input-icon {
             transform: scale(1.1);
         }
 
@@ -295,7 +376,7 @@
             cursor: pointer;
             margin-top: 25px;
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: 
+            box-shadow:
                 0 8px 20px rgba(59, 130, 246, 0.4),
                 0 2px 8px rgba(0, 0, 0, 0.1);
             letter-spacing: 0.5px;
@@ -320,7 +401,7 @@
 
         .login-btn:hover {
             transform: translateY(-3px);
-            box-shadow: 
+            box-shadow:
                 0 12px 30px rgba(59, 130, 246, 0.5),
                 0 4px 12px rgba(0, 0, 0, 0.15);
             background: linear-gradient(135deg, #2563eb 0%, #1e40af 50%, #1e3a8a 100%);
@@ -395,17 +476,18 @@
             .login-container {
                 padding: 40px 30px;
             }
-            
+
             h1 {
                 font-size: 28px;
             }
-            
+
             .logo-icon {
                 font-size: 65px;
             }
         }
     </style>
 </head>
+
 <body>
     <!-- Bubbles -->
     <div class="bubble"></div>
@@ -459,7 +541,13 @@
                 </div>
             </div>
 
-            <button type="submit" class="login-btn">🎣 Masuk Sekarang</button>
+            <!-- SEMENTARA -->
+            <button type="submit" class="login-btn" id="loginberhasil">🎣 Masuk Sekarang</button>
+            <script>
+                document.getElementById("loginberhasil").addEventListener("click", function () {
+                    window.location.href = "../dashboard/dashboard.html";  // sesuaikan path-nya
+                }); 
+            </script>
 
             <div class="divider">
                 <span>atau</span>
@@ -471,13 +559,14 @@
         </form>
     </div>
 
+    <!-- validasi berhasil login -->
     <script>
-        document.getElementById('loginForm').addEventListener('submit', function(e) {
+        document.getElementById('loginForm').addEventListener('submit', function (e) {
             e.preventDefault();
             const email = document.getElementById('email').value;
             const password = document.getElementById('password').value;
             const remember = document.getElementById('remember').checked;
-            
+
             // Simple validation
             if (email && password) {
                 // Add loading state
@@ -485,11 +574,11 @@
                 const originalText = btn.innerHTML;
                 btn.innerHTML = '⏳ Memproses...';
                 btn.disabled = true;
-                
+
                 // Simulate login process
                 setTimeout(() => {
                     btn.innerHTML = '✅ Berhasil!';
-                    
+
                     setTimeout(() => {
                         alert(`Login berhasil!\n\nEmail: ${email}\nIngat Saya: ${remember ? 'Ya' : 'Tidak'}\n\n🎣 Selamat datang di Mekar Jaya!`);
                         btn.innerHTML = originalText;
@@ -502,14 +591,15 @@
         // Input animation on focus
         const inputs = document.querySelectorAll('input[type="email"], input[type="password"]');
         inputs.forEach(input => {
-            input.addEventListener('focus', function() {
+            input.addEventListener('focus', function () {
                 this.parentElement.style.transform = 'scale(1.02)';
             });
-            
-            input.addEventListener('blur', function() {
+
+            input.addEventListener('blur', function () {
                 this.parentElement.style.transform = 'scale(1)';
             });
         });
     </script>
 </body>
+
 </html>

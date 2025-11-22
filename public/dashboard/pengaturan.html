@@ -1,0 +1,1935 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pengaturan - Mekar Jaya</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            height: 100%;
+            overflow-x: hidden;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #0c4a6e 0%, #0e7490 50%, #06b6d4 100%);
+            background-attachment: fixed;
+        }
+
+        /* Sidebar - sama seperti dashboard */
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 280px;
+            height: 100vh;
+            background: linear-gradient(180deg, #164e63 0%, #0e7490 100%);
+            padding: 25px 20px;
+            z-index: 1000;
+            transition: transform 0.3s ease;
+            overflow-y: auto;
+            box-shadow: 4px 0 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .sidebar.hidden {
+            transform: translateX(-100%);
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 20px 15px;
+            margin-bottom: 35px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .logo-section .icon {
+            font-size: 36px;
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+        }
+
+        .logo-section h2 {
+            color: white;
+            font-size: 22px;
+            font-weight: 700;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .logo-section .badge {
+            background: linear-gradient(135deg, #22d3ee, #06b6d4);
+            color: white;
+            font-size: 10px;
+            padding: 4px 10px;
+            border-radius: 8px;
+            font-weight: 700;
+            box-shadow: 0 2px 8px rgba(34, 211, 238, 0.4);
+        }
+
+        .menu-section {
+            margin-bottom: 30px;
+        }
+
+        .menu-label {
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 0 15px;
+            margin-bottom: 12px;
+        }
+
+        .menu-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 14px 18px;
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            border-radius: 15px;
+            margin-bottom: 6px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            font-size: 15px;
+            position: relative;
+        }
+
+        .menu-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 4px;
+            height: 0;
+            background: linear-gradient(180deg, #22d3ee, #06b6d4);
+            border-radius: 0 4px 4px 0;
+            transition: height 0.3s ease;
+        }
+
+        .menu-item:hover::before {
+            height: 60%;
+        }
+
+        .menu-item:hover {
+            background: rgba(255, 255, 255, 0.15);
+            color: white;
+            transform: translateX(5px);
+        }
+
+        .menu-item.active {
+            background: linear-gradient(135deg, rgba(34, 211, 238, 0.3), rgba(6, 182, 212, 0.2));
+            color: white;
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(34, 211, 238, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .menu-item.active::before {
+            height: 60%;
+        }
+
+        .menu-item .icon {
+            font-size: 22px;
+            width: 28px;
+            text-align: center;
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+        }
+
+        .user-profile {
+            position: absolute;
+            bottom: 25px;
+            left: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 18px;
+            padding: 15px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .user-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #22d3ee, #06b6d4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 4px 12px rgba(34, 211, 238, 0.4);
+        }
+
+        .user-info h4 {
+            color: white;
+            font-size: 14px;
+            margin-bottom: 3px;
+            font-weight: 600;
+        }
+
+        .user-info p {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 12px;
+        }
+
+        .logout-btn {
+            margin-left: auto;
+            background: rgba(244, 63, 94, 0.2);
+            border: none;
+            color: white;
+            padding: 10px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+
+        .logout-btn:hover {
+            background: rgba(244, 63, 94, 0.4);
+            transform: scale(1.1);
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-left: 280px;
+            padding: 25px;
+            min-height: 100vh;
+            transition: margin-left 0.3s ease;
+        }
+
+        .main-content.expanded {
+            margin-left: 0;
+        }
+
+        /* Header */
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 25px 30px;
+            border-radius: 20px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            margin-bottom: 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+
+        .header-left h1 {
+            background: linear-gradient(135deg, #0c4a6e, #06b6d4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-size: 28px;
+            margin-bottom: 6px;
+            font-weight: 800;
+        }
+
+        .header-left p {
+            color: #64748b;
+            font-size: 15px;
+        }
+
+        .menu-toggle {
+            display: none;
+            background: linear-gradient(135deg, #0e7490, #06b6d4);
+            border: none;
+            color: white;
+            padding: 12px 18px;
+            border-radius: 15px;
+            cursor: pointer;
+            font-size: 20px;
+            box-shadow: 0 4px 15px rgba(14, 116, 144, 0.3);
+        }
+
+        /* Tabs Navigation */
+        .tabs-nav {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            background: rgba(255, 255, 255, 0.95);
+            border: 2px solid rgba(14, 116, 144, 0.2);
+            padding: 14px 24px;
+            border-radius: 15px;
+            cursor: pointer;
+            font-size: 15px;
+            font-weight: 600;
+            color: #64748b;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .tab-btn:hover {
+            border-color: #0e7490;
+            transform: translateY(-2px);
+        }
+
+        .tab-btn.active {
+            background: linear-gradient(135deg, #0e7490, #06b6d4);
+            color: white;
+            border-color: transparent;
+            box-shadow: 0 4px 15px rgba(14, 116, 144, 0.3);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.4s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Card */
+        .card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            margin-bottom: 20px;
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid rgba(14, 116, 144, 0.1);
+        }
+
+        .card-header h3 {
+            color: #0c4a6e;
+            font-size: 20px;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Profile Section */
+        .profile-section {
+            display: grid;
+            grid-template-columns: auto 1fr;
+            gap: 30px;
+            align-items: start;
+        }
+
+        .profile-avatar-section {
+            text-align: center;
+        }
+
+        .profile-avatar-large {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #22d3ee, #06b6d4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 60px;
+            border: 4px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 8px 25px rgba(34, 211, 238, 0.4);
+            margin: 0 auto 15px;
+        }
+
+        .upload-btn {
+            background: linear-gradient(135deg, #0e7490, #06b6d4);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s;
+            margin-top: 10px;
+        }
+
+        .upload-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(14, 116, 144, 0.4);
+        }
+
+        /* Form */
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+
+        .form-group label {
+            color: #0c4a6e;
+            font-size: 14px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            padding: 12px 16px;
+            border: 2px solid rgba(14, 116, 144, 0.2);
+            border-radius: 12px;
+            font-size: 15px;
+            transition: all 0.3s;
+            background: rgba(255, 255, 255, 0.9);
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #0e7490;
+            box-shadow: 0 0 0 4px rgba(14, 116, 144, 0.1);
+            background: white;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .form-actions {
+            display: flex;
+            gap: 12px;
+            margin-top: 25px;
+            justify-content: flex-end;
+        }
+
+        .btn {
+            padding: 12px 28px;
+            border-radius: 12px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #0e7490, #06b6d4);
+            color: white;
+            box-shadow: 0 4px 15px rgba(14, 116, 144, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(14, 116, 144, 0.4);
+        }
+
+        .btn-secondary {
+            background: rgba(100, 116, 139, 0.1);
+            color: #64748b;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(100, 116, 139, 0.2);
+        }
+
+        .btn-danger {
+            background: linear-gradient(135deg, #f43f5e, #e11d48);
+            color: white;
+            box-shadow: 0 4px 15px rgba(244, 63, 94, 0.3);
+        }
+
+        .btn-danger:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(244, 63, 94, 0.4);
+        }
+
+        /* Employee Cards Grid */
+        .employee-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .employee-card {
+            background: white;
+            padding: 25px;
+            border-radius: 16px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s;
+            border: 2px solid rgba(14, 116, 144, 0.1);
+        }
+
+        .employee-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+            border-color: #0e7490;
+        }
+
+        .employee-header {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .employee-avatar {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #22d3ee, #06b6d4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+            border: 3px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 4px 12px rgba(34, 211, 238, 0.3);
+            flex-shrink: 0;
+        }
+
+        .employee-info h4 {
+            color: #0c4a6e;
+            font-size: 18px;
+            margin-bottom: 5px;
+            font-weight: 700;
+        }
+
+        .employee-role {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 600;
+            background: linear-gradient(135deg, rgba(14, 116, 144, 0.1), rgba(6, 182, 212, 0.1));
+            color: #0e7490;
+            margin-bottom: 8px;
+        }
+
+        .employee-id {
+            color: #94a3b8;
+            font-size: 13px;
+        }
+
+        .employee-details {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .detail-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #64748b;
+            font-size: 14px;
+        }
+
+        .detail-item .icon {
+            width: 20px;
+            text-align: center;
+        }
+
+        .employee-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .action-btn {
+            flex: 1;
+            padding: 10px;
+            border-radius: 10px;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+
+        .action-btn.view {
+            background: rgba(14, 116, 144, 0.1);
+            color: #0e7490;
+        }
+
+        .action-btn.view:hover {
+            background: rgba(14, 116, 144, 0.2);
+        }
+
+        .action-btn.edit {
+            background: rgba(245, 158, 11, 0.1);
+            color: #d97706;
+        }
+
+        .action-btn.edit:hover {
+            background: rgba(245, 158, 11, 0.2);
+        }
+
+        .action-btn.delete {
+            background: rgba(244, 63, 94, 0.1);
+            color: #e11d48;
+        }
+
+        .action-btn.delete:hover {
+            background: rgba(244, 63, 94, 0.2);
+        }
+
+        /* Search and Filter Bar */
+        .toolbar {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+        }
+
+        .search-box {
+            flex: 1;
+            min-width: 250px;
+            position: relative;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 12px 18px 12px 45px;
+            border: 2px solid rgba(14, 116, 144, 0.2);
+            border-radius: 15px;
+            font-size: 14px;
+            transition: all 0.3s;
+            background: rgba(255, 255, 255, 0.9);
+        }
+
+        .search-box input:focus {
+            outline: none;
+            border-color: #0e7490;
+            box-shadow: 0 0 0 4px rgba(14, 116, 144, 0.1);
+            background: white;
+        }
+
+        .search-box .icon {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 18px;
+            color: #64748b;
+        }
+
+        .filter-select {
+            padding: 12px 18px;
+            border: 2px solid rgba(14, 116, 144, 0.2);
+            border-radius: 15px;
+            font-size: 14px;
+            background: rgba(255, 255, 255, 0.9);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .filter-select:focus {
+            outline: none;
+            border-color: #0e7490;
+            box-shadow: 0 0 0 4px rgba(14, 116, 144, 0.1);
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(12, 74, 110, 0.7);
+            backdrop-filter: blur(5px);
+            z-index: 2000;
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        .modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 20px;
+            padding: 35px;
+            max-width: 600px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            animation: modalSlideIn 0.3s ease;
+        }
+
+        @keyframes modalSlideIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9) translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid rgba(14, 116, 144, 0.1);
+        }
+
+        .modal-header h3 {
+            color: #0c4a6e;
+            font-size: 22px;
+            font-weight: 800;
+        }
+
+        .close-modal {
+            background: rgba(244, 63, 94, 0.1);
+            border: none;
+            width: 35px;
+            height: 35px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 20px;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .close-modal:hover {
+            background: rgba(244, 63, 94, 0.2);
+            transform: rotate(90deg);
+        }
+
+        /* Info Cards */
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .info-card {
+            background: linear-gradient(135deg, rgba(14, 116, 144, 0.05), rgba(6, 182, 212, 0.05));
+            padding: 20px;
+            border-radius: 15px;
+            border: 2px solid rgba(14, 116, 144, 0.1);
+        }
+
+        .info-card-label {
+            color: #64748b;
+            font-size: 13px;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .info-card-value {
+            color: #0c4a6e;
+            font-size: 16px;
+            font-weight: 700;
+        }
+
+        /* Overlay */
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(12, 74, 110, 0.7);
+            backdrop-filter: blur(5px);
+            z-index: 999;
+        }
+
+        .overlay.active {
+            display: block;
+        }
+
+        /* Status Badge */
+        .status-badge {
+            display: inline-block;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .status-badge.active {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.2), rgba(5, 150, 105, 0.2));
+            color: #059669;
+        }
+
+        .status-badge.inactive {
+            background: linear-gradient(135deg, rgba(244, 63, 94, 0.2), rgba(225, 29, 72, 0.2));
+            color: #e11d48;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(-100%);
+            }
+
+            .sidebar.active {
+                transform: translateX(0);
+            }
+
+            .main-content {
+                margin-left: 0;
+                padding: 18px;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            .profile-section {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .employee-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .tabs-nav {
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+
+            .modal-content {
+                padding: 25px;
+            }
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+            height: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, #0e7490, #06b6d4);
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(180deg, #06b6d4, #0e7490);
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Overlay -->
+    <div class="overlay" id="overlay"></div>
+
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+        <div class="logo-section">
+            <span class="icon">🎣</span>
+            <div>
+                <h2>Mekar Jaya</h2>
+                <span class="badge">ADMIN</span>
+            </div>
+        </div>
+        <a href="../dashboard/kasir.html" class="menu-item" data-loading="true">
+            <span class="icon">🖥️</span>
+            <span>Kasir</span>
+        </a>
+        <div class="menu-section">
+            <div class="menu-label">Menu Utama</div>
+            <a href="#" class="menu-item ">
+                <span class="icon">📊</span>
+                <span>Dashboard</span>
+            </a>
+            <a href="../dashboard/master_data.html" class="menu-item" data-loading="true">
+                <span class="icon">🧾</span>
+                <span>Master Data</span>
+            </a>
+            <a href="#" class="menu-item">
+                <span class="icon">🚚</span>
+                <span>Barang Masuk</span>
+            </a>
+            <a href="#" class="menu-item">
+                <span class="icon">📦</span>
+                <span>Barang Keluar</span>
+                <span class="badge">8</span>
+            </a>
+            <a href="../dashboard/generate_laporan.html" class="menu-item" data-loading="true">
+                <span class="icon">📝</span>
+                <span>Generate Laporan</span>
+            </a>
+            <a href="../dashboard/riwayat_transaksi.html" class="menu-item" data-loading="true">
+                <span class="icon">📜</span>
+                <span>Riwayat Transaksi</span>
+            </a>
+        </div>
+
+        <div class="menu-section">
+            <div class="menu-label">Manajemen</div>
+            <a href="../dashboard/pengaturan.html" class="menu-item active" data-loading="true">
+                <span class="icon">⚙️</span>
+                <span>Pengaturan</span>
+            </a>
+            <a href="#" class="menu-item">
+                <span class="icon">🔔</span>
+                <span>Notifikasi</span>
+            </a>
+            <a href="#" class="menu-item" onclick="location.href='../pages/login.html'">
+                <span class="icon">🚪</span>
+                <span>Logout</span>
+            </a>
+
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content" id="mainContent">
+        <!-- Header -->
+        <div class="header">
+            <div class="header-left">
+                <h1>Pengaturan</h1>
+                <p>Kelola profil dan akun pegawai 🔧</p>
+            </div>
+            <button class="menu-toggle" id="menuToggle">☰</button>
+        </div>
+
+        <!-- Tabs Navigation -->
+        <div class="tabs-nav">
+            <button class="tab-btn active" data-tab="profile">
+                <span>👤</span>
+                <span>Profil Saya</span>
+            </button>
+            <button class="tab-btn" data-tab="employees">
+                <span>👥</span>
+                <span>Kelola Pegawai</span>
+            </button>
+            <button class="tab-btn" data-tab="security">
+                <span>🔒</span>
+                <span>Keamanan</span>
+            </button>
+            <button class="tab-btn" data-tab="preferences">
+                <span>🎨</span>
+                <span>Preferensi</span>
+            </button>
+        </div>
+
+        <!-- Tab Content: Profile -->
+        <div class="tab-content active" id="profile">
+            <div class="card">
+                <div class="card-header">
+                    <h3><span>✏️</span> Edit Profil</h3>
+                </div>
+
+                <div class="profile-section">
+                    <div class="profile-avatar-section">
+                        <div class="profile-avatar-large">👤</div>
+                        <button class="upload-btn">📸 Ubah Foto</button>
+                        <p style="color: #94a3b8; font-size: 13px; margin-top: 10px;">JPG, PNG (Max 2MB)</p>
+                    </div>
+
+                    <div>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label>👤 Nama Lengkap</label>
+                                <input type="text" id="fullName" value="Admin Mekar Jaya">
+                            </div>
+
+                            <div class="form-group">
+                                <label>📧 Email</label>
+                                <input type="email" id="email" value="admin@mekarjaya.com">
+                            </div>
+
+                            <div class="form-group">
+                                <label>📱 No. Telepon</label>
+                                <input type="tel" id="phone" value="+62 812-3456-7890">
+                            </div>
+
+                            <div class="form-group">
+                                <label>🎂 Tanggal Lahir</label>
+                                <input type="date" id="birthdate" value="1990-01-15">
+                            </div>
+
+                            <div class="form-group">
+                                <label>🚻 Jenis Kelamin</label>
+                                <select id="gender">
+                                    <option value="L">Laki-laki</option>
+                                    <option value="P">Perempuan</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label>💼 Jabatan</label>
+                                <input type="text" id="position" value="Administrator" readonly>
+                            </div>
+
+                            <div class="form-group full-width">
+                                <label>📍 Alamat Lengkap</label>
+                                <textarea id="address" rows="3">Jl. Raya Mekar No. 123, Jember, Jawa Timur</textarea>
+                            </div>
+                        </div>
+
+                        <div class="form-actions">
+                            <button class="btn btn-secondary">❌ Batal</button>
+                            <button class="btn btn-primary" onclick="saveProfile()">💾 Simpan Perubahan</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab Content: Employees -->
+        <div class="tab-content" id="employees">
+            <div class="card">
+                <div class="card-header">
+                    <h3><span>👥</span> Daftar Pegawai</h3>
+                    <button class="btn btn-primary" onclick="openAddEmployeeModal()">
+                        <span>➕</span>
+                        <span>Tambah Pegawai</span>
+                    </button>
+                </div>
+
+                <div class="toolbar">
+                    <div class="search-box">
+                        <span class="icon">🔍</span>
+                        <input type="text" id="searchEmployee" placeholder="Cari nama, email, atau posisi...">
+                    </div>
+                    <select class="filter-select" id="roleFilter">
+                        <option value="">Semua Jabatan</option>
+                        <option value="kasir">Kasir</option>
+                        <option value="gudang">Staff Gudang</option>
+                        <option value="admin">Admin</option>
+                        <option value="manager">Manager</option>
+                    </select>
+                    <select class="filter-select" id="statusFilter">
+                        <option value="">Semua Status</option>
+                        <option value="active">Aktif</option>
+                        <option value="inactive">Non-Aktif</option>
+                    </select>
+                </div>
+
+                <div class="employee-grid" id="employeeGrid">
+                    <!-- Employee Card 1 -->
+                    <div class="employee-card" data-role="kasir" data-status="active">
+                        <div class="employee-header">
+                            <div class="employee-avatar">👨</div>
+                            <div class="employee-info">
+                                <h4>Budi Santoso</h4>
+                                <span class="employee-role">Kasir</span>
+                                <p class="employee-id">ID: EMP-001</p>
+                            </div>
+                        </div>
+                        <div class="employee-details">
+                            <div class="detail-item">
+                                <span class="icon">📧</span>
+                                <span>budi.santoso@mekarjaya.com</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="icon">📱</span>
+                                <span>+62 812-1111-2222</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="icon">📅</span>
+                                <span>Bergabung: 15 Jan 2023</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="icon">✅</span>
+                                <span class="status-badge active">Aktif</span>
+                            </div>
+                        </div>
+                        <div class="employee-actions">
+                            <button class="action-btn view" onclick="viewEmployee('EMP-001')">
+                                <span>👁️</span> Detail
+                            </button>
+                            <button class="action-btn edit" onclick="editEmployee('EMP-001')">
+                                <span>✏️</span> Edit
+                            </button>
+                            <button class="action-btn delete" onclick="deleteEmployee('EMP-001', 'Budi Santoso')">
+                                <span>🗑️</span> Hapus
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Employee Card 2 -->
+                    <div class="employee-card" data-role="gudang" data-status="active">
+                        <div class="employee-header">
+                            <div class="employee-avatar">👩</div>
+                            <div class="employee-info">
+                                <h4>Siti Nurhaliza</h4>
+                                <span class="employee-role">Staff Gudang</span>
+                                <p class="employee-id">ID: EMP-002</p>
+                            </div>
+                        </div>
+                        <div class="employee-details">
+                            <div class="detail-item">
+                                <span class="icon">📧</span>
+                                <span>siti.nur@mekarjaya.com</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="icon">📱</span>
+                                <span>+62 813-3333-4444</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="icon">📅</span>
+                                <span>Bergabung: 20 Feb 2023</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="icon">✅</span>
+                                <span class="status-badge active">Aktif</span>
+                            </div>
+                        </div>
+                        <div class="employee-actions">
+                            <button class="action-btn view" onclick="viewEmployee('EMP-002')">
+                                <span>👁️</span> Detail
+                            </button>
+                            <button class="action-btn edit" onclick="editEmployee('EMP-002')">
+                                <span>✏️</span> Edit
+                            </button>
+                            <button class="action-btn delete" onclick="deleteEmployee('EMP-002', 'Siti Nurhaliza')">
+                                <span>🗑️</span> Hapus
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Employee Card 3 -->
+                    <div class="employee-card" data-role="kasir" data-status="active">
+                        <div class="employee-header">
+                            <div class="employee-avatar">👨</div>
+                            <div class="employee-info">
+                                <h4>Ahmad Rizki</h4>
+                                <span class="employee-role">Kasir</span>
+                                <p class="employee-id">ID: EMP-003</p>
+                            </div>
+                        </div>
+                        <div class="employee-details">
+                            <div class="detail-item">
+                                <span class="icon">📧</span>
+                                <span>ahmad.rizki@mekarjaya.com</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="icon">📱</span>
+                                <span>+62 814-5555-6666</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="icon">📅</span>
+                                <span>Bergabung: 10 Mar 2023</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="icon">✅</span>
+                                <span class="status-badge active">Aktif</span>
+                            </div>
+                        </div>
+                        <div class="employee-actions">
+                            <button class="action-btn view" onclick="viewEmployee('EMP-003')">
+                                <span>👁️</span> Detail
+                            </button>
+                            <button class="action-btn edit" onclick="editEmployee('EMP-003')">
+                                <span>✏️</span> Edit
+                            </button>
+                            <button class="action-btn delete" onclick="deleteEmployee('EMP-003', 'Ahmad Rizki')">
+                                <span>🗑️</span> Hapus
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Employee Card 4 -->
+                    <div class="employee-card" data-role="manager" data-status="inactive">
+                        <div class="employee-header">
+                            <div class="employee-avatar">👩</div>
+                            <div class="employee-info">
+                                <h4>Dewi Lestari</h4>
+                                <span class="employee-role">Manager</span>
+                                <p class="employee-id">ID: EMP-004</p>
+                            </div>
+                        </div>
+                        <div class="employee-details">
+                            <div class="detail-item">
+                                <span class="icon">📧</span>
+                                <span>dewi.lestari@mekarjaya.com</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="icon">📱</span>
+                                <span>+62 815-7777-8888</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="icon">📅</span>
+                                <span>Bergabung: 05 Jan 2022</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="icon">❌</span>
+                                <span class="status-badge inactive">Cuti</span>
+                            </div>
+                        </div>
+                        <div class="employee-actions">
+                            <button class="action-btn view" onclick="viewEmployee('EMP-004')">
+                                <span>👁️</span> Detail
+                            </button>
+                            <button class="action-btn edit" onclick="editEmployee('EMP-004')">
+                                <span>✏️</span> Edit
+                            </button>
+                            <button class="action-btn delete" onclick="deleteEmployee('EMP-004', 'Dewi Lestari')">
+                                <span>🗑️</span> Hapus
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Employee Card 5 -->
+                    <div class="employee-card" data-role="admin" data-status="active">
+                        <div class="employee-header">
+                            <div class="employee-avatar">👨</div>
+                            <div class="employee-info">
+                                <h4>Joko Widodo</h4>
+                                <span class="employee-role">Admin</span>
+                                <p class="employee-id">ID: EMP-005</p>
+                            </div>
+                        </div>
+                        <div class="employee-details">
+                            <div class="detail-item">
+                                <span class="icon">📧</span>
+                                <span>joko.widodo@mekarjaya.com</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="icon">📱</span>
+                                <span>+62 816-9999-0000</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="icon">📅</span>
+                                <span>Bergabung: 25 Apr 2023</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="icon">✅</span>
+                                <span class="status-badge active">Aktif</span>
+                            </div>
+                        </div>
+                        <div class="employee-actions">
+                            <button class="action-btn view" onclick="viewEmployee('EMP-005')">
+                                <span>👁️</span> Detail
+                            </button>
+                            <button class="action-btn edit" onclick="editEmployee('EMP-005')">
+                                <span>✏️</span> Edit
+                            </button>
+                            <button class="action-btn delete" onclick="deleteEmployee('EMP-005', 'Joko Widodo')">
+                                <span>🗑️</span> Hapus
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Employee Card 6 -->
+                    <div class="employee-card" data-role="gudang" data-status="active">
+                        <div class="employee-header">
+                            <div class="employee-avatar">👨</div>
+                            <div class="employee-info">
+                                <h4>Andi Pratama</h4>
+                                <span class="employee-role">Staff Gudang</span>
+                                <p class="employee-id">ID: EMP-006</p>
+                            </div>
+                        </div>
+                        <div class="employee-details">
+                            <div class="detail-item">
+                                <span class="icon">📧</span>
+                                <span>andi.pratama@mekarjaya.com</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="icon">📱</span>
+                                <span>+62 817-1111-2222</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="icon">📅</span>
+                                <span>Bergabung: 12 May 2023</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="icon">✅</span>
+                                <span class="status-badge active">Aktif</span>
+                            </div>
+                        </div>
+                        <div class="employee-actions">
+                            <button class="action-btn view" onclick="viewEmployee('EMP-006')">
+                                <span>👁️</span> Detail
+                            </button>
+                            <button class="action-btn edit" onclick="editEmployee('EMP-006')">
+                                <span>✏️</span> Edit
+                            </button>
+                            <button class="action-btn delete" onclick="deleteEmployee('EMP-006', 'Andi Pratama')">
+                                <span>🗑️</span> Hapus
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab Content: Security -->
+        <div class="tab-content" id="security">
+            <div class="card">
+                <div class="card-header">
+                    <h3><span>🔒</span> Ubah Password</h3>
+                </div>
+
+                <div class="form-grid">
+                    <div class="form-group full-width">
+                        <label>🔑 Password Lama</label>
+                        <input type="password" id="oldPassword" placeholder="Masukkan password lama">
+                    </div>
+
+                    <div class="form-group">
+                        <label>🔐 Password Baru</label>
+                        <input type="password" id="newPassword" placeholder="Masukkan password baru">
+                    </div>
+
+                    <div class="form-group">
+                        <label>✅ Konfirmasi Password Baru</label>
+                        <input type="password" id="confirmPassword" placeholder="Ulangi password baru">
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <button class="btn btn-secondary">❌ Batal</button>
+                    <button class="btn btn-primary" onclick="changePassword()">🔒 Ubah Password</button>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h3><span>📋</span> Riwayat Aktivitas</h3>
+                </div>
+
+                <div class="activity-list">
+                    <div class="detail-item" style="padding: 15px 0; border-bottom: 1px solid rgba(14, 116, 144, 0.1);">
+                        <span class="icon">✅</span>
+                        <span><strong>Login Berhasil</strong> - 22 Nov 2025, 09:30 WIB</span>
+                    </div>
+                    <div class="detail-item" style="padding: 15px 0; border-bottom: 1px solid rgba(14, 116, 144, 0.1);">
+                        <span class="icon">✏️</span>
+                        <span><strong>Update Profil</strong> - 21 Nov 2025, 14:20 WIB</span>
+                    </div>
+                    <div class="detail-item" style="padding: 15px 0; border-bottom: 1px solid rgba(14, 116, 144, 0.1);">
+                        <span class="icon">🔒</span>
+                        <span><strong>Ubah Password</strong> - 20 Nov 2025, 10:15 WIB</span>
+                    </div>
+                    <div class="detail-item" style="padding: 15px 0; border-bottom: 1px solid rgba(14, 116, 144, 0.1);">
+                        <span class="icon">✅</span>
+                        <span><strong>Login Berhasil</strong> - 20 Nov 2025, 08:45 WIB</span>
+                    </div>
+                    <div class="detail-item" style="padding: 15px 0;">
+                        <span class="icon">❌</span>
+                        <span><strong>Login Gagal</strong> - 19 Nov 2025, 23:30 WIB</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab Content: Preferences -->
+        <div class="tab-content" id="preferences">
+            <div class="card">
+                <div class="card-header">
+                    <h3><span>🎨</span> Preferensi Tampilan</h3>
+                </div>
+
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>🌈 Tema</label>
+                        <select id="theme">
+                            <option value="light">Terang</option>
+                            <option value="dark">Gelap</option>
+                            <option value="auto">Otomatis</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>🌐 Bahasa</label>
+                        <select id="language">
+                            <option value="id">Indonesia</option>
+                            <option value="en">English</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>📅 Format Tanggal</label>
+                        <select id="dateFormat">
+                            <option value="dd/mm/yyyy">DD/MM/YYYY</option>
+                            <option value="mm/dd/yyyy">MM/DD/YYYY</option>
+                            <option value="yyyy-mm-dd">YYYY-MM-DD</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>💰 Format Mata Uang</label>
+                        <select id="currencyFormat">
+                            <option value="idr">Rupiah (Rp)</option>
+                            <option value="usd">Dollar ($)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <button class="btn btn-secondary">❌ Reset Default</button>
+                    <button class="btn btn-primary" onclick="savePreferences()">💾 Simpan Preferensi</button>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h3><span>🔔</span> Notifikasi</h3>
+                </div>
+
+                <div class="form-grid">
+                    <div class="form-group full-width">
+                        <label style="display: flex; align-items: center; justify-content: space-between; cursor: pointer;">
+                            <span>📧 Notifikasi Email</span>
+                            <input type="checkbox" checked style="width: auto;">
+                        </label>
+                    </div>
+
+                    <div class="form-group full-width">
+                        <label style="display: flex; align-items: center; justify-content: space-between; cursor: pointer;">
+                            <span>🔔 Notifikasi Push</span>
+                            <input type="checkbox" checked style="width: auto;">
+                        </label>
+                    </div>
+
+                    <div class="form-group full-width">
+                        <label style="display: flex; align-items: center; justify-content: space-between; cursor: pointer;">
+                            <span>📱 Notifikasi SMS</span>
+                            <input type="checkbox" style="width: auto;">
+                        </label>
+                    </div>
+
+                    <div class="form-group full-width">
+                        <label style="display: flex; align-items: center; justify-content: space-between; cursor: pointer;">
+                            <span>🔊 Suara Notifikasi</span>
+                            <input type="checkbox" checked style="width: auto;">
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Modal: View Employee Detail -->
+    <div class="modal" id="viewModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>👁️ Detail Pegawai</h3>
+                <button class="close-modal" onclick="closeModal('viewModal')">✕</button>
+            </div>
+
+            <div style="text-align: center; margin-bottom: 25px;">
+                <div class="profile-avatar-large" style="margin: 0 auto 15px;">👨</div>
+                <h3 style="color: #0c4a6e; margin-bottom: 5px;">Budi Santoso</h3>
+                <span class="employee-role">Kasir</span>
+            </div>
+
+            <div class="info-grid">
+                <div class="info-card">
+                    <div class="info-card-label">ID Pegawai</div>
+                    <div class="info-card-value">EMP-001</div>
+                </div>
+                <div class="info-card">
+                    <div class="info-card-label">Status</div>
+                    <div class="info-card-value"><span class="status-badge active">Aktif</span></div>
+                </div>
+            </div>
+
+            <div style="margin-top: 20px;">
+                <div class="detail-item" style="padding: 12px 0; border-bottom: 1px solid rgba(14, 116, 144, 0.1);">
+                    <span class="icon">📧</span>
+                    <span>budi.santoso@mekarjaya.com</span>
+                </div>
+                <div class="detail-item" style="padding: 12px 0; border-bottom: 1px solid rgba(14, 116, 144, 0.1);">
+                    <span class="icon">📱</span>
+                    <span>+62 812-1111-2222</span>
+                </div>
+                <div class="detail-item" style="padding: 12px 0; border-bottom: 1px solid rgba(14, 116, 144, 0.1);">
+                    <span class="icon">🎂</span>
+                    <span>15 Januari 1995</span>
+                </div>
+                <div class="detail-item" style="padding: 12px 0; border-bottom: 1px solid rgba(14, 116, 144, 0.1);">
+                    <span class="icon">🚻</span>
+                    <span>Laki-laki</span>
+                </div>
+                <div class="detail-item" style="padding: 12px 0; border-bottom: 1px solid rgba(14, 116, 144, 0.1);">
+                    <span class="icon">📍</span>
+                    <span>Jl. Merdeka No. 45, Jember, Jawa Timur</span>
+                </div>
+                <div class="detail-item" style="padding: 12px 0; border-bottom: 1px solid rgba(14, 116, 144, 0.1);">
+                    <span class="icon">📅</span>
+                    <span>Bergabung: 15 Januari 2023</span>
+                </div>
+                <div class="detail-item" style="padding: 12px 0;">
+                    <span class="icon">💰</span>
+                    <span>Gaji: Rp 4.500.000/bulan</span>
+                </div>
+            </div>
+
+            <div class="form-actions" style="margin-top: 25px;">
+                <button class="btn btn-secondary" onclick="closeModal('viewModal')">✕ Tutup</button>
+                <button class="btn btn-primary" onclick="editEmployee('EMP-001')">✏️ Edit Pegawai</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal: Add/Edit Employee -->
+    <div class="modal" id="employeeModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modalTitle">➕ Tambah Pegawai Baru</h3>
+                <button class="close-modal" onclick="closeModal('employeeModal')">✕</button>
+            </div>
+
+            <div class="form-grid">
+                <div class="form-group">
+                    <label>👤 Nama Lengkap</label>
+                    <input type="text" id="empName" placeholder="Masukkan nama lengkap">
+                </div>
+
+                <div class="form-group">
+                    <label>📧 Email</label>
+                    <input type="email" id="empEmail" placeholder="email@mekarjaya.com">
+                </div>
+
+                <div class="form-group">
+                    <label>📱 No. Telepon</label>
+                    <input type="tel" id="empPhone" placeholder="+62 812-xxxx-xxxx">
+                </div>
+
+                <div class="form-group">
+                    <label>🎂 Tanggal Lahir</label>
+                    <input type="date" id="empBirthdate">
+                </div>
+
+                <div class="form-group">
+                    <label>🚻 Jenis Kelamin</label>
+                    <select id="empGender">
+                        <option value="">Pilih...</option>
+                        <option value="L">Laki-laki</option>
+                        <option value="P">Perempuan</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>💼 Jabatan</label>
+                    <select id="empRole">
+                        <option value="">Pilih jabatan...</option>
+                        <option value="kasir">Kasir</option>
+                        <option value="gudang">Staff Gudang</option>
+                        <option value="admin">Admin</option>
+                        <option value="manager">Manager</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>💰 Gaji (Rp)</label>
+                    <input type="number" id="empSalary" placeholder="4500000">
+                </div>
+
+                <div class="form-group">
+                    <label>📅 Tanggal Bergabung</label>
+                    <input type="date" id="empJoinDate">
+                </div>
+
+                <div class="form-group full-width">
+                    <label>📍 Alamat Lengkap</label>
+                    <textarea id="empAddress" rows="3" placeholder="Masukkan alamat lengkap"></textarea>
+                </div>
+
+                <div class="form-group full-width">
+                    <label>🔑 Password Awal</label>
+                    <input type="password" id="empPassword" placeholder="Password untuk login pertama kali">
+                </div>
+            </div>
+
+            <div class="form-actions">
+                <button class="btn btn-secondary" onclick="closeModal('employeeModal')">❌ Batal</button>
+                <button class="btn btn-primary" onclick="saveEmployee()">💾 Simpan Pegawai</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Toggle Sidebar
+        const menuToggle = document.getElementById('menuToggle');
+        const sidebar = document.getElementById('sidebar');
+        const overlay = document.getElementById('overlay');
+
+        menuToggle.addEventListener('click', function() {
+            sidebar.classList.toggle('active');
+            overlay.classList.toggle('active');
+        });
+
+        overlay.addEventListener('click', function() {
+            sidebar.classList.remove('active');
+            overlay.classList.remove('active');
+        });
+
+        // Prevent sidebar close when clicking inside
+        sidebar.addEventListener('click', function(e) {
+            e.stopPropagation();
+        });
+
+        // Tab Navigation
+        const tabBtns = document.querySelectorAll('.tab-btn');
+        const tabContents = document.querySelectorAll('.tab-content');
+
+        tabBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                const targetTab = this.dataset.tab;
+
+                // Remove active class from all tabs
+                tabBtns.forEach(b => b.classList.remove('active'));
+                tabContents.forEach(c => c.classList.remove('active'));
+
+                // Add active class to clicked tab
+                this.classList.add('active');
+                document.getElementById(targetTab).classList.add('active');
+            });
+        });
+
+        // Save Profile
+        function saveProfile() {
+            const fullName = document.getElementById('fullName').value;
+            const email = document.getElementById('email').value;
+            const phone = document.getElementById('phone').value;
+
+            if (!fullName || !email || !phone) {
+                alert('❌ Mohon lengkapi semua field yang wajib diisi!');
+                return;
+            }
+
+            // Simulate saving
+            alert('✅ Profil berhasil diperbarui!\n\nNama: ' + fullName + '\nEmail: ' + email);
+        }
+
+        // Change Password
+        function changePassword() {
+            const oldPass = document.getElementById('oldPassword').value;
+            const newPass = document.getElementById('newPassword').value;
+            const confirmPass = document.getElementById('confirmPassword').value;
+
+            if (!oldPass || !newPass || !confirmPass) {
+                alert('❌ Mohon lengkapi semua field password!');
+                return;
+            }
+
+            if (newPass !== confirmPass) {
+                alert('❌ Password baru dan konfirmasi password tidak sama!');
+                return;
+            }
+
+            if (newPass.length < 6) {
+                alert('❌ Password minimal 6 karakter!');
+                return;
+            }
+
+            alert('✅ Password berhasil diubah!\n\nSilakan login kembali dengan password baru Anda.');
+            
+            // Clear fields
+            document.getElementById('oldPassword').value = '';
+            document.getElementById('newPassword').value = '';
+            document.getElementById('confirmPassword').value = '';
+        }
+
+        // Save Preferences
+        function savePreferences() {
+            const theme = document.getElementById('theme').value;
+            const language = document.getElementById('language').value;
+            
+            alert('✅ Preferensi berhasil disimpan!\n\nTema: ' + theme + '\nBahasa: ' + (language === 'id' ? 'Indonesia' : 'English'));
+        }
+
+        // Employee Search
+        const searchInput = document.getElementById('searchEmployee');
+        const roleFilter = document.getElementById('roleFilter');
+        const statusFilter = document.getElementById('statusFilter');
+
+        function filterEmployees() {
+            const searchTerm = searchInput.value.toLowerCase();
+            const roleValue = roleFilter.value;
+            const statusValue = statusFilter.value;
+            const employeeCards = document.querySelectorAll('.employee-card');
+
+            employeeCards.forEach(card => {
+                const name = card.querySelector('h4').textContent.toLowerCase();
+                const email = card.querySelector('.detail-item:nth-child(1) span:last-child').textContent.toLowerCase();
+                const role = card.dataset.role;
+                const status = card.dataset.status;
+
+                const matchSearch = name.includes(searchTerm) || email.includes(searchTerm);
+                const matchRole = !roleValue || role === roleValue;
+                const matchStatus = !statusValue || status === statusValue;
+
+                if (matchSearch && matchRole && matchStatus) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        searchInput.addEventListener('input', filterEmployees);
+        roleFilter.addEventListener('change', filterEmployees);
+        statusFilter.addEventListener('change', filterEmployees);
+
+        // Modal Functions
+        function openModal(modalId) {
+            document.getElementById(modalId).classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        // View Employee
+        function viewEmployee(empId) {
+            openModal('viewModal');
+            // In real application, load employee data based on empId
+            console.log('Viewing employee:', empId);
+        }
+
+        // Add Employee Modal
+        function openAddEmployeeModal() {
+            document.getElementById('modalTitle').innerHTML = '➕ Tambah Pegawai Baru';
+            // Clear all fields
+            document.getElementById('empName').value = '';
+            document.getElementById('empEmail').value = '';
+            document.getElementById('empPhone').value = '';
+            document.getElementById('empBirthdate').value = '';
+            document.getElementById('empGender').value = '';
+            document.getElementById('empRole').value = '';
+            document.getElementById('empSalary').value = '';
+            document.getElementById('empJoinDate').value = '';
+            document.getElementById('empAddress').value = '';
+            document.getElementById('empPassword').value = '';
+            
+            openModal('employeeModal');
+        }
+
+        // Edit Employee
+        function editEmployee(empId) {
+            document.getElementById('modalTitle').innerHTML = '✏️ Edit Data Pegawai';
+            
+            // In real application, load employee data based on empId
+            // For demo, populate with sample data
+            document.getElementById('empName').value = 'Budi Santoso';
+            document.getElementById('empEmail').value = 'budi.santoso@mekarjaya.com';
+            document.getElementById('empPhone').value = '+62 812-1111-2222';
+            document.getElementById('empBirthdate').value = '1995-01-15';
+            document.getElementById('empGender').value = 'L';
+            document.getElementById('empRole').value = 'kasir';
+            document.getElementById('empSalary').value = '4500000';
+            document.getElementById('empJoinDate').value = '2023-01-15';
+            document.getElementById('empAddress').value = 'Jl. Merdeka No. 45, Jember, Jawa Timur';
+            
+            closeModal('viewModal');
+            openModal('employeeModal');
+        }
+
+        // Save Employee
+        function saveEmployee() {
+            const name = document.getElementById('empName').value;
+            const email = document.getElementById('empEmail').value;
+            const phone = document.getElementById('empPhone').value;
+            const role = document.getElementById('empRole').value;
+
+            if (!name || !email || !phone || !role) {
+                alert('❌ Mohon lengkapi semua field yang wajib diisi!');
+                return;
+            }
+
+            // Email validation
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                alert('❌ Format email tidak valid!');
+                return;
+            }
+
+            const modalTitle = document.getElementById('modalTitle').innerHTML;
+            if (modalTitle.includes('Tambah')) {
+                alert('✅ Pegawai baru berhasil ditambahkan!\n\nNama: ' + name + '\nEmail: ' + email + '\nJabatan: ' + role);
+            } else {
+                alert('✅ Data pegawai berhasil diperbarui!\n\nNama: ' + name + '\nEmail: ' + email);
+            }
+
+            closeModal('employeeModal');
+            
+            // In real application, refresh employee list
+        }
+
+        // Delete Employee
+        function deleteEmployee(empId, empName) {
+            if (confirm('⚠️ Apakah Anda yakin ingin menghapus pegawai?\n\n' + empName + ' (ID: ' + empId + ')\n\nData yang dihapus tidak dapat dikembalikan!')) {
+                // Simulate delete with animation
+                const card = event.target.closest('.employee-card');
+                card.style.opacity = '0';
+                card.style.transform = 'scale(0.9) translateX(-20px)';
+                card.style.transition = 'all 0.4s ease';
+                
+                setTimeout(() => {
+                    card.remove();
+                    alert('✅ Pegawai ' + empName + ' berhasil dihapus!');
+                }, 400);
+            }
+        }
+
+        // Logout
+        const logoutBtn = document.querySelector('.logout-btn');
+        logoutBtn.addEventListener('click', function() {
+            if (confirm('🚪 Apakah Anda yakin ingin keluar?')) {
+                alert('✅ Logout berhasil! Sampai jumpa! 👋');
+                // window.location.href = '../pages/login.html';
+            }
+        });
+
+        // Close modal when clicking outside
+        window.addEventListener('click', function(e) {
+            const modals = document.querySelectorAll('.modal');
+            modals.forEach(modal => {
+                if (e.target === modal) {
+                    closeModal(modal.id);
+                }
+            });
+        });
+
+        // Upload photo simulation
+        const uploadBtn = document.querySelector('.upload-btn');
+        uploadBtn.addEventListener('click', function() {
+            const input = document.createElement('input');
+            input.type = 'file';
+            input.accept = 'image/*';
+            
+            input.onchange = function(e) {
+                const file = e.target.files[0];
+                if (file) {
+                    if (file.size > 2 * 1024 * 1024) {
+                        alert('❌ Ukuran file terlalu besar! Maksimal 2MB.');
+                        return;
+                    }
+                    
+                    const reader = new FileReader();
+                    reader.onload = function(event) {
+                        alert('✅ Foto berhasil diupload!\n\nFile: ' + file.name + '\nUkuran: ' + (file.size / 1024).toFixed(2) + ' KB');
+                    };
+                    reader.readAsDataURL(file);
+                }
+            };
+            
+            input.click();
+        });
+
+        // Responsive menu
+        window.addEventListener('resize', function() {
+            if (window.innerWidth > 768) {
+                sidebar.classList.remove('active');
+                overlay.classList.remove('active');
+            }
+        });
+
+        // Menu items navigation
+        const menuItems = document.querySelectorAll('.menu-item');
+        menuItems.forEach(item => {
+            item.addEventListener('click', function(e) {
+                if (!this.classList.contains('active')) {
+                    // For demo purposes, prevent navigation
+                    e.preventDefault();
+                    
+                    // Remove active from all items
+                    menuItems.forEach(i => i.classList.remove('active'));
+                    
+                    // Add active to clicked item
+                    this.classList.add('active');
+                    
+                    if (window.innerWidth <= 768) {
+                        sidebar.classList.remove('active');
+                        overlay.classList.remove('active');
+                    }
+                }
+            });
+        });
+
+        // Initialize date fields with today's date
+        document.getElementById('empJoinDate').valueAsDate = new Date();
+
+        // Auto-format phone number
+        const phoneInputs = document.querySelectorAll('input[type="tel"]');
+        phoneInputs.forEach(input => {
+            input.addEventListener('input', function(e) {
+                let value = e.target.value.replace(/\D/g, '');
+                if (value.startsWith('62')) {
+                    value = value.substring(2);
+                }
+                if (value.length > 0) {
+                    if (value.length <= 3) {
+                        e.target.value = '+62 ' + value;
+                    } else if (value.length <= 7) {
+                        e.target.value = '+62 ' + value.substring(0, 3) + '-' + value.substring(3);
+                    } else {
+                        e.target.value = '+62 ' + value.substring(0, 3) + '-' + value.substring(3, 7) + '-' + value.substring(7, 11);
+                    }
+                }
+            });
+        });
+
+        // Show success message on page load (optional)
+        window.addEventListener('load', function() {
+            console.log('✅ Halaman Pengaturan berhasil dimuat!');
+        });
+    </script>
+</body>
+
+</html>

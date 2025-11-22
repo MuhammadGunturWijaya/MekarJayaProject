@@ -1,0 +1,1708 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Riwayat Transaksi - Mekar Jaya</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            height: 100%;
+            overflow-x: hidden;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #0c4a6e 0%, #0e7490 50%, #06b6d4 100%);
+            background-attachment: fixed;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 280px;
+            height: 100vh;
+            background: linear-gradient(180deg, #164e63 0%, #0e7490 100%);
+            padding: 25px 20px;
+            z-index: 1000;
+            transition: transform 0.3s ease;
+            overflow-y: auto;
+            box-shadow: 4px 0 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .sidebar.hidden {
+            transform: translateX(-100%);
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 20px 15px;
+            margin-bottom: 35px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .logo-section .icon {
+            font-size: 36px;
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+        }
+
+        .logo-section h2 {
+            color: white;
+            font-size: 22px;
+            font-weight: 700;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .logo-section .badge {
+            background: linear-gradient(135deg, #22d3ee, #06b6d4);
+            color: white;
+            font-size: 10px;
+            padding: 4px 10px;
+            border-radius: 8px;
+            font-weight: 700;
+            box-shadow: 0 2px 8px rgba(34, 211, 238, 0.4);
+        }
+
+        .menu-section {
+            margin-bottom: 30px;
+        }
+
+        .menu-label {
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 0 15px;
+            margin-bottom: 12px;
+        }
+
+        .menu-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 14px 18px;
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            border-radius: 15px;
+            margin-bottom: 6px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            font-size: 15px;
+            position: relative;
+        }
+
+        .menu-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 4px;
+            height: 0;
+            background: linear-gradient(180deg, #22d3ee, #06b6d4);
+            border-radius: 0 4px 4px 0;
+            transition: height 0.3s ease;
+        }
+
+        .menu-item:hover::before {
+            height: 60%;
+        }
+
+        .menu-item:hover {
+            background: rgba(255, 255, 255, 0.15);
+            color: white;
+            transform: translateX(5px);
+        }
+
+        .menu-item.active {
+            background: linear-gradient(135deg, rgba(34, 211, 238, 0.3), rgba(6, 182, 212, 0.2));
+            color: white;
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(34, 211, 238, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .menu-item.active::before {
+            height: 60%;
+        }
+
+        .menu-item .icon {
+            font-size: 22px;
+            width: 28px;
+            text-align: center;
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-left: 280px;
+            padding: 25px;
+            min-height: 100vh;
+            transition: margin-left 0.3s ease;
+        }
+
+        .main-content.expanded {
+            margin-left: 0;
+        }
+
+        /* Header */
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 25px 30px;
+            border-radius: 20px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            margin-bottom: 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+
+        .header-left h1 {
+            background: linear-gradient(135deg, #0c4a6e, #06b6d4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-size: 28px;
+            margin-bottom: 6px;
+            font-weight: 800;
+        }
+
+        .header-left p {
+            color: #64748b;
+            font-size: 15px;
+        }
+
+        .menu-toggle {
+            display: none;
+            background: linear-gradient(135deg, #0e7490, #06b6d4);
+            border: none;
+            color: white;
+            padding: 12px 18px;
+            border-radius: 15px;
+            cursor: pointer;
+            font-size: 20px;
+            box-shadow: 0 4px 15px rgba(14, 116, 144, 0.3);
+        }
+
+        /* Stats Cards */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 25px;
+            border-radius: 20px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            transition: all 0.3s;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .stat-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .stat-icon {
+            font-size: 32px;
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+        }
+
+        .stat-trend {
+            padding: 4px 10px;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .stat-trend.up {
+            background: rgba(16, 185, 129, 0.15);
+            color: #059669;
+        }
+
+        .stat-trend.down {
+            background: rgba(244, 63, 94, 0.15);
+            color: #e11d48;
+        }
+
+        .stat-value {
+            font-size: 28px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #0c4a6e, #06b6d4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            color: #64748b;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        /* Filter Section */
+        .filter-section {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 25px;
+            border-radius: 20px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            margin-bottom: 25px;
+        }
+
+        .filter-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .filter-label {
+            font-size: 13px;
+            font-weight: 600;
+            color: #475569;
+        }
+
+        .filter-input {
+            padding: 12px 15px;
+            border: 2px solid rgba(14, 116, 144, 0.2);
+            border-radius: 12px;
+            font-size: 14px;
+            transition: all 0.3s;
+            background: white;
+        }
+
+        .filter-input:focus {
+            outline: none;
+            border-color: #0e7490;
+            box-shadow: 0 0 0 4px rgba(14, 116, 144, 0.1);
+        }
+
+        .filter-actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .filter-btn.primary {
+            background: linear-gradient(135deg, #0e7490, #06b6d4);
+            color: white;
+            box-shadow: 0 4px 15px rgba(14, 116, 144, 0.3);
+        }
+
+        .filter-btn.primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(14, 116, 144, 0.4);
+        }
+
+        .filter-btn.secondary {
+            background: rgba(14, 116, 144, 0.1);
+            color: #0e7490;
+        }
+
+        .filter-btn.secondary:hover {
+            background: rgba(14, 116, 144, 0.2);
+        }
+
+        .filter-btn.export {
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+            margin-left: auto;
+        }
+
+        .filter-btn.export:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
+        }
+
+        /* Transaction Table */
+        .transaction-section {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 25px;
+            border-radius: 20px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: 800;
+            color: #0c4a6e;
+        }
+
+        .view-toggle {
+            display: flex;
+            gap: 8px;
+            background: rgba(14, 116, 144, 0.1);
+            padding: 4px;
+            border-radius: 12px;
+        }
+
+        .view-btn {
+            padding: 8px 16px;
+            border: none;
+            background: transparent;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            color: #64748b;
+            transition: all 0.3s;
+        }
+
+        .view-btn.active {
+            background: white;
+            color: #0e7490;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .table-container {
+            overflow-x: auto;
+            border-radius: 15px;
+            border: 1px solid rgba(14, 116, 144, 0.1);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+        }
+
+        thead {
+            background: linear-gradient(135deg, #0e7490, #06b6d4);
+        }
+
+        thead th {
+            padding: 16px;
+            text-align: left;
+            color: white;
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        tbody tr {
+            border-bottom: 1px solid rgba(14, 116, 144, 0.1);
+            transition: all 0.3s;
+        }
+
+        tbody tr:hover {
+            background: rgba(14, 116, 144, 0.05);
+        }
+
+        tbody td {
+            padding: 16px;
+            font-size: 14px;
+            color: #475569;
+        }
+
+        .transaction-id {
+            font-weight: 700;
+            color: #0e7490;
+        }
+
+        .customer-info {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .customer-name {
+            font-weight: 600;
+            color: #0c4a6e;
+        }
+
+        .customer-phone {
+            font-size: 12px;
+            color: #94a3b8;
+        }
+
+        .payment-badge {
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 700;
+            display: inline-block;
+        }
+
+        .payment-badge.cash {
+            background: rgba(16, 185, 129, 0.15);
+            color: #059669;
+        }
+
+        .payment-badge.card {
+            background: rgba(99, 102, 241, 0.15);
+            color: #4f46e5;
+        }
+
+        .payment-badge.transfer {
+            background: rgba(245, 158, 11, 0.15);
+            color: #d97706;
+        }
+
+        .payment-badge.ewallet {
+            background: rgba(168, 85, 247, 0.15);
+            color: #7c3aed;
+        }
+
+        .amount {
+            font-weight: 700;
+            color: #0e7490;
+            font-size: 15px;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 8px;
+        }
+
+        .action-btn {
+            padding: 8px 12px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 600;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .action-btn.view {
+            background: rgba(14, 116, 144, 0.1);
+            color: #0e7490;
+        }
+
+        .action-btn.view:hover {
+            background: rgba(14, 116, 144, 0.2);
+        }
+
+        .action-btn.print {
+            background: rgba(99, 102, 241, 0.1);
+            color: #4f46e5;
+        }
+
+        .action-btn.print:hover {
+            background: rgba(99, 102, 241, 0.2);
+        }
+
+        /* Card View */
+        .transaction-cards {
+            display: none;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 20px;
+        }
+
+        .transaction-cards.active {
+            display: grid;
+        }
+
+        .transaction-card {
+            background: white;
+            border: 2px solid rgba(14, 116, 144, 0.1);
+            border-radius: 15px;
+            padding: 20px;
+            transition: all 0.3s;
+        }
+
+        .transaction-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(14, 116, 144, 0.2);
+            border-color: #0e7490;
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 15px;
+        }
+
+        .card-id {
+            font-size: 16px;
+            font-weight: 700;
+            color: #0e7490;
+        }
+
+        .card-date {
+            font-size: 12px;
+            color: #94a3b8;
+        }
+
+        .card-customer {
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(14, 116, 144, 0.1);
+        }
+
+        .card-amount {
+            font-size: 24px;
+            font-weight: 800;
+            color: #0c4a6e;
+            margin-bottom: 10px;
+        }
+
+        .card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 15px;
+        }
+
+        /* Detail Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(12, 74, 110, 0.8);
+            backdrop-filter: blur(5px);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            overflow-y: auto;
+            padding: 20px;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 35px;
+            border-radius: 20px;
+            max-width: 600px;
+            width: 100%;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            animation: modalSlideIn 0.3s ease;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        @keyframes modalSlideIn {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid rgba(14, 116, 144, 0.1);
+        }
+
+        .modal-title {
+            font-size: 24px;
+            font-weight: 800;
+            color: #0c4a6e;
+        }
+
+        .modal-close {
+            background: rgba(244, 63, 94, 0.1);
+            border: none;
+            color: #e11d48;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 20px;
+            transition: all 0.3s;
+        }
+
+        .modal-close:hover {
+            background: rgba(244, 63, 94, 0.2);
+            transform: rotate(90deg);
+        }
+
+        .detail-section {
+            margin-bottom: 25px;
+        }
+
+        .detail-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: #64748b;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 12px;
+        }
+
+        .detail-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            background: rgba(14, 116, 144, 0.05);
+            padding: 20px;
+            border-radius: 12px;
+        }
+
+        .detail-item {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .detail-label {
+            font-size: 12px;
+            color: #94a3b8;
+            font-weight: 600;
+        }
+
+        .detail-value {
+            font-size: 14px;
+            color: #0c4a6e;
+            font-weight: 600;
+        }
+
+        .items-table {
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        .items-table th {
+            background: rgba(14, 116, 144, 0.1);
+            padding: 12px;
+            text-align: left;
+            font-size: 12px;
+            font-weight: 700;
+            color: #0c4a6e;
+        }
+
+        .items-table td {
+            padding: 12px;
+            border-bottom: 1px solid rgba(14, 116, 144, 0.1);
+            font-size: 14px;
+        }
+
+        .summary-box {
+            background: linear-gradient(135deg, rgba(14, 116, 144, 0.1), rgba(6, 182, 212, 0.05));
+            padding: 20px;
+            border-radius: 12px;
+            border: 2px solid rgba(14, 116, 144, 0.2);
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 12px;
+            font-size: 14px;
+        }
+
+        .summary-row.total {
+            font-size: 20px;
+            font-weight: 800;
+            color: #0c4a6e;
+            padding-top: 12px;
+            border-top: 2px solid rgba(14, 116, 144, 0.3);
+        }
+
+        /* Pagination */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            margin-top: 25px;
+        }
+
+        .pagination-btn {
+            padding: 10px 16px;
+            border: 2px solid rgba(14, 116, 144, 0.2);
+            background: white;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            color: #475569;
+            transition: all 0.3s;
+        }
+
+        .pagination-btn:hover:not(:disabled) {
+            border-color: #0e7490;
+            background: rgba(14, 116, 144, 0.05);
+        }
+
+        .pagination-btn:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+
+        .pagination-btn.active {
+            background: linear-gradient(135deg, #0e7490, #06b6d4);
+            color: white;
+            border-color: transparent;
+        }
+
+        .pagination-info {
+            color: #64748b;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, #0e7490, #06b6d4);
+            border-radius: 10px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(-100%);
+            }
+
+            .sidebar.active {
+                transform: translateX(0);
+            }
+
+            .main-content {
+                margin-left: 0;
+                padding: 18px;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            .header {
+                flex-direction: column;
+                gap: 18px;
+                padding: 20px;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .filter-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .filter-actions {
+                flex-direction: column;
+            }
+
+            .filter-btn.export {
+                margin-left: 0;
+            }
+
+            .table-container {
+                overflow-x: scroll;
+            }
+
+            table {
+                min-width: 800px;
+            }
+
+            .transaction-cards {
+                grid-template-columns: 1fr;
+            }
+
+            .detail-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(12, 74, 110, 0.7);
+            backdrop-filter: blur(5px);
+            z-index: 999;
+        }
+
+        .overlay.active {
+            display: block;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+        }
+
+        .empty-icon {
+            font-size: 80px;
+            margin-bottom: 20px;
+            opacity: 0.5;
+        }
+
+        .empty-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #0c4a6e;
+            margin-bottom: 10px;
+        }
+
+        .empty-text {
+            color: #94a3b8;
+            font-size: 14px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Overlay -->
+    <div class="overlay" id="overlay"></div>
+
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+        <div class="logo-section">
+            <span class="icon">🎣</span>
+            <div>
+                <h2>Mekar Jaya</h2>
+                <span class="badge">ADMIN</span>
+            </div>
+        </div>
+        <a href="#" class="menu-item" onclick="location.href='kasir.html'">
+            <span class="icon">🖥️</span>
+            <span>Kasir</span>
+        </a>
+        <div class="menu-section">
+            <div class="menu-label">Menu Utama</div>
+            <a href="#" class="menu-item" onclick="location.href='dashboard.html'">
+                <span class="icon">📊</span>
+                <span>Dashboard</span>
+            </a>
+            <a href="#" class="menu-item">
+                <span class="icon">🧾</span>
+                <span>Master Data</span>
+            </a>
+            <a href="#" class="menu-item">
+                <span class="icon">🚚</span>
+                <span>Barang Masuk</span>
+            </a>
+            <a href="#" class="menu-item">
+                <span class="icon">📦</span>
+                <span>Barang Keluar</span>
+            </a>
+            <a href="#" class="menu-item">
+                <span class="icon">📝</span>
+                <span>Generate Laporan</span>
+            </a>
+            <a href="#" class="menu-item active">
+                <span class="icon">📜</span>
+                <span>Riwayat Transaksi</span>
+            </a>
+        </div>
+
+        <div class="menu-section">
+            <div class="menu-label">Manajemen</div>
+            <a href="#" class="menu-item">
+                <span class="icon">⚙️</span>
+                <span>Pengaturan</span>
+            </a>
+            <a href="#" class="menu-item">
+                <span class="icon">🔔</span>
+                <span>Notifikasi</span>
+            </a>
+            <a href="#" class="menu-item" onclick="location.href='login.html'">
+                <span class="icon">🚪</span>
+                <span>Logout</span>
+            </a>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content" id="mainContent">
+        <!-- Header -->
+        <div class="header">
+            <div class="header-left">
+                <h1>Riwayat Transaksi</h1>
+                <p>Kelola dan pantau semua transaksi penjualan 📊</p>
+            </div>
+            <button class="menu-toggle" id="menuToggle">☰</button>
+        </div>
+
+        <!-- Stats Cards -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-header">
+                    <div class="stat-icon">💰</div>
+                    <div class="stat-trend up">↑ 12%</div>
+                </div>
+                <div class="stat-value" id="totalRevenue">Rp 0</div>
+                <div class="stat-label">Total Pendapatan</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-header">
+                    <div class="stat-icon">🛒</div>
+                    <div class="stat-trend up">↑ 8%</div>
+                </div>
+                <div class="stat-value" id="totalTransactions">0</div>
+                <div class="stat-label">Total Transaksi</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-header">
+                    <div class="stat-icon">📦</div>
+                    <div class="stat-trend down">↓ 3%</div>
+                </div>
+                <div class="stat-value" id="totalItems">0</div>
+                <div class="stat-label">Total Item Terjual</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-header">
+                    <div class="stat-icon">📈</div>
+                    <div class="stat-trend up">↑ 15%</div>
+                </div>
+                <div class="stat-value" id="avgTransaction">Rp 0</div>
+                <div class="stat-label">Rata-rata Transaksi</div>
+            </div>
+        </div>
+
+        <!-- Filter Section -->
+        <div class="filter-section">
+            <div class="filter-grid">
+                <div class="filter-group">
+                    <label class="filter-label">Tanggal Mulai</label>
+                    <input type="date" class="filter-input" id="startDate">
+                </div>
+                <div class="filter-group">
+                    <label class="filter-label">Tanggal Akhir</label>
+                    <input type="date" class="filter-input" id="endDate">
+                </div>
+                <div class="filter-group">
+                    <label class="filter-label">Metode Pembayaran</label>
+                    <select class="filter-input" id="paymentFilter">
+                        <option value="">Semua Metode</option>
+                        <option value="cash">Tunai</option>
+                        <option value="card">Kartu</option>
+                        <option value="transfer">Transfer</option>
+                        <option value="ewallet">E-Wallet</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label class="filter-label">Cari Transaksi</label>
+                    <input type="text" class="filter-input" id="searchTransaction" placeholder="ID, nama, atau telepon...">
+                </div>
+            </div>
+            <div class="filter-actions">
+                <button class="filter-btn primary" id="applyFilter">
+                    🔍 Terapkan Filter
+                </button>
+                <button class="filter-btn secondary" id="resetFilter">
+                    🔄 Reset
+                </button>
+                <button class="filter-btn export" id="exportBtn">
+                    📥 Export Excel
+                </button>
+            </div>
+        </div>
+
+        <!-- Transaction Section -->
+        <div class="transaction-section">
+            <div class="section-header">
+                <h3 class="section-title">Daftar Transaksi</h3>
+                <div class="view-toggle">
+                    <button class="view-btn active" data-view="table">📋 Tabel</button>
+                    <button class="view-btn" data-view="card">🗂️ Kartu</button>
+                </div>
+            </div>
+
+            <!-- Table View -->
+            <div class="table-container" id="tableView">
+                <table id="transactionTable">
+                    <thead>
+                        <tr>
+                            <th>ID Transaksi</th>
+                            <th>Tanggal & Waktu</th>
+                            <th>Pelanggan</th>
+                            <th>Metode Bayar</th>
+                            <th>Total</th>
+                            <th>Kasir</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody id="transactionTableBody">
+                        <!-- Data akan dimuat di sini -->
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Card View -->
+            <div class="transaction-cards" id="cardView">
+                <!-- Cards akan dimuat di sini -->
+            </div>
+
+            <!-- Pagination -->
+            <div class="pagination" id="pagination">
+                <button class="pagination-btn" id="prevPage">‹ Prev</button>
+                <div class="pagination-info" id="pageInfo">Halaman 1 dari 1</div>
+                <button class="pagination-btn" id="nextPage">Next ›</button>
+            </div>
+        </div>
+    </main>
+
+    <!-- Detail Modal -->
+    <div class="modal" id="detailModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Detail Transaksi</h3>
+                <button class="modal-close" id="closeModal">×</button>
+            </div>
+
+            <div class="detail-section">
+                <div class="detail-title">Informasi Transaksi</div>
+                <div class="detail-grid">
+                    <div class="detail-item">
+                        <span class="detail-label">ID Transaksi</span>
+                        <span class="detail-value" id="detailId">-</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Tanggal & Waktu</span>
+                        <span class="detail-value" id="detailDate">-</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Nama Pelanggan</span>
+                        <span class="detail-value" id="detailCustomer">-</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">No. Telepon</span>
+                        <span class="detail-value" id="detailPhone">-</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Kasir</span>
+                        <span class="detail-value" id="detailCashier">-</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Metode Pembayaran</span>
+                        <span class="detail-value" id="detailPayment">-</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="detail-section">
+                <div class="detail-title">Item Pembelian</div>
+                <table class="items-table">
+                    <thead>
+                        <tr>
+                            <th>Produk</th>
+                            <th>Harga</th>
+                            <th>Qty</th>
+                            <th>Subtotal</th>
+                        </tr>
+                    </thead>
+                    <tbody id="detailItems">
+                        <!-- Items akan dimuat di sini -->
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="detail-section">
+                <div class="detail-title">Ringkasan Pembayaran</div>
+                <div class="summary-box">
+                    <div class="summary-row">
+                        <span>Subtotal:</span>
+                        <strong id="detailSubtotal">Rp 0</strong>
+                    </div>
+                    <div class="summary-row">
+                        <span>Pajak (10%):</span>
+                        <strong id="detailTax">Rp 0</strong>
+                    </div>
+                    <div class="summary-row total">
+                        <span>Total Pembayaran:</span>
+                        <strong id="detailTotal">Rp 0</strong>
+                    </div>
+                </div>
+            </div>
+
+            <div class="filter-actions">
+                <button class="filter-btn primary" id="printDetailBtn">
+                    🖨️ Print Struk
+                </button>
+                <button class="filter-btn secondary" id="closeDetailBtn">
+                    Tutup
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Sample Transaction Data
+        const transactionsData = [
+            {
+                id: 'TRX-0001',
+                date: new Date('2025-01-20T10:30:00'),
+                customer: { name: 'Ahmad Fauzi', phone: '0812-3456-7890' },
+                payment: 'cash',
+                cashier: 'Admin',
+                items: [
+                    { name: 'Joran Carbon Pro X1', price: 1250000, quantity: 1 },
+                    { name: 'Reel Shimano 5000', price: 850000, quantity: 1 }
+                ],
+                subtotal: 2100000,
+                tax: 210000,
+                total: 2310000
+            },
+            {
+                id: 'TRX-0002',
+                date: new Date('2025-01-20T11:15:00'),
+                customer: { name: 'Budi Santoso', phone: '0813-9876-5432' },
+                payment: 'card',
+                cashier: 'Admin',
+                items: [
+                    { name: 'Umpan Set Premium', price: 450000, quantity: 2 },
+                    { name: 'Kail Set Professional', price: 350000, quantity: 1 }
+                ],
+                subtotal: 1250000,
+                tax: 125000,
+                total: 1375000
+            },
+            {
+                id: 'TRX-0003',
+                date: new Date('2025-01-20T14:20:00'),
+                customer: { name: 'Citra Dewi', phone: '0856-1234-5678' },
+                payment: 'ewallet',
+                cashier: 'Admin',
+                items: [
+                    { name: 'Tas Pancing Waterproof', price: 675000, quantity: 1 },
+                    { name: 'Senar PE 50lb', price: 180000, quantity: 2 }
+                ],
+                subtotal: 1035000,
+                tax: 103500,
+                total: 1138500
+            },
+            {
+                id: 'TRX-0004',
+                date: new Date('2025-01-21T09:45:00'),
+                customer: { name: 'Dedi Kurniawan', phone: '0821-5555-6666' },
+                payment: 'transfer',
+                cashier: 'Admin',
+                items: [
+                    { name: 'Joran Telescopic', price: 550000, quantity: 1 },
+                    { name: 'Umpan Buatan Lure', price: 125000, quantity: 3 }
+                ],
+                subtotal: 925000,
+                tax: 92500,
+                total: 1017500
+            },
+            {
+                id: 'TRX-0005',
+                date: new Date('2025-01-21T13:30:00'),
+                customer: { name: 'Eko Prasetyo', phone: '0877-2222-3333' },
+                payment: 'cash',
+                cashier: 'Admin',
+                items: [
+                    { name: 'Reel Daiwa 3000', price: 750000, quantity: 1 },
+                    { name: 'Kotak Pancing Tackle Box', price: 280000, quantity: 1 }
+                ],
+                subtotal: 1030000,
+                tax: 103000,
+                total: 1133000
+            },
+            {
+                id: 'TRX-0006',
+                date: new Date('2025-01-21T16:00:00'),
+                customer: { name: 'Fitri Handayani', phone: '0898-7777-8888' },
+                payment: 'card',
+                cashier: 'Admin',
+                items: [
+                    { name: 'Joran Casting Heavy', price: 980000, quantity: 1 },
+                    { name: 'Reel Baitcasting', price: 1100000, quantity: 1 }
+                ],
+                subtotal: 2080000,
+                tax: 208000,
+                total: 2288000
+            },
+            {
+                id: 'TRX-0007',
+                date: new Date('2025-01-22T10:00:00'),
+                customer: { name: 'Gunawan Adi', phone: '0819-4444-5555' },
+                payment: 'ewallet',
+                cashier: 'Admin',
+                items: [
+                    { name: 'Umpan Set Premium', price: 450000, quantity: 1 },
+                    { name: 'Kail Set Professional', price: 350000, quantity: 2 }
+                ],
+                subtotal: 1150000,
+                tax: 115000,
+                total: 1265000
+            },
+            {
+                id: 'TRX-0008',
+                date: new Date('2025-01-22T14:45:00'),
+                customer: { name: 'Hendra Wijaya', phone: '0852-9999-0000' },
+                payment: 'cash',
+                cashier: 'Admin',
+                items: [
+                    { name: 'Senar PE 50lb', price: 180000, quantity: 3 },
+                    { name: 'Umpan Buatan Lure', price: 125000, quantity: 4 }
+                ],
+                subtotal: 1040000,
+                tax: 104000,
+                total: 1144000
+            }
+        ];
+
+        let filteredData = [...transactionsData];
+        let currentPage = 1;
+        const itemsPerPage = 10;
+        let currentView = 'table';
+
+        // DOM Elements
+        const menuToggle = document.getElementById('menuToggle');
+        const sidebar = document.getElementById('sidebar');
+        const overlay = document.getElementById('overlay');
+        const startDate = document.getElementById('startDate');
+        const endDate = document.getElementById('endDate');
+        const paymentFilter = document.getElementById('paymentFilter');
+        const searchTransaction = document.getElementById('searchTransaction');
+        const applyFilterBtn = document.getElementById('applyFilter');
+        const resetFilterBtn = document.getElementById('resetFilter');
+        const exportBtn = document.getElementById('exportBtn');
+        const tableView = document.getElementById('tableView');
+        const cardView = document.getElementById('cardView');
+        const viewBtns = document.querySelectorAll('.view-btn');
+        const detailModal = document.getElementById('detailModal');
+        const closeModal = document.getElementById('closeModal');
+        const closeDetailBtn = document.getElementById('closeDetailBtn');
+        const printDetailBtn = document.getElementById('printDetailBtn');
+
+        // Initialize
+        setDefaultDates();
+        updateStats();
+        renderTransactions();
+
+        // Set default date range (last 7 days)
+        function setDefaultDates() {
+            const today = new Date();
+            const lastWeek = new Date(today);
+            lastWeek.setDate(lastWeek.getDate() - 7);
+
+            endDate.valueAsDate = today;
+            startDate.valueAsDate = lastWeek;
+        }
+
+        // Update Statistics
+        function updateStats() {
+            const totalRevenue = filteredData.reduce((sum, t) => sum + t.total, 0);
+            const totalTransactions = filteredData.length;
+            const totalItems = filteredData.reduce((sum, t) => 
+                sum + t.items.reduce((itemSum, item) => itemSum + item.quantity, 0), 0
+            );
+            const avgTransaction = totalTransactions > 0 ? totalRevenue / totalTransactions : 0;
+
+            document.getElementById('totalRevenue').textContent = formatCurrency(totalRevenue);
+            document.getElementById('totalTransactions').textContent = totalTransactions;
+            document.getElementById('totalItems').textContent = totalItems;
+            document.getElementById('avgTransaction').textContent = formatCurrency(avgTransaction);
+        }
+
+        // Format Currency
+        function formatCurrency(amount) {
+            return 'Rp ' + Math.round(amount).toLocaleString('id-ID');
+        }
+
+        // Format Date
+        function formatDate(date) {
+            return date.toLocaleDateString('id-ID', {
+                day: '2-digit',
+                month: 'short',
+                year: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+        }
+
+        // Get Payment Badge HTML
+        function getPaymentBadge(payment) {
+            const badges = {
+                cash: { text: 'Tunai', icon: '💵' },
+                card: { text: 'Kartu', icon: '💳' },
+                transfer: { text: 'Transfer', icon: '🏦' },
+                ewallet: { text: 'E-Wallet', icon: '📱' }
+            };
+            const badge = badges[payment] || badges.cash;
+            return `<span class="payment-badge ${payment}">${badge.icon} ${badge.text}</span>`;
+        }
+
+        // Render Transactions
+        function renderTransactions() {
+            if (currentView === 'table') {
+                renderTableView();
+            } else {
+                renderCardView();
+            }
+            renderPagination();
+        }
+
+        // Render Table View
+        function renderTableView() {
+            const tbody = document.getElementById('transactionTableBody');
+            
+            if (filteredData.length === 0) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="7">
+                            <div class="empty-state">
+                                <div class="empty-icon">📭</div>
+                                <div class="empty-title">Tidak ada transaksi</div>
+                                <div class="empty-text">Tidak ada data yang sesuai dengan filter Anda</div>
+                            </div>
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+
+            const startIndex = (currentPage - 1) * itemsPerPage;
+            const endIndex = startIndex + itemsPerPage;
+            const pageData = filteredData.slice(startIndex, endIndex);
+
+            tbody.innerHTML = pageData.map(transaction => `
+                <tr>
+                    <td><span class="transaction-id">${transaction.id}</span></td>
+                    <td>${formatDate(transaction.date)}</td>
+                    <td>
+                        <div class="customer-info">
+                            <div class="customer-name">${transaction.customer.name}</div>
+                            <div class="customer-phone">${transaction.customer.phone}</div>
+                        </div>
+                    </td>
+                    <td>${getPaymentBadge(transaction.payment)}</td>
+                    <td><span class="amount">${formatCurrency(transaction.total)}</span></td>
+                    <td>${transaction.cashier}</td>
+                    <td>
+                        <div class="action-buttons">
+                            <button class="action-btn view" onclick="viewDetail('${transaction.id}')">
+                                👁️ Lihat
+                            </button>
+                            <button class="action-btn print" onclick="printReceipt('${transaction.id}')">
+                                🖨️ Print
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        // Render Card View
+        function renderCardView() {
+            const container = document.getElementById('cardView');
+            
+            if (filteredData.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state" style="grid-column: 1/-1;">
+                        <div class="empty-icon">📭</div>
+                        <div class="empty-title">Tidak ada transaksi</div>
+                        <div class="empty-text">Tidak ada data yang sesuai dengan filter Anda</div>
+                    </div>
+                `;
+                return;
+            }
+
+            const startIndex = (currentPage - 1) * itemsPerPage;
+            const endIndex = startIndex + itemsPerPage;
+            const pageData = filteredData.slice(startIndex, endIndex);
+
+            container.innerHTML = pageData.map(transaction => `
+                <div class="transaction-card">
+                    <div class="card-header">
+                        <div>
+                            <div class="card-id">${transaction.id}</div>
+                            <div class="card-date">${formatDate(transaction.date)}</div>
+                        </div>
+                        ${getPaymentBadge(transaction.payment)}
+                    </div>
+                    <div class="card-customer">
+                        <div class="customer-name">${transaction.customer.name}</div>
+                        <div class="customer-phone">${transaction.customer.phone}</div>
+                    </div>
+                    <div class="card-amount">${formatCurrency(transaction.total)}</div>
+                    <div class="card-footer">
+                        <span style="color: #64748b; font-size: 13px;">Kasir: ${transaction.cashier}</span>
+                        <div class="action-buttons">
+                            <button class="action-btn view" onclick="viewDetail('${transaction.id}')">
+                                👁️ Lihat
+                            </button>
+                            <button class="action-btn print" onclick="printReceipt('${transaction.id}')">
+                                🖨️
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Render Pagination
+        function renderPagination() {
+            const totalPages = Math.ceil(filteredData.length / itemsPerPage);
+            document.getElementById('pageInfo').textContent = `Halaman ${currentPage} dari ${totalPages}`;
+            
+            document.getElementById('prevPage').disabled = currentPage === 1;
+            document.getElementById('nextPage').disabled = currentPage === totalPages || totalPages === 0;
+        }
+
+        // View Detail
+        function viewDetail(transactionId) {
+            const transaction = transactionsData.find(t => t.id === transactionId);
+            if (!transaction) return;
+
+            document.getElementById('detailId').textContent = transaction.id;
+            document.getElementById('detailDate').textContent = formatDate(transaction.date);
+            document.getElementById('detailCustomer').textContent = transaction.customer.name;
+            document.getElementById('detailPhone').textContent = transaction.customer.phone;
+            document.getElementById('detailCashier').textContent = transaction.cashier;
+            
+            const paymentNames = {
+                cash: 'Tunai',
+                card: 'Kartu Debit/Kredit',
+                transfer: 'Transfer Bank',
+                ewallet: 'E-Wallet'
+            };
+            document.getElementById('detailPayment').textContent = paymentNames[transaction.payment];
+
+            const itemsHtml = transaction.items.map(item => `
+                <tr>
+                    <td>${item.name}</td>
+                    <td>${formatCurrency(item.price)}</td>
+                    <td>${item.quantity}</td>
+                    <td><strong>${formatCurrency(item.price * item.quantity)}</strong></td>
+                </tr>
+            `).join('');
+            document.getElementById('detailItems').innerHTML = itemsHtml;
+
+            document.getElementById('detailSubtotal').textContent = formatCurrency(transaction.subtotal);
+            document.getElementById('detailTax').textContent = formatCurrency(transaction.tax);
+            document.getElementById('detailTotal').textContent = formatCurrency(transaction.total);
+
+            detailModal.classList.add('active');
+        }
+
+        // Print Receipt
+        function printReceipt(transactionId) {
+            alert(`🖨️ Mencetak struk untuk ${transactionId}...\n\nFitur print akan segera tersedia!`);
+        }
+
+        // Apply Filter
+        applyFilterBtn.addEventListener('click', () => {
+            filteredData = transactionsData.filter(transaction => {
+                // Date filter
+                const transactionDate = new Date(transaction.date);
+                const start = startDate.valueAsDate;
+                const end = endDate.valueAsDate;
+                
+                if (start && transactionDate < start) return false;
+                if (end) {
+                    const endOfDay = new Date(end);
+                    endOfDay.setHours(23, 59, 59);
+                    if (transactionDate > endOfDay) return false;
+                }
+
+                // Payment filter
+                if (paymentFilter.value && transaction.payment !== paymentFilter.value) {
+                    return false;
+                }
+
+                // Search filter
+                const searchTerm = searchTransaction.value.toLowerCase();
+                if (searchTerm) {
+                    return transaction.id.toLowerCase().includes(searchTerm) ||
+                           transaction.customer.name.toLowerCase().includes(searchTerm) ||
+                           transaction.customer.phone.includes(searchTerm);
+                }
+
+                return true;
+            });
+
+            currentPage = 1;
+            updateStats();
+            renderTransactions();
+        });
+
+        // Reset Filter
+        resetFilterBtn.addEventListener('click', () => {
+            setDefaultDates();
+            paymentFilter.value = '';
+            searchTransaction.value = '';
+            filteredData = [...transactionsData];
+            currentPage = 1;
+            updateStats();
+            renderTransactions();
+        });
+
+        // Export to Excel
+        exportBtn.addEventListener('click', () => {
+            alert('📥 Export ke Excel\n\nFitur export akan segera tersedia!\n\nData akan diexport dalam format Excel (.xlsx)');
+        });
+
+        // View Toggle
+        viewBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                viewBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                
+                currentView = btn.dataset.view;
+                
+                if (currentView === 'table') {
+                    tableView.style.display = 'block';
+                    cardView.classList.remove('active');
+                } else {
+                    tableView.style.display = 'none';
+                    cardView.classList.add('active');
+                }
+                
+                renderTransactions();
+            });
+        });
+
+        // Pagination
+        document.getElementById('prevPage').addEventListener('click', () => {
+            if (currentPage > 1) {
+                currentPage--;
+                renderTransactions();
+            }
+        });
+
+        document.getElementById('nextPage').addEventListener('click', () => {
+            const totalPages = Math.ceil(filteredData.length / itemsPerPage);
+            if (currentPage < totalPages) {
+                currentPage++;
+                renderTransactions();
+            }
+        });
+
+        // Close Modal
+        closeModal.addEventListener('click', () => {
+            detailModal.classList.remove('active');
+        });
+
+        closeDetailBtn.addEventListener('click', () => {
+            detailModal.classList.remove('active');
+        });
+
+        detailModal.addEventListener('click', (e) => {
+            if (e.target === detailModal) {
+                detailModal.classList.remove('active');
+            }
+        });
+
+        // Print from Detail
+        printDetailBtn.addEventListener('click', () => {
+            const transactionId = document.getElementById('detailId').textContent;
+            printReceipt(transactionId);
+        });
+
+        // Sidebar Toggle
+        menuToggle.addEventListener('click', () => {
+            sidebar.classList.toggle('active');
+            overlay.classList.toggle('active');
+        });
+
+        overlay.addEventListener('click', () => {
+            sidebar.classList.remove('active');
+            overlay.classList.remove('active');
+        });
+
+        // Keyboard Shortcuts
+        document.addEventListener('keydown', (e) => {
+            // ESC to close modal
+            if (e.key === 'Escape' && detailModal.classList.contains('active')) {
+                detailModal.classList.remove('active');
+            }
+
+            // Ctrl/Cmd + F to focus search
+            if ((e.ctrlKey || e.metaKey) && e.key === 'f') {
+                e.preventDefault();
+                searchTransaction.focus();
+            }
+
+            // Ctrl/Cmd + E to export
+            if ((e.ctrlKey || e.metaKey) && e.key === 'e') {
+                e.preventDefault();
+                exportBtn.click();
+            }
+        });
+
+        // Real-time search
+        searchTransaction.addEventListener('input', () => {
+            // Debounce implementation could be added here
+            applyFilterBtn.click();
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,1877 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notifikasi - Mekar Jaya</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            height: 100%;
+            overflow-x: hidden;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #0a2540 0%, #0c4a6e 30%, #0e7490 70%, #06b6d4 100%);
+            background-attachment: fixed;
+            position: relative;
+            color: #333;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(34, 211, 238, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(6, 182, 212, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 280px;
+            height: 100vh;
+            background: linear-gradient(180deg, #0a2540 0%, #164e63 50%, #0e7490 100%);
+            padding: 25px 20px;
+            z-index: 1000;
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            overflow-y: auto;
+            box-shadow: 4px 0 30px rgba(0, 0, 0, 0.3);
+            border-right: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .sidebar.hidden {
+            transform: translateX(-100%);
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 20px 15px;
+            margin-bottom: 35px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+        }
+
+        .logo-section .icon {
+            font-size: 36px;
+            filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .logo-section h2 {
+            color: white;
+            font-size: 22px;
+            font-weight: 700;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .logo-section .badge {
+            background: linear-gradient(135deg, #22d3ee, #06b6d4);
+            color: white;
+            font-size: 10px;
+            padding: 5px 12px;
+            border-radius: 10px;
+            font-weight: 700;
+            box-shadow: 0 4px 12px rgba(34, 211, 238, 0.5);
+            animation: pulse-badge 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse-badge {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .menu-section {
+            margin-bottom: 30px;
+        }
+
+        .menu-label {
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            padding: 0 15px;
+            margin-bottom: 12px;
+        }
+
+        .menu-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 14px 18px;
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            border-radius: 15px;
+            margin-bottom: 6px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            font-size: 15px;
+            position: relative;
+            overflow: hidden;
+            outline: none;
+        }
+
+        .menu-item:focus {
+            box-shadow: 0 0 0 3px rgba(6, 182, 212, 0.5);
+        }
+
+        .menu-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: linear-gradient(180deg, #22d3ee, #06b6d4);
+            border-radius: 0 4px 4px 0;
+            transform: scaleY(0);
+            transition: transform 0.3s ease;
+        }
+
+        .menu-item:hover::before {
+            transform: scaleY(0.6);
+        }
+
+        .menu-item:hover {
+            background: rgba(255, 255, 255, 0.15);
+            color: white;
+            transform: translateX(5px);
+        }
+
+        .menu-item.active {
+            background: linear-gradient(135deg, rgba(34, 211, 238, 0.3), rgba(6, 182, 212, 0.2));
+            color: white;
+            font-weight: 600;
+            box-shadow: 0 4px 20px rgba(34, 211, 238, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .menu-item.active::before {
+            transform: scaleY(0.6);
+        }
+
+        .menu-item .icon {
+            font-size: 22px;
+            width: 28px;
+            text-align: center;
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+        }
+
+        .menu-item .badge {
+            margin-left: auto;
+            background: linear-gradient(135deg, #f43f5e, #e11d48);
+            color: white;
+            font-size: 11px;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-weight: 700;
+            box-shadow: 0 2px 8px rgba(244, 63, 94, 0.4);
+            animation: pulse-notification 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse-notification {
+            0%, 100% { box-shadow: 0 2px 8px rgba(244, 63, 94, 0.4); }
+            50% { box-shadow: 0 2px 16px rgba(244, 63, 94, 0.8); }
+        }
+
+        .user-profile {
+            position: absolute;
+            bottom: 25px;
+            left: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border-radius: 18px;
+            padding: 15px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+        }
+
+        .user-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #22d3ee, #06b6d4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 4px 16px rgba(34, 211, 238, 0.5);
+        }
+
+        .user-info h4 {
+            color: white;
+            font-size: 14px;
+            margin-bottom: 3px;
+            font-weight: 600;
+        }
+
+        .user-info p {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 12px;
+        }
+
+        .logout-btn {
+            margin-left: auto;
+            background: rgba(244, 63, 94, 0.2);
+            border: 1px solid rgba(244, 63, 94, 0.3);
+            color: white;
+            padding: 10px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: all 0.3s;
+            outline: none;
+        }
+
+        .logout-btn:hover, .logout-btn:focus {
+            background: rgba(244, 63, 94, 0.4);
+            transform: scale(1.1) rotate(5deg);
+            box-shadow: 0 0 0 3px rgba(244, 63, 94, 0.3);
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-left: 280px;
+            padding: 25px;
+            min-height: 100vh;
+            transition: margin-left 0.3s ease;
+            position: relative;
+            z-index: 1;
+        }
+
+        .main-content.expanded {
+            margin-left: 0;
+        }
+
+        /* Header */
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            padding: 30px;
+            border-radius: 24px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            margin-bottom: 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #0c4a6e, #06b6d4, #22d3ee);
+            background-size: 200% 100%;
+            animation: gradient-shift 3s ease infinite;
+        }
+
+        @keyframes gradient-shift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .header-left h1 {
+            background: linear-gradient(135deg, #0c4a6e, #06b6d4, #22d3ee);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-size: 32px;
+            margin-bottom: 8px;
+            font-weight: 800;
+            animation: gradient-text 3s ease infinite;
+            background-size: 200% auto;
+        }
+
+        @keyframes gradient-text {
+            0%, 100% { background-position: 0% center; }
+            50% { background-position: 100% center; }
+        }
+
+        .header-left p {
+            color: #64748b;
+            font-size: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .menu-toggle {
+            display: none;
+            background: linear-gradient(135deg, #0e7490, #06b6d4);
+            border: none;
+            color: white;
+            padding: 12px 18px;
+            border-radius: 15px;
+            cursor: pointer;
+            font-size: 20px;
+            box-shadow: 0 4px 15px rgba(14, 116, 144, 0.3);
+            transition: all 0.3s;
+            outline: none;
+        }
+
+        .menu-toggle:hover, .menu-toggle:focus {
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(14, 116, 144, 0.4);
+        }
+
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            padding: 25px;
+            border-radius: 24px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            border: 2px solid transparent;
+            position: relative;
+            overflow: hidden;
+            outline: none;
+        }
+
+        .stat-card:focus {
+            box-shadow: 0 0 0 3px rgba(6, 182, 212, 0.5);
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .stat-card:hover::before {
+            left: 100%;
+        }
+
+        .stat-card:hover, .stat-card:focus {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 16px 48px rgba(0, 0, 0, 0.12);
+        }
+
+        .stat-card.active {
+            border-color: #0e7490;
+            box-shadow: 0 16px 48px rgba(14, 116, 144, 0.2);
+            transform: translateY(-8px) scale(1.02);
+        }
+
+        .stat-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .stat-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 26px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+
+        .stat-card:hover .stat-icon, .stat-card:focus .stat-icon {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .stat-icon.all {
+            background: linear-gradient(135deg, #06b6d4, #0891b2);
+        }
+
+        .stat-icon.critical {
+            background: linear-gradient(135deg, #f43f5e, #e11d48);
+        }
+
+        .stat-icon.warning {
+            background: linear-gradient(135deg, #f59e0b, #d97706);
+        }
+
+        .stat-icon.info {
+            background: linear-gradient(135deg, #3b82f6, #2563eb);
+        }
+
+        .stat-icon.success {
+            background: linear-gradient(135deg, #10b981, #059669);
+        }
+
+        .stat-count {
+            font-size: 32px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #0c4a6e, #06b6d4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .stat-label {
+            color: #64748b;
+            font-size: 13px;
+            font-weight: 600;
+            margin-top: 5px;
+        }
+
+        /* Filter Bar */
+        .filter-bar {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            padding: 20px;
+            border-radius: 24px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+            margin-bottom: 25px;
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            align-items: center;
+            border: 1px solid rgba(255, 255, 255, 0.8);
+        }
+
+        .filter-bar select,
+        .filter-bar input {
+            padding: 12px 18px;
+            border: 2px solid rgba(14, 116, 144, 0.2);
+            border-radius: 14px;
+            font-size: 14px;
+            background: white;
+            transition: all 0.3s;
+            font-weight: 500;
+            outline: none;
+        }
+
+        .filter-bar select:focus,
+        .filter-bar input:focus {
+            outline: none;
+            border-color: #0e7490;
+            box-shadow: 0 0 0 4px rgba(14, 116, 144, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .filter-bar .btn {
+            padding: 12px 24px;
+            border-radius: 14px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            outline: none;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #0e7490, #06b6d4);
+            color: white;
+            box-shadow: 0 4px 15px rgba(14, 116, 144, 0.3);
+        }
+
+        .btn-primary:hover, .btn-primary:focus {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(14, 116, 144, 0.4);
+        }
+
+        .btn-secondary {
+            background: rgba(100, 116, 139, 0.1);
+            color: #64748b;
+            border: 2px solid rgba(100, 116, 139, 0.2);
+        }
+
+        .btn-secondary:hover, .btn-secondary:focus {
+            background: rgba(100, 116, 139, 0.2);
+            transform: translateY(-2px);
+        }
+
+        /* Notification List */
+        .notification-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .notification-item {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            padding: 24px;
+            border-radius: 20px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border-left: 5px solid;
+            display: flex;
+            gap: 20px;
+            position: relative;
+            cursor: pointer;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            outline: none;
+        }
+
+        .notification-item:focus {
+            box-shadow: 0 0 0 3px rgba(6, 182, 212, 0.5);
+        }
+
+        .notification-item:hover, .notification-item:focus {
+            transform: translateX(8px) translateY(-2px);
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12);
+        }
+
+        .notification-item.unread {
+            background: linear-gradient(135deg, rgba(6, 182, 212, 0.05), rgba(255, 255, 255, 0.95));
+            border-left-color: #06b6d4;
+        }
+
+        .notification-item.critical {
+            border-left-color: #f43f5e;
+        }
+
+        .notification-item.warning {
+            border-left-color: #f59e0b;
+        }
+
+        .notification-item.info {
+            border-left-color: #3b82f6;
+        }
+
+        .notification-item.success {
+            border-left-color: #10b981;
+        }
+
+        .notification-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            flex-shrink: 0;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+
+        .notification-item:hover .notification-icon, .notification-item:focus .notification-icon {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .notification-icon.critical {
+            background: linear-gradient(135deg, rgba(244, 63, 94, 0.15), rgba(225, 29, 72, 0.15));
+        }
+
+        .notification-icon.warning {
+            background: linear-gradient(135deg, rgba(245, 158, 11, 0.15), rgba(217, 119, 6, 0.15));
+        }
+
+        .notification-icon.info {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.15), rgba(37, 99, 235, 0.15));
+        }
+
+        .notification-icon.success {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.15), rgba(5, 150, 105, 0.15));
+        }
+
+        .notification-content {
+            flex: 1;
+        }
+
+        .notification-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 10px;
+        }
+
+        .notification-title {
+            color: #0c4a6e;
+            font-size: 17px;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .notification-category {
+            display: inline-block;
+            padding: 5px 12px;
+            border-radius: 10px;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .category-stock {
+            background: linear-gradient(135deg, rgba(244, 63, 94, 0.1), rgba(244, 63, 94, 0.05));
+            color: #e11d48;
+            border: 1px solid rgba(244, 63, 94, 0.2);
+        }
+
+        .category-order {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(59, 130, 246, 0.05));
+            color: #2563eb;
+            border: 1px solid rgba(59, 130, 246, 0.2);
+        }
+
+        .category-payment {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(16, 185, 129, 0.05));
+            color: #059669;
+            border: 1px solid rgba(16, 185, 129, 0.2);
+        }
+
+        .category-system {
+            background: linear-gradient(135deg, rgba(100, 116, 139, 0.1), rgba(100, 116, 139, 0.05));
+            color: #475569;
+            border: 1px solid rgba(100, 116, 139, 0.2);
+        }
+
+        .category-alert {
+            background: linear-gradient(135deg, rgba(245, 158, 11, 0.1), rgba(245, 158, 11, 0.05));
+            color: #d97706;
+            border: 1px solid rgba(245, 158, 11, 0.2);
+        }
+
+        .notification-message {
+            color: #64748b;
+            font-size: 14px;
+            line-height: 1.7;
+            margin-bottom: 12px;
+        }
+
+        .notification-message strong {
+            color: #0c4a6e;
+            font-weight: 700;
+        }
+
+        .notification-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            padding-top: 12px;
+            border-top: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .notification-time {
+            color: #94a3b8;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-weight: 500;
+        }
+
+        .notification-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .action-btn {
+            padding: 8px 16px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: none;
+            outline: none;
+        }
+
+        .action-btn.view {
+            background: linear-gradient(135deg, rgba(14, 116, 144, 0.1), rgba(14, 116, 144, 0.05));
+            color: #0e7490;
+            border: 1px solid rgba(14, 116, 144, 0.2);
+        }
+
+        .action-btn.view:hover, .action-btn.view:focus {
+            background: linear-gradient(135deg, rgba(14, 116, 144, 0.2), rgba(14, 116, 144, 0.1));
+            transform: translateY(-2px);
+        }
+
+        .action-btn.dismiss {
+            background: linear-gradient(135deg, rgba(100, 116, 139, 0.1), rgba(100, 116, 139, 0.05));
+            color: #64748b;
+            border: 1px solid rgba(100, 116, 139, 0.2);
+        }
+
+        .action-btn.dismiss:hover, .action-btn.dismiss:focus {
+            background: linear-gradient(135deg, rgba(100, 116, 139, 0.2), rgba(100, 116, 139, 0.1));
+            transform: translateY(-2px);
+        }
+
+        .unread-indicator {
+            position: absolute;
+            top: 24px;
+            right: 24px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #06b6d4, #22d3ee);
+            box-shadow: 0 0 0 4px rgba(6, 182, 212, 0.2);
+            animation: pulse-indicator 2s infinite;
+        }
+
+        @keyframes pulse-indicator {
+            0%, 100% {
+                box-shadow: 0 0 0 4px rgba(6, 182, 212, 0.2);
+                transform: scale(1);
+            }
+            50% {
+                box-shadow: 0 0 0 8px rgba(6, 182, 212, 0.1);
+                transform: scale(1.1);
+            }
+        }
+
+        /* Empty State */
+        .empty-state {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            padding: 80px 40px;
+            border-radius: 24px;
+            text-align: center;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+        }
+
+        .empty-state-icon {
+            font-size: 100px;
+            margin-bottom: 24px;
+            opacity: 0.4;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .empty-state h3 {
+            color: #0c4a6e;
+            font-size: 24px;
+            margin-bottom: 12px;
+            font-weight: 700;
+        }
+
+        .empty-state p {
+            color: #64748b;
+            font-size: 15px;
+        }
+
+        /* Overlay */
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(10, 37, 64, 0.8);
+            backdrop-filter: blur(8px);
+            z-index: 999;
+            transition: opacity 0.3s;
+        }
+
+        .overlay.active {
+            display: block;
+            animation: fadeIn 0.3s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(10, 37, 64, 0.8);
+            backdrop-filter: blur(8px);
+            z-index: 2000;
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        .modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.3s;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 24px;
+            padding: 40px;
+            max-width: 650px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 24px 80px rgba(0, 0, 0, 0.3);
+            animation: modalSlideIn 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        @keyframes modalSlideIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9) translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid rgba(14, 116, 144, 0.1);
+        }
+
+        .modal-header h3 {
+            color: #0c4a6e;
+            font-size: 24px;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .close-modal {
+            background: rgba(244, 63, 94, 0.1);
+            border: 1px solid rgba(244, 63, 94, 0.2);
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 20px;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #f43f5e;
+            outline: none;
+        }
+
+        .close-modal:hover, .close-modal:focus {
+            background: rgba(244, 63, 94, 0.2);
+            transform: rotate(90deg) scale(1.1);
+        }
+
+        .detail-item {
+            padding: 18px 0;
+            border-bottom: 1px solid rgba(14, 116, 144, 0.1);
+            display: flex;
+            align-items: start;
+            gap: 15px;
+            transition: background 0.3s;
+        }
+
+        .detail-item:hover {
+            background: rgba(6, 182, 212, 0.03);
+            padding-left: 10px;
+            margin-left: -10px;
+            border-radius: 12px;
+        }
+
+        .detail-item:last-child {
+            border-bottom: none;
+        }
+
+        .detail-item .icon {
+            font-size: 22px;
+            width: 32px;
+            text-align: center;
+            flex-shrink: 0;
+        }
+
+        .detail-item-content {
+            flex: 1;
+        }
+
+        .detail-label {
+            color: #94a3b8;
+            font-size: 12px;
+            margin-bottom: 6px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .detail-value {
+            color: #0c4a6e;
+            font-size: 16px;
+            font-weight: 700;
+        }
+
+        /* Search Bar */
+        .search-bar {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            padding: 20px;
+            border-radius: 24px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+            margin-bottom: 25px;
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            border: 1px solid rgba(255, 255, 255, 0.8);
+        }
+
+        .search-bar input {
+            flex: 1;
+            padding: 12px 18px;
+            border: 2px solid rgba(14, 116, 144, 0.2);
+            border-radius: 14px;
+            font-size: 14px;
+            background: white;
+            transition: all 0.3s;
+            font-weight: 500;
+            outline: none;
+        }
+
+        .search-bar input:focus {
+            border-color: #0e7490;
+            box-shadow: 0 0 0 4px rgba(14, 116, 144, 0.1);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(-100%);
+            }
+
+            .sidebar.active {
+                transform: translateX(0);
+            }
+
+            .main-content {
+                margin-left: 0;
+                padding: 18px;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .filter-bar, .search-bar {
+                flex-direction: column;
+            }
+
+            .filter-bar select,
+            .filter-bar input,
+            .filter-bar .btn,
+            .search-bar input {
+                width: 100%;
+            }
+
+            .notification-item {
+                flex-direction: column;
+            }
+
+            .modal-content {
+                padding: 30px;
+            }
+
+            .header-left h1 {
+                font-size: 24px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stat-card {
+                padding: 20px;
+            }
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 12px;
+            height: 12px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, #0e7490, #06b6d4);
+            border-radius: 10px;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(180deg, #06b6d4, #22d3ee);
+        }
+
+        /* Toast Notification */
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+            padding: 18px 28px;
+            border-radius: 16px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            z-index: 10000;
+            animation: slideIn 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            font-weight: 600;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(400px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        .toast.error {
+            background: linear-gradient(135deg, #f43f5e, #e11d48);
+        }
+
+        @keyframes slideOut {
+            from {
+                transform: translateX(0);
+                opacity: 1;
+            }
+            to {
+                transform: translateX(400px);
+                opacity: 0;
+            }
+        }
+
+        /* Skip to main content link for accessibility */
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 6px;
+            background: #0e7490;
+            color: white;
+            padding: 8px;
+            text-decoration: none;
+            border-radius: 4px;
+            z-index: 10000;
+            transition: top 0.3s;
+        }
+
+        .skip-link:focus {
+            top: 6px;
+        }
+    </style>
+</head>
+
+<body>
+    <a href="#mainContent" class="skip-link">Langsung ke konten utama</a>
+    
+    <div class="overlay" id="overlay"></div>
+
+     <aside class="sidebar" id="sidebar">
+        <div class="logo-section">
+            <span class="icon">🎣</span>
+            <div>
+                <h2>Mekar Jaya</h2>
+                <span class="badge">ADMIN</span>
+            </div>
+        </div>
+        <a href="#" class="menu-item " onclick="location.href='../dashboard/kasir.html'">
+            <span class="icon">🖥️</span>
+            <span>Kasir</span>
+        </a>
+        <div class="menu-section">
+            <div class="menu-label">Menu Utama</div>
+            <a href="#" class="menu-item " onclick="location.href='../dashboard/dashboard.html'">
+                <span class="icon">📊</span>
+                <span>Dashboard</span>
+            </a>
+            <a href="../dashboard/master_data.html" class="menu-item" data-loading="true">
+                <span class="icon">🧾</span>
+                <span>Master Data</span>
+            </a>
+            <a href="#" class="menu-item">
+                <span class="icon">🚚</span>
+                <span>Barang Masuk</span>
+            </a>
+            <a href="#" class="menu-item">
+                <span class="icon">📦</span>
+                <span>Barang Keluar</span>
+                <span class="badge">8</span>
+            </a>
+            <a href="#" class="menu-item">
+                <span class="icon">📝</span>
+                <span>Generate Laporan</span>
+            </a>
+            <a href="#" class="menu-item">
+                <span class="icon">📜</span>
+                <span>Riwayat Transaksi</span>
+            </a>
+        </div>
+
+        <div class="menu-section">
+            <div class="menu-label">Manajemen</div>
+            <a href="#" class="menu-item">
+                <span class="icon">⚙️</span>
+                <span>Pengaturan</span>
+            </a>
+            <a href="#" class="menu-item active">
+                <span class="icon">🔔</span>
+                <span>Notifikasi</span>
+            </a>
+            <a href="#" class="menu-item" onclick="location.href='../pages/login.html'">
+                <span class="icon">🚪</span>
+                <span>Logout</span>
+            </a>
+
+        </div>
+    </aside>
+
+    <main class="main-content" id="mainContent" tabindex="-1">
+        <div class="header">
+            <div class="header-left">
+                <h1>Pusat Notifikasi</h1>
+                <p>Kelola semua notifikasi sistem <span style="animation: pulse-notification 2s ease-in-out infinite; display: inline-block;" aria-hidden="true">🔔</span></p>
+            </div>
+            <button class="menu-toggle" id="menuToggle" aria-label="Buka/tutup menu">☰</button>
+        </div>
+
+        <div class="stats-grid" role="region" aria-label="Statistik notifikasi">
+            <div class="stat-card active" data-filter="all" onclick="filterNotifications('all')" tabindex="0" role="button" aria-label="Lihat semua notifikasi">
+                <div class="stat-header">
+                    <div class="stat-icon all" aria-hidden="true">🔔</div>
+                </div>
+                <div class="stat-count" id="countAll">12</div>
+                <div class="stat-label">Semua Notifikasi</div>
+            </div>
+
+            <div class="stat-card" data-filter="critical" onclick="filterNotifications('critical')" tabindex="0" role="button" aria-label="Lihat notifikasi kritis">
+                <div class="stat-header">
+                    <div class="stat-icon critical" aria-hidden="true">🚨</div>
+                </div>
+                <div class="stat-count" id="countCritical">3</div>
+                <div class="stat-label">Kritis</div>
+            </div>
+
+            <div class="stat-card" data-filter="warning" onclick="filterNotifications('warning')" tabindex="0" role="button" aria-label="Lihat notifikasi peringatan">
+                <div class="stat-header">
+                    <div class="stat-icon warning" aria-hidden="true">⚠️</div>
+                </div>
+                <div class="stat-count" id="countWarning">5</div>
+                <div class="stat-label">Peringatan</div>
+            </div>
+
+            <div class="stat-card" data-filter="info" onclick="filterNotifications('info')" tabindex="0" role="button" aria-label="Lihat notifikasi informasi">
+                <div class="stat-header">
+                    <div class="stat-icon info" aria-hidden="true">ℹ️</div>
+                </div>
+                <div class="stat-count" id="countInfo">3</div>
+                <div class="stat-label">Informasi</div>
+            </div>
+
+            <div class="stat-card" data-filter="success" onclick="filterNotifications('success')" tabindex="0" role="button" aria-label="Lihat notifikasi sukses">
+                <div class="stat-header">
+                    <div class="stat-icon success" aria-hidden="true">✅</div>
+                </div>
+                <div class="stat-count" id="countSuccess">1</div>
+                <div class="stat-label">Sukses</div>
+            </div>
+        </div>
+
+        <div class="search-bar">
+            <input type="text" id="searchInput" placeholder="Cari notifikasi..." aria-label="Cari notifikasi" oninput="applyFilters()">
+        </div>
+
+        <div class="filter-bar" role="toolbar" aria-label="Filter notifikasi">
+            <select id="categoryFilter" onchange="applyFilters()" aria-label="Filter berdasarkan kategori">
+                <option value="">Semua Kategori</option>
+                <option value="stock">Stok Barang</option>
+                <option value="order">Pesanan</option>
+                <option value="payment">Pembayaran</option>
+                <option value="system">Sistem</option>
+                <option value="alert">Peringatan</option>
+            </select>
+
+            <select id="statusFilter" onchange="applyFilters()" aria-label="Filter berdasarkan status">
+                <option value="">Semua Status</option>
+                <option value="unread">Belum Dibaca</option>
+                <option value="read">Sudah Dibaca</option>
+            </select>
+
+            <input type="date" id="dateFilter" onchange="applyFilters()" aria-label="Filter berdasarkan tanggal">
+
+            <button class="btn btn-primary" onclick="markAllAsRead()" aria-label="Tandai semua notifikasi sebagai sudah dibaca">
+                <span aria-hidden="true">✓</span>
+                <span>Tandai Semua Dibaca</span>
+            </button>
+
+            <button class="btn btn-secondary" onclick="clearAllNotifications()" aria-label="Hapus semua notifikasi">
+                <span aria-hidden="true">🗑️</span>
+                <span>Hapus Semua</span>
+            </button>
+        </div>
+
+        <div class="notification-list" id="notificationList" role="list" aria-label="Daftar notifikasi">
+            <!-- Notifikasi items akan ditampilkan di sini -->
+        </div>
+
+        <div class="empty-state" id="emptyState" style="display: none;" aria-live="polite">
+            <div class="empty-state-icon" aria-hidden="true">🔔</div>
+            <h3>Tidak Ada Notifikasi</h3>
+            <p>Semua notifikasi telah Anda baca atau belum ada notifikasi baru</p>
+        </div>
+    </main>
+
+    <div class="modal" id="detailModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modalTitle">📋 Detail Notifikasi</h3>
+                <button class="close-modal" onclick="closeModal()" aria-label="Tutup dialog">✕</button>
+            </div>
+
+            <div id="modalDetailContent"></div>
+
+            <div class="notification-actions" style="margin-top: 30px; justify-content: flex-end; display: flex;">
+                <button class="btn btn-secondary" onclick="closeModal()" style="margin-right: 10px;" aria-label="Tutup dialog">✕ Tutup</button>
+                <button class="btn btn-primary" onclick="takeAction()" aria-label="Ambil tindakan untuk notifikasi ini">📦 Ambil Tindakan</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Data notifikasi
+        const notifications = [
+            {
+                id: 1,
+                type: 'critical',
+                category: 'stock',
+                status: 'unread',
+                title: 'Stok Kritis - Joran Carbon Pro X1',
+                message: '⚠️ PERHATIAN! Stok produk "Joran Carbon Pro X1" tersisa <strong>3 unit</strong> dan sudah mencapai batas kritis. Segera lakukan pemesanan ulang untuk menghindari kekosongan stok. Produk ini merupakan item terlaris dengan rata-rata penjualan 15 unit/minggu.',
+                time: '5 menit yang lalu',
+                icon: '🚨'
+            },
+            {
+                id: 2,
+                type: 'critical',
+                category: 'stock',
+                status: 'unread',
+                title: 'Stok Habis - Umpan Set Premium',
+                message: '❌ STOK HABIS! Produk "Umpan Set Premium" sudah tidak tersedia di gudang. Terdapat <strong>8 pesanan pending</strong> yang menunggu produk ini. Hubungi supplier segera!',
+                time: '15 menit yang lalu',
+                icon: '📦'
+            },
+            {
+                id: 3,
+                type: 'critical',
+                category: 'system',
+                status: 'unread',
+                title: 'Percobaan Login Gagal Berulang',
+                message: '🔒 PERINGATAN KEAMANAN! Terdeteksi <strong>5 kali percobaan login gagal</strong> pada akun "budi.santoso@mekarjaya.com" dari IP 192.168.1.100. Akun telah dikunci sementara untuk keamanan.',
+                time: '1 jam yang lalu',
+                icon: '🔒'
+            },
+            {
+                id: 4,
+                type: 'warning',
+                category: 'stock',
+                status: 'unread',
+                title: 'Stok Menipis - Reel Shimano 5000',
+                message: 'Stok "Reel Shimano 5000" tersisa <strong>12 unit</strong>. Dengan rata-rata penjualan 8 unit/minggu, diperkirakan stok akan habis dalam 10 hari. Pertimbangkan untuk melakukan restocking.',
+                time: '2 jam yang lalu',
+                icon: '⚠️'
+            },
+            {
+                id: 5,
+                type: 'warning',
+                category: 'order',
+                status: 'unread',
+                title: 'Pesanan Menunggu Konfirmasi',
+                message: 'Pesanan <strong>#ORD-2589</strong> dari "Siti Nurhaliza" senilai <strong>Rp 1.850.000</strong> sudah menunggu konfirmasi selama 3 jam. Segera proses untuk menghindari pembatalan otomatis.',
+                time: '3 jam yang lalu',
+                icon: '📋'
+            },
+            {
+                id: 6,
+                type: 'warning',
+                category: 'alert',
+                status: 'read',
+                title: 'Produk Mendekati Kadaluarsa',
+                message: 'Terdapat <strong>5 produk umpan</strong> yang akan kadaluarsa dalam 30 hari. Total nilai: <strong>Rp 2.500.000</strong>. Pertimbangkan diskon atau promosi untuk mempercepat penjualan.',
+                time: '5 jam yang lalu',
+                icon: '📅'
+            },
+            {
+                id: 7,
+                type: 'warning',
+                category: 'stock',
+                status: 'read',
+                title: 'Target Stok Minimum - 3 Produk',
+                message: '3 produk telah mencapai batas stok minimum yang ditetapkan: Tas Pancing Waterproof (15 unit), Kail Set Professional (20 unit), dan Senar Premium 100m (8 unit).',
+                time: '1 hari yang lalu',
+                icon: '🎯'
+            },
+            {
+                id: 8,
+                type: 'warning',
+                category: 'system',
+                status: 'read',
+                title: 'Backup Database Diperlukan',
+                message: 'Backup database terakhir dilakukan 7 hari yang lalu. Disarankan untuk melakukan backup rutin minimal 1x seminggu untuk keamanan data.',
+                time: '1 hari yang lalu',
+                icon: '💾'
+            },
+            {
+                id: 9,
+                type: 'info',
+                category: 'order',
+                status: 'unread',
+                title: 'Pesanan Baru Masuk',
+                message: 'Pesanan baru <strong>#ORD-2590</strong> dari "Ahmad Rizki" senilai <strong>Rp 3.250.000</strong> telah diterima. Produk: Joran Carbon Pro X1 (2 unit), Reel Shimano 5000 (1 unit).',
+                time: '30 menit yang lalu',
+                icon: '📦'
+            },
+            {
+                id: 10,
+                type: 'info',
+                category: 'order',
+                status: 'read',
+                title: 'Pengiriman Dalam Perjalanan',
+                message: 'Pesanan <strong>#ORD-2585</strong> telah dikirim melalui JNE dengan nomor resi <strong>JNE123456789</strong>. Estimasi sampai: 2-3 hari kerja.',
+                time: '6 jam yang lalu',
+                icon: '🚚'
+            },
+            {
+                id: 11,
+                type: 'info',
+                category: 'system',
+                status: 'read',
+                title: 'Update Sistem Tersedia',
+                message: 'Versi baru sistem (v2.5.0) telah tersedia dengan perbaikan bug dan fitur baru. Klik "Lihat Detail" untuk informasi lengkap dan panduan update.',
+                time: '2 hari yang lalu',
+                icon: '🔄'
+            },
+            {
+                id: 12,
+                type: 'success',
+                category: 'payment',
+                status: 'read',
+                title: 'Pembayaran Diterima',
+                message: 'Pembayaran untuk pesanan <strong>#ORD-2587</strong> senilai <strong>Rp 4.500.000</strong> telah berhasil diterima melalui Transfer Bank BCA. Dana akan masuk ke rekening dalam 1x24 jam.',
+                time: '4 jam yang lalu',
+                icon: '💰'
+            }
+        ];
+
+        // Data notifikasi detail
+        const notificationDetails = {
+            1: {
+                title: '🚨 Stok Kritis - Joran Carbon Pro X1',
+                items: [
+                    { icon: '📦', label: 'Produk', value: 'Joran Carbon Pro X1' },
+                    { icon: '🔢', label: 'Stok Saat Ini', value: '3 unit', color: '#f43f5e' },
+                    { icon: '⚠️', label: 'Batas Minimum', value: '10 unit' },
+                    { icon: '📊', label: 'Rata-rata Penjualan', value: '15 unit/minggu' },
+                    { icon: '⏰', label: 'Estimasi Habis', value: '1-2 hari' },
+                    { icon: '💰', label: 'Harga Satuan', value: 'Rp 1.250.000' },
+                    { icon: '👤', label: 'Supplier', value: 'PT. Mancing Sejahtera' },
+                    { icon: '📱', label: 'Kontak Supplier', value: '+62 821-xxxx-xxxx' }
+                ]
+            },
+            2: {
+                title: '📦 Stok Habis - Umpan Set Premium',
+                items: [
+                    { icon: '📦', label: 'Produk', value: 'Umpan Set Premium' },
+                    { icon: '🔢', label: 'Stok Saat Ini', value: '0 unit', color: '#f43f5e' },
+                    { icon: '📋', label: 'Pesanan Pending', value: '8 pesanan' },
+                    { icon: '💰', label: 'Total Nilai Pending', value: 'Rp 4.800.000' },
+                    { icon: '👤', label: 'Supplier', value: 'CV. Umpan Jaya' },
+                    { icon: '📱', label: 'Kontak Supplier', value: '+62 822-xxxx-xxxx' },
+                    { icon: '⏰', label: 'Lead Time', value: '3-5 hari kerja' }
+                ]
+            },
+            3: {
+                title: '🔒 Percobaan Login Gagal Berulang',
+                items: [
+                    { icon: '👤', label: 'Akun', value: 'budi.santoso@mekarjaya.com' },
+                    { icon: '🌐', label: 'IP Address', value: '192.168.1.100' },
+                    { icon: '🔢', label: 'Jumlah Percobaan', value: '5 kali', color: '#f43f5e' },
+                    { icon: '⏰', label: 'Waktu Terakhir', value: '1 jam yang lalu' },
+                    { icon: '🔒', label: 'Status Akun', value: 'Dikunci Sementara' },
+                    { icon: '⏱️', label: 'Durasi Kunci', value: '24 jam' },
+                    { icon: '✉️', label: 'Email Notifikasi', value: 'Sudah Terkirim' }
+                ]
+            },
+            4: {
+                title: '⚠️ Stok Menipis - Reel Shimano 5000',
+                items: [
+                    { icon: '📦', label: 'Produk', value: 'Reel Shimano 5000' },
+                    { icon: '🔢', label: 'Stok Saat Ini', value: '12 unit' },
+                    { icon: '⚠️', label: 'Batas Minimum', value: '15 unit' },
+                    { icon: '📊', label: 'Rata-rata Penjualan', value: '8 unit/minggu' },
+                    { icon: '⏰', label: 'Estimasi Habis', value: '10 hari' },
+                    { icon: '💰', label: 'Harga Satuan', value: 'Rp 875.000' }
+                ]
+            },
+            5: {
+                title: '📋 Pesanan Menunggu Konfirmasi',
+                items: [
+                    { icon: '📝', label: 'No. Pesanan', value: '#ORD-2589' },
+                    { icon: '👤', label: 'Pelanggan', value: 'Siti Nurhaliza' },
+                    { icon: '💰', label: 'Total Nilai', value: 'Rp 1.850.000' },
+                    { icon: '⏰', label: 'Waktu Tunggu', value: '3 jam' },
+                    { icon: '📦', label: 'Jumlah Item', value: '5 produk' },
+                    { icon: '🚚', label: 'Metode Pengiriman', value: 'JNE Regular' },
+                    { icon: '⏱️', label: 'Batas Konfirmasi', value: '3 jam lagi' }
+                ]
+            },
+            6: {
+                title: '📅 Produk Mendekati Kadaluarsa',
+                items: [
+                    { icon: '📦', label: 'Jumlah Produk', value: '5 produk umpan' },
+                    { icon: '💰', label: 'Total Nilai', value: 'Rp 2.500.000' },
+                    { icon: '⏰', label: 'Sisa Waktu', value: '30 hari' },
+                    { icon: '📊', label: 'Rekomendasi', value: 'Diskon 30-50%' },
+                    { icon: '🎯', label: 'Target Penjualan', value: 'Dalam 2 minggu' }
+                ]
+            },
+            7: {
+                title: '🎯 Target Stok Minimum - 3 Produk',
+                items: [
+                    { icon: '📦', label: 'Produk 1', value: 'Tas Pancing Waterproof (15 unit)' },
+                    { icon: '📦', label: 'Produk 2', value: 'Kail Set Professional (20 unit)' },
+                    { icon: '📦', label: 'Produk 3', value: 'Senar Premium 100m (8 unit)' },
+                    { icon: '💰', label: 'Total Nilai', value: 'Rp 3.200.000' },
+                    { icon: '📊', label: 'Status', value: 'Perlu Restocking' }
+                ]
+            },
+            8: {
+                title: '💾 Backup Database Diperlukan',
+                items: [
+                    { icon: '⏰', label: 'Backup Terakhir', value: '7 hari yang lalu' },
+                    { icon: '📊', label: 'Ukuran Database', value: '2.4 GB' },
+                    { icon: '💾', label: 'Lokasi Backup', value: 'Cloud Storage' },
+                    { icon: '🔒', label: 'Enkripsi', value: 'AES-256' },
+                    { icon: '⏱️', label: 'Estimasi Durasi', value: '15-20 menit' }
+                ]
+            },
+            9: {
+                title: '📦 Pesanan Baru Masuk',
+                items: [
+                    { icon: '📝', label: 'No. Pesanan', value: '#ORD-2590' },
+                    { icon: '👤', label: 'Pelanggan', value: 'Ahmad Rizki' },
+                    { icon: '💰', label: 'Total Nilai', value: 'Rp 3.250.000' },
+                    { icon: '📦', label: 'Item 1', value: 'Joran Carbon Pro X1 (2 unit)' },
+                    { icon: '📦', label: 'Item 2', value: 'Reel Shimano 5000 (1 unit)' },
+                    { icon: '⏰', label: 'Waktu Pesanan', value: '30 menit yang lalu' }
+                ]
+            },
+            10: {
+                title: '🚚 Pengiriman Dalam Perjalanan',
+                items: [
+                    { icon: '📝', label: 'No. Pesanan', value: '#ORD-2585' },
+                    { icon: '🚚', label: 'Kurir', value: 'JNE' },
+                    { icon: '📋', label: 'No. Resi', value: 'JNE123456789' },
+                    { icon: '⏰', label: 'Estimasi Sampai', value: '2-3 hari kerja' },
+                    { icon: '📍', label: 'Status', value: 'Dalam perjalanan' }
+                ]
+            },
+            11: {
+                title: '🔄 Update Sistem Tersedia',
+                items: [
+                    { icon: '🔢', label: 'Versi Baru', value: 'v2.5.0' },
+                    { icon: '🔢', label: 'Versi Saat Ini', value: 'v2.4.3' },
+                    { icon: '✨', label: 'Fitur Baru', value: '15 fitur & perbaikan' },
+                    { icon: '🐛', label: 'Bug Fixes', value: '23 perbaikan' },
+                    { icon: '⏱️', label: 'Durasi Update', value: '10-15 menit' },
+                    { icon: '⏰', label: 'Waktu Rekomendasi', value: 'Di luar jam kerja' }
+                ]
+            },
+            12: {
+                title: '💰 Pembayaran Diterima',
+                items: [
+                    { icon: '📝', label: 'No. Pesanan', value: '#ORD-2587' },
+                    { icon: '💰', label: 'Jumlah', value: 'Rp 4.500.000' },
+                    { icon: '🏦', label: 'Metode', value: 'Transfer Bank BCA' },
+                    { icon: '⏰', label: 'Waktu Transfer', value: '4 jam yang lalu' },
+                    { icon: '✅', label: 'Status', value: 'Terverifikasi' },
+                    { icon: '📅', label: 'Dana Masuk', value: '1x24 jam' }
+                ]
+            }
+        };
+
+        // Inisialisasi
+        let currentFilter = 'all';
+        let filteredNotifications = [...notifications];
+
+        // Render notifikasi
+        function renderNotifications() {
+            const notificationList = document.getElementById('notificationList');
+            notificationList.innerHTML = '';
+
+            if (filteredNotifications.length === 0) {
+                document.getElementById('emptyState').style.display = 'block';
+                notificationList.style.display = 'none';
+                return;
+            }
+
+            document.getElementById('emptyState').style.display = 'none';
+            notificationList.style.display = 'flex';
+
+            filteredNotifications.forEach(notif => {
+                const categoryClass = `category-${notif.category}`;
+                const categoryText = getCategoryText(notif.category);
+                
+                const notificationItem = document.createElement('div');
+                notificationItem.className = `notification-item ${notif.type} ${notif.status === 'unread' ? 'unread' : ''}`;
+                notificationItem.setAttribute('data-type', notif.type);
+                notificationItem.setAttribute('data-category', notif.category);
+                notificationItem.setAttribute('data-status', notif.status);
+                notificationItem.setAttribute('data-id', notif.id);
+                notificationItem.tabIndex = 0;
+                notificationItem.setAttribute('role', 'button');
+                notificationItem.setAttribute('aria-label', `${notif.title}. ${notif.status === 'unread' ? 'Belum dibaca' : 'Sudah dibaca'}`);
+
+                notificationItem.innerHTML = `
+                    ${notif.status === 'unread' ? '<div class="unread-indicator" aria-hidden="true"></div>' : ''}
+                    <div class="notification-icon ${notif.type}" aria-hidden="true">${notif.icon}</div>
+                    <div class="notification-content">
+                        <div class="notification-header">
+                            <div>
+                                <div class="notification-title">${notif.title}</div>
+                                <span class="notification-category ${categoryClass}">${categoryText}</span>
+                            </div>
+                        </div>
+                        <div class="notification-message">${notif.message}</div>
+                        <div class="notification-footer">
+                            <div class="notification-time">
+                                <span aria-hidden="true">🕐</span>
+                                <span>${notif.time}</span>
+                            </div>
+                            <div class="notification-actions">
+                                <button class="action-btn view" onclick="viewNotificationDetail(${notif.id})" aria-label="Lihat detail notifikasi ${notif.title}">👁️ Lihat Detail</button>
+                                <button class="action-btn dismiss" onclick="dismissNotification(${notif.id}, event)" aria-label="Tandai notifikasi ${notif.title} sebagai sudah dibaca">✓ Tandai Dibaca</button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+
+                // Tambahkan event listener untuk klik dan keyboard
+                notificationItem.addEventListener('click', function(e) {
+                    if (!e.target.closest('button')) {
+                        if (this.classList.contains('unread')) {
+                            dismissNotification(notif.id);
+                        }
+                        viewNotificationDetail(notif.id);
+                    }
+                });
+
+                notificationItem.addEventListener('keydown', function(e) {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        if (this.classList.contains('unread')) {
+                            dismissNotification(notif.id);
+                        }
+                        viewNotificationDetail(notif.id);
+                    }
+                });
+
+                notificationList.appendChild(notificationItem);
+            });
+
+            updateCounts();
+        }
+
+        // Helper function untuk mendapatkan teks kategori
+        function getCategoryText(category) {
+            const categories = {
+                'stock': 'Stok Barang',
+                'order': 'Pesanan',
+                'payment': 'Pembayaran',
+                'system': 'Sistem',
+                'alert': 'Peringatan'
+            };
+            return categories[category] || category;
+        }
+
+        // Filter Notifications
+        function filterNotifications(type) {
+            currentFilter = type;
+            
+            document.querySelectorAll('.stat-card').forEach(card => {
+                card.classList.remove('active');
+            });
+            event.currentTarget.classList.add('active');
+
+            applyFilters();
+        }
+
+        function applyFilters() {
+            const categoryFilter = document.getElementById('categoryFilter').value;
+            const statusFilter = document.getElementById('statusFilter').value;
+            const searchInput = document.getElementById('searchInput').value.toLowerCase();
+
+            filteredNotifications = notifications.filter(notif => {
+                const matchType = currentFilter === 'all' || notif.type === currentFilter;
+                const matchCategory = !categoryFilter || notif.category === categoryFilter;
+                const matchStatus = !statusFilter || notif.status === statusFilter;
+                const matchSearch = !searchInput || 
+                    notif.title.toLowerCase().includes(searchInput) || 
+                    notif.message.toLowerCase().includes(searchInput);
+
+                return matchType && matchCategory && matchStatus && matchSearch;
+            });
+
+            renderNotifications();
+        }
+
+        // Mark All as Read
+        function markAllAsRead() {
+            if (confirm('Tandai semua notifikasi sebagai sudah dibaca?')) {
+                notifications.forEach(notif => {
+                    notif.status = 'read';
+                });
+                
+                document.getElementById('sidebarBadge').textContent = '0';
+                applyFilters();
+                showToast('✅ Semua notifikasi telah ditandai sebagai sudah dibaca!');
+            }
+        }
+
+        // Clear All Notifications
+        function clearAllNotifications() {
+            if (confirm('⚠️ Hapus semua notifikasi?\n\nTindakan ini tidak dapat dibatalkan!')) {
+                notifications.length = 0;
+                filteredNotifications = [];
+                renderNotifications();
+                
+                document.getElementById('countAll').textContent = '0';
+                document.getElementById('countCritical').textContent = '0';
+                document.getElementById('countWarning').textContent = '0';
+                document.getElementById('countInfo').textContent = '0';
+                document.getElementById('countSuccess').textContent = '0';
+                document.getElementById('sidebarBadge').textContent = '0';
+                
+                showToast('🗑️ Semua notifikasi telah dihapus!', 'error');
+            }
+        }
+
+        // View Notification Detail
+        function viewNotificationDetail(id) {
+            const detail = notificationDetails[id];
+            if (!detail) return;
+
+            document.getElementById('modalTitle').innerHTML = detail.title;
+            
+            let html = '';
+            detail.items.forEach(item => {
+                html += `
+                    <div class="detail-item">
+                        <span class="icon" aria-hidden="true">${item.icon}</span>
+                        <div class="detail-item-content">
+                            <div class="detail-label">${item.label}</div>
+                            <div class="detail-value" style="color: ${item.color || '#0c4a6e'}">${item.value}</div>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            document.getElementById('modalDetailContent').innerHTML = html;
+            document.getElementById('detailModal').classList.add('active');
+            
+            // Fokus ke tombol tutup modal untuk aksesibilitas
+            setTimeout(() => {
+                document.querySelector('.close-modal').focus();
+            }, 100);
+        }
+
+        // Close Modal
+        function closeModal() {
+            document.getElementById('detailModal').classList.remove('active');
+        }
+
+        // Dismiss Notification
+        function dismissNotification(id, event) {
+            if (event) event.stopPropagation();
+            
+            const notifIndex = notifications.findIndex(n => n.id === id);
+            if (notifIndex !== -1 && notifications[notifIndex].status === 'unread') {
+                notifications[notifIndex].status = 'read';
+                applyFilters();
+                showToast('✓ Notifikasi ditandai sebagai sudah dibaca');
+            }
+        }
+
+        // Update Counts
+        function updateCounts() {
+            const all = notifications.length;
+            const unread = notifications.filter(n => n.status === 'unread').length;
+            const critical = notifications.filter(n => n.type === 'critical').length;
+            const warning = notifications.filter(n => n.type === 'warning').length;
+            const info = notifications.filter(n => n.type === 'info').length;
+            const success = notifications.filter(n => n.type === 'success').length;
+
+            document.getElementById('countAll').textContent = all;
+            document.getElementById('countCritical').textContent = critical;
+            document.getElementById('countWarning').textContent = warning;
+            document.getElementById('countInfo').textContent = info;
+            document.getElementById('countSuccess').textContent = success;
+            document.getElementById('sidebarBadge').textContent = unread;
+        }
+
+        // Show Toast
+        function showToast(message, type = 'success') {
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            toast.innerHTML = `<span aria-hidden="true">${type === 'success' ? '✅' : '⚠️'}</span> ${message}`;
+            toast.setAttribute('aria-live', 'polite');
+            document.body.appendChild(toast);
+            
+            setTimeout(() => {
+                toast.style.animation = 'slideOut 0.4s cubic-bezier(0.4, 0, 0.2, 1)';
+                setTimeout(() => toast.remove(), 400);
+            }, 3000);
+        }
+
+        // Take Action
+        function takeAction() {
+            showToast('📦 Tindakan sedang diproses...');
+            closeModal();
+        }
+
+        // Logout
+        function handleLogout() {
+            if (confirm('🚪 Apakah Anda yakin ingin keluar?')) {
+                showToast('✅ Logout berhasil! Sampai jumpa! 👋');
+                setTimeout(() => {
+                    // Redirect logic here
+                }, 1500);
+            }
+        }
+
+        // Toggle Sidebar
+        const menuToggle = document.getElementById('menuToggle');
+        const sidebar = document.getElementById('sidebar');
+        const overlay = document.getElementById('overlay');
+
+        menuToggle.addEventListener('click', function() {
+            sidebar.classList.toggle('active');
+            overlay.classList.toggle('active');
+        });
+
+        overlay.addEventListener('click', function() {
+            sidebar.classList.remove('active');
+            overlay.classList.remove('active');
+        });
+
+        // Close modal on outside click
+        window.addEventListener('click', function(e) {
+            const modal = document.getElementById('detailModal');
+            if (e.target === modal) {
+                closeModal();
+            }
+        });
+
+        // Keyboard shortcuts
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeModal();
+                sidebar.classList.remove('active');
+                overlay.classList.remove('active');
+            }
+            
+            if ((e.ctrlKey || e.metaKey) && e.key === 'a') {
+                e.preventDefault();
+                markAllAsRead();
+            }
+        });
+
+        // Responsive
+        window.addEventListener('resize', function() {
+            if (window.innerWidth > 768) {
+                sidebar.classList.remove('active');
+                overlay.classList.remove('active');
+            }
+        });
+
+        // Inisialisasi saat halaman dimuat
+        window.addEventListener('load', function() {
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('dateFilter').max = today;
+            
+            // Render notifikasi pertama kali
+            renderNotifications();
+            
+            console.log('✅ Halaman Notifikasi berhasil dimuat!');
+            console.log('💡 Tips: Gunakan Ctrl/Cmd + A untuk menandai semua sebagai sudah dibaca');
+            console.log('💡 Tips: Tekan ESC untuk menutup modal');
+        });
+
+        // Auto-refresh simulation
+        setInterval(() => {
+            console.log('🔔 Memeriksa notifikasi baru...');
+        }, 60000);
+    </script>
+</body>
+</html>

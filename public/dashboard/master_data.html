@@ -1,0 +1,2106 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Master Data - Mekar Jaya</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            height: 100%;
+            overflow-x: hidden;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #0c4a6e 0%, #0e7490 50%, #06b6d4 100%);
+            background-attachment: fixed;
+        }
+
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 280px;
+            height: 100vh;
+            background: linear-gradient(180deg, #164e63 0%, #0e7490 100%);
+            padding: 25px 20px;
+            z-index: 1000;
+            transition: transform 0.3s ease;
+            overflow-y: auto;
+            box-shadow: 4px 0 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .sidebar.hidden {
+            transform: translateX(-100%);
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 20px 15px;
+            margin-bottom: 35px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .logo-section .icon {
+            font-size: 36px;
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+        }
+
+        .logo-section h2 {
+            color: white;
+            font-size: 22px;
+            font-weight: 700;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .logo-section .badge {
+            background: linear-gradient(135deg, #22d3ee, #06b6d4);
+            color: white;
+            font-size: 10px;
+            padding: 4px 10px;
+            border-radius: 8px;
+            font-weight: 700;
+            box-shadow: 0 2px 8px rgba(34, 211, 238, 0.4);
+        }
+
+        .menu-section {
+            margin-bottom: 30px;
+        }
+
+        .menu-label {
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 0 15px;
+            margin-bottom: 12px;
+        }
+
+        .menu-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 14px 18px;
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            border-radius: 15px;
+            margin-bottom: 6px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            font-size: 15px;
+            position: relative;
+        }
+
+        .menu-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 4px;
+            height: 0;
+            background: linear-gradient(180deg, #22d3ee, #06b6d4);
+            border-radius: 0 4px 4px 0;
+            transition: height 0.3s ease;
+        }
+
+        .menu-item:hover::before {
+            height: 60%;
+        }
+
+        .menu-item:hover {
+            background: rgba(255, 255, 255, 0.15);
+            color: white;
+            transform: translateX(5px);
+        }
+
+        .menu-item.active {
+            background: linear-gradient(135deg, rgba(34, 211, 238, 0.3), rgba(6, 182, 212, 0.2));
+            color: white;
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(34, 211, 238, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .menu-item.active::before {
+            height: 60%;
+        }
+
+        .menu-item .icon {
+            font-size: 22px;
+            width: 28px;
+            text-align: center;
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+        }
+
+        .menu-item .badge {
+            margin-left: auto;
+            background: linear-gradient(135deg, #f43f5e, #e11d48);
+            color: white;
+            font-size: 11px;
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-weight: 700;
+            box-shadow: 0 2px 8px rgba(244, 63, 94, 0.4);
+        }
+
+        .user-profile {
+            position: absolute;
+            bottom: 25px;
+            left: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 18px;
+            padding: 15px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .user-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #22d3ee, #06b6d4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 4px 12px rgba(34, 211, 238, 0.4);
+        }
+
+        .user-info h4 {
+            color: white;
+            font-size: 14px;
+            margin-bottom: 3px;
+            font-weight: 600;
+        }
+
+        .user-info p {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 12px;
+        }
+
+        .logout-btn {
+            margin-left: auto;
+            background: rgba(244, 63, 94, 0.2);
+            border: none;
+            color: white;
+            padding: 10px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+
+        .logout-btn:hover {
+            background: rgba(244, 63, 94, 0.4);
+            transform: scale(1.1);
+        }
+
+        .main-content {
+            margin-left: 280px;
+            padding: 25px;
+            min-height: 100vh;
+            transition: margin-left 0.3s ease;
+        }
+
+        .main-content.expanded {
+            margin-left: 0;
+        }
+
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 25px 30px;
+            border-radius: 20px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            margin-bottom: 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+
+        .header-left h1 {
+            background: linear-gradient(135deg, #0c4a6e, #06b6d4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-size: 28px;
+            margin-bottom: 6px;
+            font-weight: 800;
+        }
+
+        .header-left p {
+            color: #64748b;
+            font-size: 15px;
+        }
+
+        .header-right {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .btn-add {
+            background: linear-gradient(135deg, #0e7490, #06b6d4);
+            border: none;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 15px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(14, 116, 144, 0.3);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-add:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(14, 116, 144, 0.4);
+        }
+
+        .menu-toggle {
+            display: none;
+            background: linear-gradient(135deg, #0e7490, #06b6d4);
+            border: none;
+            color: white;
+            padding: 12px 18px;
+            border-radius: 15px;
+            cursor: pointer;
+            font-size: 20px;
+            box-shadow: 0 4px 15px rgba(14, 116, 144, 0.3);
+        }
+
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 25px;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            padding-bottom: 5px;
+        }
+
+        .tab {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(14, 116, 144, 0.2);
+            padding: 14px 28px;
+            border-radius: 15px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            color: #0c4a6e;
+            transition: all 0.3s;
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .tab:hover {
+            border-color: #0e7490;
+            transform: translateY(-2px);
+        }
+
+        .tab.active {
+            background: linear-gradient(135deg, #0e7490, #06b6d4);
+            color: white;
+            border-color: transparent;
+            box-shadow: 0 4px 15px rgba(14, 116, 144, 0.3);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 25px;
+            border-radius: 20px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            margin-bottom: 25px;
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .search-filter-group {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .search-box {
+            position: relative;
+            display: flex;
+        }
+
+        .search-box input {
+            padding: 10px 15px 10px 40px;
+            border: 2px solid rgba(14, 116, 144, 0.2);
+            border-radius: 12px;
+            width: 220px;
+            font-size: 14px;
+            transition: all 0.3s;
+            background: rgba(255, 255, 255, 0.9);
+        }
+
+        .search-box input:focus {
+            outline: none;
+            border-color: #0e7490;
+            box-shadow: 0 0 0 4px rgba(14, 116, 144, 0.1);
+            background: white;
+        }
+
+        .search-box .icon {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 16px;
+        }
+
+        .filter-btn {
+            background: rgba(14, 116, 144, 0.1);
+            border: 2px solid rgba(14, 116, 144, 0.2);
+            padding: 10px 20px;
+            border-radius: 12px;
+            font-size: 14px;
+            color: #0c4a6e;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 600;
+        }
+
+        .filter-btn:hover {
+            background: rgba(14, 116, 144, 0.15);
+            border-color: #0e7490;
+        }
+
+        .table-container {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            border-radius: 12px;
+        }
+
+        .data-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0 8px;
+            min-width: 800px;
+        }
+
+        .data-table thead tr {
+            background: linear-gradient(135deg, rgba(14, 116, 144, 0.1), rgba(6, 182, 212, 0.1));
+        }
+
+        .data-table th {
+            padding: 15px 12px;
+            text-align: left;
+            font-size: 12px;
+            font-weight: 700;
+            color: #0c4a6e;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .data-table th:first-child {
+            border-radius: 10px 0 0 10px;
+        }
+
+        .data-table th:last-child {
+            border-radius: 0 10px 10px 0;
+        }
+
+        .data-table tbody tr {
+            background: white;
+            transition: all 0.3s;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .data-table tbody tr:hover {
+            transform: translateX(5px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .data-table td {
+            padding: 18px 12px;
+            font-size: 14px;
+            color: #475569;
+            border: none;
+        }
+
+        .data-table td:first-child {
+            border-radius: 10px 0 0 10px;
+            font-weight: 600;
+            color: #0c4a6e;
+        }
+
+        .data-table td:last-child {
+            border-radius: 0 10px 10px 0;
+        }
+
+        .status-badge {
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+            display: inline-block;
+        }
+
+        .status-badge.active {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.2), rgba(5, 150, 105, 0.2));
+            color: #059669;
+        }
+
+        .status-badge.inactive {
+            background: linear-gradient(135deg, rgba(244, 63, 94, 0.2), rgba(225, 29, 72, 0.2));
+            color: #e11d48;
+        }
+
+        .status-badge.pending {
+            background: linear-gradient(135deg, rgba(245, 158, 11, 0.2), rgba(217, 119, 6, 0.2));
+            color: #d97706;
+        }
+
+        .status-badge.completed {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.2), rgba(5, 150, 105, 0.2));
+            color: #059669;
+        }
+
+        .action-btn {
+            background: rgba(14, 116, 144, 0.1);
+            border: none;
+            padding: 8px 12px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: all 0.3s;
+            margin: 0 3px;
+        }
+
+        .action-btn:hover {
+            background: linear-gradient(135deg, #0e7490, #06b6d4);
+            transform: scale(1.1) rotate(-5deg);
+        }
+
+        .action-btn.delete:hover {
+            background: linear-gradient(135deg, #f43f5e, #e11d48);
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(12, 74, 110, 0.7);
+            backdrop-filter: blur(5px);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 600px;
+            max-height: 85vh;
+            overflow-y: auto;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            animation: slideDown 0.3s ease;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        .modal-header h2 {
+            color: #0c4a6e;
+            font-size: 22px;
+            font-weight: 800;
+        }
+
+        .close-btn {
+            background: rgba(244, 63, 94, 0.1);
+            border: none;
+            color: #e11d48;
+            padding: 8px 12px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 18px;
+            transition: all 0.3s;
+        }
+
+        .close-btn:hover {
+            background: rgba(244, 63, 94, 0.2);
+            transform: scale(1.1);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #0c4a6e;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid rgba(14, 116, 144, 0.2);
+            border-radius: 12px;
+            font-size: 14px;
+            transition: all 0.3s;
+            font-family: inherit;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #0e7490;
+            box-shadow: 0 0 0 4px rgba(14, 116, 144, 0.1);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .form-actions {
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+            margin-top: 25px;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #0e7490, #06b6d4);
+            color: white;
+            box-shadow: 0 4px 15px rgba(14, 116, 144, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(14, 116, 144, 0.4);
+        }
+
+        .btn-secondary {
+            background: rgba(14, 116, 144, 0.1);
+            color: #0c4a6e;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(14, 116, 144, 0.15);
+        }
+
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .page-btn {
+            background: rgba(255, 255, 255, 0.9);
+            border: 2px solid rgba(14, 116, 144, 0.2);
+            padding: 10px 15px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            color: #0c4a6e;
+            transition: all 0.3s;
+            min-width: 40px;
+            text-align: center;
+        }
+
+        .page-btn:hover {
+            border-color: #0e7490;
+            transform: translateY(-2px);
+        }
+
+        .page-btn.active {
+            background: linear-gradient(135deg, #0e7490, #06b6d4);
+            color: white;
+            border-color: transparent;
+            box-shadow: 0 4px 15px rgba(14, 116, 144, 0.3);
+        }
+
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(12, 74, 110, 0.7);
+            backdrop-filter: blur(5px);
+            z-index: 999;
+        }
+
+        .overlay.active {
+            display: block;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+            border-left: 4px solid;
+        }
+
+        .stat-card.blue {
+            border-left-color: #0e7490;
+        }
+
+        .stat-card.green {
+            border-left-color: #059669;
+        }
+
+        .stat-card.orange {
+            border-left-color: #d97706;
+        }
+
+        .stat-card.red {
+            border-left-color: #e11d48;
+        }
+
+        .stat-card .stat-icon {
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+
+        .stat-card .stat-value {
+            font-size: 28px;
+            font-weight: 800;
+            color: #0c4a6e;
+            margin-bottom: 5px;
+        }
+
+        .stat-card .stat-label {
+            font-size: 13px;
+            color: #64748b;
+            font-weight: 600;
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(-100%);
+            }
+
+            .sidebar.active {
+                transform: translateX(0);
+            }
+
+            .main-content {
+                margin-left: 0;
+                padding: 18px;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            .header {
+                flex-direction: column;
+                gap: 18px;
+                padding: 20px;
+                align-items: flex-start;
+            }
+
+            .header-right {
+                width: 100%;
+            }
+
+            .btn-add {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .user-profile {
+                position: static;
+                margin-top: 20px;
+            }
+
+            .tabs {
+                margin-left: -18px;
+                margin-right: -18px;
+                padding-left: 18px;
+                padding-right: 18px;
+            }
+
+            .card-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .search-filter-group {
+                width: 100%;
+            }
+
+            .search-box input {
+                width: 100%;
+            }
+
+            .modal-content {
+                width: 95%;
+                padding: 20px;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        ::-webkit-scrollbar {
+            width: 10px;
+            height: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, #0e7490, #06b6d4);
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(180deg, #06b6d4, #0e7490);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="overlay" id="overlay"></div>
+
+    <aside class="sidebar" id="sidebar">
+        <div class="logo-section">
+            <span class="icon">🎣</span>
+            <div>
+                <h2>Mekar Jaya</h2>
+                <span class="badge">ADMIN</span>
+            </div>
+        </div>
+        <a href="#" class="menu-item" onclick="location.href='../dashboard/kasir.html'">
+            <span class="icon">🖥️</span>
+            <span>Kasir</span>
+        </a>
+        <div class="menu-section">
+            <div class="menu-label">Menu Utama</div>
+            <a href="#" class="menu-item" onclick="location.href='../dashboard/dashboard.html'">
+                <span class="icon">📊</span>
+                <span>Dashboard</span>
+            </a>
+            <a href="#" class="menu-item active" onclick="location.href='../dashboard/master_data.html'">
+                <span class="icon">🧾</span>
+                <span>Master Data</span>
+                <span class="badge">24</span>
+            </a>
+            <a href="#" class="menu-item">
+                <span class="icon">🚚</span>
+                <span>Barang Masuk</span>
+            </a>
+            <a href="#" class="menu-item">
+                <span class="icon">📦</span>
+                <span>Barang Keluar</span>
+                <span class="badge">8</span>
+            </a>
+            <a href="#" class="menu-item">
+                <span class="icon">📝</span>
+                <span>Generate Laporan</span>
+            </a>
+            <a href="#" class="menu-item">
+                <span class="icon">📜</span>
+                <span>Riwayat Transaksi</span>
+            </a>
+        </div>
+
+        <div class="menu-section">
+            <div class="menu-label">Manajemen</div>
+            <a href="#" class="menu-item">
+                <span class="icon">⚙️</span>
+                <span>Pengaturan</span>
+            </a>
+            <a href="#" class="menu-item">
+                <span class="icon">🔔</span>
+                <span>Notifikasi</span>
+            </a>
+            <a href="#" class="menu-item" onclick="location.href='../pages/login.html'">
+                <span class="icon">🚪</span>
+                <span>Logout</span>
+            </a>
+
+        </div>
+    </aside>
+
+    <main class="main-content" id="mainContent">
+        <div class="header">
+            <div class="header-left">
+                <h1>Master Data</h1>
+                <p>Kelola data produk, kategori, supplier, dan inventori</p>
+            </div>
+            <div class="header-right">
+                <button class="menu-toggle" id="menuToggle">☰</button>
+                <button class="btn-add" id="btnAdd">
+                    <span>➕</span>
+                    <span>Tambah Data</span>
+                </button>
+            </div>
+        </div>
+
+        <div class="tabs">
+            <div class="tab active" data-tab="products">
+                <span>🎣</span>
+                <span>Produk</span>
+            </div>
+            <div class="tab" data-tab="categories">
+                <span>📑</span>
+                <span>Kategori</span>
+            </div>
+            <div class="tab" data-tab="suppliers">
+                <span>🏢</span>
+                <span>Supplier</span>
+            </div>
+            <div class="tab" data-tab="brands">
+                <span>🏷️</span>
+                <span>Brand</span>
+            </div>
+            <div class="tab" data-tab="stock-in">
+                <span>📥</span>
+                <span>Barang Masuk</span>
+            </div>
+            <div class="tab" data-tab="stock-out">
+                <span>📤</span>
+                <span>Barang Keluar</span>
+            </div>
+        </div>
+
+        <!-- Products Tab -->
+        <div class="tab-content active" id="products-content">
+            <div class="stats-grid">
+                <div class="stat-card blue">
+                    <div class="stat-icon">🎣</div>
+                    <div class="stat-value">156</div>
+                    <div class="stat-label">Total Produk</div>
+                </div>
+                <div class="stat-card green">
+                    <div class="stat-icon">✅</div>
+                    <div class="stat-value">142</div>
+                    <div class="stat-label">Produk Aktif</div>
+                </div>
+                <div class="stat-card orange">
+                    <div class="stat-icon">⚠️</div>
+                    <div class="stat-value">8</div>
+                    <div class="stat-label">Stok Menipis</div>
+                </div>
+                <div class="stat-card red">
+                    <div class="stat-icon">❌</div>
+                    <div class="stat-value">6</div>
+                    <div class="stat-label">Stok Habis</div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h3 style="color: #0c4a6e; font-weight: 800; font-size: 18px;">Daftar Produk</h3>
+                    <div class="search-filter-group">
+                        <div class="search-box">
+                            <span class="icon">🔍</span>
+                            <input type="text" placeholder="Cari produk..." id="searchProduct">
+                        </div>
+                        <button class="filter-btn">Filter ▼</button>
+                    </div>
+                </div>
+
+                <div class="table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Kode</th>
+                                <th>Nama Produk</th>
+                                <th>Kategori</th>
+                                <th>Brand</th>
+                                <th>Harga</th>
+                                <th>Stok</th>
+                                <th>Status</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody id="productsTableBody">
+                            <tr>
+                                <td>PRD001</td>
+                                <td>Joran Carbon Pro X1</td>
+                                <td>Joran</td>
+                                <td>Shimano</td>
+                                <td>Rp 1.250.000</td>
+                                <td>45</td>
+                                <td><span class="status-badge active">Aktif</span></td>
+                                <td>
+                                    <button class="action-btn" title="Edit">✏️</button>
+                                    <button class="action-btn" title="Detail">👁️</button>
+                                    <button class="action-btn delete" title="Hapus">🗑️</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>PRD002</td>
+                                <td>Reel Spinning Daiwa LT3000</td>
+                                <td>Reel</td>
+                                <td>Daiwa</td>
+                                <td>Rp 2.450.000</td>
+                                <td>32</td>
+                                <td><span class="status-badge active">Aktif</span></td>
+                                <td>
+                                    <button class="action-btn" title="Edit">✏️</button>
+                                    <button class="action-btn" title="Detail">👁️</button>
+                                    <button class="action-btn delete" title="Hapus">🗑️</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>PRD003</td>
+                                <td>Senar PE Line 150m</td>
+                                <td>Senar</td>
+                                <td>YGK</td>
+                                <td>Rp 185.000</td>
+                                <td>8</td>
+                                <td><span class="status-badge pending">Stok Rendah</span></td>
+                                <td>
+                                    <button class="action-btn" title="Edit">✏️</button>
+                                    <button class="action-btn" title="Detail">👁️</button>
+                                    <button class="action-btn delete" title="Hapus">🗑️</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>PRD004</td>
+                                <td>Umpan Minnow 12cm</td>
+                                <td>Umpan</td>
+                                <td>Rapala</td>
+                                <td>Rp 125.000</td>
+                                <td>0</td>
+                                <td><span class="status-badge inactive">Habis</span></td>
+                                <td>
+                                    <button class="action-btn" title="Edit">✏️</button>
+                                    <button class="action-btn" title="Detail">👁️</button>
+                                    <button class="action-btn delete" title="Hapus">🗑️</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>PRD005</td>
+                                <td>Tackle Box Waterproof</td>
+                                <td>Aksesoris</td>
+                                <td>Plano</td>
+                                <td>Rp 350.000</td>
+                                <td>25</td>
+                                <td><span class="status-badge active">Aktif</span></td>
+                                <td>
+                                    <button class="action-btn" title="Edit">✏️</button>
+                                    <button class="action-btn" title="Detail">👁️</button>
+                                    <button class="action-btn delete" title="Hapus">🗑️</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="pagination">
+                    <button class="page-btn">◀</button>
+                    <button class="page-btn active">1</button>
+                    <button class="page-btn">2</button>
+                    <button class="page-btn">3</button>
+                    <button class="page-btn">▶</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Categories Tab -->
+        <div class="tab-content" id="categories-content">
+            <div class="card">
+                <div class="card-header">
+                    <h3 style="color: #0c4a6e; font-weight: 800; font-size: 18px;">Daftar Kategori</h3>
+                    <div class="search-filter-group">
+                        <div class="search-box">
+                            <span class="icon">🔍</span>
+                            <input type="text" placeholder="Cari kategori...">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Kode</th>
+                                <th>Nama Kategori</th>
+                                <th>Deskripsi</th>
+                                <th>Jumlah Produk</th>
+                                <th>Status</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>CAT001</td>
+                                <td>Joran</td>
+                                <td>Joran untuk berbagai jenis mancing</td>
+                                <td>48</td>
+                                <td><span class="status-badge active">Aktif</span></td>
+                                <td>
+                                    <button class="action-btn" title="Edit">✏️</button>
+                                    <button class="action-btn delete" title="Hapus">🗑️</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>CAT002</td>
+                                <td>Reel</td>
+                                <td>Reel spinning dan baitcasting</td>
+                                <td>36</td>
+                                <td><span class="status-badge active">Aktif</span></td>
+                                <td>
+                                    <button class="action-btn" title="Edit">✏️</button>
+                                    <button class="action-btn delete" title="Hapus">🗑️</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>CAT003</td>
+                                <td>Senar</td>
+                                <td>Senar PE, monofilament, dan fluorocarbon</td>
+                                <td>42</td>
+                                <td><span class="status-badge active">Aktif</span></td>
+                                <td>
+                                    <button class="action-btn" title="Edit">✏️</button>
+                                    <button class="action-btn delete" title="Hapus">🗑️</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>CAT004</td>
+                                <td>Umpan</td>
+                                <td>Umpan buatan dan natural</td>
+                                <td>64</td>
+                                <td><span class="status-badge active">Aktif</span></td>
+                                <td>
+                                    <button class="action-btn" title="Edit">✏️</button>
+                                    <button class="action-btn delete" title="Hapus">🗑️</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>CAT005</td>
+                                <td>Aksesoris</td>
+                                <td>Perlengkapan tambahan mancing</td>
+                                <td>28</td>
+                                <td><span class="status-badge active">Aktif</span></td>
+                                <td>
+                                    <button class="action-btn" title="Edit">✏️</button>
+                                    <button class="action-btn delete" title="Hapus">🗑️</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Suppliers Tab -->
+        <div class="tab-content" id="suppliers-content">
+            <div class="card">
+                <div class="card-header">
+                    <h3 style="color: #0c4a6e; font-weight: 800; font-size: 18px;">Daftar Supplier</h3>
+                    <div class="search-filter-group">
+                        <div class="search-box">
+                            <span class="icon">🔍</span>
+                            <input type="text" placeholder="Cari supplier...">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Kode</th>
+                                <th>Nama Supplier</th>
+                                <th>Kontak</th>
+                                <th>Email</th>
+                                <th>Alamat</th>
+                                <th>Status</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>SUP001</td>
+                                <td>PT Shimano Indonesia</td>
+                                <td>081234567890</td>
+                                <td>info@shimano.co.id</td>
+                                <td>Jakarta Pusat</td>
+                                <td><span class="status-badge active">Aktif</span></td>
+                                <td>
+                                    <button class="action-btn" title="Edit">✏️</button>
+                                    <button class="action-btn" title="Detail">👁️</button>
+                                    <button class="action-btn delete" title="Hapus">🗑️</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>SUP002</td>
+                                <td>CV Daiwa Sejahtera</td>
+                                <td>082345678901</td>
+                                <td>sales@daiwa.co.id</td>
+                                <td>Surabaya</td>
+                                <td><span class="status-badge active">Aktif</span></td>
+                                <td>
+                                    <button class="action-btn" title="Edit">✏️</button>
+                                    <button class="action-btn" title="Detail">👁️</button>
+                                    <button class="action-btn delete" title="Hapus">🗑️</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>SUP003</td>
+                                <td>Toko Mancing Abadi</td>
+                                <td>083456789012</td>
+                                <td>abadi@fishing.com</td>
+                                <td>Bandung</td>
+                                <td><span class="status-badge active">Aktif</span></td>
+                                <td>
+                                    <button class="action-btn" title="Edit">✏️</button>
+                                    <button class="action-btn" title="Detail">👁️</button>
+                                    <button class="action-btn delete" title="Hapus">🗑️</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Brands Tab -->
+        <div class="tab-content" id="brands-content">
+            <div class="card">
+                <div class="card-header">
+                    <h3 style="color: #0c4a6e; font-weight: 800; font-size: 18px;">Daftar Brand</h3>
+                    <div class="search-filter-group">
+                        <div class="search-box">
+                            <span class="icon">🔍</span>
+                            <input type="text" placeholder="Cari brand...">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Kode</th>
+                                <th>Nama Brand</th>
+                                <th>Negara Asal</th>
+                                <th>Kategori Utama</th>
+                                <th>Jumlah Produk</th>
+                                <th>Status</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>BRD001</td>
+                                <td>Shimano</td>
+                                <td>Jepang</td>
+                                <td>Joran & Reel</td>
+                                <td>52</td>
+                                <td><span class="status-badge active">Aktif</span></td>
+                                <td>
+                                    <button class="action-btn" title="Edit">✏️</button>
+                                    <button class="action-btn delete" title="Hapus">🗑️</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>BRD002</td>
+                                <td>Daiwa</td>
+                                <td>Jepang</td>
+                                <td>Reel & Joran</td>
+                                <td>48</td>
+                                <td><span class="status-badge active">Aktif</span></td>
+                                <td>
+                                    <button class="action-btn" title="Edit">✏️</button>
+                                    <button class="action-btn delete" title="Hapus">🗑️</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>BRD003</td>
+                                <td>Rapala</td>
+                                <td>Finlandia</td>
+                                <td>Umpan</td>
+                                <td>36</td>
+                                <td><span class="status-badge active">Aktif</span></td>
+                                <td>
+                                    <button class="action-btn" title="Edit">✏️</button>
+                                    <button class="action-btn delete" title="Hapus">🗑️</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>BRD004</td>
+                                <td>YGK</td>
+                                <td>Jepang</td>
+                                <td>Senar</td>
+                                <td>24</td>
+                                <td><span class="status-badge active">Aktif</span></td>
+                                <td>
+                                    <button class="action-btn" title="Edit">✏️</button>
+                                    <button class="action-btn delete" title="Hapus">🗑️</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Stock In Tab -->
+        <div class="tab-content" id="stock-in-content">
+            <div class="stats-grid">
+                <div class="stat-card green">
+                    <div class="stat-icon">📥</div>
+                    <div class="stat-value">89</div>
+                    <div class="stat-label">Total Transaksi Bulan Ini</div>
+                </div>
+                <div class="stat-card blue">
+                    <div class="stat-icon">📦</div>
+                    <div class="stat-value">2.845</div>
+                    <div class="stat-label">Total Item Masuk</div>
+                </div>
+                <div class="stat-card orange">
+                    <div class="stat-icon">⏳</div>
+                    <div class="stat-value">12</div>
+                    <div class="stat-label">Pending Approval</div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h3 style="color: #0c4a6e; font-weight: 800; font-size: 18px;">Riwayat Barang Masuk</h3>
+                    <div class="search-filter-group">
+                        <div class="search-box">
+                            <span class="icon">🔍</span>
+                            <input type="text" placeholder="Cari transaksi...">
+                        </div>
+                        <button class="filter-btn">Filter Tanggal ▼</button>
+                    </div>
+                </div>
+
+                <div class="table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Kode Transaksi</th>
+                                <th>Tanggal</th>
+                                <th>Supplier</th>
+                                <th>Produk</th>
+                                <th>Jumlah</th>
+                                <th>Harga Beli</th>
+                                <th>Total</th>
+                                <th>Status</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>IN-2024-001</td>
+                                <td>21 Nov 2024</td>
+                                <td>PT Shimano Indonesia</td>
+                                <td>Joran Carbon Pro X1</td>
+                                <td>50 unit</td>
+                                <td>Rp 1.000.000</td>
+                                <td>Rp 50.000.000</td>
+                                <td><span class="status-badge completed">Selesai</span></td>
+                                <td>
+                                    <button class="action-btn" title="Detail">👁️</button>
+                                    <button class="action-btn" title="Print">🖨️</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>IN-2024-002</td>
+                                <td>20 Nov 2024</td>
+                                <td>CV Daiwa Sejahtera</td>
+                                <td>Reel Spinning Daiwa LT3000</td>
+                                <td>30 unit</td>
+                                <td>Rp 2.000.000</td>
+                                <td>Rp 60.000.000</td>
+                                <td><span class="status-badge completed">Selesai</span></td>
+                                <td>
+                                    <button class="action-btn" title="Detail">👁️</button>
+                                    <button class="action-btn" title="Print">🖨️</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>IN-2024-003</td>
+                                <td>19 Nov 2024</td>
+                                <td>Toko Mancing Abadi</td>
+                                <td>Senar PE Line 150m</td>
+                                <td>100 unit</td>
+                                <td>Rp 150.000</td>
+                                <td>Rp 15.000.000</td>
+                                <td><span class="status-badge pending">Pending</span></td>
+                                <td>
+                                    <button class="action-btn" title="Detail">👁️</button>
+                                    <button class="action-btn" title="Approve">✅</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>IN-2024-004</td>
+                                <td>18 Nov 2024</td>
+                                <td>PT Shimano Indonesia</td>
+                                <td>Umpan Minnow 12cm</td>
+                                <td>200 unit</td>
+                                <td>Rp 100.000</td>
+                                <td>Rp 20.000.000</td>
+                                <td><span class="status-badge completed">Selesai</span></td>
+                                <td>
+                                    <button class="action-btn" title="Detail">👁️</button>
+                                    <button class="action-btn" title="Print">🖨️</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="pagination">
+                    <button class="page-btn">◀</button>
+                    <button class="page-btn active">1</button>
+                    <button class="page-btn">2</button>
+                    <button class="page-btn">3</button>
+                    <button class="page-btn">▶</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Stock Out Tab -->
+        <div class="tab-content" id="stock-out-content">
+            <div class="stats-grid">
+                <div class="stat-card red">
+                    <div class="stat-icon">📤</div>
+                    <div class="stat-value">156</div>
+                    <div class="stat-label">Total Transaksi Bulan Ini</div>
+                </div>
+                <div class="stat-card blue">
+                    <div class="stat-icon">📦</div>
+                    <div class="stat-value">3.256</div>
+                    <div class="stat-label">Total Item Keluar</div>
+                </div>
+                <div class="stat-card orange">
+                    <div class="stat-icon">🚚</div>
+                    <div class="stat-value">8</div>
+                    <div class="stat-label">Dalam Pengiriman</div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h3 style="color: #0c4a6e; font-weight: 800; font-size: 18px;">Riwayat Barang Keluar</h3>
+                    <div class="search-filter-group">
+                        <div class="search-box">
+                            <span class="icon">🔍</span>
+                            <input type="text" placeholder="Cari transaksi...">
+                        </div>
+                        <button class="filter-btn">Filter Tanggal ▼</button>
+                    </div>
+                </div>
+
+                <div class="table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Kode Transaksi</th>
+                                <th>Tanggal</th>
+                                <th>Pelanggan</th>
+                                <th>Produk</th>
+                                <th>Jumlah</th>
+                                <th>Harga Jual</th>
+                                <th>Total</th>
+                                <th>Status</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>OUT-2024-001</td>
+                                <td>21 Nov 2024</td>
+                                <td>Budi Santoso</td>
+                                <td>Joran Carbon Pro X1</td>
+                                <td>2 unit</td>
+                                <td>Rp 1.250.000</td>
+                                <td>Rp 2.500.000</td>
+                                <td><span class="status-badge completed">Terkirim</span></td>
+                                <td>
+                                    <button class="action-btn" title="Detail">👁️</button>
+                                    <button class="action-btn" title="Print">🖨️</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>OUT-2024-002</td>
+                                <td>21 Nov 2024</td>
+                                <td>Andi Wijaya</td>
+                                <td>Reel Spinning Daiwa LT3000</td>
+                                <td>1 unit</td>
+                                <td>Rp 2.450.000</td>
+                                <td>Rp 2.450.000</td>
+                                <td><span class="status-badge pending">Diproses</span></td>
+                                <td>
+                                    <button class="action-btn" title="Detail">👁️</button>
+                                    <button class="action-btn" title="Update">📝</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>OUT-2024-003</td>
+                                <td>20 Nov 2024</td>
+                                <td>Toko Pancing Jaya</td>
+                                <td>Senar PE Line 150m</td>
+                                <td>50 unit</td>
+                                <td>Rp 185.000</td>
+                                <td>Rp 9.250.000</td>
+                                <td><span class="status-badge completed">Terkirim</span></td>
+                                <td>
+                                    <button class="action-btn" title="Detail">👁️</button>
+                                    <button class="action-btn" title="Print">🖨️</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>OUT-2024-004</td>
+                                <td>20 Nov 2024</td>
+                                <td>Siti Nurhaliza</td>
+                                <td>Tackle Box Waterproof</td>
+                                <td>3 unit</td>
+                                <td>Rp 350.000</td>
+                                <td>Rp 1.050.000</td>
+                                <td><span class="status-badge completed">Terkirim</span></td>
+                                <td>
+                                    <button class="action-btn" title="Detail">👁️</button>
+                                    <button class="action-btn" title="Print">🖨️</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>OUT-2024-005</td>
+                                <td>19 Nov 2024</td>
+                                <td>Ahmad Fauzi</td>
+                                <td>Umpan Minnow 12cm</td>
+                                <td>10 unit</td>
+                                <td>Rp 125.000</td>
+                                <td>Rp 1.250.000</td>
+                                <td><span class="status-badge pending">Dikemas</span></td>
+                                <td>
+                                    <button class="action-btn" title="Detail">👁️</button>
+                                    <button class="action-btn" title="Update">📝</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="pagination">
+                    <button class="page-btn">◀</button>
+                    <button class="page-btn active">1</button>
+                    <button class="page-btn">2</button>
+                    <button class="page-btn">3</button>
+                    <button class="page-btn">▶</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Modal Add Product -->
+    <div class="modal" id="modalProduct">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Tambah Produk Baru</h2>
+                <button class="close-btn" onclick="closeModal('modalProduct')">✖</button>
+            </div>
+            <form id="formProduct">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Kode Produk</label>
+                        <input type="text" name="productCode" placeholder="PRD001" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Nama Produk</label>
+                        <input type="text" name="productName" placeholder="Nama produk" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Kategori</label>
+                        <select name="category" required>
+                            <option value="">Pilih Kategori</option>
+                            <option value="joran">Joran</option>
+                            <option value="reel">Reel</option>
+                            <option value="senar">Senar</option>
+                            <option value="umpan">Umpan</option>
+                            <option value="aksesoris">Aksesoris</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Brand</label>
+                        <select name="brand" required>
+                            <option value="">Pilih Brand</option>
+                            <option value="shimano">Shimano</option>
+                            <option value="daiwa">Daiwa</option>
+                            <option value="rapala">Rapala</option>
+                            <option value="ygk">YGK</option>
+                            <option value="plano">Plano</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Harga Beli</label>
+                        <input type="number" name="buyPrice" placeholder="0" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Harga Jual</label>
+                        <input type="number" name="sellPrice" placeholder="0" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Stok Awal</label>
+                        <input type="number" name="stock" placeholder="0" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Minimal Stok</label>
+                        <input type="number" name="minStock" placeholder="10" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Deskripsi</label>
+                    <textarea name="description" placeholder="Deskripsi produk..."></textarea>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary" onclick="closeModal('modalProduct')">Batal</button>
+                    <button type="submit" class="btn btn-primary">Simpan Produk</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal Add Stock In -->
+    <div class="modal" id="modalStockIn">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Tambah Barang Masuk</h2>
+                <button class="close-btn" onclick="closeModal('modalStockIn')">✖</button>
+            </div>
+            <form id="formStockIn">
+                <div class="form-group">
+                    <label>Kode Transaksi</label>
+                    <input type="text" name="transCode" placeholder="IN-2024-XXX" required>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Tanggal Masuk</label>
+                        <input type="date" name="date" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Supplier</label>
+                        <select name="supplier" required>
+                            <option value="">Pilih Supplier</option>
+                            <option value="sup001">PT Shimano Indonesia</option>
+                            <option value="sup002">CV Daiwa Sejahtera</option>
+                            <option value="sup003">Toko Mancing Abadi</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Produk</label>
+                    <select name="product" required>
+                        <option value="">Pilih Produk</option>
+                        <option value="prd001">Joran Carbon Pro X1</option>
+                        <option value="prd002">Reel Spinning Daiwa LT3000</option>
+                        <option value="prd003">Senar PE Line 150m</option>
+                        <option value="prd004">Umpan Minnow 12cm</option>
+                        <option value="prd005">Tackle Box Waterproof</option>
+                    </select>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Jumlah</label>
+                        <input type="number" name="quantity" placeholder="0" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Harga Beli/Unit</label>
+                        <input type="number" name="buyPrice" placeholder="0" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Total Harga</label>
+                    <input type="number" name="totalPrice" placeholder="0" readonly>
+                </div>
+                <div class="form-group">
+                    <label>Catatan</label>
+                    <textarea name="notes" placeholder="Catatan tambahan..."></textarea>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary" onclick="closeModal('modalStockIn')">Batal</button>
+                    <button type="submit" class="btn btn-primary">Simpan Transaksi</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal Add Stock Out -->
+    <div class="modal" id="modalStockOut">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Tambah Barang Keluar</h2>
+                <button class="close-btn" onclick="closeModal('modalStockOut')">✖</button>
+            </div>
+            <form id="formStockOut">
+                <div class="form-group">
+                    <label>Kode Transaksi</label>
+                    <input type="text" name="transCode" placeholder="OUT-2024-XXX" required>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Tanggal Keluar</label>
+                        <input type="date" name="date" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Pelanggan</label>
+                        <input type="text" name="customer" placeholder="Nama pelanggan" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Produk</label>
+                    <select name="product" required>
+                        <option value="">Pilih Produk</option>
+                        <option value="prd001">Joran Carbon Pro X1</option>
+                        <option value="prd002">Reel Spinning Daiwa LT3000</option>
+                        <option value="prd003">Senar PE Line 150m</option>
+                        <option value="prd004">Umpan Minnow 12cm</option>
+                        <option value="prd005">Tackle Box Waterproof</option>
+                    </select>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Jumlah</label>
+                        <input type="number" name="quantity" placeholder="0" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Harga Jual/Unit</label>
+                        <input type="number" name="sellPrice" placeholder="0" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Total Harga</label>
+                    <input type="number" name="totalPrice" placeholder="0" readonly>
+                </div>
+                <div class="form-group">
+                    <label>Status Pengiriman</label>
+                    <select name="status" required>
+                        <option value="pending">Pending</option>
+                        <option value="diproses">Diproses</option>
+                        <option value="dikemas">Dikemas</option>
+                        <option value="dikirim">Dikirim</option>
+                        <option value="terkirim">Terkirim</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Catatan</label>
+                    <textarea name="notes" placeholder="Catatan pengiriman..."></textarea>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary" onclick="closeModal('modalStockOut')">Batal</button>
+                    <button type="submit" class="btn btn-primary">Simpan Transaksi</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal Add Category -->
+    <div class="modal" id="modalCategory">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Tambah Kategori Baru</h2>
+                <button class="close-btn" onclick="closeModal('modalCategory')">✖</button>
+            </div>
+            <form id="formCategory">
+                <div class="form-group">
+                    <label>Kode Kategori</label>
+                    <input type="text" name="categoryCode" placeholder="CAT001" required>
+                </div>
+                <div class="form-group">
+                    <label>Nama Kategori</label>
+                    <input type="text" name="categoryName" placeholder="Nama kategori" required>
+                </div>
+                <div class="form-group">
+                    <label>Deskripsi</label>
+                    <textarea name="description" placeholder="Deskripsi kategori..."></textarea>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary" onclick="closeModal('modalCategory')">Batal</button>
+                    <button type="submit" class="btn btn-primary">Simpan Kategori</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal Add Supplier -->
+    <div class="modal" id="modalSupplier">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Tambah Supplier Baru</h2>
+                <button class="close-btn" onclick="closeModal('modalSupplier')">✖</button>
+            </div>
+            <form id="formSupplier">
+                <div class="form-group">
+                    <label>Kode Supplier</label>
+                    <input type="text" name="supplierCode" placeholder="SUP001" required>
+                </div>
+                <div class="form-group">
+                    <label>Nama Supplier</label>
+                    <input type="text" name="supplierName" placeholder="Nama supplier" required>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Nomor Kontak</label>
+                        <input type="tel" name="phone" placeholder="081234567890" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" name="email" placeholder="email@supplier.com" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Alamat</label>
+                    <textarea name="address" placeholder="Alamat lengkap..." required></textarea>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary" onclick="closeModal('modalSupplier')">Batal</button>
+                    <button type="submit" class="btn btn-primary">Simpan Supplier</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal Add Brand -->
+    <div class="modal" id="modalBrand">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Tambah Brand Baru</h2>
+                <button class="close-btn" onclick="closeModal('modalBrand')">✖</button>
+            </div>
+            <form id="formBrand">
+                <div class="form-group">
+                    <label>Kode Brand</label>
+                    <input type="text" name="brandCode" placeholder="BRD001" required>
+                </div>
+                <div class="form-group">
+                    <label>Nama Brand</label>
+                    <input type="text" name="brandName" placeholder="Nama brand" required>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Negara Asal</label>
+                        <input type="text" name="country" placeholder="Jepang" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Kategori Utama</label>
+                        <input type="text" name="mainCategory" placeholder="Joran & Reel" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Deskripsi</label>
+                    <textarea name="description" placeholder="Deskripsi brand..."></textarea>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary" onclick="closeModal('modalBrand')">Batal</button>
+                    <button type="submit" class="btn btn-primary">Simpan Brand</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Toggle Sidebar
+        const sidebar = document.getElementById('sidebar');
+        const mainContent = document.getElementById('mainContent');
+        const menuToggle = document.getElementById('menuToggle');
+        const overlay = document.getElementById('overlay');
+
+        menuToggle.addEventListener('click', () => {
+            sidebar.classList.toggle('active');
+            overlay.classList.toggle('active');
+        });
+
+        overlay.addEventListener('click', () => {
+            sidebar.classList.remove('active');
+            overlay.classList.remove('active');
+        });
+
+        // Tab Switching
+        const tabs = document.querySelectorAll('.tab');
+        const tabContents = document.querySelectorAll('.tab-content');
+
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                const targetTab = tab.getAttribute('data-tab');
+
+                tabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+
+                tabContents.forEach(content => {
+                    content.classList.remove('active');
+                    if (content.id === targetTab + '-content') {
+                        content.classList.add('active');
+                    }
+                });
+            });
+        });
+
+        // Add Button Handler
+        const btnAdd = document.getElementById('btnAdd');
+
+        btnAdd.addEventListener('click', () => {
+            const activeTab = document.querySelector('.tab.active').getAttribute('data-tab');
+
+            switch (activeTab) {
+                case 'products':
+                    openModal('modalProduct');
+                    break;
+                case 'categories':
+                    openModal('modalCategory');
+                    break;
+                case 'suppliers':
+                    openModal('modalSupplier');
+                    break;
+                case 'brands':
+                    openModal('modalBrand');
+                    break;
+                case 'stock-in':
+                    openModal('modalStockIn');
+                    break;
+                case 'stock-out':
+                    openModal('modalStockOut');
+                    break;
+            }
+        });
+
+        // Modal Functions
+        function openModal(modalId) {
+            document.getElementById(modalId).classList.add('active');
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+        }
+
+        // Close modal when clicking outside
+        document.querySelectorAll('.modal').forEach(modal => {
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    modal.classList.remove('active');
+                }
+            });
+        });
+
+        // Form Submit Handlers
+        document.getElementById('formProduct').addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert('Produk berhasil ditambahkan!');
+            closeModal('modalProduct');
+            e.target.reset();
+        });
+
+        document.getElementById('formStockIn').addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert('Transaksi barang masuk berhasil ditambahkan!');
+            closeModal('modalStockIn');
+            e.target.reset();
+        });
+
+        document.getElementById('formStockOut').addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert('Transaksi barang keluar berhasil ditambahkan!');
+            closeModal('modalStockOut');
+            e.target.reset();
+        });
+
+        document.getElementById('formCategory').addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert('Kategori berhasil ditambahkan!');
+            closeModal('modalCategory');
+            e.target.reset();
+        });
+
+        document.getElementById('formSupplier').addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert('Supplier berhasil ditambahkan!');
+            closeModal('modalSupplier');
+            e.target.reset();
+        });
+
+        document.getElementById('formBrand').addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert('Brand berhasil ditambahkan!');
+            closeModal('modalBrand');
+            e.target.reset();
+        });
+
+        // Auto Calculate Total Price in Stock In Form
+        const stockInQty = document.querySelector('#formStockIn input[name="quantity"]');
+        const stockInPrice = document.querySelector('#formStockIn input[name="buyPrice"]');
+        const stockInTotal = document.querySelector('#formStockIn input[name="totalPrice"]');
+
+        [stockInQty, stockInPrice].forEach(input => {
+            input.addEventListener('input', () => {
+                const qty = parseFloat(stockInQty.value) || 0;
+                const price = parseFloat(stockInPrice.value) || 0;
+                stockInTotal.value = qty * price;
+            });
+        });
+
+        // Auto Calculate Total Price in Stock Out Form
+        const stockOutQty = document.querySelector('#formStockOut input[name="quantity"]');
+        const stockOutPrice = document.querySelector('#formStockOut input[name="sellPrice"]');
+        const stockOutTotal = document.querySelector('#formStockOut input[name="totalPrice"]');
+
+        [stockOutQty, stockOutPrice].forEach(input => {
+            input.addEventListener('input', () => {
+                const qty = parseFloat(stockOutQty.value) || 0;
+                const price = parseFloat(stockOutPrice.value) || 0;
+                stockOutTotal.value = qty * price;
+            });
+        });
+
+        // Search Functionality
+        document.getElementById('searchProduct').addEventListener('input', function (e) {
+            const searchTerm = e.target.value.toLowerCase();
+            const tableRows = document.querySelectorAll('#productsTableBody tr');
+
+            tableRows.forEach(row => {
+                const text = row.textContent.toLowerCase();
+                row.style.display = text.includes(searchTerm) ? '' : 'none';
+            });
+        });
+
+        // Action Button Handlers (Edit, View, Delete)
+        document.querySelectorAll('.action-btn').forEach(btn => {
+            btn.addEventListener('click', function () {
+                const action = this.title;
+                const row = this.closest('tr');
+                const code = row.querySelector('td:first-child').textContent;
+
+                if (action === 'Edit') {
+                    alert(`Edit data: ${code}`);
+                } else if (action === 'Detail' || action === 'View') {
+                    alert(`Melihat detail: ${code}`);
+                } else if (action === 'Hapus') {
+                    if (confirm(`Hapus data ${code}?`)) {
+                        alert('Data berhasil dihapus!');
+                    }
+                } else if (action === 'Print') {
+                    alert(`Mencetak transaksi: ${code}`);
+                } else if (action === 'Approve') {
+                    if (confirm(`Approve transaksi ${code}?`)) {
+                        alert('Transaksi berhasil diapprove!');
+                    }
+                } else if (action === 'Update') {
+                    alert(`Update status: ${code}`);
+                }
+            });
+        });
+
+        // Set today's date as default for date inputs
+        const today = new Date().toISOString().split('T')[0];
+        document.querySelectorAll('input[type="date"]').forEach(input => {
+            input.value = today;
+        });
+    </script>
+</body>
+
+</html>

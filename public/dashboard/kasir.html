@@ -1,0 +1,1366 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kasir - Mekar Jaya</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            height: 100%;
+            overflow-x: hidden;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #0c4a6e 0%, #0e7490 50%, #06b6d4 100%);
+            background-attachment: fixed;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 280px;
+            height: 100vh;
+            background: linear-gradient(180deg, #164e63 0%, #0e7490 100%);
+            padding: 25px 20px;
+            z-index: 1000;
+            transition: transform 0.3s ease;
+            overflow-y: auto;
+            box-shadow: 4px 0 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .sidebar.hidden {
+            transform: translateX(-100%);
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 20px 15px;
+            margin-bottom: 35px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .logo-section .icon {
+            font-size: 36px;
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+        }
+
+        .logo-section h2 {
+            color: white;
+            font-size: 22px;
+            font-weight: 700;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .logo-section .badge {
+            background: linear-gradient(135deg, #22d3ee, #06b6d4);
+            color: white;
+            font-size: 10px;
+            padding: 4px 10px;
+            border-radius: 8px;
+            font-weight: 700;
+            box-shadow: 0 2px 8px rgba(34, 211, 238, 0.4);
+        }
+
+        .menu-section {
+            margin-bottom: 30px;
+        }
+
+        .menu-label {
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 0 15px;
+            margin-bottom: 12px;
+        }
+
+        .menu-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 14px 18px;
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            border-radius: 15px;
+            margin-bottom: 6px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            font-size: 15px;
+            position: relative;
+        }
+
+        .menu-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 4px;
+            height: 0;
+            background: linear-gradient(180deg, #22d3ee, #06b6d4);
+            border-radius: 0 4px 4px 0;
+            transition: height 0.3s ease;
+        }
+
+        .menu-item:hover::before {
+            height: 60%;
+        }
+
+        .menu-item:hover {
+            background: rgba(255, 255, 255, 0.15);
+            color: white;
+            transform: translateX(5px);
+        }
+
+        .menu-item.active {
+            background: linear-gradient(135deg, rgba(34, 211, 238, 0.3), rgba(6, 182, 212, 0.2));
+            color: white;
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(34, 211, 238, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .menu-item.active::before {
+            height: 60%;
+        }
+
+        .menu-item .icon {
+            font-size: 22px;
+            width: 28px;
+            text-align: center;
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-left: 280px;
+            padding: 25px;
+            min-height: 100vh;
+            transition: margin-left 0.3s ease;
+        }
+
+        .main-content.expanded {
+            margin-left: 0;
+        }
+
+        /* Header */
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 25px 30px;
+            border-radius: 20px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            margin-bottom: 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+
+        .header-left h1 {
+            background: linear-gradient(135deg, #0c4a6e, #06b6d4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-size: 28px;
+            margin-bottom: 6px;
+            font-weight: 800;
+        }
+
+        .header-left p {
+            color: #64748b;
+            font-size: 15px;
+        }
+
+        .menu-toggle {
+            display: none;
+            background: linear-gradient(135deg, #0e7490, #06b6d4);
+            border: none;
+            color: white;
+            padding: 12px 18px;
+            border-radius: 15px;
+            cursor: pointer;
+            font-size: 20px;
+            box-shadow: 0 4px 15px rgba(14, 116, 144, 0.3);
+        }
+
+        /* Kasir Layout */
+        .kasir-container {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 20px;
+            height: calc(100vh - 180px);
+            max-height: calc(100vh - 180px);
+        }
+
+        /* Product Section */
+        .product-section {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 25px;
+            border-radius: 20px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .search-product {
+            position: relative;
+            margin-bottom: 20px;
+            flex-shrink: 0;
+        }
+
+        .search-product input {
+            width: 100%;
+            padding: 15px 20px 15px 50px;
+            border: 2px solid rgba(14, 116, 144, 0.2);
+            border-radius: 15px;
+            font-size: 15px;
+            transition: all 0.3s;
+            background: rgba(255, 255, 255, 0.9);
+        }
+
+        .search-product input:focus {
+            outline: none;
+            border-color: #0e7490;
+            box-shadow: 0 0 0 4px rgba(14, 116, 144, 0.1);
+        }
+
+        .search-product .icon {
+            position: absolute;
+            left: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 20px;
+            color: #64748b;
+        }
+
+        .category-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            overflow-x: auto;
+            padding-bottom: 5px;
+            flex-shrink: 0;
+        }
+
+        .category-tab {
+            padding: 10px 20px;
+            border: 2px solid rgba(14, 116, 144, 0.2);
+            border-radius: 12px;
+            background: white;
+            cursor: pointer;
+            transition: all 0.3s;
+            white-space: nowrap;
+            font-size: 14px;
+            font-weight: 600;
+            color: #475569;
+        }
+
+        .category-tab:hover {
+            border-color: #0e7490;
+            background: rgba(14, 116, 144, 0.05);
+        }
+
+        .category-tab.active {
+            background: linear-gradient(135deg, #0e7490, #06b6d4);
+            color: white;
+            border-color: transparent;
+            box-shadow: 0 4px 15px rgba(14, 116, 144, 0.3);
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            gap: 15px;
+            overflow-y: auto;
+            flex: 1;
+            padding-right: 5px;
+        }
+
+        .product-card {
+            background: white;
+            border: 2px solid rgba(14, 116, 144, 0.1);
+            border-radius: 15px;
+            padding: 15px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 180px;
+            max-height: 180px;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(14, 116, 144, 0.2);
+            border-color: #0e7490;
+        }
+
+        .product-icon {
+            font-size: 40px;
+            text-align: center;
+            margin-bottom: 8px;
+        }
+
+        .product-name {
+            font-size: 13px;
+            font-weight: 600;
+            color: #0c4a6e;
+            margin-bottom: 6px;
+            text-align: center;
+            line-height: 1.3;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+        }
+
+        .product-price {
+            font-size: 14px;
+            font-weight: 700;
+            color: #0e7490;
+            text-align: center;
+            margin-bottom: 4px;
+        }
+
+        .product-stock {
+            font-size: 11px;
+            color: #64748b;
+            text-align: center;
+        }
+
+        /* Cart Section - MODIFIED */
+        .cart-section {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 25px;
+            border-radius: 20px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            display: flex;
+            flex-direction: column;
+            max-height: 100%;
+            overflow: hidden; 
+            overflow-y: auto;
+            scrollbar-width: none;/*    garis scroll hilang */
+        }
+
+        .cart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            flex-shrink: 0; /* Tidak mengecil */
+        }
+
+        .cart-header h3 {
+            color: #0c4a6e;
+            font-size: 20px;
+            font-weight: 800;
+        }
+
+        .clear-cart-btn {
+            background: rgba(244, 63, 94, 0.1);
+            border: none;
+            color: #e11d48;
+            padding: 8px 15px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .clear-cart-btn:hover {
+            background: rgba(244, 63, 94, 0.2);
+            transform: scale(1.05);
+        }
+
+        .cart-items {
+            flex: 1;
+            overflow-y: auto; /* Ini yang bisa di-scroll */
+            margin-bottom: 20px;
+            padding-right: 5px;
+            min-height: 200px;
+        }
+
+        .cart-item {
+            background: white;
+            border: 1px solid rgba(14, 116, 144, 0.1);
+            border-radius: 12px;
+            padding: 12px;
+            margin-bottom: 10px;
+            transition: all 0.3s;
+        }
+
+        .cart-item:hover {
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .cart-item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 10px;
+        }
+
+        .cart-item-name {
+            font-size: 14px;
+            font-weight: 600;
+            color: #0c4a6e;
+        }
+
+        .cart-item-price {
+            font-size: 13px;
+            color: #0e7490;
+            font-weight: 700;
+        }
+
+        .cart-item-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .quantity-control {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .qty-btn {
+            background: linear-gradient(135deg, #0e7490, #06b6d4);
+            border: none;
+            color: white;
+            width: 28px;
+            height: 28px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 700;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .qty-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 4px 12px rgba(14, 116, 144, 0.3);
+        }
+
+        .qty-display {
+            font-size: 14px;
+            font-weight: 600;
+            color: #0c4a6e;
+            min-width: 30px;
+            text-align: center;
+        }
+
+        .remove-item-btn {
+            background: rgba(244, 63, 94, 0.1);
+            border: none;
+            color: #e11d48;
+            padding: 6px 10px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .remove-item-btn:hover {
+            background: rgba(244, 63, 94, 0.2);
+        }
+
+        .cart-item-subtotal {
+            font-size: 13px;
+            color: #64748b;
+            font-weight: 600;
+        }
+
+        .cart-empty {
+            text-align: center;
+            padding: 40px 20px;
+            color: #94a3b8;
+        }
+
+        .cart-empty-icon {
+            font-size: 60px;
+            margin-bottom: 15px;
+        }
+
+        .cart-summary {
+            border-top: 2px solid rgba(14, 116, 144, 0.1);
+            padding-top: 20px;
+            flex-shrink: 0; /* Tidak mengecil */
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 12px;
+            font-size: 14px;
+        }
+
+        .summary-row.total {
+            font-size: 18px;
+            font-weight: 800;
+            color: #0c4a6e;
+            padding-top: 12px;
+            border-top: 2px solid rgba(14, 116, 144, 0.2);
+        }
+
+        .summary-label {
+            color: #64748b;
+        }
+
+        .summary-value {
+            color: #0e7490;
+            font-weight: 600;
+        }
+
+        .checkout-section {
+            margin-top: 15px;
+            flex-shrink: 0; /* Tidak mengecil */
+        }
+
+        .customer-info {
+            background: rgba(14, 116, 144, 0.05);
+            padding: 15px;
+            border-radius: 12px;
+            margin-bottom: 15px;
+        }
+
+        .customer-info input {
+            width: 100%;
+            padding: 10px 15px;
+            border: 2px solid rgba(14, 116, 144, 0.2);
+            border-radius: 10px;
+            font-size: 14px;
+            margin-bottom: 10px;
+            transition: all 0.3s;
+        }
+
+        .customer-info input:focus {
+            outline: none;
+            border-color: #0e7490;
+            box-shadow: 0 0 0 4px rgba(14, 116, 144, 0.1);
+        }
+
+        .payment-methods {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .payment-method {
+            padding: 12px;
+            border: 2px solid rgba(14, 116, 144, 0.2);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: center;
+            font-size: 13px;
+            font-weight: 600;
+            color: #475569;
+            background: white;
+        }
+
+        .payment-method:hover {
+            border-color: #0e7490;
+            background: rgba(14, 116, 144, 0.05);
+        }
+
+        .payment-method.active {
+            background: linear-gradient(135deg, #0e7490, #06b6d4);
+            color: white;
+            border-color: transparent;
+            box-shadow: 0 4px 15px rgba(14, 116, 144, 0.3);
+        }
+
+        .payment-method .icon {
+            font-size: 20px;
+            margin-bottom: 5px;
+        }
+
+        .checkout-btn {
+            width: 100%;
+            background: linear-gradient(135deg, #10b981, #059669);
+            border: none;
+            color: white;
+            padding: 16px;
+            border-radius: 15px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+        }
+
+        .checkout-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
+        }
+
+        .checkout-btn:disabled {
+            background: linear-gradient(135deg, #94a3b8, #64748b);
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(12, 74, 110, 0.8);
+            backdrop-filter: blur(5px);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 35px;
+            border-radius: 20px;
+            max-width: 450px;
+            width: 90%;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            animation: modalSlideIn 0.3s ease;
+        }
+
+        @keyframes modalSlideIn {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .modal-header {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .modal-icon {
+            font-size: 60px;
+            margin-bottom: 15px;
+        }
+
+        .modal-title {
+            font-size: 24px;
+            font-weight: 800;
+            color: #0c4a6e;
+            margin-bottom: 8px;
+        }
+
+        .modal-subtitle {
+            color: #64748b;
+            font-size: 14px;
+        }
+
+        .receipt {
+            background: rgba(14, 116, 144, 0.05);
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+        }
+
+        .receipt-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+
+        .receipt-row.highlight {
+            font-size: 18px;
+            font-weight: 800;
+            color: #0c4a6e;
+            padding-top: 12px;
+            border-top: 2px dashed rgba(14, 116, 144, 0.3);
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .modal-btn {
+            flex: 1;
+            padding: 14px;
+            border: none;
+            border-radius: 12px;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .modal-btn.primary {
+            background: linear-gradient(135deg, #0e7490, #06b6d4);
+            color: white;
+            box-shadow: 0 4px 15px rgba(14, 116, 144, 0.3);
+        }
+
+        .modal-btn.primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(14, 116, 144, 0.4);
+        }
+
+        .modal-btn.secondary {
+            background: rgba(14, 116, 144, 0.1);
+            color: #0e7490;
+        }
+
+        .modal-btn.secondary:hover {
+            background: rgba(14, 116, 144, 0.2);
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, #0e7490, #06b6d4);
+            border-radius: 10px;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .kasir-container {
+                grid-template-columns: 1fr;
+                height: auto;
+            }
+
+            .product-section {
+                height: 400px;
+            }
+
+            .cart-section {
+                height: 500px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(-100%);
+            }
+
+            .sidebar.active {
+                transform: translateX(0);
+            }
+
+            .main-content {
+                margin-left: 0;
+                padding: 18px;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            .header {
+                flex-direction: column;
+                gap: 18px;
+                padding: 20px;
+            }
+
+            .product-grid {
+                grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+            }
+
+            .payment-methods {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(12, 74, 110, 0.7);
+            backdrop-filter: blur(5px);
+            z-index: 999;
+        }
+
+        .overlay.active {
+            display: block;
+        }
+
+        .menu-item .badge {
+            margin-left: auto;
+            background: linear-gradient(135deg, #f43f5e, #e11d48);
+            color: white;
+            font-size: 11px;
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-weight: 700;
+            box-shadow: 0 2px 8px rgba(244, 63, 94, 0.4);
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Overlay -->
+    <div class="overlay" id="overlay"></div>
+
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+        <div class="logo-section">
+            <span class="icon">🎣</span>
+            <div>
+                <h2>Mekar Jaya</h2>
+                <span class="badge">ADMIN</span>
+            </div>
+        </div>
+        <a href="#" class="menu-item active" onclick="location.href='../dashboard/kasir.html'">
+            <span class="icon">🖥️</span>
+            <span>Kasir</span>
+        </a>
+        <div class="menu-section" onclick="location.href='../dashboard/dashboard.html'">
+            <div class="menu-label">Menu Utama</div>
+            <a href="#" class="menu-item ">
+                <span class="icon">📊</span>
+                <span>Dashboard</span>
+            </a>
+            <a href="#" class="menu-item" onclick="location.href='../dashboard/master_data.html'">
+                <span class="icon">🧾</span>
+                <span>Master Data</span>
+                <span class="badge">24</span>
+            </a>
+            <a href="#" class="menu-item">
+                <span class="icon">🚚</span>
+                <span>Barang Masuk</span>
+            </a>
+            <a href="#" class="menu-item">
+                <span class="icon">📦</span>
+                <span>Barang Keluar</span>
+                <span class="badge">8</span>
+            </a>
+            <a href="#" class="menu-item">
+                <span class="icon">📝</span>
+                <span>Generate Laporan</span>
+            </a>
+            <a href="#" class="menu-item">
+                <span class="icon">📜</span>
+                <span>Riwayat Transaksi</span>
+            </a>
+        </div>
+
+        <div class="menu-section">
+            <div class="menu-label">Manajemen</div>
+            <a href="#" class="menu-item">
+                <span class="icon">⚙️</span>
+                <span>Pengaturan</span>
+            </a>
+            <a href="#" class="menu-item">
+                <span class="icon">🔔</span>
+                <span>Notifikasi</span>
+            </a>
+            <a href="#" class="menu-item" onclick="location.href='../pages/login.html'">
+                <span class="icon">🚪</span>
+                <span>Logout</span>
+            </a>
+
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content" id="mainContent">
+        <!-- Header -->
+        <div class="header">
+            <div class="header-left">
+                <h1>Kasir Point of Sale</h1>
+                <p>Proses transaksi dengan cepat dan mudah 💳</p>
+            </div>
+            <button class="menu-toggle" id="menuToggle">☰</button>
+        </div>
+
+        <!-- Kasir Container -->
+        <div class="kasir-container">
+            <!-- Product Section -->
+            <div class="product-section">
+                <div class="search-product">
+                    <span class="icon">🔍</span>
+                    <input type="text" id="searchInput" placeholder="Cari produk...">
+                </div>
+
+                <div class="category-tabs">
+                    <div class="category-tab active" data-category="all">Semua</div>
+                    <div class="category-tab" data-category="joran">Joran</div>
+                    <div class="category-tab" data-category="reel">Reel</div>
+                    <div class="category-tab" data-category="umpan">Umpan</div>
+                    <div class="category-tab" data-category="aksesoris">Aksesoris</div>
+                    <div class="category-tab" data-category="kail">Kail</div>
+                </div>
+
+                <div class="product-grid" id="productGrid">
+                    <!-- Products will be loaded here -->
+                </div>
+            </div>
+
+            <!-- Cart Section -->
+            <div class="cart-section">
+                <div class="cart-header">
+                    <h3>Keranjang Belanja</h3>
+                    <button class="clear-cart-btn" id="clearCartBtn">🗑️ Kosongkan</button>
+                </div>
+
+                <div class="cart-items" id="cartItems">
+                    <div class="cart-empty">
+                        <div class="cart-empty-icon">🛒</div>
+                        <p>Keranjang masih kosong</p>
+                    </div>
+                </div>
+
+                <div class="cart-summary">
+                    <div class="summary-row">
+                        <span class="summary-label">Subtotal:</span>
+                        <span class="summary-value" id="subtotalValue">Rp 0</span>
+                    </div>
+                    <div class="summary-row">
+                        <span class="summary-label">Pajak (10%):</span>
+                        <span class="summary-value" id="taxValue">Rp 0</span>
+                    </div>
+                    <div class="summary-row total">
+                        <span>Total:</span>
+                        <span id="totalValue">Rp 0</span>
+                    </div>
+                </div>
+
+                <div class="checkout-section">
+                    <div class="customer-info">
+                        <input type="text" id="customerName" placeholder="Nama Pelanggan (Opsional)">
+                        <input type="tel" id="customerPhone" placeholder="No. Telepon (Opsional)">
+                    </div>
+
+                    <div class="payment-methods">
+                        <div class="payment-method active" data-method="cash">
+                            <div class="icon">💵</div>
+                            <div>Tunai</div>
+                        </div>
+                        <div class="payment-method" data-method="card">
+                            <div class="icon">💳</div>
+                            <div>Kartu</div>
+                        </div>
+                        <div class="payment-method" data-method="transfer">
+                            <div class="icon">🏦</div>
+                            <div>Transfer</div>
+                        </div>
+                        <div class="payment-method" data-method="ewallet">
+                            <div class="icon">📱</div>
+                            <div>E-Wallet</div>
+                        </div>
+                    </div>
+
+                    <button class="checkout-btn" id="checkoutBtn" disabled>
+                        💳 Proses Pembayaran
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Success Modal -->
+    <div class="modal" id="successModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-icon">✅</div>
+                <h3 class="modal-title">Transaksi Berhasil!</h3>
+                <p class="modal-subtitle">Pembayaran telah berhasil diproses</p>
+            </div>
+
+            <div class="receipt" id="receiptContent">
+                <div class="receipt-row">
+                    <span>No. Transaksi:</span>
+                    <strong id="transactionId">#TRX-001</strong>
+                </div>
+                <div class="receipt-row">
+                    <span>Tanggal:</span>
+                    <strong id="transactionDate">-</strong>
+                </div>
+                <div class="receipt-row">
+                    <span>Kasir:</span>
+                    <strong>Admin</strong>
+                </div>
+                <div class="receipt-row">
+                    <span>Metode Bayar:</span>
+                    <strong id="paymentMethodText">Tunai</strong>
+                </div>
+                <div class="receipt-row highlight">
+                    <span>Total Bayar:</span>
+                    <strong id="receiptTotal">Rp 0</strong>
+                </div>
+            </div>
+
+            <div class="modal-actions">
+                <button class="modal-btn secondary" id="printBtn">🖨️ Print</button>
+                <button class="modal-btn primary" id="newTransactionBtn">✨ Transaksi Baru</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Sample Products Data
+        const productsData = [
+            { id: 1, name: 'Joran Carbon Pro X1', category: 'joran', price: 1250000, stock: 25, icon: '🎣' },
+            { id: 2, name: 'Reel Shimano 5000', category: 'reel', price: 850000, stock: 42, icon: '⚙️' },
+            { id: 3, name: 'Umpan Set Premium', category: 'umpan', price: 450000, stock: 8, icon: '🐟' },
+            { id: 4, name: 'Tas Pancing Waterproof', category: 'aksesoris', price: 675000, stock: 31, icon: '🎒' },
+            { id: 5, name: 'Kail Set Professional', category: 'kail', price: 350000, stock: 56, icon: '🪝' },
+            { id: 6, name: 'Joran Telescopic', category: 'joran', price: 550000, stock: 18, icon: '🎣' },
+            { id: 7, name: 'Reel Daiwa 3000', category: 'reel', price: 750000, stock: 22, icon: '⚙️' },
+            { id: 8, name: 'Umpan Buatan Lure', category: 'umpan', price: 125000, stock: 64, icon: '🐟' },
+            { id: 9, name: 'Kotak Pancing Tackle Box', category: 'aksesoris', price: 280000, stock: 15, icon: '📦' },
+            { id: 10, name: 'Senar PE 50lb', category: 'aksesoris', price: 180000, stock: 45, icon: '🧵' },
+            { id: 11, name: 'Joran Casting Heavy', category: 'joran', price: 980000, stock: 12, icon: '🎣' },
+            { id: 12, name: 'Reel Baitcasting', category: 'reel', price: 1100000, stock: 9, icon: '⚙️' },
+        ];
+
+        let cart = [];
+        let selectedPaymentMethod = 'cash';
+        let transactionCounter = 1;
+
+        // DOM Elements
+        const productGrid = document.getElementById('productGrid');
+        const cartItems = document.getElementById('cartItems');
+        const searchInput = document.getElementById('searchInput');
+        const categoryTabs = document.querySelectorAll('.category-tab');
+        const paymentMethods = document.querySelectorAll('.payment-method');
+        const checkoutBtn = document.getElementById('checkoutBtn');
+        const clearCartBtn = document.getElementById('clearCartBtn');
+        const successModal = document.getElementById('successModal');
+        const newTransactionBtn = document.getElementById('newTransactionBtn');
+        const printBtn = document.getElementById('printBtn');
+        const menuToggle = document.getElementById('menuToggle');
+        const sidebar = document.getElementById('sidebar');
+        const overlay = document.getElementById('overlay');
+
+        // Initialize
+        renderProducts(productsData);
+
+        // Render Products
+        function renderProducts(products) {
+            productGrid.innerHTML = products.map(product => `
+                <div class="product-card" onclick="addToCart(${product.id})">
+                    <div class="product-icon">${product.icon}</div>
+                    <div class="product-name">${product.name}</div>
+                    <div class="product-price">${formatCurrency(product.price)}</div>
+                    <div class="product-stock">Stok: ${product.stock}</div>
+                </div>
+            `).join('');
+        }
+
+        // Add to Cart
+        function addToCart(productId) {
+            const product = productsData.find(p => p.id === productId);
+            if (!product || product.stock === 0) {
+                alert('Stok produk habis!');
+                return;
+            }
+
+            const existingItem = cart.find(item => item.id === productId);
+
+            if (existingItem) {
+                if (existingItem.quantity < product.stock) {
+                    existingItem.quantity++;
+                } else {
+                    alert('Stok tidak mencukupi!');
+                    return;
+                }
+            } else {
+                cart.push({
+                    id: product.id,
+                    name: product.name,
+                    price: product.price,
+                    quantity: 1,
+                    maxStock: product.stock
+                });
+            }
+
+            renderCart();
+            updateSummary();
+        }
+
+        // Render Cart
+        function renderCart() {
+            if (cart.length === 0) {
+                cartItems.innerHTML = `
+                    <div class="cart-empty">
+                        <div class="cart-empty-icon">🛒</div>
+                        <p>Keranjang masih kosong</p>
+                    </div>
+                `;
+                checkoutBtn.disabled = true;
+                return;
+            }
+
+            checkoutBtn.disabled = false;
+
+            cartItems.innerHTML = cart.map((item, index) => `
+                <div class="cart-item">
+                    <div class="cart-item-header">
+                        <div class="cart-item-name">${item.name}</div>
+                        <div class="cart-item-price">${formatCurrency(item.price)}</div>
+                    </div>
+                    <div class="cart-item-controls">
+                        <div class="quantity-control">
+                            <button class="qty-btn" onclick="decreaseQuantity(${index})">-</button>
+                            <div class="qty-display">${item.quantity}</div>
+                            <button class="qty-btn" onclick="increaseQuantity(${index})">+</button>
+                        </div>
+                        <div class="cart-item-subtotal">${formatCurrency(item.price * item.quantity)}</div>
+                        <button class="remove-item-btn" onclick="removeFromCart(${index})">Hapus</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Increase Quantity
+        function increaseQuantity(index) {
+            if (cart[index].quantity < cart[index].maxStock) {
+                cart[index].quantity++;
+                renderCart();
+                updateSummary();
+            } else {
+                alert('Stok tidak mencukupi!');
+            }
+        }
+
+        // Decrease Quantity
+        function decreaseQuantity(index) {
+            if (cart[index].quantity > 1) {
+                cart[index].quantity--;
+                renderCart();
+                updateSummary();
+            }
+        }
+
+        // Remove from Cart
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            renderCart();
+            updateSummary();
+        }
+
+        // Clear Cart
+        clearCartBtn.addEventListener('click', () => {
+            if (cart.length === 0) return;
+            if (confirm('Kosongkan keranjang belanja?')) {
+                cart = [];
+                renderCart();
+                updateSummary();
+            }
+        });
+
+        // Update Summary
+        function updateSummary() {
+            const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            const tax = subtotal * 0.1;
+            const total = subtotal + tax;
+
+            document.getElementById('subtotalValue').textContent = formatCurrency(subtotal);
+            document.getElementById('taxValue').textContent = formatCurrency(tax);
+            document.getElementById('totalValue').textContent = formatCurrency(total);
+        }
+
+        // Format Currency
+        function formatCurrency(amount) {
+            return 'Rp ' + amount.toLocaleString('id-ID');
+        }
+
+        // Category Filter
+        categoryTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                categoryTabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+
+                const category = tab.dataset.category;
+                const filtered = category === 'all'
+                    ? productsData
+                    : productsData.filter(p => p.category === category);
+
+                renderProducts(filtered);
+            });
+        });
+
+        // Search Products
+        searchInput.addEventListener('input', (e) => {
+            const query = e.target.value.toLowerCase();
+            const filtered = productsData.filter(p =>
+                p.name.toLowerCase().includes(query)
+            );
+            renderProducts(filtered);
+        });
+
+        // Payment Method Selection
+        paymentMethods.forEach(method => {
+            method.addEventListener('click', () => {
+                paymentMethods.forEach(m => m.classList.remove('active'));
+                method.classList.add('active');
+                selectedPaymentMethod = method.dataset.method;
+            });
+        });
+
+        // Checkout
+        checkoutBtn.addEventListener('click', () => {
+            if (cart.length === 0) return;
+
+            const customerName = document.getElementById('customerName').value || 'Customer';
+            const customerPhone = document.getElementById('customerPhone').value || '-';
+
+            // Generate Transaction ID
+            const transactionId = `TRX-${String(transactionCounter).padStart(4, '0')}`;
+            transactionCounter++;
+
+            // Get current date and time
+            const now = new Date();
+            const dateStr = now.toLocaleDateString('id-ID', {
+                day: '2-digit',
+                month: 'long',
+                year: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+
+            // Calculate total
+            const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            const tax = subtotal * 0.1;
+            const total = subtotal + tax;
+
+            // Update modal content
+            document.getElementById('transactionId').textContent = transactionId;
+            document.getElementById('transactionDate').textContent = dateStr;
+            document.getElementById('receiptTotal').textContent = formatCurrency(total);
+
+            const paymentMethodNames = {
+                cash: 'Tunai',
+                card: 'Kartu Debit/Kredit',
+                transfer: 'Transfer Bank',
+                ewallet: 'E-Wallet'
+            };
+            document.getElementById('paymentMethodText').textContent = paymentMethodNames[selectedPaymentMethod];
+
+            // Show modal
+            successModal.classList.add('active');
+
+            // Update stock
+            cart.forEach(item => {
+                const product = productsData.find(p => p.id === item.id);
+                if (product) {
+                    product.stock -= item.quantity;
+                }
+            });
+
+            // Log transaction (in real app, send to backend)
+            console.log('Transaction:', {
+                id: transactionId,
+                date: now,
+                customer: { name: customerName, phone: customerPhone },
+                items: cart,
+                payment: selectedPaymentMethod,
+                subtotal,
+                tax,
+                total
+            });
+        });
+
+        // New Transaction
+        newTransactionBtn.addEventListener('click', () => {
+            cart = [];
+            document.getElementById('customerName').value = '';
+            document.getElementById('customerPhone').value = '';
+            renderCart();
+            updateSummary();
+            successModal.classList.remove('active');
+            renderProducts(productsData);
+        });
+
+        // Print Receipt
+        printBtn.addEventListener('click', () => {
+            alert('🖨️ Fitur print akan segera tersedia!\n\nStruk akan dicetak ke printer thermal.');
+        });
+
+        // Sidebar Toggle
+        menuToggle.addEventListener('click', () => {
+            sidebar.classList.toggle('active');
+            overlay.classList.toggle('active');
+        });
+
+        overlay.addEventListener('click', () => {
+            sidebar.classList.remove('active');
+            overlay.classList.remove('active');
+        });
+
+        // Close modal on outside click
+        successModal.addEventListener('click', (e) => {
+            if (e.target === successModal) {
+                successModal.classList.remove('active');
+            }
+        });
+
+        // Keyboard shortcuts
+        document.addEventListener('keydown', (e) => {
+            // ESC to close modal
+            if (e.key === 'Escape' && successModal.classList.contains('active')) {
+                successModal.classList.remove('active');
+            }
+
+            // F9 to checkout
+            if (e.key === 'F9' && !checkoutBtn.disabled) {
+                e.preventDefault();
+                checkoutBtn.click();
+            }
+        });
+    </script>
+</body>
+
+</html>

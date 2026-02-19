@@ -1288,7 +1288,7 @@
                 <span class="badge">ADMIN</span>
             </div>
         </div>
-        <a href="../dashboard/kasir.html" class="menu-item" data-loading="true">
+        <a href="../admin/kasir.html" class="menu-item" data-loading="true">
             <span class="icon">🖥️</span>
             <span>Kasir</span>
         </a>
@@ -1331,10 +1331,11 @@
                 <span class="icon">🔔</span>
                 <span>Notifikasi</span>
             </a>
-            <a href="#" class="menu-item" onclick="location.href='../pages/login.html'">
+            <a href="#" class="menu-item logout-btn">
                 <span class="icon">🚪</span>
                 <span>Logout</span>
             </a>
+
         </div>
     </aside>
 
@@ -1430,8 +1431,8 @@
                 </div>
 
                 <div class="stat-label">Total Pendapatan</div>
-                <div class="stat-value" id="incomeValue">Rp 45.2M</div>
-                <div class="stat-description" id="incomeDesc">+Rp 3.5M dari bulan lalu</div>
+                <div class="stat-value" id="incomeValue">Rp 830,000</div>
+
             </div>
 
             <script>
@@ -1488,56 +1489,23 @@
             <div class="stat-card">
                 <div class="stat-header">
                     <div class="stat-icon yellow">🛒</div>
-
-                    <!-- Dropdown Filter -->
-                    <div class="dropdown">
-                        <button class="dropdown-btn stat-trend up" id="dropdownBtn">Hari Ini ▾</button>
-                        <div class="dropdown-menu" id="dropdownMenu">
-                            <div class="dropdown-item" data-range="hari">Hari Ini</div>
-                            <div class="dropdown-item" data-range="minggu">1 Minggu</div>
-                            <div class="dropdown-item" data-range="bulan">1 Bulan</div>
-                            <div class="dropdown-item" data-range="tahun">1 Tahun</div>
-                        </div>
-                    </div>
                 </div>
 
                 <div class="stat-label">Total Transaksi</div>
                 <div class="stat-value" id="incomeValue">42</div>
-                <div class="stat-description" id="incomeDesc">42 barang masuk pada hari ini</div>
             </div>
 
             <div class="stat-card">
                 <div class="stat-header">
                     <div class="stat-icon red">📦</div>
-
-                    <!-- Dropdown Filter -->
-                    <div class="dropdown">
-                        <button class="dropdown-btn stat-trend up" id="dropdownBtn">Hari Ini ▾</button>
-                        <div class="dropdown-menu" id="dropdownMenu">
-                            <div class="dropdown-item" data-range="hari">Hari Ini</div>
-                            <div class="dropdown-item" data-range="minggu">1 Minggu</div>
-                            <div class="dropdown-item" data-range="bulan">1 Bulan</div>
-                            <div class="dropdown-item" data-range="tahun">1 Tahun</div>
-                        </div>
-                    </div>
                 </div>
 
                 <div class="stat-label">Total Item Terjual</div>
                 <div class="stat-value" id="incomeValue">42</div>
-                <div class="stat-description" id="incomeDesc">42 barang keluar pada hari ini</div>
             </div>
             <div class="stat-card">
                 <div class="stat-header">
                     <div class="stat-icon blue">📈</div>
-                    <div class="dropdown">
-                        <button class="dropdown-btn stat-trend up" id="dropdownBtn">Hari Ini ▾</button>
-                        <div class="dropdown-menu" id="dropdownMenu">
-                            <div class="dropdown-item" data-range="hari">Hari Ini</div>
-                            <div class="dropdown-item" data-range="minggu">1 Minggu</div>
-                            <div class="dropdown-item" data-range="bulan">1 Bulan</div>
-                            <div class="dropdown-item" data-range="tahun">1 Tahun</div>
-                        </div>
-                    </div>
                 </div>
                 <div class="stat-label">Rata-rata Transaksi</div>
                 <div class="stat-value">1,245</div>
@@ -1552,7 +1520,7 @@
                     <h3>Pesanan Terbaru</h3>
                     <button class="filter-btn" id="filterBtn">Filter ▼</button>
                 </div>
-                
+
                 <!-- Filter Section -->
                 <div class="filter-section" id="filterSection" style="display: none;">
                     <select class="filter-select" id="transactionFilter">
@@ -1568,7 +1536,7 @@
                     <button class="action-btn-primary" id="applyFilter">Terapkan</button>
                     <button class="action-btn-secondary" id="resetFilter">Reset</button>
                 </div>
-                
+
                 <div class="table-container">
                     <table class="data-table" id="ordersTable">
                         <thead>
@@ -1955,7 +1923,7 @@
         const viewAllProductsBtn = document.getElementById('viewAllProducts');
 
         // Toggle filter section
-        filterBtn.addEventListener('click', function() {
+        filterBtn.addEventListener('click', function () {
             filterSection.style.display = filterSection.style.display === 'none' ? 'flex' : 'none';
         });
 
@@ -2027,11 +1995,11 @@
         // Fungsi untuk memuat data pesanan ke tabel
         function loadOrdersTable(orders) {
             ordersTableBody.innerHTML = '';
-            
+
             orders.forEach(order => {
                 const row = document.createElement('tr');
                 const totalValue = parseInt(order.total.replace(/[^\d]/g, ''));
-                
+
                 row.innerHTML = `
                     <td>${order.id}</td>
                     <td>${order.customer.name}</td>
@@ -2043,20 +2011,20 @@
                         <button class="action-btn delete-btn" data-id="${order.id}">🗑️</button>
                     </td>
                 `;
-                
+
                 ordersTableBody.appendChild(row);
             });
-            
+
             // Tambahkan event listeners untuk tombol aksi
             document.querySelectorAll('.view-btn').forEach(btn => {
-                btn.addEventListener('click', function() {
+                btn.addEventListener('click', function () {
                     const orderId = this.getAttribute('data-id');
                     openOrderModal(orderId);
                 });
             });
-            
+
             document.querySelectorAll('.delete-btn').forEach(btn => {
-                btn.addEventListener('click', function() {
+                btn.addEventListener('click', function () {
                     const orderId = this.getAttribute('data-id');
                     if (confirm(`Hapus pesanan ${orderId}?`)) {
                         const row = this.closest('tr');
@@ -2072,10 +2040,10 @@
         // Fungsi untuk memuat data produk terlaris
         function loadBestSellingTable(products) {
             bestSellingTableBody.innerHTML = '';
-            
+
             products.forEach(product => {
                 const row = document.createElement('tr');
-                
+
                 row.innerHTML = `
                     <td><strong>${product.name}</strong></td>
                     <td>${product.category}</td>
@@ -2088,21 +2056,21 @@
                         <button class="action-btn delete-product-btn" data-id="${product.id}">🗑️</button>
                     </td>
                 `;
-                
+
                 bestSellingTableBody.appendChild(row);
             });
-            
+
             // Tambahkan event listeners untuk tombol aksi
             document.querySelectorAll('.view-product-btn').forEach(btn => {
-                btn.addEventListener('click', function() {
+                btn.addEventListener('click', function () {
                     const productId = this.getAttribute('data-id');
                     const product = bestSellingProducts.find(p => p.id == productId);
                     alert(`Detail Produk:\n\nNama: ${product.name}\nKategori: ${product.category}\nHarga: ${product.price}\nTerjual: ${product.sold} unit\nStok: ${product.stock}\nRevenue: ${product.revenue}`);
                 });
             });
-            
+
             document.querySelectorAll('.delete-product-btn').forEach(btn => {
-                btn.addEventListener('click', function() {
+                btn.addEventListener('click', function () {
                     const productId = this.getAttribute('data-id');
                     if (confirm(`Hapus produk ini?`)) {
                         const row = this.closest('tr');
@@ -2118,7 +2086,7 @@
         // Fungsi untuk menerapkan filter
         function applyFilters() {
             let filteredOrders = Object.values(orderData);
-            
+
             // Filter berdasarkan jumlah transaksi
             if (transactionFilter.value === 'high') {
                 filteredOrders = filteredOrders.sort((a, b) => {
@@ -2133,50 +2101,50 @@
                     return aValue - bValue;
                 });
             }
-            
+
             // Filter berdasarkan status
             if (statusFilter.value !== 'all') {
-                filteredOrders = filteredOrders.filter(order => 
+                filteredOrders = filteredOrders.filter(order =>
                     statusFilter.value === 'active' ? order.status === 'Selesai' : order.status === 'Batal'
                 );
             }
-            
+
             loadOrdersTable(filteredOrders);
         }
 
         // Event listeners untuk filter
         applyFilter.addEventListener('click', applyFilters);
-        
-        resetFilter.addEventListener('click', function() {
+
+        resetFilter.addEventListener('click', function () {
             transactionFilter.value = 'all';
             statusFilter.value = 'all';
             loadOrdersTable(Object.values(orderData));
         });
 
         // Event listener untuk tombol lihat semua produk
-        viewAllProductsBtn.addEventListener('click', function() {
+        viewAllProductsBtn.addEventListener('click', function () {
             alert('Menampilkan semua produk terlaris...\n\nFitur ini akan menampilkan daftar lengkap produk terlaris dalam halaman terpisah.');
         });
 
         // Inisialisasi data saat halaman dimuat
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             // Muat data pesanan
             loadOrdersTable(Object.values(orderData));
-            
+
             // Muat data produk terlaris
             loadBestSellingTable(bestSellingProducts);
-            
+
             // Sidebar toggle
             const menuToggle = document.getElementById('menuToggle');
             const sidebar = document.getElementById('sidebar');
             const overlay = document.getElementById('overlay');
 
-            menuToggle.addEventListener('click', function() {
+            menuToggle.addEventListener('click', function () {
                 sidebar.classList.toggle('active');
                 overlay.classList.toggle('active');
             });
 
-            overlay.addEventListener('click', function() {
+            overlay.addEventListener('click', function () {
                 sidebar.classList.remove('active');
                 overlay.classList.remove('active');
             });
@@ -2184,7 +2152,7 @@
             // Menu items
             const menuItems = document.querySelectorAll('.menu-item');
             menuItems.forEach(item => {
-                item.addEventListener('click', function(e) {
+                item.addEventListener('click', function (e) {
                     e.preventDefault();
                     menuItems.forEach(i => i.classList.remove('active'));
                     this.classList.add('active');
@@ -2198,22 +2166,23 @@
 
             // Logout
             const logoutBtn = document.querySelector('.logout-btn');
-            logoutBtn.addEventListener('click', function() {
+            logoutBtn.addEventListener('click', function () {
                 if (confirm('Apakah Anda yakin ingin keluar?')) {
                     alert('Logout berhasil! 👋');
-                    window.location.href = '../pages/login.html';
+                   window.location.href = "../../pages/login.html";
+
                 }
             });
 
             // Notifications
             const notificationBtn = document.querySelector('.notification-btn');
-            notificationBtn.addEventListener('click', function() {
+            notificationBtn.addEventListener('click', function () {
                 alert('🔔 Anda memiliki 5 notifikasi baru:\n\n1. Pesanan baru #ORD-007\n2. Pembayaran diterima #ORD-004\n3. Review baru dari pelanggan\n4. Stok produk menipis\n5. Pesan dari customer service');
             });
 
             // Search
             const searchInput = document.querySelector('.search-box input');
-            searchInput.addEventListener('keypress', function(e) {
+            searchInput.addEventListener('keypress', function (e) {
                 if (e.key === 'Enter') {
                     const query = this.value;
                     if (query) {
@@ -2223,7 +2192,7 @@
             });
 
             // Responsive
-            window.addEventListener('resize', function() {
+            window.addEventListener('resize', function () {
                 if (window.innerWidth > 768) {
                     sidebar.classList.remove('active');
                     overlay.classList.remove('active');
@@ -2231,7 +2200,7 @@
             });
 
             // Prevent sidebar close when clicking inside
-            sidebar.addEventListener('click', function(e) {
+            sidebar.addEventListener('click', function (e) {
                 e.stopPropagation();
             });
         });

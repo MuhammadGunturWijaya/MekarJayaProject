@@ -108,6 +108,61 @@
             overflow: hidden;
         }
 
+        /* Popup */
+        .popup {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            visibility: hidden;
+            opacity: 0;
+            transition: all 0.4s ease;
+            z-index: 999;
+        }
+
+        .popup.active {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        .popup-content {
+            background: white;
+            padding: 40px 50px;
+            border-radius: 25px;
+            text-align: center;
+            animation: popupScale 0.4s ease;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+        }
+
+        @keyframes popupScale {
+            from {
+                transform: scale(0.7);
+                opacity: 0;
+            }
+
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .checkmark {
+            font-size: 60px;
+            color: #22c55e;
+            margin-bottom: 15px;
+        }
+
+        .popup-content h2 {
+            color: #1e40af;
+            margin-bottom: 10px;
+        }
+
+        .popup-content p {
+            color: #475569;
+        }
+
         .wave {
             position: absolute;
             bottom: 0;
@@ -117,6 +172,33 @@
             background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120"><path d="M0,50 Q300,100 600,50 T1200,50 L1200,120 L0,120 Z" fill="%23004080" opacity="0.3"/></svg>');
             background-size: 50% 100%;
             animation: wave-motion 15s linear infinite;
+        }
+
+        /* Error Style */
+        .popup.error .popup-content {
+            border-top: 5px solid #ef4444;
+        }
+
+        .error-icon {
+            font-size: 60px;
+            color: #ef4444;
+            margin-bottom: 15px;
+        }
+
+        .close-btn {
+            margin-top: 15px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 10px;
+            background: #ef4444;
+            color: white;
+            cursor: pointer;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+
+        .close-btn:hover {
+            background: #dc2626;
         }
 
         .wave:nth-child(2) {
@@ -544,9 +626,57 @@
             <!-- SEMENTARA -->
             <button type="submit" class="login-btn" id="loginberhasil">🎣 Masuk Sekarang</button>
             <script>
-                document.getElementById("loginberhasil").addEventListener("click", function () {
-                    window.location.href = "../dashboard/dashboard.html";  // sesuaikan path-nya
-                }); 
+                document.getElementById('loginForm').addEventListener('submit', function (e) {
+                    e.preventDefault();
+
+                    const email = document.getElementById('email').value;
+                    const password = document.getElementById('password').value;
+
+                    const adminEmail = "admin@gmail.com";
+                    const adminPassword = "123123";
+
+                    const userEmail = "user@gmail.com";
+                    const userPassword = "123123";
+
+                    const successPopup = document.getElementById("successPopup");
+                    const popupMessage = document.getElementById("popupMessage");
+
+                    const errorPopup = document.getElementById("errorPopup");
+                    const errorMessage = document.getElementById("errorMessage");
+
+                    function showSuccess(message, redirectUrl) {
+                        popupMessage.textContent = message;
+                        successPopup.classList.add("active");
+
+                        setTimeout(() => {
+                            window.location.href = redirectUrl;
+                        }, 2000);
+                    }
+
+                    function showError(message) {
+                        errorMessage.textContent = message;
+                        errorPopup.classList.add("active");
+                    }
+
+                    if (email === adminEmail && password === adminPassword) {
+
+                        showSuccess("Login berhasil sebagai Admin 🎉",
+                            "../dashboard/admin/dashboard.html");
+
+                    } else if (email === userEmail && password === userPassword) {
+
+                        showSuccess("Login berhasil sebagai User 🎉",
+                            "../dashboard/user/dashboard.html");
+
+                    } else {
+
+                        showError("❌ Email atau Password salah!");
+                    }
+                });
+
+                function closeErrorPopup() {
+                    document.getElementById("errorPopup").classList.remove("active");
+                }
             </script>
 
             <div class="divider">
@@ -560,46 +690,24 @@
     </div>
 
     <!-- validasi berhasil login -->
-    <script>
-        document.getElementById('loginForm').addEventListener('submit', function (e) {
-            e.preventDefault();
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
-            const remember = document.getElementById('remember').checked;
+    <!-- Success Popup -->
+    <div id="successPopup" class="popup">
+        <div class="popup-content">
+            <div class="checkmark">✔</div>
+            <h2>Login Berhasil!</h2>
+            <p id="popupMessage">Selamat datang 🎉</p>
+        </div>
+    </div>
 
-            // Simple validation
-            if (email && password) {
-                // Add loading state
-                const btn = document.querySelector('.login-btn');
-                const originalText = btn.innerHTML;
-                btn.innerHTML = '⏳ Memproses...';
-                btn.disabled = true;
-
-                // Simulate login process
-                setTimeout(() => {
-                    btn.innerHTML = '✅ Berhasil!';
-
-                    setTimeout(() => {
-                        alert(`Login berhasil!\n\nEmail: ${email}\nIngat Saya: ${remember ? 'Ya' : 'Tidak'}\n\n🎣 Selamat datang di Mekar Jaya!`);
-                        btn.innerHTML = originalText;
-                        btn.disabled = false;
-                    }, 800);
-                }, 1500);
-            }
-        });
-
-        // Input animation on focus
-        const inputs = document.querySelectorAll('input[type="email"], input[type="password"]');
-        inputs.forEach(input => {
-            input.addEventListener('focus', function () {
-                this.parentElement.style.transform = 'scale(1.02)';
-            });
-
-            input.addEventListener('blur', function () {
-                this.parentElement.style.transform = 'scale(1)';
-            });
-        });
-    </script>
+    <!-- Error Popup -->
+    <div id="errorPopup" class="popup error">
+        <div class="popup-content">
+            <div class="error-icon">✖</div>
+            <h2>Login Gagal!</h2>
+            <p id="errorMessage">Email atau password salah</p>
+            <button onclick="closeErrorPopup()" class="close-btn">Coba Lagi</button>
+        </div>
+    </div>
 </body>
 
 </html>

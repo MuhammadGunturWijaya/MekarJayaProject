@@ -24,7 +24,6 @@
             background-attachment: fixed;
         }
 
-        /* Sidebar */
         .sidebar {
             position: fixed;
             left: 0;
@@ -106,23 +105,6 @@
             position: relative;
         }
 
-        .menu-item::before {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 4px;
-            height: 0;
-            background: linear-gradient(180deg, #22d3ee, #06b6d4);
-            border-radius: 0 4px 4px 0;
-            transition: height 0.3s ease;
-        }
-
-        .menu-item:hover::before {
-            height: 60%;
-        }
-
         .menu-item:hover {
             background: rgba(255, 255, 255, 0.15);
             color: white;
@@ -137,18 +119,12 @@
             border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
-        .menu-item.active::before {
-            height: 60%;
-        }
-
         .menu-item .icon {
             font-size: 22px;
             width: 28px;
             text-align: center;
-            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
         }
 
-        /* Main Content */
         .main-content {
             margin-left: 280px;
             padding: 25px;
@@ -160,7 +136,6 @@
             margin-left: 0;
         }
 
-        /* Header */
         .header {
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px);
@@ -200,7 +175,6 @@
             box-shadow: 0 4px 15px rgba(14, 116, 144, 0.3);
         }
 
-        /* Kasir Layout */
         .kasir-container {
             display: grid;
             grid-template-columns: 2fr 1fr;
@@ -209,7 +183,6 @@
             max-height: calc(100vh - 180px);
         }
 
-        /* Product Section */
         .product-section {
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px);
@@ -351,7 +324,6 @@
             text-align: center;
         }
 
-        /* Cart Section - MODIFIED */
         .cart-section {
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px);
@@ -365,7 +337,6 @@
             overflow: hidden;
             overflow-y: auto;
             scrollbar-width: none;
-            /*    garis scroll hilang */
         }
 
         .cart-header {
@@ -374,7 +345,6 @@
             align-items: center;
             margin-bottom: 20px;
             flex-shrink: 0;
-            /* Tidak mengecil */
         }
 
         .cart-header h3 {
@@ -403,7 +373,6 @@
         .cart-items {
             flex: 1;
             overflow-y: auto;
-            /* Ini yang bisa di-scroll */
             margin-bottom: 20px;
             padding-right: 5px;
             min-height: 200px;
@@ -519,7 +488,6 @@
             border-top: 2px solid rgba(14, 116, 144, 0.1);
             padding-top: 20px;
             flex-shrink: 0;
-            /* Tidak mengecil */
         }
 
         .summary-row {
@@ -549,7 +517,6 @@
         .checkout-section {
             margin-top: 15px;
             flex-shrink: 0;
-            /* Tidak mengecil */
         }
 
         .customer-info {
@@ -612,6 +579,88 @@
             margin-bottom: 5px;
         }
 
+        /* Input Bayar Tunai */
+        .cash-payment-section {
+            display: none;
+            background: rgba(34, 211, 238, 0.1);
+            padding: 15px;
+            border-radius: 12px;
+            margin-bottom: 15px;
+            border: 2px solid rgba(34, 211, 238, 0.3);
+        }
+
+        .cash-payment-section.active {
+            display: block;
+            animation: slideDown 0.3s ease;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .cash-input-group {
+            margin-bottom: 12px;
+        }
+
+        .cash-input-label {
+            font-size: 12px;
+            color: #0c4a6e;
+            font-weight: 600;
+            margin-bottom: 6px;
+            display: block;
+        }
+
+        .cash-input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid rgba(14, 116, 144, 0.3);
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 700;
+            color: #0c4a6e;
+            transition: all 0.3s;
+        }
+
+        .cash-input:focus {
+            outline: none;
+            border-color: #0e7490;
+            box-shadow: 0 0 0 4px rgba(14, 116, 144, 0.1);
+        }
+
+        .cash-change-display {
+            background: white;
+            padding: 12px 15px;
+            border-radius: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 2px solid rgba(16, 185, 129, 0.3);
+        }
+
+        .change-label {
+            font-size: 13px;
+            color: #64748b;
+            font-weight: 600;
+        }
+
+        .change-value {
+            font-size: 18px;
+            font-weight: 800;
+            color: #10b981;
+        }
+
+        .change-value.negative {
+            color: #e11d48;
+        }
+
         .checkout-btn {
             width: 100%;
             background: linear-gradient(135deg, #10b981, #059669);
@@ -663,6 +712,8 @@
             border-radius: 20px;
             max-width: 450px;
             width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
             box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
             animation: modalSlideIn 0.3s ease;
         }
@@ -723,6 +774,35 @@
             border-top: 2px dashed rgba(14, 116, 144, 0.3);
         }
 
+        .receipt-items {
+            margin: 15px 0;
+            padding: 15px 0;
+            border-top: 1px dashed rgba(14, 116, 144, 0.3);
+            border-bottom: 1px dashed rgba(14, 116, 144, 0.3);
+        }
+
+        .receipt-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 13px;
+            color: #475569;
+        }
+
+        .receipt-item-name {
+            flex: 1;
+        }
+
+        .receipt-item-qty {
+            margin: 0 10px;
+            color: #64748b;
+        }
+
+        .receipt-item-price {
+            font-weight: 600;
+            color: #0c4a6e;
+        }
+
         .modal-actions {
             display: flex;
             gap: 10px;
@@ -759,7 +839,30 @@
             background: rgba(14, 116, 144, 0.2);
         }
 
-        /* Scrollbar */
+        /* Print Styles */
+        @media print {
+            body * {
+                visibility: hidden;
+            }
+
+            .receipt,
+            .receipt * {
+                visibility: visible;
+            }
+
+            .receipt {
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+                background: white;
+            }
+
+            .modal-actions {
+                display: none;
+            }
+        }
+
         ::-webkit-scrollbar {
             width: 8px;
             height: 8px;
@@ -775,7 +878,22 @@
             border-radius: 10px;
         }
 
-        /* Responsive */
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(12, 74, 110, 0.7);
+            backdrop-filter: blur(5px);
+            z-index: 999;
+        }
+
+        .overlay.active {
+            display: block;
+        }
+
         @media (max-width: 1024px) {
             .kasir-container {
                 grid-template-columns: 1fr;
@@ -824,145 +942,23 @@
             }
         }
 
-        .overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(12, 74, 110, 0.7);
-            backdrop-filter: blur(5px);
-            z-index: 999;
-        }
-
-        .overlay.active {
-            display: block;
-        }
-
-        .menu-item .badge {
-            margin-left: auto;
-            background: linear-gradient(135deg, #f43f5e, #e11d48);
-            color: white;
-            font-size: 11px;
-            padding: 3px 8px;
-            border-radius: 12px;
-            font-weight: 700;
-            box-shadow: 0 2px 8px rgba(244, 63, 94, 0.4);
-        }
-
-        /* Loading */
-        .loading-overlay {
-            position: fixed;
-            inset: 0;
-            display: none;
-            justify-content: center;
-            align-items: center;
-            background: rgba(255, 255, 255, 0.2);
-            backdrop-filter: blur(8px);
-            z-index: 9999;
-        }
-
-        .loading-overlay.active {
-            display: flex;
-        }
-
-        /* Card loading */
-        .dots-loader {
-            background: linear-gradient(120deg,
-                    rgba(90, 167, 255, 0.35),
-                    rgba(255, 255, 255, 0.05));
-            backdrop-filter: blur(20px);
-            padding: 35px 55px;
-            border-radius: 24px;
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            box-shadow:
-                0 8px 30px rgba(90, 167, 255, 0.35),
-                0 12px 40px rgba(0, 0, 0, 0.15);
-            text-align: center;
-        }
-
-
-        /* Dots animation wrapper */
-        .dots {
-            display: flex;
-            gap: 10px;
-            justify-content: center;
-            margin-bottom: 15px;
-        }
-
-        /* Each dot */
-        .dots span {
-            width: 12px;
-            height: 12px;
-            background: #7b5dfc;
-            border-radius: 50%;
-            animation: pulseDots 1.2s infinite ease-in-out;
-            box-shadow: 0 0 10px rgba(123, 93, 252, 0.6);
-        }
-
-        /* Animation delays for wave effect */
-        .dots span:nth-child(1) {
-            animation-delay: 0s;
-        }
-
-        .dots span:nth-child(2) {
-            animation-delay: 0.2s;
-        }
-
-        .dots span:nth-child(3) {
-            animation-delay: 0.4s;
-        }
-
-        /* Pulse keyframes */
-        @keyframes pulseDots {
-            0% {
-                transform: scale(0.6);
-                opacity: 0.5;
-            }
-
-            40% {
-                transform: scale(1.2);
-                opacity: 1;
-            }
-
-            100% {
-                transform: scale(0.6);
-                opacity: 0.5;
-            }
-        }
-
-        /* Fade Up saat muncul */
-        @keyframes fadeUp {
-            0% {
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
                 opacity: 0;
-                transform: translateY(20px);
             }
 
-            100% {
+            to {
+                transform: translateX(0);
                 opacity: 1;
-                transform: translateY(0);
             }
-        }
-
-        /* Loading text */
-        .loading-title {
-            font-size: 14px;
-            color: #444;
-            letter-spacing: 1px;
-            margin: 0;
-        }
-         .menu-item:hover .icon {
-            animation: wave 0.5s ease;
         }
     </style>
 </head>
 
 <body>
-    <!-- Overlay -->
     <div class="overlay" id="overlay"></div>
 
-    <!-- Sidebar -->
     <aside class="sidebar" id="sidebar">
         <div class="logo-section">
             <span class="icon">🎣</span>
@@ -971,7 +967,7 @@
                 <span class="badge">ADMIN</span>
             </div>
         </div>
-        <a href="#" class="menu-item active" onclick="location.href='../dashboard/kasir.html'">
+        <a href="#" class="menu-item active">
             <span class="icon">🖥️</span>
             <span>Kasir</span>
         </a>
@@ -981,7 +977,7 @@
                 <span class="icon">📊</span>
                 <span>Dashboard</span>
             </a>
-            <a href="../dashboard/master_data.html" class="menu-item" data-loading="true">
+            <a href="#" class="menu-item">
                 <span class="icon">🧾</span>
                 <span>Master Data</span>
             </a>
@@ -992,7 +988,6 @@
             <a href="#" class="menu-item">
                 <span class="icon">📦</span>
                 <span>Barang Keluar</span>
-                <span class="badge">8</span>
             </a>
             <a href="#" class="menu-item">
                 <span class="icon">📝</span>
@@ -1003,7 +998,6 @@
                 <span>Riwayat Transaksi</span>
             </a>
         </div>
-
         <div class="menu-section">
             <div class="menu-label">Manajemen</div>
             <a href="#" class="menu-item">
@@ -1014,17 +1008,14 @@
                 <span class="icon">🔔</span>
                 <span>Notifikasi</span>
             </a>
-            <a href="#" class="menu-item" onclick="location.href='../pages/login.html'">
+            <a href="#" class="menu-item">
                 <span class="icon">🚪</span>
                 <span>Logout</span>
             </a>
-
         </div>
     </aside>
 
-    <!-- Main Content -->
     <main class="main-content" id="mainContent">
-        <!-- Header -->
         <div class="header">
             <div class="header-left">
                 <h1>Kasir Point of Sale</h1>
@@ -1033,9 +1024,7 @@
             <button class="menu-toggle" id="menuToggle">☰</button>
         </div>
 
-        <!-- Kasir Container -->
         <div class="kasir-container">
-            <!-- Product Section -->
             <div class="product-section">
                 <div class="search-product">
                     <span class="icon">🔍</span>
@@ -1049,14 +1038,15 @@
                     <div class="category-tab" data-category="umpan">Umpan</div>
                     <div class="category-tab" data-category="aksesoris">Aksesoris</div>
                     <div class="category-tab" data-category="kail">Kail</div>
+                    <div class="category-tab" id="historyTabBtn"
+                        style="background: linear-gradient(135deg, #8b5cf6, #7c3aed); color: white; border: none; margin-left: auto;">
+                        📜 Riwayat Transaksi
+                    </div>
                 </div>
 
-                <div class="product-grid" id="productGrid">
-                    <!-- Products will be loaded here -->
-                </div>
+                <div class="product-grid" id="productGrid"></div>
             </div>
 
-            <!-- Cart Section -->
             <div class="cart-section">
                 <div class="cart-header">
                     <h3>Keranjang Belanja</h3>
@@ -1110,15 +1100,196 @@
                         </div>
                     </div>
 
+                    <!-- Input Bayar Tunai -->
+                    <div class="cash-payment-section active" id="cashPaymentSection">
+                        <div class="cash-input-group">
+                            <label class="cash-input-label">💵 Jumlah Uang Diterima</label>
+                            <input type="text" class="cash-input" id="cashInput" placeholder="0" inputmode="numeric">
+                        </div>
+                        <div class="cash-change-display">
+                            <span class="change-label">Kembalian:</span>
+                            <span class="change-value" id="changeValue">Rp 0</span>
+                        </div>
+                    </div>
+
                     <button class="checkout-btn" id="checkoutBtn" disabled>
                         💳 Proses Pembayaran
                     </button>
                 </div>
             </div>
         </div>
+        <!-- Modal Riwayat Transaksi -->
+        <div class="modal" id="historyModal">
+            <div class="modal-content" style="max-width: 1000px; max-height: 85vh;">
+                <div class="modal-header">
+                    <div class="modal-icon">📜</div>
+                    <h3 class="modal-title">Riwayat Transaksi</h3>
+                    <p class="modal-subtitle">Kelola semua transaksi yang telah dilakukan</p>
+                </div>
+
+                <div style="margin-bottom: 20px;">
+                    <div style="display: flex; gap: 10px; margin-bottom: 15px;">
+                        <div style="flex: 1; position: relative;">
+                            <span
+                                style="position: absolute; left: 15px; top: 50%; transform: translateY(-50%); font-size: 18px;">🔍</span>
+                            <input type="text" id="historySearchInput" placeholder="Cari transaksi..."
+                                style="width: 100%; padding: 12px 15px 12px 45px; border: 2px solid rgba(14, 116, 144, 0.2); border-radius: 12px; font-size: 14px;">
+                        </div>
+                        <select id="historyFilterPayment"
+                            style="padding: 12px 15px; border: 2px solid rgba(14, 116, 144, 0.2); border-radius: 12px; font-size: 14px; cursor: pointer;">
+                            <option value="all">Semua Metode</option>
+                            <option value="cash">Tunai</option>
+                            <option value="card">Kartu</option>
+                            <option value="transfer">Transfer</option>
+                            <option value="ewallet">E-Wallet</option>
+                        </select>
+                    </div>
+                    <div
+                        style="display: flex; justify-content: space-between; align-items: center; padding: 10px 15px; background: rgba(14, 116, 144, 0.05); border-radius: 10px;">
+                        <span style="font-size: 13px; color: #64748b;">Total Transaksi: <strong
+                                id="totalTransactions">0</strong></span>
+                        <span style="font-size: 13px; color: #64748b;">Total Pendapatan: <strong id="totalRevenue"
+                                style="color: #10b981;">Rp 0</strong></span>
+                    </div>
+                </div>
+
+                <div id="historyList" style="max-height: 400px; overflow-y: auto; margin-bottom: 20px;"></div>
+
+                <div class="modal-actions">
+                    <button class="modal-btn secondary" onclick="closeHistoryModal()">✖️ Tutup</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal Edit Transaksi -->
+        <div class="modal" id="editModal">
+            <div class="modal-content" style="max-width: 700px;">
+                <div class="modal-header">
+                    <div class="modal-icon">✏️</div>
+                    <h3 class="modal-title">Edit Transaksi</h3>
+                    <p class="modal-subtitle">Ubah pesanan pelanggan</p>
+                </div>
+
+                <div
+                    style="background: rgba(14, 116, 144, 0.05); padding: 20px; border-radius: 15px; margin-bottom: 20px;">
+                    <!-- Info Transaksi -->
+                    <div
+                        style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 20px; padding-bottom: 20px; border-bottom: 2px dashed rgba(14, 116, 144, 0.2);">
+                        <div>
+                            <label
+                                style="display: block; font-size: 13px; font-weight: 600; color: #0c4a6e; margin-bottom: 6px;">📋
+                                ID Transaksi</label>
+                            <input type="text" id="editTransactionId" disabled
+                                style="width: 100%; padding: 10px 15px; border: 2px solid rgba(14, 116, 144, 0.2); border-radius: 10px; font-size: 14px; background: rgba(255,255,255,0.5);">
+                        </div>
+                        <div>
+                            <label
+                                style="display: block; font-size: 13px; font-weight: 600; color: #0c4a6e; margin-bottom: 6px;">📅
+                                Tanggal</label>
+                            <input type="text" id="editTransactionDate" disabled
+                                style="width: 100%; padding: 10px 15px; border: 2px solid rgba(14, 116, 144, 0.2); border-radius: 10px; font-size: 14px; background: rgba(255,255,255,0.5);">
+                        </div>
+                    </div>
+
+                    <!-- Data Pelanggan -->
+                    <div
+                        style="margin-bottom: 20px; padding-bottom: 20px; border-bottom: 2px dashed rgba(14, 116, 144, 0.2);">
+                        <h4 style="font-size: 14px; color: #0c4a6e; margin-bottom: 12px; font-weight: 700;">👤 Data
+                            Pelanggan</h4>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                            <div>
+                                <label
+                                    style="display: block; font-size: 12px; font-weight: 600; color: #64748b; margin-bottom: 6px;">Nama</label>
+                                <input type="text" id="editCustomerName"
+                                    style="width: 100%; padding: 10px 15px; border: 2px solid rgba(14, 116, 144, 0.2); border-radius: 10px; font-size: 14px;">
+                            </div>
+                            <div>
+                                <label
+                                    style="display: block; font-size: 12px; font-weight: 600; color: #64748b; margin-bottom: 6px;">No.
+                                    Telepon</label>
+                                <input type="tel" id="editCustomerPhone"
+                                    style="width: 100%; padding: 10px 15px; border: 2px solid rgba(14, 116, 144, 0.2); border-radius: 10px; font-size: 14px;">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Item Pesanan -->
+                    <div
+                        style="margin-bottom: 20px; padding-bottom: 20px; border-bottom: 2px dashed rgba(14, 116, 144, 0.2);">
+                        <div
+                            style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                            <h4 style="font-size: 14px; color: #0c4a6e; font-weight: 700;">🛒 Item Pesanan</h4>
+                            <button onclick="openAddItemModal()"
+                                style="background: linear-gradient(135deg, #10b981, #059669); border: none; color: white; padding: 6px 14px; border-radius: 8px; cursor: pointer; font-size: 12px; font-weight: 600;">
+                                ➕ Tambah Item
+                            </button>
+                        </div>
+                        <div id="editItemsList" style="max-height: 250px; overflow-y: auto;"></div>
+                    </div>
+
+                    <!-- Metode Pembayaran -->
+                    <div
+                        style="margin-bottom: 20px; padding-bottom: 20px; border-bottom: 2px dashed rgba(14, 116, 144, 0.2);">
+                        <h4 style="font-size: 14px; color: #0c4a6e; margin-bottom: 12px; font-weight: 700;">💳 Metode
+                            Pembayaran</h4>
+                        <select id="editPaymentMethod"
+                            style="width: 100%; padding: 10px 15px; border: 2px solid rgba(14, 116, 144, 0.2); border-radius: 10px; font-size: 14px; cursor: pointer;">
+                            <option value="cash">💵 Tunai</option>
+                            <option value="card">💳 Kartu Debit/Kredit</option>
+                            <option value="transfer">🏦 Transfer Bank</option>
+                            <option value="ewallet">📱 E-Wallet</option>
+                        </select>
+                    </div>
+
+                    <!-- Total -->
+                    <div style="background: white; padding: 15px; border-radius: 12px;">
+                        <div
+                            style="display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 13px;">
+                            <span style="color: #64748b;">Subtotal:</span>
+                            <span style="font-weight: 600; color: #0c4a6e;" id="editSubtotal">Rp 0</span>
+                        </div>
+                        <div
+                            style="display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 13px;">
+                            <span style="color: #64748b;">Pajak (10%):</span>
+                            <span style="font-weight: 600; color: #0c4a6e;" id="editTax">Rp 0</span>
+                        </div>
+                        <div
+                            style="display: flex; justify-content: space-between; padding-top: 12px; border-top: 2px solid rgba(14, 116, 144, 0.2); font-size: 16px;">
+                            <span style="color: #0c4a6e; font-weight: 700;">Total:</span>
+                            <span style="font-weight: 800; color: #10b981;" id="editTotal">Rp 0</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-actions">
+                    <button class="modal-btn secondary" onclick="closeEditModal()">Batal</button>
+                    <button class="modal-btn primary" onclick="saveEditTransaction()">💾 Simpan Perubahan</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal Tambah Item -->
+        <div class="modal" id="addItemModal">
+            <div class="modal-content" style="max-width: 500px;">
+                <div class="modal-header">
+                    <div class="modal-icon">➕</div>
+                    <h3 class="modal-title">Tambah Item</h3>
+                    <p class="modal-subtitle">Pilih produk untuk ditambahkan</p>
+                </div>
+
+                <div style="margin-bottom: 20px;">
+                    <input type="text" id="addItemSearch" placeholder="🔍 Cari produk..."
+                        style="width: 100%; padding: 12px 15px; border: 2px solid rgba(14, 116, 144, 0.2); border-radius: 12px; font-size: 14px; margin-bottom: 15px;">
+                    <div id="addItemProductList" style="max-height: 350px; overflow-y: auto;"></div>
+                </div>
+
+                <div class="modal-actions">
+                    <button class="modal-btn secondary" onclick="closeAddItemModal()">Tutup</button>
+                </div>
+            </div>
+        </div>
     </main>
 
-    <!-- Success Modal -->
     <div class="modal" id="successModal">
         <div class="modal-content">
             <div class="modal-header">
@@ -1128,6 +1299,13 @@
             </div>
 
             <div class="receipt" id="receiptContent">
+                <div
+                    style="text-align: center; margin-bottom: 20px; border-bottom: 2px dashed rgba(14, 116, 144, 0.3); padding-bottom: 15px;">
+                    <h2 style="margin: 0; color: #0c4a6e; font-size: 20px;">🎣 Mekar Jaya</h2>
+                    <p style="margin: 5px 0; font-size: 12px; color: #64748b;">Toko Alat Pancing Terpercaya</p>
+                    <p style="margin: 0; font-size: 11px; color: #94a3b8;">Jl. Mancing No. 123, Kota Ikan</p>
+                </div>
+
                 <div class="receipt-row">
                     <span>No. Transaksi:</span>
                     <strong id="transactionId">#TRX-001</strong>
@@ -1141,24 +1319,55 @@
                     <strong>Admin</strong>
                 </div>
                 <div class="receipt-row">
+                    <span>Pelanggan:</span>
+                    <strong id="customerNameReceipt">-</strong>
+                </div>
+
+                <div class="receipt-items" id="receiptItems"></div>
+
+                <div class="receipt-row">
+                    <span>Subtotal:</span>
+                    <strong id="receiptSubtotal">Rp 0</strong>
+                </div>
+                <div class="receipt-row">
+                    <span>Pajak (10%):</span>
+                    <strong id="receiptTax">Rp 0</strong>
+                </div>
+                <div class="receipt-row highlight">
+                    <span>Total:</span>
+                    <strong id="receiptTotal">Rp 0</strong>
+                </div>
+
+                <div class="receipt-row"
+                    style="margin-top: 15px; padding-top: 15px; border-top: 2px dashed rgba(14, 116, 144, 0.3);">
                     <span>Metode Bayar:</span>
                     <strong id="paymentMethodText">Tunai</strong>
                 </div>
-                <div class="receipt-row highlight">
-                    <span>Total Bayar:</span>
-                    <strong id="receiptTotal">Rp 0</strong>
+                <div class="receipt-row" id="cashPaymentRow">
+                    <span>Uang Diterima:</span>
+                    <strong id="cashReceivedText">Rp 0</strong>
+                </div>
+                <div class="receipt-row" id="changeRow">
+                    <span>Kembalian:</span>
+                    <strong id="changeReceivedText" style="color: #10b981;">Rp 0</strong>
+                </div>
+
+                <div
+                    style="text-align: center; margin-top: 20px; padding-top: 15px; border-top: 2px dashed rgba(14, 116, 144, 0.3);">
+                    <p style="font-size: 12px; color: #64748b; margin: 5px 0;">Terima kasih atas kunjungan Anda!</p>
+                    <p style="font-size: 11px; color: #94a3b8; margin: 0;">Barang yang sudah dibeli tidak dapat ditukar
+                    </p>
                 </div>
             </div>
 
             <div class="modal-actions">
-                <button class="modal-btn secondary" id="printBtn">🖨️ Print</button>
+                <button class="modal-btn secondary" id="printBtn">🖨️ Cetak Struk</button>
                 <button class="modal-btn primary" id="newTransactionBtn">✨ Transaksi Baru</button>
             </div>
         </div>
     </div>
 
     <script>
-        // Sample Products Data
         const productsData = [
             { id: 1, name: 'Joran Carbon Pro X1', category: 'joran', price: 1250000, stock: 25, icon: '🎣' },
             { id: 2, name: 'Reel Shimano 5000', category: 'reel', price: 850000, stock: 42, icon: '⚙️' },
@@ -1177,8 +1386,276 @@
         let cart = [];
         let selectedPaymentMethod = 'cash';
         let transactionCounter = 1;
+        let cashReceived = 0;
 
-        // DOM Elements
+        // History variables
+        let transactionHistory = [];
+        let currentEditingId = null;
+        let editingTransaction = null;
+
+        function editTransaction(id) {
+            const transaction = transactionHistory.find(trx => trx.id === id);
+            if (!transaction) return;
+
+            editingTransaction = JSON.parse(JSON.stringify(transaction)); // Deep copy
+            currentEditingId = id;
+
+            const dateStr = transaction.date.toLocaleDateString('id-ID', {
+                day: '2-digit',
+                month: 'long',
+                year: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+
+            document.getElementById('editTransactionId').value = transaction.id;
+            document.getElementById('editTransactionDate').value = dateStr;
+            document.getElementById('editCustomerName').value = transaction.customer.name;
+            document.getElementById('editCustomerPhone').value = transaction.customer.phone;
+            document.getElementById('editPaymentMethod').value = transaction.payment;
+
+            renderEditItems();
+            updateEditSummary();
+            editModal.classList.add('active');
+        }
+
+        function renderEditItems() {
+            const container = document.getElementById('editItemsList');
+            if (!editingTransaction || !editingTransaction.items || editingTransaction.items.length === 0) {
+                container.innerHTML = `
+            <div style="text-align: center; padding: 30px; color: #94a3b8;">
+                <div style="font-size: 40px; margin-bottom: 10px;">📦</div>
+                <p style="font-size: 14px;">Belum ada item</p>
+            </div>
+        `;
+                return;
+            }
+
+            container.innerHTML = editingTransaction.items.map((item, index) => `
+        <div style="background: white; border: 2px solid rgba(14, 116, 144, 0.1); border-radius: 12px; padding: 12px; margin-bottom: 10px;">
+            <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 10px;">
+                <div style="flex: 1;">
+                    <div style="font-size: 14px; font-weight: 600; color: #0c4a6e; margin-bottom: 4px;">${item.name}</div>
+                    <div style="font-size: 13px; color: #0e7490; font-weight: 700;">${formatCurrency(item.price)}</div>
+                </div>
+                <button onclick="removeEditItem(${index})" 
+                    style="background: rgba(244, 63, 94, 0.1); border: none; color: #e11d48; padding: 6px 10px; border-radius: 8px; cursor: pointer; font-size: 12px; font-weight: 600;">
+                    🗑️
+                </button>
+            </div>
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <div style="display: flex; gap: 8px; align-items: center;">
+                    <button onclick="decreaseEditItemQty(${index})" 
+                        style="background: linear-gradient(135deg, #0e7490, #06b6d4); border: none; color: white; width: 28px; height: 28px; border-radius: 8px; cursor: pointer; font-size: 16px; font-weight: 700;">
+                        -
+                    </button>
+                    <div style="font-size: 14px; font-weight: 600; color: #0c4a6e; min-width: 30px; text-align: center;">${item.quantity}</div>
+                    <button onclick="increaseEditItemQty(${index})" 
+                        style="background: linear-gradient(135deg, #0e7490, #06b6d4); border: none; color: white; width: 28px; height: 28px; border-radius: 8px; cursor: pointer; font-size: 16px; font-weight: 700;">
+                        +
+                    </button>
+                </div>
+                <div style="font-size: 14px; font-weight: 700; color: #10b981;">${formatCurrency(item.price * item.quantity)}</div>
+            </div>
+        </div>
+    `).join('');
+        }
+
+        function increaseEditItemQty(index) {
+            if (editingTransaction.items[index].quantity < 999) {
+                editingTransaction.items[index].quantity++;
+                renderEditItems();
+                updateEditSummary();
+            }
+        }
+
+        function decreaseEditItemQty(index) {
+            if (editingTransaction.items[index].quantity > 1) {
+                editingTransaction.items[index].quantity--;
+                renderEditItems();
+                updateEditSummary();
+            }
+        }
+
+        function removeEditItem(index) {
+            if (confirm('Hapus item ini dari pesanan?')) {
+                editingTransaction.items.splice(index, 1);
+                renderEditItems();
+                updateEditSummary();
+            }
+        }
+
+        function updateEditSummary() {
+            if (!editingTransaction) return;
+
+            const subtotal = editingTransaction.items.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            const tax = subtotal * 0.1;
+            const total = subtotal + tax;
+
+            editingTransaction.subtotal = subtotal;
+            editingTransaction.tax = tax;
+            editingTransaction.total = total;
+
+            document.getElementById('editSubtotal').textContent = formatCurrency(subtotal);
+            document.getElementById('editTax').textContent = formatCurrency(tax);
+            document.getElementById('editTotal').textContent = formatCurrency(total);
+        }
+
+        function openAddItemModal() {
+            document.getElementById('addItemModal').classList.add('active');
+            renderAddItemProducts();
+        }
+
+        function closeAddItemModal() {
+            document.getElementById('addItemModal').classList.remove('active');
+        }
+
+        function renderAddItemProducts(searchQuery = '') {
+            const container = document.getElementById('addItemProductList');
+            const filtered = productsData.filter(p =>
+                p.name.toLowerCase().includes(searchQuery.toLowerCase())
+            );
+
+            container.innerHTML = filtered.map(product => `
+        <div onclick="addItemToEdit(${product.id})" 
+            style="background: white; border: 2px solid rgba(14, 116, 144, 0.1); border-radius: 12px; padding: 15px; margin-bottom: 10px; cursor: pointer; transition: all 0.3s;"
+            onmouseover="this.style.borderColor='#0e7490'; this.style.transform='translateX(5px)';"
+            onmouseout="this.style.borderColor='rgba(14, 116, 144, 0.1)'; this.style.transform='translateX(0)';">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <div>
+                    <div style="font-size: 14px; font-weight: 600; color: #0c4a6e; margin-bottom: 4px;">${product.icon} ${product.name}</div>
+                    <div style="font-size: 13px; color: #0e7490; font-weight: 700;">${formatCurrency(product.price)}</div>
+                    <div style="font-size: 11px; color: #64748b;">Stok: ${product.stock}</div>
+                </div>
+                <div style="background: linear-gradient(135deg, #10b981, #059669); color: white; width: 35px; height: 35px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 18px; font-weight: 700;">
+                    +
+                </div>
+            </div>
+        </div>
+    `).join('');
+        }
+
+        function addItemToEdit(productId) {
+            const product = productsData.find(p => p.id === productId);
+            if (!product) return;
+
+            const existingItem = editingTransaction.items.find(item => item.id === productId);
+
+            if (existingItem) {
+                existingItem.quantity++;
+            } else {
+                editingTransaction.items.push({
+                    id: product.id,
+                    name: product.name,
+                    price: product.price,
+                    quantity: 1
+                });
+            }
+
+            renderEditItems();
+            updateEditSummary();
+            closeAddItemModal();
+            showNotification('✅ Item berhasil ditambahkan!', 'success');
+        }
+
+        function saveEditTransaction() {
+            if (!currentEditingId || !editingTransaction) return;
+
+            if (editingTransaction.items.length === 0) {
+                alert('Pesanan harus memiliki minimal 1 item!');
+                return;
+            }
+
+            const transaction = transactionHistory.find(trx => trx.id === currentEditingId);
+            if (!transaction) return;
+
+            // Update data
+            transaction.customer.name = document.getElementById('editCustomerName').value || 'Umum';
+            transaction.customer.phone = document.getElementById('editCustomerPhone').value || '-';
+            transaction.payment = document.getElementById('editPaymentMethod').value;
+            transaction.items = [...editingTransaction.items];
+            transaction.subtotal = editingTransaction.subtotal;
+            transaction.tax = editingTransaction.tax;
+            transaction.total = editingTransaction.total;
+
+            // Update cash info jika cash
+            if (transaction.payment === 'cash' && transaction.cashReceived) {
+                transaction.change = transaction.cashReceived - transaction.total;
+            } else {
+                transaction.cashReceived = null;
+                transaction.change = null;
+            }
+
+            closeEditModal();
+            renderTransactionHistory();
+            showNotification('✅ Transaksi berhasil diperbarui!', 'success');
+        }
+
+        function closeEditModal() {
+            editModal.classList.remove('active');
+            currentEditingId = null;
+            editingTransaction = null;
+        }
+
+        // Event listener untuk search add item
+        document.addEventListener('DOMContentLoaded', () => {
+            const addItemSearch = document.getElementById('addItemSearch');
+            if (addItemSearch) {
+                addItemSearch.addEventListener('input', (e) => {
+                    renderAddItemProducts(e.target.value);
+                });
+            }
+
+            // Close modal add item on overlay click
+            const addItemModal = document.getElementById('addItemModal');
+            if (addItemModal) {
+                addItemModal.addEventListener('click', (e) => {
+                    if (e.target === addItemModal) closeAddItemModal();
+                });
+            }
+        });
+
+        transactionHistory = [
+            {
+                id: 'TRX-0001',
+                date: new Date('2024-01-15T10:30:00'),
+                customer: {
+                    name: 'Budi Santoso',
+                    phone: '081234567890'
+                },
+                items: [
+                    { id: 1, name: 'Joran Carbon Pro X1', price: 1250000, quantity: 1 },
+                    { id: 5, name: 'Kail Set Professional', price: 350000, quantity: 2 }
+                ],
+                payment: 'cash',
+                cashReceived: 2000000,
+                change: 50000,
+                subtotal: 1950000,
+                tax: 195000,
+                total: 1950000
+            },
+            {
+                id: 'TRX-0002',
+                date: new Date('2024-01-15T14:45:00'),
+                customer: {
+                    name: 'Siti Nurhaliza',
+                    phone: '082345678901'
+                },
+                items: [
+                    { id: 2, name: 'Reel Shimano 5000', price: 850000, quantity: 1 },
+                    { id: 3, name: 'Umpan Set Premium', price: 450000, quantity: 1 },
+                    { id: 10, name: 'Senar PE 50lb', price: 180000, quantity: 3 }
+                ],
+                payment: 'card',
+                cashReceived: null,
+                change: null,
+                subtotal: 1840000,
+                tax: 184000,
+                total: 2024000
+            }
+        ];
+
+
         const productGrid = document.getElementById('productGrid');
         const cartItems = document.getElementById('cartItems');
         const searchInput = document.getElementById('searchInput');
@@ -1192,11 +1669,15 @@
         const menuToggle = document.getElementById('menuToggle');
         const sidebar = document.getElementById('sidebar');
         const overlay = document.getElementById('overlay');
+        const cashPaymentSection = document.getElementById('cashPaymentSection');
+        const cashInput = document.getElementById('cashInput');
+        const changeValue = document.getElementById('changeValue');
+        const historyModal = document.getElementById('historyModal');
+        const editModal = document.getElementById('editModal');
+        const historyMenuBtn = document.getElementById('historyMenuBtn');
 
-        // Initialize
         renderProducts(productsData);
 
-        // Render Products
         function renderProducts(products) {
             productGrid.innerHTML = products.map(product => `
                 <div class="product-card" onclick="addToCart(${product.id})">
@@ -1208,7 +1689,6 @@
             `).join('');
         }
 
-        // Add to Cart
         function addToCart(productId) {
             const product = productsData.find(p => p.id === productId);
             if (!product || product.stock === 0) {
@@ -1239,7 +1719,6 @@
             updateSummary();
         }
 
-        // Render Cart
         function renderCart() {
             if (cart.length === 0) {
                 cartItems.innerHTML = `
@@ -1273,7 +1752,6 @@
             `).join('');
         }
 
-        // Increase Quantity
         function increaseQuantity(index) {
             if (cart[index].quantity < cart[index].maxStock) {
                 cart[index].quantity++;
@@ -1284,7 +1762,6 @@
             }
         }
 
-        // Decrease Quantity
         function decreaseQuantity(index) {
             if (cart[index].quantity > 1) {
                 cart[index].quantity--;
@@ -1293,14 +1770,12 @@
             }
         }
 
-        // Remove from Cart
         function removeFromCart(index) {
             cart.splice(index, 1);
             renderCart();
             updateSummary();
         }
 
-        // Clear Cart
         clearCartBtn.addEventListener('click', () => {
             if (cart.length === 0) return;
             if (confirm('Kosongkan keranjang belanja?')) {
@@ -1310,7 +1785,6 @@
             }
         });
 
-        // Update Summary
         function updateSummary() {
             const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
             const tax = subtotal * 0.1;
@@ -1319,17 +1793,24 @@
             document.getElementById('subtotalValue').textContent = formatCurrency(subtotal);
             document.getElementById('taxValue').textContent = formatCurrency(tax);
             document.getElementById('totalValue').textContent = formatCurrency(total);
+
+            updateChange();
         }
 
-        // Format Currency
         function formatCurrency(amount) {
             return 'Rp ' + amount.toLocaleString('id-ID');
         }
 
-        // Category Filter
         categoryTabs.forEach(tab => {
             tab.addEventListener('click', () => {
-                categoryTabs.forEach(t => t.classList.remove('active'));
+                // Jangan ubah active state untuk button history
+                if (tab.id === 'historyTabBtn') return;
+
+                categoryTabs.forEach(t => {
+                    if (t.id !== 'historyTabBtn') {
+                        t.classList.remove('active');
+                    }
+                });
                 tab.classList.add('active');
 
                 const category = tab.dataset.category;
@@ -1341,7 +1822,6 @@
             });
         });
 
-        // Search Products
         searchInput.addEventListener('input', (e) => {
             const query = e.target.value.toLowerCase();
             const filtered = productsData.filter(p =>
@@ -1350,27 +1830,78 @@
             renderProducts(filtered);
         });
 
-        // Payment Method Selection
         paymentMethods.forEach(method => {
             method.addEventListener('click', () => {
                 paymentMethods.forEach(m => m.classList.remove('active'));
                 method.classList.add('active');
                 selectedPaymentMethod = method.dataset.method;
+
+                if (selectedPaymentMethod === 'cash') {
+                    cashPaymentSection.classList.add('active');
+                } else {
+                    cashPaymentSection.classList.remove('active');
+                }
             });
         });
 
-        // Checkout
+        cashInput.addEventListener('input', (e) => {
+            const cursorPosition = e.target.selectionStart;
+            const oldLength = e.target.value.length;
+
+            const rawValue = e.target.value.replace(/\./g, '');
+            const formattedValue = formatNumberInput(rawValue);
+            e.target.value = formattedValue;
+
+            const newLength = formattedValue.length;
+            const newCursorPosition = cursorPosition + (newLength - oldLength);
+            e.target.setSelectionRange(newCursorPosition, newCursorPosition);
+
+            cashReceived = parseFormattedNumber(formattedValue);
+            updateChange();
+        });
+
+        function updateChange() {
+            const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            const tax = subtotal * 0.1;
+            const total = subtotal + tax;
+            const change = cashReceived - total;
+
+            const changeElement = document.getElementById('changeValue');
+            changeElement.textContent = formatCurrency(Math.abs(change));
+
+            if (change < 0) {
+                changeElement.classList.add('negative');
+                changeElement.textContent = '- ' + formatCurrency(Math.abs(change));
+            } else {
+                changeElement.classList.remove('negative');
+                changeElement.textContent = formatCurrency(change);
+            }
+
+            if (selectedPaymentMethod === 'cash' && cart.length > 0) {
+                checkoutBtn.disabled = change < 0;
+            }
+        }
+
         checkoutBtn.addEventListener('click', () => {
             if (cart.length === 0) return;
 
-            const customerName = document.getElementById('customerName').value || 'Customer';
+            const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            const tax = subtotal * 0.1;
+            const total = subtotal + tax;
+
+            if (selectedPaymentMethod === 'cash') {
+                if (cashReceived < total) {
+                    alert('Uang yang diterima kurang dari total pembayaran!');
+                    return;
+                }
+            }
+
+            const customerName = document.getElementById('customerName').value || 'Umum';
             const customerPhone = document.getElementById('customerPhone').value || '-';
 
-            // Generate Transaction ID
             const transactionId = `TRX-${String(transactionCounter).padStart(4, '0')}`;
             transactionCounter++;
 
-            // Get current date and time
             const now = new Date();
             const dateStr = now.toLocaleDateString('id-ID', {
                 day: '2-digit',
@@ -1380,15 +1911,21 @@
                 minute: '2-digit'
             });
 
-            // Calculate total
-            const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-            const tax = subtotal * 0.1;
-            const total = subtotal + tax;
-
-            // Update modal content
             document.getElementById('transactionId').textContent = transactionId;
             document.getElementById('transactionDate').textContent = dateStr;
+            document.getElementById('customerNameReceipt').textContent = customerName;
+            document.getElementById('receiptSubtotal').textContent = formatCurrency(subtotal);
+            document.getElementById('receiptTax').textContent = formatCurrency(tax);
             document.getElementById('receiptTotal').textContent = formatCurrency(total);
+
+            const receiptItemsHtml = cart.map(item => `
+                <div class="receipt-item">
+                    <span class="receipt-item-name">${item.name}</span>
+                    <span class="receipt-item-qty">x${item.quantity}</span>
+                    <span class="receipt-item-price">${formatCurrency(item.price * item.quantity)}</span>
+                </div>
+            `).join('');
+            document.getElementById('receiptItems').innerHTML = receiptItemsHtml;
 
             const paymentMethodNames = {
                 cash: 'Tunai',
@@ -1398,10 +1935,22 @@
             };
             document.getElementById('paymentMethodText').textContent = paymentMethodNames[selectedPaymentMethod];
 
-            // Show modal
+            const cashPaymentRow = document.getElementById('cashPaymentRow');
+            const changeRow = document.getElementById('changeRow');
+
+            if (selectedPaymentMethod === 'cash') {
+                const change = cashReceived - total;
+                cashPaymentRow.style.display = 'flex';
+                changeRow.style.display = 'flex';
+                document.getElementById('cashReceivedText').textContent = formatCurrency(cashReceived);
+                document.getElementById('changeReceivedText').textContent = formatCurrency(change);
+            } else {
+                cashPaymentRow.style.display = 'none';
+                changeRow.style.display = 'none';
+            }
+
             successModal.classList.add('active');
 
-            // Update stock
             cart.forEach(item => {
                 const product = productsData.find(p => p.id === item.id);
                 if (product) {
@@ -1409,22 +1958,27 @@
                 }
             });
 
-            // Log transaction (in real app, send to backend)
-            console.log('Transaction:', {
+            // Save to history
+            transactionHistory.push({
                 id: transactionId,
                 date: now,
                 customer: { name: customerName, phone: customerPhone },
-                items: cart,
+                items: [...cart],
                 payment: selectedPaymentMethod,
+                cashReceived: selectedPaymentMethod === 'cash' ? cashReceived : null,
+                change: selectedPaymentMethod === 'cash' ? cashReceived - total : null,
                 subtotal,
                 tax,
                 total
             });
+
+            console.log('Transaction:', transactionHistory[transactionHistory.length - 1]);
         });
 
-        // New Transaction
         newTransactionBtn.addEventListener('click', () => {
             cart = [];
+            cashReceived = 0;
+            cashInput.value = '';
             document.getElementById('customerName').value = '';
             document.getElementById('customerPhone').value = '';
             renderCart();
@@ -1433,12 +1987,10 @@
             renderProducts(productsData);
         });
 
-        // Print Receipt
         printBtn.addEventListener('click', () => {
-            alert('🖨️ Fitur print akan segera tersedia!\n\nStruk akan dicetak ke printer thermal.');
+            window.print();
         });
 
-        // Sidebar Toggle
         menuToggle.addEventListener('click', () => {
             sidebar.classList.toggle('active');
             overlay.classList.toggle('active');
@@ -1449,82 +2001,232 @@
             overlay.classList.remove('active');
         });
 
-        // Close modal on outside click
         successModal.addEventListener('click', (e) => {
             if (e.target === successModal) {
                 successModal.classList.remove('active');
             }
         });
 
-        // Keyboard shortcuts
         document.addEventListener('keydown', (e) => {
-            // ESC to close modal
             if (e.key === 'Escape' && successModal.classList.contains('active')) {
                 successModal.classList.remove('active');
             }
 
-            // F9 to checkout
             if (e.key === 'F9' && !checkoutBtn.disabled) {
                 e.preventDefault();
                 checkoutBtn.click();
             }
         });
-    </script>
 
-    <!-- loading -->
-    <div class="loading-overlay" id="loadingOverlay">
-        <div class="loading-content dots-loader">
-            <div class="dots">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-            <p class="loading-title">Loading...</p>
-        </div>
-    </div>
-
-
-    <script>
-        // Fungsi untuk menampilkan loading
-        function showLoading() {
-            const loadingOverlay = document.getElementById('loadingOverlay');
-            loadingOverlay.classList.add('active');
+        function formatNumberInput(value) {
+            const numbers = value.replace(/\D/g, '');
+            return numbers.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
         }
 
-        // Fungsi untuk menyembunyikan loading
-        function hideLoading() {
-            const loadingOverlay = document.getElementById('loadingOverlay');
-            loadingOverlay.classList.remove('active');
+        function parseFormattedNumber(value) {
+            return parseFloat(value.replace(/\./g, '')) || 0;
         }
 
-        // Versi lebih modern dengan data attributes
-        document.addEventListener('DOMContentLoaded', function () {
-            const menuItems = document.querySelectorAll('.menu-item[data-loading="true"]');
+        // ============= HISTORY FUNCTIONS =============
 
-            menuItems.forEach(item => {
-                item.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    const targetUrl = this.href;
-
-                    showLoading();
-
-                    setTimeout(() => {
-                        window.location.href = targetUrl;
-                    }, 1200);
-                });
+        // History button di sidebar
+        if (historyMenuBtn) {
+            historyMenuBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                openHistoryModal();
             });
+        }
+
+        // History button di category tabs
+        const historyTabBtn = document.getElementById('historyTabBtn');
+        if (historyTabBtn) {
+            historyTabBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                openHistoryModal();
+            });
+        }
+
+        function openHistoryModal() {
+            historyModal.classList.add('active');
+            renderTransactionHistory();
+            sidebar.classList.remove('active');
+            overlay.classList.remove('active');
+        }
+
+        function closeHistoryModal() {
+            historyModal.classList.remove('active');
+        }
+
+        function closeEditModal() {
+            editModal.classList.remove('active');
+            currentEditingId = null;
+        }
+
+        function renderTransactionHistory() {
+            const historyList = document.getElementById('historyList');
+            const searchInput = document.getElementById('historySearchInput');
+            const filterPayment = document.getElementById('historyFilterPayment');
+
+            const searchQuery = searchInput ? searchInput.value.toLowerCase() : '';
+            const paymentFilter = filterPayment ? filterPayment.value : 'all';
+
+            let filtered = transactionHistory.filter(trx => {
+                const matchSearch = trx.id.toLowerCase().includes(searchQuery) ||
+                    trx.customer.name.toLowerCase().includes(searchQuery);
+                const matchPayment = paymentFilter === 'all' || trx.payment === paymentFilter;
+                return matchSearch && matchPayment;
+            });
+
+            filtered.sort((a, b) => b.date - a.date);
+
+            if (filtered.length === 0) {
+                historyList.innerHTML = `
+                    <div style="text-align: center; padding: 60px 20px; color: #94a3b8;">
+                        <div style="font-size: 60px; margin-bottom: 15px;">📭</div>
+                        <p style="font-size: 16px; font-weight: 600; margin-bottom: 5px;">Tidak ada transaksi</p>
+                        <p style="font-size: 14px;">Belum ada riwayat transaksi yang tersimpan</p>
+                    </div>
+                `;
+            } else {
+                historyList.innerHTML = filtered.map(trx => {
+                    const dateStr = trx.date.toLocaleDateString('id-ID', {
+                        day: '2-digit',
+                        month: 'short',
+                        year: 'numeric',
+                        hour: '2-digit',
+                        minute: '2-digit'
+                    });
+
+                    const paymentIcons = { cash: '💵', card: '💳', transfer: '🏦', ewallet: '📱' };
+                    const paymentNames = { cash: 'Tunai', card: 'Kartu', transfer: 'Transfer', ewallet: 'E-Wallet' };
+
+                    return `
+                        <div style="background: white; border: 2px solid rgba(14, 116, 144, 0.1); border-radius: 15px; padding: 20px; margin-bottom: 12px; transition: all 0.3s;">
+                            <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 15px;">
+                                <div>
+                                    <div style="font-size: 16px; font-weight: 700; color: #0c4a6e; margin-bottom: 4px;">${trx.id}</div>
+                                    <div style="font-size: 12px; color: #64748b;">🕒 ${dateStr}</div>
+                                </div>
+                                <div style="display: flex; gap: 8px;">
+                                    <button onclick="editTransaction('${trx.id}')" 
+                                        style="background: linear-gradient(135deg, #0e7490, #06b6d4); border: none; color: white; padding: 8px 16px; border-radius: 10px; cursor: pointer; font-size: 13px; font-weight: 600;">
+                                        ✏️ Edit
+                                    </button>
+                                    <button onclick="deleteTransaction('${trx.id}')" 
+                                        style="background: linear-gradient(135deg, #e11d48, #be123c); border: none; color: white; padding: 8px 16px; border-radius: 10px; cursor: pointer; font-size: 13px; font-weight: 600;">
+                                        🗑️ Hapus
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; padding: 15px; background: rgba(14, 116, 144, 0.03); border-radius: 10px; margin-bottom: 15px;">
+                                <div>
+                                    <div style="font-size: 11px; color: #64748b; margin-bottom: 3px;">Pelanggan</div>
+                                    <div style="font-size: 13px; font-weight: 600; color: #0c4a6e;">👤 ${trx.customer.name}</div>
+                                </div>
+                                <div>
+                                    <div style="font-size: 11px; color: #64748b; margin-bottom: 3px;">Pembayaran</div>
+                                    <div style="font-size: 13px; font-weight: 600; color: #0c4a6e;">${paymentIcons[trx.payment]} ${paymentNames[trx.payment]}</div>
+                                </div>
+                            </div>
+
+                            <div style="background: rgba(34, 211, 238, 0.05); padding: 12px; border-radius: 10px; margin-bottom: 12px;">
+                                <div style="font-size: 11px; color: #64748b; margin-bottom: 8px; font-weight: 600;">📦 Item (${trx.items.length})</div>
+                                ${trx.items.map(item => `
+                                    <div style="display: flex; justify-content: space-between; font-size: 12px; color: #475569; margin-bottom: 4px;">
+                                        <span>${item.name} <span style="color: #94a3b8;">x${item.quantity}</span></span>
+                                        <span style="font-weight: 600; color: #0c4a6e;">${formatCurrency(item.price * item.quantity)}</span>
+                                    </div>
+                                `).join('')}
+                            </div>
+
+                            <div style="display: flex; justify-content: space-between; align-items: center; padding-top: 12px; border-top: 2px dashed rgba(14, 116, 144, 0.2);">
+                                <span style="font-size: 13px; color: #64748b; font-weight: 600;">Total Pembayaran</span>
+                                <span style="font-size: 18px; font-weight: 800; color: #10b981;">${formatCurrency(trx.total)}</span>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+            }
+
+            const totalRevenue = filtered.reduce((sum, trx) => sum + trx.total, 0);
+            if (document.getElementById('totalTransactions')) {
+                document.getElementById('totalTransactions').textContent = filtered.length;
+            }
+            if (document.getElementById('totalRevenue')) {
+                document.getElementById('totalRevenue').textContent = formatCurrency(totalRevenue);
+            }
+        }
+
+        function editTransaction(id) {
+            const transaction = transactionHistory.find(trx => trx.id === id);
+            if (!transaction) return;
+
+            currentEditingId = id;
+            document.getElementById('editTransactionId').value = transaction.id;
+            document.getElementById('editCustomerName').value = transaction.customer.name;
+            document.getElementById('editCustomerPhone').value = transaction.customer.phone;
+            document.getElementById('editPaymentMethod').value = transaction.payment;
+
+            editModal.classList.add('active');
+        }
+
+        function saveEditTransaction() {
+            if (!currentEditingId) return;
+
+            const transaction = transactionHistory.find(trx => trx.id === currentEditingId);
+            if (!transaction) return;
+
+            transaction.customer.name = document.getElementById('editCustomerName').value || 'Umum';
+            transaction.customer.phone = document.getElementById('editCustomerPhone').value || '-';
+            transaction.payment = document.getElementById('editPaymentMethod').value;
+
+            closeEditModal();
+            renderTransactionHistory();
+            showNotification('✅ Transaksi berhasil diperbarui!', 'success');
+        }
+
+        function deleteTransaction(id) {
+            if (!confirm('Yakin ingin menghapus transaksi ini?')) return;
+
+            const index = transactionHistory.findIndex(trx => trx.id === id);
+            if (index === -1) return;
+
+            transactionHistory.splice(index, 1);
+            renderTransactionHistory();
+            showNotification('🗑️ Transaksi berhasil dihapus!', 'danger');
+        }
+
+        function showNotification(message, type = 'success') {
+            const notification = document.createElement('div');
+            notification.textContent = message;
+            notification.style.cssText = `
+                position: fixed; top: 20px; right: 20px;
+                background: ${type === 'success' ? 'linear-gradient(135deg, #10b981, #059669)' : 'linear-gradient(135deg, #e11d48, #be123c)'};
+                color: white; padding: 16px 24px; border-radius: 15px;
+                font-size: 14px; font-weight: 600; box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+                z-index: 9999; animation: slideIn 0.3s ease;
+            `;
+            document.body.appendChild(notification);
+            setTimeout(() => notification.remove(), 3000);
+        }
+
+        // Event listeners untuk history
+        if (document.getElementById('historySearchInput')) {
+            document.getElementById('historySearchInput').addEventListener('input', renderTransactionHistory);
+        }
+        if (document.getElementById('historyFilterPayment')) {
+            document.getElementById('historyFilterPayment').addEventListener('change', renderTransactionHistory);
+        }
+
+        historyModal.addEventListener('click', (e) => {
+            if (e.target === historyModal) closeHistoryModal();
         });
 
-        // Untuk handle manual loading (jika perlu)
-        function navigateWithLoading(url) {
-            showLoading();
-            setTimeout(() => {
-                location.href = url;
-            }, 1500);
-        }
+        editModal.addEventListener('click', (e) => {
+            if (e.target === editModal) closeEditModal();
+        });
     </script>
-
-
 </body>
 
 </html>

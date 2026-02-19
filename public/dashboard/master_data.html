@@ -772,7 +772,224 @@
             font-weight: 600;
         }
 
+        /* Toggle Switch Styles */
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 52px;
+            height: 28px;
+        }
+
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .toggle-slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(244, 63, 94, 0.3), rgba(225, 29, 72, 0.3));
+            border-radius: 28px;
+            transition: all 0.3s;
+            border: 2px solid rgba(244, 63, 94, 0.4);
+        }
+
+        .toggle-slider:before {
+            position: absolute;
+            content: "";
+            height: 20px;
+            width: 20px;
+            left: 3px;
+            bottom: 2px;
+            background: white;
+            border-radius: 50%;
+            transition: all 0.3s;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        input:checked+.toggle-slider {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.3), rgba(5, 150, 105, 0.3));
+            border-color: rgba(16, 185, 129, 0.5);
+        }
+
+        input:checked+.toggle-slider:before {
+            transform: translateX(24px);
+        }
+
+        .toggle-switch:hover .toggle-slider {
+            box-shadow: 0 0 10px rgba(14, 116, 144, 0.3);
+        }
+
+        /* Detail Content Styles */
+        .detail-content {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .detail-section {
+            margin-bottom: 25px;
+            padding: 20px;
+            background: rgba(14, 116, 144, 0.05);
+            border-radius: 12px;
+            border-left: 4px solid #0e7490;
+        }
+
+        .detail-section h3 {
+            color: #0c4a6e;
+            margin-bottom: 15px;
+            font-size: 16px;
+            font-weight: 700;
+        }
+
+        .detail-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .detail-item {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .detail-item label {
+            font-weight: 600;
+            color: #0c4a6e;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .detail-item span {
+            color: #475569;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .stock-history {
+            max-height: 150px;
+            overflow-y: auto;
+        }
+
+        .stock-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            margin-bottom: 8px;
+            background: white;
+            border-radius: 8px;
+            border-left: 3px solid;
+        }
+
+        .stock-item.add {
+            border-left-color: #059669;
+        }
+
+        .stock-item.subtract {
+            border-left-color: #e11d48;
+        }
+
+        .stock-info {
+            flex: 1;
+        }
+
+        .stock-date {
+            font-size: 11px;
+            color: #64748b;
+        }
+
+        .stock-amount {
+            font-weight: 700;
+            font-size: 14px;
+        }
+
+        .stock-amount.add {
+            color: #059669;
+        }
+
+        .stock-amount.subtract {
+            color: #e11d48;
+        }
+
+        /* Category Products List */
+        .category-products {
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
+        .category-product-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px;
+            margin-bottom: 8px;
+            background: white;
+            border-radius: 8px;
+            border-left: 3px solid #0e7490;
+        }
+
+        .product-info {
+            flex: 1;
+        }
+
+        .product-name {
+            font-weight: 600;
+            color: #0c4a6e;
+            margin-bottom: 4px;
+        }
+
+        .product-stock {
+            font-size: 12px;
+            color: #64748b;
+        }
+
+        .product-status {
+            font-size: 11px;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-weight: 600;
+        }
+
+        .no-products {
+            text-align: center;
+            color: #64748b;
+            padding: 20px;
+            font-style: italic;
+        }
+
+        /* Warning State */
+        .warning-message {
+            background: rgba(245, 158, 11, 0.1);
+            border: 1px solid rgba(245, 158, 11, 0.3);
+            padding: 12px;
+            border-radius: 8px;
+            margin: 10px 0;
+            font-size: 14px;
+            color: #d97706;
+        }
+
+        .error-message {
+            background: rgba(244, 63, 94, 0.1);
+            border: 1px solid rgba(244, 63, 94, 0.3);
+            padding: 12px;
+            border-radius: 8px;
+            margin: 10px 0;
+            font-size: 14px;
+            color: #e11d48;
+        }
+
         @media (max-width: 768px) {
+            .detail-grid {
+                grid-template-columns: 1fr;
+            }
+
             .sidebar {
                 transform: translateX(-100%);
             }
@@ -859,6 +1076,101 @@
         ::-webkit-scrollbar-thumb:hover {
             background: linear-gradient(180deg, #06b6d4, #0e7490);
         }
+
+        /* Supplier Transactions & Products */
+        .supplier-transactions,
+        .supplier-products {
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
+        .transaction-item,
+        .supplier-product-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px;
+            margin-bottom: 8px;
+            background: white;
+            border-radius: 8px;
+            border-left: 3px solid #0e7490;
+        }
+
+        .transaction-info,
+        .product-info {
+            flex: 1;
+        }
+
+        .transaction-code {
+            font-weight: 600;
+            color: #0c4a6e;
+            margin-bottom: 4px;
+        }
+
+        .transaction-details {
+            font-size: 12px;
+            color: #64748b;
+            display: flex;
+            gap: 15px;
+        }
+
+        .transaction-amount {
+            font-weight: 700;
+            color: #059669;
+        }
+
+        .product-name {
+            font-weight: 600;
+            color: #0c4a6e;
+            margin-bottom: 4px;
+        }
+
+        .product-details {
+            font-size: 12px;
+            color: #64748b;
+        }
+
+        .no-data {
+            text-align: center;
+            color: #64748b;
+            padding: 30px;
+            font-style: italic;
+        }
+
+        /* Contact Info Styles */
+        .contact-info {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin: 5px 0;
+        }
+
+        .contact-icon {
+            font-size: 14px;
+            width: 16px;
+            text-align: center;
+        }
+
+        /* Supplier Status Badge */
+        .supplier-status {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .supplier-status.active {
+            background: rgba(16, 185, 129, 0.2);
+            color: #059669;
+        }
+
+        .supplier-status.inactive {
+            background: rgba(244, 63, 94, 0.2);
+            color: #e11d48;
+        }
     </style>
 </head>
 
@@ -921,7 +1233,6 @@
                 <span class="icon">🚪</span>
                 <span>Logout</span>
             </a>
-
         </div>
     </aside>
 
@@ -952,10 +1263,6 @@
             <div class="tab" data-tab="suppliers">
                 <span>🏢</span>
                 <span>Supplier</span>
-            </div>
-            <div class="tab" data-tab="brands">
-                <span>🏷️</span>
-                <span>Brand</span>
             </div>
             <div class="tab" data-tab="stock-in">
                 <span>📥</span>
@@ -994,7 +1301,7 @@
 
             <div class="card">
                 <div class="card-header">
-                    <h3 style="color: #0c4a6e; font-weight: 800; font-size: 18px;">Daftar Produk</h3>
+                    <h3 style="color: #0c4a6e; font-weight: 800; font-size: 18px;">Daftar Produk Menipis</h3>
                     <div class="search-filter-group">
                         <div class="search-box">
                             <span class="icon">🔍</span>
@@ -1011,7 +1318,7 @@
                                 <th>Kode</th>
                                 <th>Nama Produk</th>
                                 <th>Kategori</th>
-                                <th>Brand</th>
+
                                 <th>Harga</th>
                                 <th>Stok</th>
                                 <th>Status</th>
@@ -1023,10 +1330,10 @@
                                 <td>PRD001</td>
                                 <td>Joran Carbon Pro X1</td>
                                 <td>Joran</td>
-                                <td>Shimano</td>
+
                                 <td>Rp 1.250.000</td>
                                 <td>45</td>
-                                <td><span class="status-badge active">Aktif</span></td>
+                                <td><span class="status-badge pending">Stok Rendah</span></td>
                                 <td>
                                     <button class="action-btn" title="Edit">✏️</button>
                                     <button class="action-btn" title="Detail">👁️</button>
@@ -1037,10 +1344,10 @@
                                 <td>PRD002</td>
                                 <td>Reel Spinning Daiwa LT3000</td>
                                 <td>Reel</td>
-                                <td>Daiwa</td>
+
                                 <td>Rp 2.450.000</td>
-                                <td>32</td>
-                                <td><span class="status-badge active">Aktif</span></td>
+                                <td>0</td>
+                                <td><span class="status-badge inactive">Habis</span></td>
                                 <td>
                                     <button class="action-btn" title="Edit">✏️</button>
                                     <button class="action-btn" title="Detail">👁️</button>
@@ -1051,7 +1358,7 @@
                                 <td>PRD003</td>
                                 <td>Senar PE Line 150m</td>
                                 <td>Senar</td>
-                                <td>YGK</td>
+
                                 <td>Rp 185.000</td>
                                 <td>8</td>
                                 <td><span class="status-badge pending">Stok Rendah</span></td>
@@ -1065,7 +1372,7 @@
                                 <td>PRD004</td>
                                 <td>Umpan Minnow 12cm</td>
                                 <td>Umpan</td>
-                                <td>Rapala</td>
+
                                 <td>Rp 125.000</td>
                                 <td>0</td>
                                 <td><span class="status-badge inactive">Habis</span></td>
@@ -1079,10 +1386,10 @@
                                 <td>PRD005</td>
                                 <td>Tackle Box Waterproof</td>
                                 <td>Aksesoris</td>
-                                <td>Plano</td>
+
                                 <td>Rp 350.000</td>
-                                <td>25</td>
-                                <td><span class="status-badge active">Aktif</span></td>
+                                <td>0</td>
+                                <td><span class="status-badge inactive">Habis</span></td>
                                 <td>
                                     <button class="action-btn" title="Edit">✏️</button>
                                     <button class="action-btn" title="Detail">👁️</button>
@@ -1102,6 +1409,472 @@
                 </div>
             </div>
         </div>
+
+        <!-- Modal Edit Product -->
+        <div class="modal" id="modalEditProduct">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>Edit Data Produk</h2>
+                    <button class="close-btn" onclick="closeModal('modalEditProduct')">✖</button>
+                </div>
+                <form id="formEditProduct">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Kode Produk</label>
+                            <input type="text" name="productCode" id="editProductCode" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label>Nama Produk</label>
+                            <input type="text" name="productName" id="editProductName" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Kategori</label>
+                            <select name="category" id="editCategory" required>
+                                <option value="joran">Joran</option>
+                                <option value="reel">Reel</option>
+                                <option value="senar">Senar</option>
+                                <option value="umpan">Umpan</option>
+                                <option value="aksesoris">Aksesoris</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Brand</label>
+                            <select name="brand" id="editBrand" required>
+                                <option value="shimano">Shimano</option>
+                                <option value="daiwa">Daiwa</option>
+                                <option value="rapala">Rapala</option>
+                                <option value="ygk">YGK</option>
+                                <option value="plano">Plano</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Harga Beli</label>
+                            <input type="number" name="buyPrice" id="editBuyPrice" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Harga Jual</label>
+                            <input type="number" name="sellPrice" id="editSellPrice" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Stok Saat Ini</label>
+                            <input type="number" name="stock" id="editStock" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Update Stok</label>
+                            <div style="display: flex; gap: 10px;">
+                                <input type="number" name="stockUpdate" id="editStockUpdate" placeholder="Jumlah"
+                                    style="flex: 1;">
+                                <select name="updateType" id="editUpdateType" style="width: 120px;">
+                                    <option value="add">Tambah</option>
+                                    <option value="subtract">Kurangi</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Deskripsi</label>
+                        <textarea name="description" id="editDescription"></textarea>
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-secondary"
+                            onclick="closeModal('modalEditProduct')">Batal</button>
+                        <button type="submit" class="btn btn-primary">Update Produk</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Modal Detail Product -->
+        <div class="modal" id="modalDetailProduct">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>Detail Produk</h2>
+                    <button class="close-btn" onclick="closeModal('modalDetailProduct')">✖</button>
+                </div>
+                <div class="detail-content">
+                    <div class="detail-section">
+                        <h3>Informasi Produk</h3>
+                        <div class="detail-grid">
+                            <div class="detail-item">
+                                <label>Kode Produk:</label>
+                                <span id="detailProductCode">-</span>
+                            </div>
+                            <div class="detail-item">
+                                <label>Nama Produk:</label>
+                                <span id="detailProductName">-</span>
+                            </div>
+                            <div class="detail-item">
+                                <label>Kategori:</label>
+                                <span id="detailCategory">-</span>
+                            </div>
+                            <div class="detail-item">
+                                <label>Brand:</label>
+                                <span id="detailBrand">-</span>
+                            </div>
+                            <div class="detail-item">
+                                <label>Harga Beli:</label>
+                                <span id="detailBuyPrice">-</span>
+                            </div>
+                            <div class="detail-item">
+                                <label>Harga Jual:</label>
+                                <span id="detailSellPrice">-</span>
+                            </div>
+                            <div class="detail-item">
+                                <label>Stok Saat Ini:</label>
+                                <span id="detailStock">-</span>
+                            </div>
+                            <div class="detail-item">
+                                <label>Status:</label>
+                                <span id="detailStatus">-</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="detail-section">
+                        <h3>Riwayat Stok</h3>
+                        <div class="stock-history" id="stockHistory">
+                            <!-- Riwayat stok akan dimuat di sini -->
+                        </div>
+                    </div>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn btn-primary"
+                        onclick="closeModal('modalDetailProduct'); openModal('modalEditProduct')">Edit Produk</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal Confirm Delete -->
+        <div class="modal" id="modalConfirmDelete">
+            <div class="modal-content" style="max-width: 400px;">
+                <div class="modal-header">
+                    <h2 style="color: #e11d48;">Konfirmasi Hapus</h2>
+                    <button class="close-btn" onclick="closeModal('modalConfirmDelete')">✖</button>
+                </div>
+                <div class="delete-content" style="text-align: center; padding: 20px 0;">
+                    <div style="font-size: 48px; margin-bottom: 15px;">🗑️</div>
+                    <h3 style="color: #0c4a6e; margin-bottom: 10px;" id="deleteTitle">Hapus Data?</h3>
+                    <p style="color: #64748b; line-height: 1.5;" id="deleteMessage">
+                        Apakah Anda yakin ingin menghapus data ini? Tindakan ini tidak dapat dibatalkan.
+                    </p>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary"
+                        onclick="closeModal('modalConfirmDelete')">Batal</button>
+                    <button type="button" class="btn" id="confirmDeleteBtn"
+                        style="background: linear-gradient(135deg, #f43f5e, #e11d48); color: white;">
+                        Ya, Hapus Data
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            // Data produk untuk demo
+            let productsData = {
+                'PRD001': {
+                    code: 'PRD001',
+                    name: 'Joran Carbon Pro X1',
+                    category: 'joran',
+                    brand: 'shimano',
+                    buyPrice: 1000000,
+                    sellPrice: 1250000,
+                    stock: 45,
+                    minStock: 10,
+                    description: 'Joran carbon berkualitas tinggi untuk pemancingan profesional',
+                    status: 'pending',
+                    stockHistory: [
+                        { date: '2024-11-21', type: 'add', amount: 50, note: 'Stok awal' },
+                        { date: '2024-11-22', type: 'subtract', amount: 5, note: 'Penjualan' }
+                    ]
+                },
+                'PRD002': {
+                    code: 'PRD002',
+                    name: 'Reel Spinning Daiwa LT3000',
+                    category: 'reel',
+                    brand: 'daiwa',
+                    buyPrice: 2000000,
+                    sellPrice: 2450000,
+                    stock: 0,
+                    minStock: 5,
+                    description: 'Reel spinning dengan teknologi terbaru',
+                    status: 'inactive',
+                    stockHistory: [
+                        { date: '2024-11-20', type: 'add', amount: 30, note: 'Stok awal' },
+                        { date: '2024-11-21', type: 'subtract', amount: 30, note: 'Penjualan besar' }
+                    ]
+                }
+            };
+
+            // Enhanced Action Button Handlers
+            document.querySelectorAll('.action-btn').forEach(btn => {
+                btn.addEventListener('click', function () {
+                    const action = this.title;
+                    const row = this.closest('tr');
+                    const code = row.querySelector('td:first-child').textContent;
+
+                    if (action === 'Edit') {
+                        openEditModal(code);
+                    } else if (action === 'Detail' || action === 'View') {
+                        openDetailModal(code);
+                    } else if (action === 'Hapus') {
+                        openDeleteModal(code, row);
+                    }
+                });
+            });
+
+            // Open Edit Modal
+            function openEditModal(productCode) {
+                const product = productsData[productCode];
+                if (!product) {
+                    alert('Data produk tidak ditemukan!');
+                    return;
+                }
+
+                document.getElementById('editProductCode').value = product.code;
+                document.getElementById('editProductName').value = product.name;
+                document.getElementById('editCategory').value = product.category;
+                document.getElementById('editBrand').value = product.brand;
+                document.getElementById('editBuyPrice').value = product.buyPrice;
+                document.getElementById('editSellPrice').value = product.sellPrice;
+                document.getElementById('editStock').value = product.stock;
+                document.getElementById('editDescription').value = product.description || '';
+                document.getElementById('editStockUpdate').value = '';
+                document.getElementById('editUpdateType').value = 'add';
+
+                openModal('modalEditProduct');
+            }
+
+            // Open Detail Modal
+            function openDetailModal(productCode) {
+                const product = productsData[productCode];
+                if (!product) {
+                    alert('Data produk tidak ditemukan!');
+                    return;
+                }
+
+                // Set detail information
+                document.getElementById('detailProductCode').textContent = product.code;
+                document.getElementById('detailProductName').textContent = product.name;
+                document.getElementById('detailCategory').textContent = getCategoryName(product.category);
+                document.getElementById('detailBrand').textContent = getBrandName(product.brand);
+                document.getElementById('detailBuyPrice').textContent = formatCurrency(product.buyPrice);
+                document.getElementById('detailSellPrice').textContent = formatCurrency(product.sellPrice);
+                document.getElementById('detailStock').textContent = `${product.stock} unit`;
+                document.getElementById('detailStatus').innerHTML = getStatusBadge(product.status, product.stock);
+
+                // Load stock history
+                const stockHistory = document.getElementById('stockHistory');
+                stockHistory.innerHTML = '';
+
+                if (product.stockHistory && product.stockHistory.length > 0) {
+                    product.stockHistory.forEach(history => {
+                        const stockItem = document.createElement('div');
+                        stockItem.className = `stock-item ${history.type}`;
+                        stockItem.innerHTML = `
+                <div class="stock-info">
+                    <div class="stock-date">${formatDate(history.date)}</div>
+                    <div>${history.note}</div>
+                </div>
+                <div class="stock-amount ${history.type}">
+                    ${history.type === 'add' ? '+' : '-'}${history.amount} unit
+                </div>
+            `;
+                        stockHistory.appendChild(stockItem);
+                    });
+                } else {
+                    stockHistory.innerHTML = '<p style="text-align: center; color: #64748b; padding: 20px;">Tidak ada riwayat stok</p>';
+                }
+
+                openModal('modalDetailProduct');
+            }
+
+            // Open Delete Modal
+            function openDeleteModal(productCode, row) {
+                const product = productsData[productCode];
+                if (!product) return;
+
+                document.getElementById('deleteTitle').textContent = `Hapus ${product.name}?`;
+                document.getElementById('deleteMessage').innerHTML = `
+        Anda akan menghapus produk <strong>${product.name}</strong> (${product.code}).<br>
+        Tindakan ini tidak dapat dibatalkan.
+    `;
+
+                const confirmBtn = document.getElementById('confirmDeleteBtn');
+                confirmBtn.onclick = () => confirmDelete(productCode, row);
+
+                openModal('modalConfirmDelete');
+            }
+
+            // Confirm Delete Function
+            function confirmDelete(productCode, row) {
+                // Hapus dari data
+                delete productsData[productCode];
+
+                // Hapus dari tampilan
+                row.style.animation = 'slideOut 0.3s ease';
+                setTimeout(() => {
+                    row.remove();
+                    showNotification('Data berhasil dihapus!', 'success');
+                }, 300);
+
+                closeModal('modalConfirmDelete');
+            }
+
+            // Handle Edit Form Submission
+            document.getElementById('formEditProduct').addEventListener('submit', (e) => {
+                e.preventDefault();
+
+                const productCode = document.getElementById('editProductCode').value;
+                const stockUpdate = parseInt(document.getElementById('editStockUpdate').value) || 0;
+                const updateType = document.getElementById('editUpdateType').value;
+
+                if (productsData[productCode]) {
+                    // Update data produk
+                    productsData[productCode].name = document.getElementById('editProductName').value;
+                    productsData[productCode].category = document.getElementById('editCategory').value;
+                    productsData[productCode].brand = document.getElementById('editBrand').value;
+                    productsData[productCode].buyPrice = parseInt(document.getElementById('editBuyPrice').value);
+                    productsData[productCode].sellPrice = parseInt(document.getElementById('editSellPrice').value);
+                    productsData[productCode].description = document.getElementById('editDescription').value;
+
+                    // Update stok jika ada perubahan
+                    if (stockUpdate > 0) {
+                        const oldStock = productsData[productCode].stock;
+                        if (updateType === 'add') {
+                            productsData[productCode].stock += stockUpdate;
+                        } else {
+                            productsData[productCode].stock = Math.max(0, oldStock - stockUpdate);
+                        }
+
+                        // Tambahkan ke riwayat stok
+                        productsData[productCode].stockHistory.unshift({
+                            date: new Date().toISOString().split('T')[0],
+                            type: updateType,
+                            amount: stockUpdate,
+                            note: 'Update manual'
+                        });
+                    }
+
+                    // Update status berdasarkan stok
+                    updateProductStatus(productCode);
+
+                    showNotification('Data produk berhasil diupdate!', 'success');
+                    closeModal('modalEditProduct');
+                    refreshProductTable();
+                }
+            });
+
+            // Helper Functions
+            function getCategoryName(category) {
+                const categories = {
+                    'joran': 'Joran',
+                    'reel': 'Reel',
+                    'senar': 'Senar',
+                    'umpan': 'Umpan',
+                    'aksesoris': 'Aksesoris'
+                };
+                return categories[category] || category;
+            }
+
+            function getBrandName(brand) {
+                const brands = {
+                    'shimano': 'Shimano',
+                    'daiwa': 'Daiwa',
+                    'rapala': 'Rapala',
+                    'ygk': 'YGK',
+                    'plano': 'Plano'
+                };
+                return brands[brand] || brand;
+            }
+
+            function formatCurrency(amount) {
+                return 'Rp ' + amount.toLocaleString('id-ID');
+            }
+
+            function formatDate(dateString) {
+                const options = { day: 'numeric', month: 'short', year: 'numeric' };
+                return new Date(dateString).toLocaleDateString('id-ID', options);
+            }
+
+            function getStatusBadge(status, stock) {
+                if (stock === 0) {
+                    return '<span class="status-badge inactive">Habis</span>';
+                } else if (stock < 10) {
+                    return '<span class="status-badge pending">Stok Rendah</span>';
+                } else {
+                    return '<span class="status-badge active">Aman</span>';
+                }
+            }
+
+            function updateProductStatus(productCode) {
+                const product = productsData[productCode];
+                if (!product) return;
+
+                if (product.stock === 0) {
+                    product.status = 'inactive';
+                } else if (product.stock < 10) {
+                    product.status = 'pending';
+                } else {
+                    product.status = 'active';
+                }
+            }
+
+            function refreshProductTable() {
+                // Implement refresh logic here based on your data structure
+                console.log('Table refreshed with updated data');
+            }
+
+            function showNotification(message, type) {
+                // Create notification element
+                const notification = document.createElement('div');
+                notification.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        padding: 15px 20px;
+        background: ${type === 'success' ? '#059669' : '#e11d48'};
+        color: white;
+        border-radius: 10px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        z-index: 3000;
+        animation: slideInRight 0.3s ease;
+    `;
+                notification.textContent = message;
+
+                document.body.appendChild(notification);
+
+                setTimeout(() => {
+                    notification.style.animation = 'slideOutRight 0.3s ease';
+                    setTimeout(() => notification.remove(), 300);
+                }, 3000);
+            }
+
+            // Add CSS animations
+            const style = document.createElement('style');
+            style.textContent = `
+    @keyframes slideInRight {
+        from { transform: translateX(100%); opacity: 0; }
+        to { transform: translateX(0); opacity: 1; }
+    }
+    
+    @keyframes slideOutRight {
+        from { transform: translateX(0); opacity: 1; }
+        to { transform: translateX(100%); opacity: 0; }
+    }
+    
+    @keyframes slideOut {
+        from { transform: translateX(0); opacity: 1; }
+        to { transform: translateX(-100%); opacity: 0; }
+    }
+`;
+            document.head.appendChild(style);
+        </script>
 
         <!-- Categories Tab -->
         <div class="tab-content" id="categories-content">
@@ -1134,7 +1907,12 @@
                                 <td>Joran</td>
                                 <td>Joran untuk berbagai jenis mancing</td>
                                 <td>48</td>
-                                <td><span class="status-badge active">Aktif</span></td>
+                                <td>
+                                    <label class="toggle-switch">
+                                        <input type="checkbox" checked onchange="toggleCategoryStatus(this, 'CAT001')">
+                                        <span class="toggle-slider"></span>
+                                    </label>
+                                </td>
                                 <td>
                                     <button class="action-btn" title="Edit">✏️</button>
                                     <button class="action-btn delete" title="Hapus">🗑️</button>
@@ -1145,7 +1923,12 @@
                                 <td>Reel</td>
                                 <td>Reel spinning dan baitcasting</td>
                                 <td>36</td>
-                                <td><span class="status-badge active">Aktif</span></td>
+                                <td>
+                                    <label class="toggle-switch">
+                                        <input type="checkbox" checked onchange="toggleCategoryStatus(this, 'CAT002')">
+                                        <span class="toggle-slider"></span>
+                                    </label>
+                                </td>
                                 <td>
                                     <button class="action-btn" title="Edit">✏️</button>
                                     <button class="action-btn delete" title="Hapus">🗑️</button>
@@ -1156,7 +1939,12 @@
                                 <td>Senar</td>
                                 <td>Senar PE, monofilament, dan fluorocarbon</td>
                                 <td>42</td>
-                                <td><span class="status-badge active">Aktif</span></td>
+                                <td>
+                                    <label class="toggle-switch">
+                                        <input type="checkbox" checked onchange="toggleCategoryStatus(this, 'CAT003')">
+                                        <span class="toggle-slider"></span>
+                                    </label>
+                                </td>
                                 <td>
                                     <button class="action-btn" title="Edit">✏️</button>
                                     <button class="action-btn delete" title="Hapus">🗑️</button>
@@ -1167,7 +1955,12 @@
                                 <td>Umpan</td>
                                 <td>Umpan buatan dan natural</td>
                                 <td>64</td>
-                                <td><span class="status-badge active">Aktif</span></td>
+                                <td>
+                                    <label class="toggle-switch">
+                                        <input type="checkbox" onchange="toggleCategoryStatus(this, 'CAT004')">
+                                        <span class="toggle-slider"></span>
+                                    </label>
+                                </td>
                                 <td>
                                     <button class="action-btn" title="Edit">✏️</button>
                                     <button class="action-btn delete" title="Hapus">🗑️</button>
@@ -1178,7 +1971,12 @@
                                 <td>Aksesoris</td>
                                 <td>Perlengkapan tambahan mancing</td>
                                 <td>28</td>
-                                <td><span class="status-badge active">Aktif</span></td>
+                                <td>
+                                    <label class="toggle-switch">
+                                        <input type="checkbox" checked onchange="toggleCategoryStatus(this, 'CAT005')">
+                                        <span class="toggle-slider"></span>
+                                    </label>
+                                </td>
                                 <td>
                                     <button class="action-btn" title="Edit">✏️</button>
                                     <button class="action-btn delete" title="Hapus">🗑️</button>
@@ -1189,6 +1987,476 @@
                 </div>
             </div>
         </div>
+
+        <!-- Modal Edit Category -->
+        <div class="modal" id="modalEditCategory">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>Edit Kategori</h2>
+                    <button class="close-btn" onclick="closeModal('modalEditCategory')">✖</button>
+                </div>
+                <form id="formEditCategory">
+
+                    <div class="form-group">
+                        <label>Nama Kategori</label>
+                        <input type="text" name="categoryName" id="editCategoryName" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Deskripsi</label>
+                        <textarea name="description" id="editCategoryDescription"
+                            placeholder="Deskripsi kategori..."></textarea>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Status</label>
+                            <div style="display: flex; align-items: center; gap: 10px; margin-top: 8px;">
+                                <label class="toggle-switch">
+                                    <input type="checkbox" id="editCategoryStatus">
+                                    <span class="toggle-slider"></span>
+                                </label>
+                                <span id="editStatusText" style="font-size: 14px; color: #475569;">Aktif</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-secondary"
+                            onclick="closeModal('modalEditCategory')">Batal</button>
+                        <button type="submit" class="btn btn-primary">Update Kategori</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Modal Detail Category -->
+        <div class="modal" id="modalDetailCategory">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>Detail Kategori</h2>
+                    <button class="close-btn" onclick="closeModal('modalDetailCategory')">✖</button>
+                </div>
+                <div class="detail-content">
+                    <div class="detail-section">
+                        <h3>Informasi Kategori</h3>
+                        <div class="detail-grid">
+                            <div class="detail-item">
+                                <label>Kode Kategori:</label>
+                                <span id="detailCategoryCode">-</span>
+                            </div>
+                            <div class="detail-item">
+                                <label>Nama Kategori:</label>
+                                <span id="detailCategoryName">-</span>
+                            </div>
+                            <div class="detail-item">
+                                <label>Deskripsi:</label>
+                                <span id="detailCategoryDescription">-</span>
+                            </div>
+                            <div class="detail-item">
+                                <label>Jumlah Produk:</label>
+                                <span id="detailProductCount">-</span>
+                            </div>
+                            <div class="detail-item">
+                                <label>Status:</label>
+                                <span id="detailCategoryStatus">-</span>
+                            </div>
+                            <div class="detail-item">
+                                <label>Tanggal Dibuat:</label>
+                                <span id="detailCreatedDate">-</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="detail-section">
+                        <h3>Produk dalam Kategori</h3>
+                        <div class="category-products" id="categoryProductsList">
+                            <!-- Daftar produk akan dimuat di sini -->
+                        </div>
+                    </div>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn btn-primary"
+                        onclick="closeModal('modalDetailCategory'); openEditCategoryModal(document.getElementById('detailCategoryCode').textContent)">Edit
+                        Kategori</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal Confirm Delete Category -->
+        <div class="modal" id="modalConfirmDeleteCategory">
+            <div class="modal-content" style="max-width: 450px;">
+                <div class="modal-header">
+                    <h2 style="color: #e11d48;">Hapus Kategori</h2>
+                    <button class="close-btn" onclick="closeModal('modalConfirmDeleteCategory')">✖</button>
+                </div>
+                <div class="delete-content" style="text-align: center; padding: 20px 0;">
+                    <div style="font-size: 48px; margin-bottom: 15px;">📑</div>
+                    <h3 style="color: #0c4a6e; margin-bottom: 10px;" id="deleteCategoryTitle">Hapus Kategori?</h3>
+                    <p style="color: #64748b; line-height: 1.5; text-align: left;" id="deleteCategoryMessage">
+                        Memperhatikan data yang terkait dengan kategori ini:
+                    </p>
+                    <div
+                        style="background: rgba(244, 63, 94, 0.1); padding: 15px; border-radius: 10px; margin: 15px 0; text-align: left;">
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                            <span>Jumlah Produk:</span>
+                            <strong id="deleteProductCount">0 produk</strong>
+                        </div>
+                        <div style="display: flex; justify-content: space-between;">
+                            <span>Status:</span>
+                            <strong id="deleteCategoryStatus">Aktif</strong>
+                        </div>
+                    </div>
+                    <p style="color: #e11d48; font-size: 14px; font-weight: 600;">
+                        ⚠️ Kategori yang memiliki produk tidak dapat dihapus!
+                    </p>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary"
+                        onclick="closeModal('modalConfirmDeleteCategory')">Batal</button>
+                    <button type="button" class="btn" id="confirmDeleteCategoryBtn"
+                        style="background: linear-gradient(135deg, #f43f5e, #e11d48); color: white;" disabled>
+                        Hapus Kategori
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            // Data kategori untuk demo
+            let categoriesData = {
+                'CAT001': {
+                    code: 'CAT001',
+                    name: 'Joran',
+                    description: 'Joran untuk berbagai jenis mancing',
+                    productCount: 48,
+                    status: true,
+                    createdDate: '2024-01-15',
+                    products: [
+                        { code: 'PRD001', name: 'Joran Carbon Pro X1', stock: 45, status: 'active' },
+                        { code: 'PRD006', name: 'Joran Telescopic Ultra Light', stock: 23, status: 'active' },
+                        { code: 'PRD007', name: 'Joran Casting Heavy Duty', stock: 15, status: 'active' }
+                    ]
+                },
+                'CAT002': {
+                    code: 'CAT002',
+                    name: 'Reel',
+                    description: 'Reel spinning dan baitcasting',
+                    productCount: 36,
+                    status: true,
+                    createdDate: '2024-01-15',
+                    products: [
+                        { code: 'PRD002', name: 'Reel Spinning Daiwa LT3000', stock: 0, status: 'inactive' },
+                        { code: 'PRD008', name: 'Reel Baitcasting Pro Series', stock: 12, status: 'active' }
+                    ]
+                },
+                'CAT003': {
+                    code: 'CAT003',
+                    name: 'Senar',
+                    description: 'Senar PE, monofilament, dan fluorocarbon',
+                    productCount: 42,
+                    status: true,
+                    createdDate: '2024-01-20',
+                    products: [
+                        { code: 'PRD003', name: 'Senar PE Line 150m', stock: 8, status: 'pending' },
+                        { code: 'PRD010', name: 'Senar Monofilament 200m', stock: 25, status: 'active' }
+                    ]
+                },
+                'CAT004': {
+                    code: 'CAT004',
+                    name: 'Umpan',
+                    description: 'Umpan buatan dan natural',
+                    productCount: 64,
+                    status: false,
+                    createdDate: '2024-02-01',
+                    products: [
+                        { code: 'PRD004', name: 'Umpan Minnow 12cm', stock: 0, status: 'inactive' },
+                        { code: 'PRD012', name: 'Umpan Popper Surface', stock: 18, status: 'active' }
+                    ]
+                },
+                'CAT005': {
+                    code: 'CAT005',
+                    name: 'Aksesoris',
+                    description: 'Perlengkapan tambahan mancing',
+                    productCount: 28,
+                    status: true,
+                    createdDate: '2024-02-10',
+                    products: [
+                        { code: 'PRD005', name: 'Tackle Box Waterproof', stock: 0, status: 'inactive' },
+                        { code: 'PRD014', name: 'Rod Holder Adjustable', stock: 32, status: 'active' }
+                    ]
+                }
+            };
+
+            // Event Listeners untuk tombol aksi kategori
+            document.querySelectorAll('#categories-content .action-btn').forEach(btn => {
+                btn.addEventListener('click', function () {
+                    const action = this.title;
+                    const row = this.closest('tr');
+                    const categoryCode = row.querySelector('td:first-child').textContent;
+
+                    if (action === 'Edit') {
+                        openEditCategoryModal(categoryCode);
+                    } else if (action === 'Hapus') {
+                        openDeleteCategoryModal(categoryCode, row);
+                    }
+                });
+            });
+
+            // Tombol detail kategori (jika ada)
+            document.querySelectorAll('#categories-content .action-btn[title="Detail"]').forEach(btn => {
+                btn.addEventListener('click', function () {
+                    const row = this.closest('tr');
+                    const categoryCode = row.querySelector('td:first-child').textContent;
+                    openDetailCategoryModal(categoryCode);
+                });
+            });
+
+            // Open Edit Category Modal
+            function openEditCategoryModal(categoryCode) {
+                const category = categoriesData[categoryCode];
+                if (!category) {
+                    alert('Data kategori tidak ditemukan!');
+                    return;
+                }
+
+
+                document.getElementById('editCategoryName').value = category.name;
+                document.getElementById('editCategoryDescription').value = category.description;
+                document.getElementById('editCategoryStatus').checked = category.status;
+                document.getElementById('editStatusText').textContent = category.status ? 'Aktif' : 'Nonaktif';
+
+                // Event listener untuk toggle status
+                document.getElementById('editCategoryStatus').onchange = function () {
+                    document.getElementById('editStatusText').textContent = this.checked ? 'Aktif' : 'Nonaktif';
+                };
+
+                openModal('modalEditCategory');
+            }
+
+            // Open Detail Category Modal
+            function openDetailCategoryModal(categoryCode) {
+                const category = categoriesData[categoryCode];
+                if (!category) {
+                    alert('Data kategori tidak ditemukan!');
+                    return;
+                }
+
+                // Set detail information
+                document.getElementById('detailCategoryCode').textContent = category.code;
+                document.getElementById('detailCategoryName').textContent = category.name;
+                document.getElementById('detailCategoryDescription').textContent = category.description || '-';
+                document.getElementById('detailProductCount').textContent = `${category.productCount} produk`;
+                document.getElementById('detailCategoryStatus').innerHTML = category.status ?
+                    '<span class="status-badge active">Aktif</span>' :
+                    '<span class="status-badge inactive">Nonaktif</span>';
+                document.getElementById('detailCreatedDate').textContent = formatDate(category.createdDate);
+
+                // Load products list
+                const productsList = document.getElementById('categoryProductsList');
+                productsList.innerHTML = '';
+
+                if (category.products && category.products.length > 0) {
+                    category.products.forEach(product => {
+                        const productItem = document.createElement('div');
+                        productItem.className = 'category-product-item';
+                        productItem.innerHTML = `
+                <div class="product-info">
+                    <div class="product-name">${product.name}</div>
+                    <div class="product-stock">Kode: ${product.code} • Stok: ${product.stock}</div>
+                </div>
+                <div class="product-status ${getProductStatusClass(product.status)}">
+                    ${getProductStatusText(product.status)}
+                </div>
+            `;
+                        productsList.appendChild(productItem);
+                    });
+                } else {
+                    productsList.innerHTML = '<div class="no-products">Tidak ada produk dalam kategori ini</div>';
+                }
+
+                openModal('modalDetailCategory');
+            }
+
+            // Open Delete Category Modal
+            function openDeleteCategoryModal(categoryCode, row) {
+                const category = categoriesData[categoryCode];
+                if (!category) return;
+
+                document.getElementById('deleteCategoryTitle').textContent = `Hapus ${category.name}?`;
+                document.getElementById('deleteProductCount').textContent = `${category.productCount} produk`;
+                document.getElementById('deleteCategoryStatus').innerHTML = category.status ?
+                    '<span style="color: #059669;">Aktif</span>' :
+                    '<span style="color: #e11d48;">Nonaktif</span>';
+
+                const confirmBtn = document.getElementById('confirmDeleteCategoryBtn');
+                const messageElement = document.getElementById('deleteCategoryMessage');
+
+                // Cek apakah kategori bisa dihapus
+                if (category.productCount > 0) {
+                    messageElement.innerHTML = `
+            <strong>Kategori tidak dapat dihapus!</strong><br>
+            Masih terdapat <strong>${category.productCount} produk</strong> dalam kategori ini.
+            Pindahkan atau hapus produk terlebih dahulu.
+        `;
+                    messageElement.className = 'error-message';
+                    confirmBtn.disabled = true;
+                    confirmBtn.style.opacity = '0.5';
+                } else {
+                    messageElement.innerHTML = `
+            Anda akan menghapus kategori <strong>${category.name}</strong> (${category.code}).<br>
+            Tindakan ini tidak dapat dibatalkan.
+        `;
+                    messageElement.className = '';
+                    confirmBtn.disabled = false;
+                    confirmBtn.style.opacity = '1';
+                }
+
+                confirmBtn.onclick = () => confirmDeleteCategory(categoryCode, row);
+
+                openModal('modalConfirmDeleteCategory');
+            }
+
+            // Confirm Delete Category
+            function confirmDeleteCategory(categoryCode, row) {
+                const category = categoriesData[categoryCode];
+
+                if (category.productCount > 0) {
+                    showNotification('Tidak dapat menghapus kategori yang masih memiliki produk!', 'error');
+                    return;
+                }
+
+                // Hapus dari data
+                delete categoriesData[categoryCode];
+
+                // Hapus dari tampilan
+                row.style.animation = 'slideOut 0.3s ease';
+                setTimeout(() => {
+                    row.remove();
+                    showNotification('Kategori berhasil dihapus!', 'success');
+                }, 300);
+
+                closeModal('modalConfirmDeleteCategory');
+            }
+
+            // Handle Edit Category Form Submission
+            document.getElementById('formEditCategory').addEventListener('submit', (e) => {
+                e.preventDefault();
+
+
+
+                if (categoriesData[categoryCode]) {
+                    // Update data kategori
+                    categoriesData[categoryCode].name = document.getElementById('editCategoryName').value;
+                    categoriesData[categoryCode].description = document.getElementById('editCategoryDescription').value;
+                    categoriesData[categoryCode].status = document.getElementById('editCategoryStatus').checked;
+
+                    // Update tampilan di tabel
+                    updateCategoryTableRow(categoryCode);
+
+                    showNotification('Kategori berhasil diupdate!', 'success');
+                    closeModal('modalEditCategory');
+                }
+            });
+
+            // Update tampilan row kategori setelah edit
+            function updateCategoryTableRow(categoryCode) {
+                const category = categoriesData[categoryCode];
+                const rows = document.querySelectorAll('#categories-content tbody tr');
+
+                rows.forEach(row => {
+                    if (row.querySelector('td:first-child').textContent === categoryCode) {
+                        // Update nama kategori
+                        row.querySelector('td:nth-child(2)').textContent = category.name;
+
+                        // Update deskripsi
+                        row.querySelector('td:nth-child(3)').textContent = category.description;
+
+                        // Update toggle switch
+                        const toggle = row.querySelector('.toggle-switch input');
+                        toggle.checked = category.status;
+
+                        // Update status text jika ada
+                        const statusText = row.querySelector('.status-text');
+                        if (statusText) {
+                            statusText.textContent = category.status ? 'Aktif' : 'Nonaktif';
+                            statusText.className = `status-text ${category.status ? 'active' : 'inactive'}`;
+                        }
+                    }
+                });
+            }
+
+            // Helper Functions untuk Kategori
+            function getProductStatusClass(status) {
+                const statusClasses = {
+                    'active': 'status-badge active',
+                    'inactive': 'status-badge inactive',
+                    'pending': 'status-badge pending'
+                };
+                return statusClasses[status] || 'status-badge inactive';
+            }
+
+            function getProductStatusText(status) {
+                const statusTexts = {
+                    'active': 'Aktif',
+                    'inactive': 'Habis',
+                    'pending': 'Stok Rendah'
+                };
+                return statusTexts[status] || 'Tidak Aktif';
+            }
+
+            // Enhanced Toggle Category Status Function
+            function toggleCategoryStatus(checkbox, categoryCode) {
+                const category = categoriesData[categoryCode];
+                if (!category) return;
+
+                const newStatus = checkbox.checked;
+                category.status = newStatus;
+
+                const message = newStatus ?
+                    `Kategori ${categoryCode} diaktifkan. Produk dalam kategori ini dapat ditambahkan ke barang masuk.` :
+                    `Kategori ${categoryCode} dinonaktifkan. Produk dalam kategori ini tidak dapat ditambahkan untuk sementara.`;
+
+                showNotification(message, newStatus ? 'success' : 'warning');
+
+                // Update data jika ada perubahan
+                updateCategoryTableRow(categoryCode);
+            }
+
+            // Update event listener untuk toggle switch kategori
+            document.querySelectorAll('#categories-content .toggle-switch input').forEach(toggle => {
+                toggle.addEventListener('change', function () {
+                    const row = this.closest('tr');
+                    const categoryCode = row.querySelector('td:first-child').textContent;
+                    toggleCategoryStatus(this, categoryCode);
+                });
+            });
+
+            // Fungsi untuk menambahkan tombol detail ke tabel kategori (jika belum ada)
+            function addDetailButtonsToCategoryTable() {
+                const categoryRows = document.querySelectorAll('#categories-content tbody tr');
+
+                categoryRows.forEach(row => {
+                    const actionCell = row.querySelector('td:last-child');
+                    const editBtn = actionCell.querySelector('.action-btn[title="Edit"]');
+                    const deleteBtn = actionCell.querySelector('.action-btn[title="Hapus"]');
+
+                    // Cek apakah tombol detail sudah ada
+                    if (!actionCell.querySelector('.action-btn[title="Detail"]')) {
+                        const detailBtn = document.createElement('button');
+                        detailBtn.className = 'action-btn';
+                        detailBtn.title = 'Detail';
+                        detailBtn.innerHTML = '👁️';
+                        detailBtn.addEventListener('click', function () {
+                            const categoryCode = row.querySelector('td:first-child').textContent;
+                            openDetailCategoryModal(categoryCode);
+                        });
+
+                        // Sisipkan sebelum tombol delete
+                        actionCell.insertBefore(detailBtn, deleteBtn);
+                    }
+                });
+            }
+
+            // Panggil fungsi setelah halaman dimuat
+            setTimeout(addDetailButtonsToCategoryTable, 1000);
+        </script>
 
         <!-- Suppliers Tab -->
         <div class="tab-content" id="suppliers-content">
@@ -1223,7 +2491,12 @@
                                 <td>081234567890</td>
                                 <td>info@shimano.co.id</td>
                                 <td>Jakarta Pusat</td>
-                                <td><span class="status-badge active">Aktif</span></td>
+                                <td>
+                                    <label class="toggle-switch">
+                                        <input type="checkbox" checked onchange="toggleSupplierStatus(this, 'SUP001')">
+                                        <span class="toggle-slider"></span>
+                                    </label>
+                                </td>
                                 <td>
                                     <button class="action-btn" title="Edit">✏️</button>
                                     <button class="action-btn" title="Detail">👁️</button>
@@ -1236,7 +2509,12 @@
                                 <td>082345678901</td>
                                 <td>sales@daiwa.co.id</td>
                                 <td>Surabaya</td>
-                                <td><span class="status-badge active">Aktif</span></td>
+                                <td>
+                                    <label class="toggle-switch">
+                                        <input type="checkbox" checked onchange="toggleSupplierStatus(this, 'SUP002')">
+                                        <span class="toggle-slider"></span>
+                                    </label>
+                                </td>
                                 <td>
                                     <button class="action-btn" title="Edit">✏️</button>
                                     <button class="action-btn" title="Detail">👁️</button>
@@ -1249,7 +2527,12 @@
                                 <td>083456789012</td>
                                 <td>abadi@fishing.com</td>
                                 <td>Bandung</td>
-                                <td><span class="status-badge active">Aktif</span></td>
+                                <td>
+                                    <label class="toggle-switch">
+                                        <input type="checkbox" onchange="toggleSupplierStatus(this, 'SUP003')">
+                                        <span class="toggle-slider"></span>
+                                    </label>
+                                </td>
                                 <td>
                                     <button class="action-btn" title="Edit">✏️</button>
                                     <button class="action-btn" title="Detail">👁️</button>
@@ -1262,86 +2545,704 @@
             </div>
         </div>
 
-        <!-- Brands Tab -->
-        <div class="tab-content" id="brands-content">
-            <div class="card">
-                <div class="card-header">
-                    <h3 style="color: #0c4a6e; font-weight: 800; font-size: 18px;">Daftar Brand</h3>
-                    <div class="search-filter-group">
-                        <div class="search-box">
-                            <span class="icon">🔍</span>
-                            <input type="text" placeholder="Cari brand...">
+        <!-- Modal Edit Supplier -->
+        <div class="modal" id="modalEditSupplier">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>Edit Data Supplier</h2>
+                    <button class="close-btn" onclick="closeModal('modalEditSupplier')">✖</button>
+                </div>
+                <form id="formEditSupplier">
+                    <div class="form-group">
+                        <label>Kode Supplier</label>
+                        <input type="text" name="supplierCode" id="editSupplierCode" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label>Nama Supplier</label>
+                        <input type="text" name="supplierName" id="editSupplierName" required>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Nomor Kontak</label>
+                            <input type="tel" name="phone" id="editSupplierPhone" placeholder="081234567890" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input type="email" name="email" id="editSupplierEmail" placeholder="email@supplier.com"
+                                required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Alamat</label>
+                        <textarea name="address" id="editSupplierAddress" placeholder="Alamat lengkap..."
+                            required></textarea>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Kota</label>
+                            <input type="text" name="city" id="editSupplierCity" placeholder="Kota" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Kode Pos</label>
+                            <input type="text" name="postalCode" id="editSupplierPostalCode" placeholder="12345">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Total Transaksi</label>
+                            <input type="number" name="transactionCount" id="editTransactionCount" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label>Status</label>
+                            <div style="display: flex; align-items: center; gap: 10px; margin-top: 8px;">
+                                <label class="toggle-switch">
+                                    <input type="checkbox" id="editSupplierStatus">
+                                    <span class="toggle-slider"></span>
+                                </label>
+                                <span id="editSupplierStatusText" style="font-size: 14px; color: #475569;">Aktif</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-secondary"
+                            onclick="closeModal('modalEditSupplier')">Batal</button>
+                        <button type="submit" class="btn btn-primary">Update Supplier</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Modal Detail Supplier -->
+        <div class="modal" id="modalDetailSupplier">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>Detail Supplier</h2>
+                    <button class="close-btn" onclick="closeModal('modalDetailSupplier')">✖</button>
+                </div>
+                <div class="detail-content">
+                    <div class="detail-section">
+                        <h3>Informasi Supplier</h3>
+                        <div class="detail-grid">
+                            <div class="detail-item">
+                                <label>Kode Supplier:</label>
+                                <span id="detailSupplierCode">-</span>
+                            </div>
+                            <div class="detail-item">
+                                <label>Nama Supplier:</label>
+                                <span id="detailSupplierName">-</span>
+                            </div>
+                            <div class="detail-item">
+                                <label>Kontak:</label>
+                                <span id="detailSupplierPhone">-</span>
+                            </div>
+                            <div class="detail-item">
+                                <label>Email:</label>
+                                <span id="detailSupplierEmail">-</span>
+                            </div>
+                            <div class="detail-item">
+                                <label>Alamat:</label>
+                                <span id="detailSupplierAddress">-</span>
+                            </div>
+                            <div class="detail-item">
+                                <label>Kota:</label>
+                                <span id="detailSupplierCity">-</span>
+                            </div>
+                            <div class="detail-item">
+                                <label>Status:</label>
+                                <span id="detailSupplierStatus">-</span>
+                            </div>
+                            <div class="detail-item">
+                                <label>Total Transaksi:</label>
+                                <span id="detailTransactionCount">-</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="detail-section">
+                        <h3>Riwayat Transaksi Terbaru</h3>
+                        <div class="supplier-transactions" id="supplierTransactions">
+                            <!-- Riwayat transaksi akan dimuat di sini -->
+                        </div>
+                    </div>
+                    <div class="detail-section">
+                        <h3>Produk dari Supplier Ini</h3>
+                        <div class="supplier-products" id="supplierProducts">
+                            <!-- Daftar produk akan dimuat di sini -->
                         </div>
                     </div>
                 </div>
-
-                <div class="table-container">
-                    <table class="data-table">
-                        <thead>
-                            <tr>
-                                <th>Kode</th>
-                                <th>Nama Brand</th>
-                                <th>Negara Asal</th>
-                                <th>Kategori Utama</th>
-                                <th>Jumlah Produk</th>
-                                <th>Status</th>
-                                <th>Aksi</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>BRD001</td>
-                                <td>Shimano</td>
-                                <td>Jepang</td>
-                                <td>Joran & Reel</td>
-                                <td>52</td>
-                                <td><span class="status-badge active">Aktif</span></td>
-                                <td>
-                                    <button class="action-btn" title="Edit">✏️</button>
-                                    <button class="action-btn delete" title="Hapus">🗑️</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>BRD002</td>
-                                <td>Daiwa</td>
-                                <td>Jepang</td>
-                                <td>Reel & Joran</td>
-                                <td>48</td>
-                                <td><span class="status-badge active">Aktif</span></td>
-                                <td>
-                                    <button class="action-btn" title="Edit">✏️</button>
-                                    <button class="action-btn delete" title="Hapus">🗑️</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>BRD003</td>
-                                <td>Rapala</td>
-                                <td>Finlandia</td>
-                                <td>Umpan</td>
-                                <td>36</td>
-                                <td><span class="status-badge active">Aktif</span></td>
-                                <td>
-                                    <button class="action-btn" title="Edit">✏️</button>
-                                    <button class="action-btn delete" title="Hapus">🗑️</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>BRD004</td>
-                                <td>YGK</td>
-                                <td>Jepang</td>
-                                <td>Senar</td>
-                                <td>24</td>
-                                <td><span class="status-badge active">Aktif</span></td>
-                                <td>
-                                    <button class="action-btn" title="Edit">✏️</button>
-                                    <button class="action-btn delete" title="Hapus">🗑️</button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+                <div class="form-actions">
+                    <button type="button" class="btn btn-primary"
+                        onclick="closeModal('modalDetailSupplier'); openEditSupplierModal(document.getElementById('detailSupplierCode').textContent)">Edit
+                        Supplier</button>
                 </div>
             </div>
         </div>
+
+        <!-- Modal Confirm Delete Supplier -->
+        <div class="modal" id="modalConfirmDeleteSupplier">
+            <div class="modal-content" style="max-width: 500px;">
+                <div class="modal-header">
+                    <h2 style="color: #e11d48;">Hapus Supplier</h2>
+                    <button class="close-btn" onclick="closeModal('modalConfirmDeleteSupplier')">✖</button>
+                </div>
+                <div class="delete-content" style="text-align: center; padding: 20px 0;">
+                    <div style="font-size: 48px; margin-bottom: 15px;">🏢</div>
+                    <h3 style="color: #0c4a6e; margin-bottom: 10px;" id="deleteSupplierTitle">Hapus Supplier?</h3>
+                    <p style="color: #64748b; line-height: 1.5; text-align: left;" id="deleteSupplierMessage">
+                        Informasi supplier yang akan dihapus:
+                    </p>
+                    <div
+                        style="background: rgba(245, 158, 11, 0.1); padding: 15px; border-radius: 10px; margin: 15px 0; text-align: left;">
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                            <span>Kode Supplier:</span>
+                            <strong id="deleteSupplierCode">-</strong>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                            <span>Nama Supplier:</span>
+                            <strong id="deleteSupplierName">-</strong>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                            <span>Total Transaksi:</span>
+                            <strong id="deleteTransactionCount">0 transaksi</strong>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                            <span>Jumlah Produk:</span>
+                            <strong id="deleteSupplierProductCount">0 produk</strong>
+                        </div>
+                        <div style="display: flex; justify-content: space-between;">
+                            <span>Status:</span>
+                            <strong id="deleteSupplierStatus">Aktif</strong>
+                        </div>
+                    </div>
+                    <div style="background: rgba(244, 63, 94, 0.1); padding: 12px; border-radius: 8px; margin: 15px 0;">
+                        <p style="color: #e11d48; font-size: 14px; font-weight: 600; margin: 0; text-align: center;">
+                            ⚠️ PERHATIAN: supplier akan dihapus permanen!
+                        </p>
+                    </div>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary"
+                        onclick="closeModal('modalConfirmDeleteSupplier')">Batal</button>
+                    <button type="button" class="btn" id="confirmDeleteSupplierBtn"
+                        style="background: linear-gradient(135deg, #f43f5e, #e11d48); color: white;">
+                        Ya, Hapus Supplier
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            // Data supplier untuk demo
+            let suppliersData = {
+                'SUP001': {
+                    code: 'SUP001',
+                    name: 'PT Shimano Indonesia',
+                    phone: '081234567890',
+                    email: 'info@shimano.co.id',
+                    address: 'Jl. Gatot Subroto No. 123, Jakarta Pusat',
+                    city: 'Jakarta',
+                    postalCode: '10270',
+                    status: true,
+                    transactionCount: 45,
+                    productCount: 28,
+                    joinDate: '2023-05-15',
+                    transactions: [
+                        { code: 'IN-2024-001', date: '2024-11-21', product: 'Joran Carbon Pro X1', amount: 50, total: 50000000 },
+                        { code: 'IN-2024-006', date: '2024-11-18', product: 'Reel Baitcasting Pro', amount: 25, total: 50000000 },
+                        { code: 'IN-2024-011', date: '2024-11-15', product: 'Fishing Line 150m', amount: 100, total: 15000000 }
+                    ],
+                    products: [
+                        { code: 'PRD001', name: 'Joran Carbon Pro X1', category: 'Joran', stock: 45 },
+                        { code: 'PRD007', name: 'Joran Casting Heavy Duty', category: 'Joran', stock: 15 },
+                        { code: 'PRD008', name: 'Reel Baitcasting Pro Series', category: 'Reel', stock: 12 }
+                    ]
+                },
+                'SUP002': {
+                    code: 'SUP002',
+                    name: 'CV Daiwa Sejahtera',
+                    phone: '082345678901',
+                    email: 'sales@daiwa.co.id',
+                    address: 'Jl. Raya Darmo No. 456, Surabaya',
+                    city: 'Surabaya',
+                    postalCode: '60264',
+                    status: true,
+                    transactionCount: 32,
+                    productCount: 22,
+                    joinDate: '2023-06-20',
+                    transactions: [
+                        { code: 'IN-2024-002', date: '2024-11-20', product: 'Reel Spinning Daiwa LT3000', amount: 30, total: 60000000 },
+                        { code: 'IN-2024-007', date: '2024-11-17', product: 'Telescopic Rod Set', amount: 40, total: 32000000 }
+                    ],
+                    products: [
+                        { code: 'PRD002', name: 'Reel Spinning Daiwa LT3000', category: 'Reel', stock: 0 },
+                        { code: 'PRD006', name: 'Joran Telescopic Ultra Light', category: 'Joran', stock: 23 },
+                        { code: 'PRD009', name: 'Reel Spinning Saltwater', category: 'Reel', stock: 18 }
+                    ]
+                },
+                'SUP003': {
+                    code: 'SUP003',
+                    name: 'Toko Mancing Abadi',
+                    phone: '083456789012',
+                    email: 'abadi@fishing.com',
+                    address: 'Jl. Cihampelas No. 789, Bandung',
+                    city: 'Bandung',
+                    postalCode: '40131',
+                    status: false,
+                    transactionCount: 18,
+                    productCount: 15,
+                    joinDate: '2023-07-10',
+                    transactions: [
+                        { code: 'IN-2024-003', date: '2024-11-19', product: 'Senar PE Line 150m', amount: 100, total: 15000000 },
+                        { code: 'IN-2024-008', date: '2024-11-16', product: 'Fishing Accessories Set', amount: 50, total: 7500000 }
+                    ],
+                    products: [
+                        { code: 'PRD003', name: 'Senar PE Line 150m', category: 'Senar', stock: 8 },
+                        { code: 'PRD010', name: 'Senar Monofilament 200m', category: 'Senar', stock: 25 },
+                        { code: 'PRD015', name: 'Fishing Bag Multi Pocket', category: 'Aksesoris', stock: 10 }
+                    ]
+                }
+            };
+
+            // Event Listeners untuk tombol aksi supplier
+            document.querySelectorAll('#suppliers-content .action-btn').forEach(btn => {
+                btn.addEventListener('click', function () {
+                    const action = this.title;
+                    const row = this.closest('tr');
+                    const supplierCode = row.querySelector('td:first-child').textContent;
+
+                    if (action === 'Edit') {
+                        openEditSupplierModal(supplierCode);
+                    } else if (action === 'Detail' || action === 'View') {
+                        openDetailSupplierModal(supplierCode);
+                    } else if (action === 'Hapus') {
+                        openDeleteSupplierModal(supplierCode, row);
+                    }
+                });
+            });
+
+            // Open Edit Supplier Modal
+            function openEditSupplierModal(supplierCode) {
+                const supplier = suppliersData[supplierCode];
+                if (!supplier) {
+                    alert('Data supplier tidak ditemukan!');
+                    return;
+                }
+
+                document.getElementById('editSupplierCode').value = supplier.code;
+                document.getElementById('editSupplierName').value = supplier.name;
+                document.getElementById('editSupplierPhone').value = supplier.phone;
+                document.getElementById('editSupplierEmail').value = supplier.email;
+                document.getElementById('editSupplierAddress').value = supplier.address;
+                document.getElementById('editSupplierCity').value = supplier.city;
+                document.getElementById('editSupplierPostalCode').value = supplier.postalCode || '';
+                document.getElementById('editTransactionCount').value = supplier.transactionCount;
+                document.getElementById('editSupplierStatus').checked = supplier.status;
+                document.getElementById('editSupplierStatusText').textContent = supplier.status ? 'Aktif' : 'Nonaktif';
+
+                // Event listener untuk toggle status
+                document.getElementById('editSupplierStatus').onchange = function () {
+                    document.getElementById('editSupplierStatusText').textContent = this.checked ? 'Aktif' : 'Nonaktif';
+                };
+
+                openModal('modalEditSupplier');
+            }
+
+            // Open Detail Supplier Modal
+            function openDetailSupplierModal(supplierCode) {
+                const supplier = suppliersData[supplierCode];
+                if (!supplier) {
+                    alert('Data supplier tidak ditemukan!');
+                    return;
+                }
+
+                // Set detail information
+                document.getElementById('detailSupplierCode').textContent = supplier.code;
+                document.getElementById('detailSupplierName').textContent = supplier.name;
+                document.getElementById('detailSupplierPhone').textContent = supplier.phone;
+                document.getElementById('detailSupplierEmail').textContent = supplier.email;
+                document.getElementById('detailSupplierAddress').textContent = supplier.address;
+                document.getElementById('detailSupplierCity').textContent = supplier.city;
+                document.getElementById('detailSupplierStatus').innerHTML = supplier.status ?
+                    '<span class="supplier-status active">✅ Aktif</span>' :
+                    '<span class="supplier-status inactive">❌ Nonaktif</span>';
+                document.getElementById('detailTransactionCount').textContent = `${supplier.transactionCount} transaksi`;
+
+                // Load transactions
+                const transactionsContainer = document.getElementById('supplierTransactions');
+                transactionsContainer.innerHTML = '';
+
+                if (supplier.transactions && supplier.transactions.length > 0) {
+                    supplier.transactions.forEach(transaction => {
+                        const transactionItem = document.createElement('div');
+                        transactionItem.className = 'transaction-item';
+                        transactionItem.innerHTML = `
+                <div class="transaction-info">
+                    <div class="transaction-code">${transaction.code}</div>
+                    <div class="transaction-details">
+                        <span>${formatDate(transaction.date)}</span>
+                        <span>${transaction.product}</span>
+                        <span>${transaction.amount} unit</span>
+                    </div>
+                </div>
+                <div class="transaction-amount">${formatCurrency(transaction.total)}</div>
+            `;
+                        transactionsContainer.appendChild(transactionItem);
+                    });
+                } else {
+                    transactionsContainer.innerHTML = '<div class="no-data">Belum ada transaksi</div>';
+                }
+
+                // Load products
+                const productsContainer = document.getElementById('supplierProducts');
+                productsContainer.innerHTML = '';
+
+                if (supplier.products && supplier.products.length > 0) {
+                    supplier.products.forEach(product => {
+                        const productItem = document.createElement('div');
+                        productItem.className = 'supplier-product-item';
+                        productItem.innerHTML = `
+                <div class="product-info">
+                    <div class="product-name">${product.name}</div>
+                    <div class="product-details">
+                        Kode: ${product.code} • Kategori: ${product.category} • Stok: ${product.stock}
+                    </div>
+                </div>
+                <div class="product-status ${getStockStatusClass(product.stock)}">
+                    ${getStockStatusText(product.stock)}
+                </div>
+            `;
+                        productsContainer.appendChild(productItem);
+                    });
+                } else {
+                    productsContainer.innerHTML = '<div class="no-data">Tidak ada produk dari supplier ini</div>';
+                }
+
+                openModal('modalDetailSupplier');
+            }
+
+            // Open Delete Supplier Modal
+            function openDeleteSupplierModal(supplierCode, row) {
+                const supplier = suppliersData[supplierCode];
+                if (!supplier) return;
+
+                document.getElementById('deleteSupplierTitle').textContent = `Hapus ${supplier.name}?`;
+                document.getElementById('deleteTransactionCount').textContent = `${supplier.transactionCount} transaksi`;
+                document.getElementById('deleteSupplierProductCount').textContent = `${supplier.productCount} produk`;
+                document.getElementById('deleteSupplierStatus').innerHTML = supplier.status ?
+                    '<span style="color: #059669;">Aktif</span>' :
+                    '<span style="color: #e11d48;">Nonaktif</span>';
+
+                const confirmBtn = document.getElementById('confirmDeleteSupplierBtn');
+                const messageElement = document.getElementById('deleteSupplierMessage');
+
+                // Cek apakah supplier bisa dihapus
+                if (supplier.transactionCount > 0) {
+                    messageElement.innerHTML = `
+            <strong>Supplier tidak dapat dihapus!</strong><br>
+            Masih terdapat <strong>${supplier.transactionCount} transaksi</strong> dan 
+            <strong>${supplier.productCount} produk</strong> yang terkait dengan supplier ini.
+        `;
+                    messageElement.className = 'error-message';
+                    confirmBtn.disabled = true;
+                    confirmBtn.style.opacity = '0.5';
+                } else {
+                    messageElement.innerHTML = `
+            Anda akan menghapus supplier <strong>${supplier.name}</strong> (${supplier.code}).<br>
+            Tindakan ini tidak dapat dibatalkan.
+        `;
+                    messageElement.className = '';
+                    confirmBtn.disabled = false;
+                    confirmBtn.style.opacity = '1';
+                }
+
+                confirmBtn.onclick = () => confirmDeleteSupplier(supplierCode, row);
+
+                openModal('modalConfirmDeleteSupplier');
+            }
+
+            // Confirm Delete Supplier
+            function confirmDeleteSupplier(supplierCode, row) {
+                const supplier = suppliersData[supplierCode];
+
+                if (supplier.transactionCount > 0) {
+                    showNotification('Tidak dapat menghapus supplier yang masih memiliki transaksi!', 'error');
+                    return;
+                }
+
+                // Hapus dari data
+                delete suppliersData[supplierCode];
+
+                // Hapus dari tampilan
+                row.style.animation = 'slideOut 0.3s ease';
+                setTimeout(() => {
+                    row.remove();
+                    showNotification('Supplier berhasil dihapus!', 'success');
+                }, 300);
+
+                closeModal('modalConfirmDeleteSupplier');
+            }
+
+            // Handle Edit Supplier Form Submission
+            document.getElementById('formEditSupplier').addEventListener('submit', (e) => {
+                e.preventDefault();
+
+                const supplierCode = document.getElementById('editSupplierCode').value;
+
+                if (suppliersData[supplierCode]) {
+                    // Update data supplier
+                    suppliersData[supplierCode].name = document.getElementById('editSupplierName').value;
+                    suppliersData[supplierCode].phone = document.getElementById('editSupplierPhone').value;
+                    suppliersData[supplierCode].email = document.getElementById('editSupplierEmail').value;
+                    suppliersData[supplierCode].address = document.getElementById('editSupplierAddress').value;
+                    suppliersData[supplierCode].city = document.getElementById('editSupplierCity').value;
+                    suppliersData[supplierCode].postalCode = document.getElementById('editSupplierPostalCode').value;
+                    suppliersData[supplierCode].status = document.getElementById('editSupplierStatus').checked;
+
+                    // Update tampilan di tabel
+                    updateSupplierTableRow(supplierCode);
+
+                    showNotification('Data supplier berhasil diupdate!', 'success');
+                    closeModal('modalEditSupplier');
+                }
+            });
+
+            // Update tampilan row supplier setelah edit
+            function updateSupplierTableRow(supplierCode) {
+                const supplier = suppliersData[supplierCode];
+                const rows = document.querySelectorAll('#suppliers-content tbody tr');
+
+                rows.forEach(row => {
+                    if (row.querySelector('td:first-child').textContent === supplierCode) {
+                        // Update nama supplier
+                        row.querySelector('td:nth-child(2)').textContent = supplier.name;
+
+                        // Update kontak
+                        row.querySelector('td:nth-child(3)').textContent = supplier.phone;
+
+                        // Update email
+                        row.querySelector('td:nth-child(4)').textContent = supplier.email;
+
+                        // Update alamat
+                        row.querySelector('td:nth-child(5)').textContent = supplier.address;
+
+                        // Update toggle switch
+                        const toggle = row.querySelector('.toggle-switch input');
+                        toggle.checked = supplier.status;
+
+                        // Update status text jika ada
+                        const statusText = row.querySelector('.supplier-status-text');
+                        if (statusText) {
+                            statusText.textContent = supplier.status ? 'Aktif' : 'Nonaktif';
+                            statusText.className = `supplier-status-text ${supplier.status ? 'active' : 'inactive'}`;
+                        }
+                    }
+                });
+            }
+
+            // Open Delete Supplier Modal (Updated)
+            function openDeleteSupplierModal(supplierCode, row) {
+                const supplier = suppliersData[supplierCode];
+                if (!supplier) return;
+
+                document.getElementById('deleteSupplierTitle').textContent = `Hapus ${supplier.name}?`;
+                document.getElementById('deleteSupplierCode').textContent = supplier.code;
+                document.getElementById('deleteSupplierName').textContent = supplier.name;
+                document.getElementById('deleteTransactionCount').textContent = `${supplier.transactionCount} transaksi`;
+                document.getElementById('deleteSupplierProductCount').textContent = `${supplier.productCount} produk`;
+                document.getElementById('deleteSupplierStatus').innerHTML = supplier.status ?
+                    '<span style="color: #059669;">Aktif</span>' :
+                    '<span style="color: #e11d48;">Nonaktif</span>';
+
+                const confirmBtn = document.getElementById('confirmDeleteSupplierBtn');
+                const messageElement = document.getElementById('deleteSupplierMessage');
+
+                // Tampilkan informasi tanpa blokir penghapusan
+                if (supplier.transactionCount > 0 || supplier.productCount > 0) {
+                    messageElement.innerHTML = `
+            <strong>Supplier ini memiliki data terkait:</strong><br>
+            - ${supplier.transactionCount} transaksi<br>
+            - ${supplier.productCount} produk<br>
+            Data terkait akan tetap ada, hanya informasi supplier yang dihapus.
+        `;
+                    messageElement.className = 'warning-message';
+                } else {
+                    messageElement.innerHTML = `
+            Anda akan menghapus supplier <strong>${supplier.name}</strong> (${supplier.code}).<br>
+            Tindakan ini tidak dapat dibatalkan.
+        `;
+                    messageElement.className = '';
+                }
+
+                // Selalu enable tombol hapus
+                confirmBtn.disabled = false;
+                confirmBtn.style.opacity = '1';
+
+                confirmBtn.onclick = () => confirmDeleteSupplier(supplierCode, row);
+
+                openModal('modalConfirmDeleteSupplier');
+            }
+
+            // Confirm Delete Supplier (Updated)
+            function confirmDeleteSupplier(supplierCode, row) {
+                const supplier = suppliersData[supplierCode];
+
+                // Hapus dari data
+                delete suppliersData[supplierCode];
+
+                // Update produk yang terkait dengan supplier ini (set supplier menjadi null)
+                updateProductsAfterSupplierDelete(supplierCode);
+
+                // Update transaksi yang terkait dengan supplier ini (set supplier menjadi "Supplier Dihapus")
+                updateTransactionsAfterSupplierDelete(supplierCode);
+
+                // Hapus dari tampilan
+                row.style.animation = 'slideOut 0.3s ease';
+                setTimeout(() => {
+                    row.remove();
+
+                    // Tampilkan notifikasi berdasarkan kondisi
+                    if (supplier.transactionCount > 0 || supplier.productCount > 0) {
+                        showNotification(
+                            `Supplier ${supplier.name} dihapus. ${supplier.transactionCount} transaksi dan ${supplier.productCount} produk tetap ada.`,
+                            'warning'
+                        );
+                    } else {
+                        showNotification('Supplier berhasil dihapus!', 'success');
+                    }
+                }, 300);
+
+                closeModal('modalConfirmDeleteSupplier');
+            }
+
+            // Fungsi untuk update produk setelah supplier dihapus
+            function updateProductsAfterSupplierDelete(supplierCode) {
+                // Dalam implementasi real, ini akan update database
+                // Untuk demo, kita log saja
+                console.log(`Update semua produk dari supplier ${supplierCode} - set supplier menjadi null`);
+
+                // Contoh: Jika Anda memiliki data produk terpisah, update di sini
+                // productsData.forEach(product => {
+                //     if (product.supplierCode === supplierCode) {
+                //         product.supplierCode = null;
+                //         product.supplierName = 'Supplier Dihapus';
+                //     }
+                // });
+            }
+
+            // Fungsi untuk update transaksi setelah supplier dihapus
+            function updateTransactionsAfterSupplierDelete(supplierCode) {
+                // Dalam implementasi real, ini akan update database
+                // Untuk demo, kita log saja
+                console.log(`Update semua transaksi dari supplier ${supplierCode} - set supplier menjadi "Supplier Dihapus"`);
+
+                // Contoh: Jika Anda memiliki data transaksi terpisah, update di sini
+                // transactionsData.forEach(transaction => {
+                //     if (transaction.supplierCode === supplierCode) {
+                //         transaction.supplierCode = 'DELETED';
+                //         transaction.supplierName = 'Supplier Dihapus';
+                //     }
+                // });
+            }
+
+            // Update juga fungsi toggle supplier status untuk konsistensi
+            function toggleSupplierStatus(checkbox, supplierCode) {
+                const supplier = suppliersData[supplierCode];
+                if (!supplier) return;
+
+                const newStatus = checkbox.checked;
+                supplier.status = newStatus;
+
+                const message = newStatus ?
+                    `Supplier ${supplierCode} diaktifkan. Anda dapat melakukan pembelian dari supplier ini.` :
+                    `Supplier ${supplierCode} dinonaktifkan. Pembelian dari supplier ini ditangguhkan sementara.`;
+
+                showNotification(message, newStatus ? 'success' : 'warning');
+
+                // Update data jika ada perubahan
+                updateSupplierTableRow(supplierCode);
+            }
+
+            // Helper Functions untuk Supplier
+            function getStockStatusClass(stock) {
+                if (stock === 0) {
+                    return 'status-badge inactive';
+                } else if (stock < 10) {
+                    return 'status-badge pending';
+                } else {
+                    return 'status-badge active';
+                }
+            }
+
+            function getStockStatusText(stock) {
+                if (stock === 0) {
+                    return 'Habis';
+                } else if (stock < 10) {
+                    return 'Stok Rendah';
+                } else {
+                    return 'Aman';
+                }
+            }
+
+            // Update event listener untuk toggle switch supplier
+            document.querySelectorAll('#suppliers-content .toggle-switch input').forEach(toggle => {
+                toggle.addEventListener('change', function () {
+                    const row = this.closest('tr');
+                    const supplierCode = row.querySelector('td:first-child').textContent;
+                    toggleSupplierStatus(this, supplierCode);
+                });
+            });
+
+            // Fungsi untuk menambahkan status text ke tabel supplier
+            function addStatusTextToSupplierTable() {
+                const supplierRows = document.querySelectorAll('#suppliers-content tbody tr');
+
+                supplierRows.forEach(row => {
+                    const statusCell = row.querySelector('td:nth-child(6)');
+                    const toggle = statusCell.querySelector('.toggle-switch');
+                    const supplierCode = row.querySelector('td:first-child').textContent;
+                    const supplier = suppliersData[supplierCode];
+
+                    if (supplier && !statusCell.querySelector('.supplier-status-text')) {
+                        const statusText = document.createElement('span');
+                        statusText.className = `supplier-status-text ${supplier.status ? 'active' : 'inactive'}`;
+                        statusText.textContent = supplier.status ? 'Aktif' : 'Nonaktif';
+                        statusText.style.marginLeft = '10px';
+                        statusText.style.fontSize = '12px';
+                        statusText.style.fontWeight = '600';
+
+                        statusCell.appendChild(statusText);
+                    }
+                });
+            }
+
+            // Tambahkan CSS untuk supplier status text
+            const supplierStyle = document.createElement('style');
+            supplierStyle.textContent = `
+    .supplier-status-text.active {
+        color: #059669;
+    }
+    .supplier-status-text.inactive {
+        color: #e11d48;
+    }
+    
+    .contact-info {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin: 5px 0;
+    }
+    
+    .contact-icon {
+        font-size: 14px;
+        width: 16px;
+        text-align: center;
+    }
+`;
+            document.head.appendChild(supplierStyle);
+
+            // Panggil fungsi update
+            setTimeout(addStatusTextToSupplierTable, 1000);
+        </script>
 
         <!-- Stock In Tab -->
         <div class="tab-content" id="stock-in-content">
@@ -1357,9 +3258,14 @@
                     <div class="stat-label">Total Item Masuk</div>
                 </div>
                 <div class="stat-card orange">
-                    <div class="stat-icon">⏳</div>
-                    <div class="stat-value">12</div>
-                    <div class="stat-label">Pending Approval</div>
+                    <div class="stat-icon">⚠️</div>
+                    <div class="stat-value">8</div>
+                    <div class="stat-label">Kategori Stok Menipis</div>
+                </div>
+                <div class="stat-card red">
+                    <div class="stat-icon">❌</div>
+                    <div class="stat-value">2</div>
+                    <div class="stat-label">Kategori Stok Habis</div>
                 </div>
             </div>
 
@@ -1369,9 +3275,16 @@
                     <div class="search-filter-group">
                         <div class="search-box">
                             <span class="icon">🔍</span>
-                            <input type="text" placeholder="Cari transaksi...">
+                            <input type="text" placeholder="Cari transaksi..." id="searchStockIn">
                         </div>
-                        <button class="filter-btn">Filter Tanggal ▼</button>
+                        <select class="filter-btn" id="filterCategory" style="padding: 10px 15px; cursor: pointer;">
+                            <option value="">Semua Kategori</option>
+                            <option value="joran">🎣 Joran</option>
+                            <option value="reel">🎣 Reel</option>
+                            <option value="senar">🧵 Senar</option>
+                            <option value="umpan">🐟 Umpan</option>
+                            <option value="aksesoris">🛠️ Aksesoris</option>
+                        </select>
                     </div>
                 </div>
 
@@ -1381,67 +3294,87 @@
                             <tr>
                                 <th>Kode Transaksi</th>
                                 <th>Tanggal</th>
+                                <th>Kategori</th>
                                 <th>Supplier</th>
                                 <th>Produk</th>
                                 <th>Jumlah</th>
                                 <th>Harga Beli</th>
-                                <th>Total</th>
-                                <th>Status</th>
+                                <th>Harga Jual</th>
+                                <th>Stok Status</th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <tr>
+                        <tbody id="stockInTableBody">
+                            <tr data-category="joran">
                                 <td>IN-2024-001</td>
                                 <td>21 Nov 2024</td>
+                                <td><span class="status-badge pending">Joran ⚠️</span></td>
                                 <td>PT Shimano Indonesia</td>
                                 <td>Joran Carbon Pro X1</td>
                                 <td>50 unit</td>
                                 <td>Rp 1.000.000</td>
-                                <td>Rp 50.000.000</td>
-                                <td><span class="status-badge completed">Selesai</span></td>
+                                <td>Rp 1.250.000</td>
+                                <td><span class="status-badge active">Aman (45)</span></td>
                                 <td>
                                     <button class="action-btn" title="Detail">👁️</button>
                                     <button class="action-btn" title="Print">🖨️</button>
                                 </td>
                             </tr>
-                            <tr>
+                            <tr data-category="reel">
                                 <td>IN-2024-002</td>
                                 <td>20 Nov 2024</td>
+                                <td><span class="status-badge active">Reel ✓</span></td>
                                 <td>CV Daiwa Sejahtera</td>
                                 <td>Reel Spinning Daiwa LT3000</td>
                                 <td>30 unit</td>
                                 <td>Rp 2.000.000</td>
-                                <td>Rp 60.000.000</td>
-                                <td><span class="status-badge completed">Selesai</span></td>
+                                <td>Rp 2.450.000</td>
+                                <td><span class="status-badge active">Aman (32)</span></td>
                                 <td>
                                     <button class="action-btn" title="Detail">👁️</button>
                                     <button class="action-btn" title="Print">🖨️</button>
                                 </td>
                             </tr>
-                            <tr>
+                            <tr data-category="senar">
                                 <td>IN-2024-003</td>
                                 <td>19 Nov 2024</td>
+                                <td><span class="status-badge pending">Senar ⚠️</span></td>
                                 <td>Toko Mancing Abadi</td>
                                 <td>Senar PE Line 150m</td>
                                 <td>100 unit</td>
                                 <td>Rp 150.000</td>
-                                <td>Rp 15.000.000</td>
-                                <td><span class="status-badge pending">Pending</span></td>
+                                <td>Rp 185.000</td>
+                                <td><span class="status-badge pending">Menipis (8)</span></td>
                                 <td>
                                     <button class="action-btn" title="Detail">👁️</button>
-                                    <button class="action-btn" title="Approve">✅</button>
+                                    <button class="action-btn" title="Print">🖨️</button>
                                 </td>
                             </tr>
-                            <tr>
+                            <tr data-category="umpan">
                                 <td>IN-2024-004</td>
                                 <td>18 Nov 2024</td>
+                                <td><span class="status-badge inactive">Umpan ❌</span></td>
                                 <td>PT Shimano Indonesia</td>
                                 <td>Umpan Minnow 12cm</td>
                                 <td>200 unit</td>
                                 <td>Rp 100.000</td>
-                                <td>Rp 20.000.000</td>
-                                <td><span class="status-badge completed">Selesai</span></td>
+                                <td>Rp 125.000</td>
+                                <td><span class="status-badge inactive">Habis (0)</span></td>
+                                <td>
+                                    <button class="action-btn" title="Detail">👁️</button>
+                                    <button class="action-btn" title="Print">🖨️</button>
+                                </td>
+                            </tr>
+                            <tr data-category="aksesoris">
+                                <td>IN-2024-005</td>
+                                <td>17 Nov 2024</td>
+                                <td><span class="status-badge active">Aksesoris ✓</span></td>
+                                <td>CV Daiwa Sejahtera</td>
+                                <td>Tackle Box Waterproof</td>
+                                <td>50 unit</td>
+                                <td>Rp 280.000</td>
+                                <td>Rp 350.000</td>
+                                <td><span class="status-badge active">Aman (25)</span></td>
                                 <td>
                                     <button class="action-btn" title="Detail">👁️</button>
                                     <button class="action-btn" title="Print">🖨️</button>
@@ -1686,24 +3619,30 @@
                         <input type="date" name="date" required>
                     </div>
                     <div class="form-group">
-                        <label>Supplier</label>
-                        <select name="supplier" required>
-                            <option value="">Pilih Supplier</option>
-                            <option value="sup001">PT Shimano Indonesia</option>
-                            <option value="sup002">CV Daiwa Sejahtera</option>
-                            <option value="sup003">Toko Mancing Abadi</option>
+                        <label>Kategori <span style="color: #e11d48;">*</span></label>
+                        <select name="category" id="modalCategorySelect" required
+                            onchange="loadProductsByCategory(this.value)">
+                            <option value="">Pilih Kategori Dulu</option>
+                            <option value="joran">Joran</option>
+                            <option value="reel">Reel</option>
+                            <option value="senar">Senar</option>
+                            <option value="umpan">Umpan</option>
+                            <option value="aksesoris">Aksesoris</option>
                         </select>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label>Produk</label>
-                    <select name="product" required>
-                        <option value="">Pilih Produk</option>
-                        <option value="prd001">Joran Carbon Pro X1</option>
-                        <option value="prd002">Reel Spinning Daiwa LT3000</option>
-                        <option value="prd003">Senar PE Line 150m</option>
-                        <option value="prd004">Umpan Minnow 12cm</option>
-                        <option value="prd005">Tackle Box Waterproof</option>
+                    <label>Supplier <span style="color: #059669;">(Hanya Supplier Aktif)</span></label>
+                    <select name="supplier" id="modalSupplierSelect" required>
+                        <option value="">Pilih Supplier</option>
+                        <option value="sup001">PT Shimano Indonesia</option>
+                        <option value="sup002">CV Daiwa Sejahtera</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Produk <span style="color: #64748b;">(Pilih kategori terlebih dahulu)</span></label>
+                    <select name="product" id="modalProductSelect" required disabled>
+                        <option value="">Pilih kategori dulu...</option>
                     </select>
                 </div>
                 <div class="form-row">
@@ -1717,8 +3656,8 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label>Total Harga</label>
-                    <input type="number" name="totalPrice" placeholder="0" readonly>
+                    <label>Harga Jual/Unit</label>
+                    <input type="number" name="sellPrice" placeholder="0" required>
                 </div>
                 <div class="form-group">
                     <label>Catatan</label>
@@ -1958,9 +3897,6 @@
                 case 'suppliers':
                     openModal('modalSupplier');
                     break;
-                case 'brands':
-                    openModal('modalBrand');
-                    break;
                 case 'stock-in':
                     openModal('modalStockIn');
                     break;
@@ -2001,6 +3937,9 @@
             alert('Transaksi barang masuk berhasil ditambahkan!');
             closeModal('modalStockIn');
             e.target.reset();
+            // Reset product select
+            document.getElementById('modalProductSelect').disabled = true;
+            document.getElementById('modalProductSelect').innerHTML = '<option value="">Pilih kategori dulu...</option>';
         });
 
         document.getElementById('formStockOut').addEventListener('submit', (e) => {
@@ -2031,19 +3970,6 @@
             e.target.reset();
         });
 
-        // Auto Calculate Total Price in Stock In Form
-        const stockInQty = document.querySelector('#formStockIn input[name="quantity"]');
-        const stockInPrice = document.querySelector('#formStockIn input[name="buyPrice"]');
-        const stockInTotal = document.querySelector('#formStockIn input[name="totalPrice"]');
-
-        [stockInQty, stockInPrice].forEach(input => {
-            input.addEventListener('input', () => {
-                const qty = parseFloat(stockInQty.value) || 0;
-                const price = parseFloat(stockInPrice.value) || 0;
-                stockInTotal.value = qty * price;
-            });
-        });
-
         // Auto Calculate Total Price in Stock Out Form
         const stockOutQty = document.querySelector('#formStockOut input[name="quantity"]');
         const stockOutPrice = document.querySelector('#formStockOut input[name="sellPrice"]');
@@ -2068,38 +3994,115 @@
             });
         });
 
-        // Action Button Handlers (Edit, View, Delete)
-        document.querySelectorAll('.action-btn').forEach(btn => {
-            btn.addEventListener('click', function () {
-                const action = this.title;
-                const row = this.closest('tr');
-                const code = row.querySelector('td:first-child').textContent;
 
-                if (action === 'Edit') {
-                    alert(`Edit data: ${code}`);
-                } else if (action === 'Detail' || action === 'View') {
-                    alert(`Melihat detail: ${code}`);
-                } else if (action === 'Hapus') {
-                    if (confirm(`Hapus data ${code}?`)) {
-                        alert('Data berhasil dihapus!');
-                    }
-                } else if (action === 'Print') {
-                    alert(`Mencetak transaksi: ${code}`);
-                } else if (action === 'Approve') {
-                    if (confirm(`Approve transaksi ${code}?`)) {
-                        alert('Transaksi berhasil diapprove!');
-                    }
-                } else if (action === 'Update') {
-                    alert(`Update status: ${code}`);
-                }
-            });
-        });
 
         // Set today's date as default for date inputs
         const today = new Date().toISOString().split('T')[0];
         document.querySelectorAll('input[type="date"]').forEach(input => {
             input.value = today;
         });
+
+        // Products data by category
+        const productsByCategory = {
+            joran: [
+                { value: 'prd001', text: 'Joran Carbon Pro X1', brand: 'Shimano' },
+                { value: 'prd006', text: 'Joran Telescopic Ultra Light', brand: 'Daiwa' },
+                { value: 'prd007', text: 'Joran Casting Heavy Duty', brand: 'Shimano' }
+            ],
+            reel: [
+                { value: 'prd002', text: 'Reel Spinning Daiwa LT3000', brand: 'Daiwa' },
+                { value: 'prd008', text: 'Reel Baitcasting Pro Series', brand: 'Shimano' },
+                { value: 'prd009', text: 'Reel Spinning Saltwater', brand: 'Daiwa' }
+            ],
+            senar: [
+                { value: 'prd003', text: 'Senar PE Line 150m', brand: 'YGK' },
+                { value: 'prd010', text: 'Senar Monofilament 200m', brand: 'YGK' },
+                { value: 'prd011', text: 'Senar Fluorocarbon Leader', brand: 'YGK' }
+            ],
+            umpan: [
+                { value: 'prd004', text: 'Umpan Minnow 12cm', brand: 'Rapala' },
+                { value: 'prd012', text: 'Umpan Popper Surface', brand: 'Rapala' },
+                { value: 'prd013', text: 'Umpan Jig Head Set', brand: 'Rapala' }
+            ],
+            aksesoris: [
+                { value: 'prd005', text: 'Tackle Box Waterproof', brand: 'Plano' },
+                { value: 'prd014', text: 'Rod Holder Adjustable', brand: 'Plano' },
+                { value: 'prd015', text: 'Fishing Bag Multi Pocket', brand: 'Plano' }
+            ]
+        };
+
+        // Load products based on selected category
+        function loadProductsByCategory(category) {
+            const productSelect = document.getElementById('modalProductSelect');
+            productSelect.innerHTML = '<option value="">Pilih Produk</option>';
+
+            if (category && productsByCategory[category]) {
+                productSelect.disabled = false;
+                productsByCategory[category].forEach(product => {
+                    const option = document.createElement('option');
+                    option.value = product.value;
+                    option.textContent = `${product.text} (${product.brand})`;
+                    productSelect.appendChild(option);
+                });
+            } else {
+                productSelect.disabled = true;
+                productSelect.innerHTML = '<option value="">Pilih kategori dulu...</option>';
+            }
+        }
+
+        // Toggle Category Status
+        function toggleCategoryStatus(checkbox, categoryCode) {
+            const status = checkbox.checked ? 'Aktif' : 'Nonaktif';
+            const message = checkbox.checked
+                ? `Kategori ${categoryCode} diaktifkan. Produk dalam kategori ini dapat ditambahkan ke barang masuk.`
+                : `Kategori ${categoryCode} dinonaktifkan. Produk dalam kategori ini tidak dapat ditambahkan untuk sementara.`;
+
+            alert(message);
+        }
+
+        // Toggle Supplier Status
+        function toggleSupplierStatus(checkbox, supplierCode) {
+            const status = checkbox.checked ? 'Aktif' : 'Nonaktif';
+            const message = checkbox.checked
+                ? `Supplier ${supplierCode} diaktifkan. Anda dapat melakukan pembelian dari supplier ini.`
+                : `Supplier ${supplierCode} dinonaktifkan. Pembelian dari supplier ini ditangguhkan sementara.`;
+
+            alert(message);
+        }
+
+        // Filter Stock In by Category
+        const filterCategory = document.getElementById('filterCategory');
+        const stockInTableBody = document.getElementById('stockInTableBody');
+
+        if (filterCategory) {
+            filterCategory.addEventListener('change', function () {
+                const selectedCategory = this.value.toLowerCase();
+                const rows = stockInTableBody.querySelectorAll('tr');
+
+                rows.forEach(row => {
+                    const rowCategory = row.getAttribute('data-category');
+                    if (!selectedCategory || rowCategory === selectedCategory) {
+                        row.style.display = '';
+                    } else {
+                        row.style.display = 'none';
+                    }
+                });
+            });
+        }
+
+        // Search Stock In
+        const searchStockIn = document.getElementById('searchStockIn');
+        if (searchStockIn) {
+            searchStockIn.addEventListener('input', function (e) {
+                const searchTerm = e.target.value.toLowerCase();
+                const rows = stockInTableBody.querySelectorAll('tr');
+
+                rows.forEach(row => {
+                    const text = row.textContent.toLowerCase();
+                    row.style.display = text.includes(searchTerm) ? '' : 'none';
+                });
+            });
+        }
     </script>
 </body>
 

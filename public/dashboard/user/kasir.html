@@ -269,6 +269,8 @@
             padding-right: 5px;
         }
 
+
+
         .product-card {
             background: white;
             border: 2px solid rgba(14, 116, 144, 0.1);
@@ -294,6 +296,106 @@
             font-size: 40px;
             text-align: center;
             margin-bottom: 8px;
+        }
+
+        .logout-modal {
+            position: fixed;
+            inset: 0;
+            background: rgba(12, 74, 110, 0.7);
+            backdrop-filter: blur(6px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 3000;
+        }
+
+        .logout-modal.active {
+            display: flex;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .logout-box {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 35px;
+            border-radius: 25px;
+            text-align: center;
+            width: 350px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+            animation: slideUp 0.3s ease;
+        }
+
+        .logout-icon {
+            font-size: 55px;
+            margin-bottom: 15px;
+        }
+
+        .logout-box h3 {
+            color: #0c4a6e;
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+
+        .logout-box p {
+            color: #64748b;
+            font-size: 14px;
+            margin-bottom: 25px;
+        }
+
+        .logout-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .logout-actions button {
+            flex: 1;
+            padding: 12px;
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            transition: 0.3s;
+        }
+
+        .btn-cancel {
+            background: rgba(148, 163, 184, 0.2);
+            color: #475569;
+        }
+
+        .btn-cancel:hover {
+            background: rgba(148, 163, 184, 0.4);
+        }
+
+        .btn-confirm {
+            background: linear-gradient(135deg, #ef4444, #dc2626);
+            color: white;
+            box-shadow: 0 6px 20px rgba(239, 68, 68, 0.4);
+        }
+
+        .btn-confirm:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(239, 68, 68, 0.5);
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(40px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
         }
 
         .product-name {
@@ -955,106 +1057,6 @@
                 opacity: 1;
             }
         }
-
-        .logout-modal {
-            position: fixed;
-            inset: 0;
-            background: rgba(12, 74, 110, 0.7);
-            backdrop-filter: blur(6px);
-            display: none;
-            align-items: center;
-            justify-content: center;
-            z-index: 3000;
-        }
-
-        .logout-modal.active {
-            display: flex;
-            animation: fadeIn 0.3s ease;
-        }
-
-        .logout-box {
-            background: rgba(255, 255, 255, 0.95);
-            padding: 35px;
-            border-radius: 25px;
-            text-align: center;
-            width: 350px;
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
-            animation: slideUp 0.3s ease;
-        }
-
-        .logout-icon {
-            font-size: 55px;
-            margin-bottom: 15px;
-        }
-
-        .logout-box h3 {
-            color: #0c4a6e;
-            font-size: 20px;
-            margin-bottom: 10px;
-        }
-
-        .logout-box p {
-            color: #64748b;
-            font-size: 14px;
-            margin-bottom: 25px;
-        }
-
-        .logout-actions {
-            display: flex;
-            gap: 10px;
-        }
-
-        .logout-actions button {
-            flex: 1;
-            padding: 12px;
-            border-radius: 12px;
-            font-weight: 600;
-            cursor: pointer;
-            border: none;
-            transition: 0.3s;
-        }
-
-        .btn-cancel {
-            background: rgba(148, 163, 184, 0.2);
-            color: #475569;
-        }
-
-        .btn-cancel:hover {
-            background: rgba(148, 163, 184, 0.4);
-        }
-
-        .btn-confirm {
-            background: linear-gradient(135deg, #ef4444, #dc2626);
-            color: white;
-            box-shadow: 0 6px 20px rgba(239, 68, 68, 0.4);
-        }
-
-        .btn-confirm:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(239, 68, 68, 0.5);
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-
-            to {
-                opacity: 1;
-            }
-        }
-
-        @keyframes slideUp {
-            from {
-                transform: translateY(40px);
-                opacity: 0;
-            }
-
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
-        }
     </style>
 </head>
 
@@ -1066,37 +1068,23 @@
             <span class="icon">🎣</span>
             <div>
                 <h2>Mekar Jaya</h2>
-                <span class="badge">ADMIN</span>
+                <span class="badge">USER</span>
             </div>
         </div>
-        <a href="../admin/kasir.html" class="menu-item active" data-loading="true">
+        <a href="../user/kasir.html" class="menu-item active" data-loading="true">
             <span class="icon">🖥️</span><span>Kasir</span>
         </a>
         <div class="menu-section">
             <div class="menu-label">Menu Utama</div>
-            <a href="../admin/dashboard.html" class="menu-item" data-loading="true">
-                <span class="icon">📊</span><span>Dashboard</span>
-            </a>
-            <a href="../admin/master_data.html" class="menu-item" data-loading="true">
-                <span class="icon">🧾</span><span>Master Data</span>
-            </a>
-            <a href="../admin/barang_masuk.html" class="menu-item " data-loading="true">
+
+            <a href="../user/barang_masuk.html" class="menu-item " data-loading="true">
                 <span class="icon">🚚</span><span>Barang Masuk</span>
             </a>
-            <a href="../admin/barang_keluar.html" class="menu-item " data-loading="true">
-                <span class="icon">📦</span><span>Barang Keluar</span>
 
-            </a>
-            <a href="../admin/generate_laporan.html" class="menu-item" data-loading="true">
-                <span class="icon">📝</span><span>Generate Laporan</span>
-            </a>
-            <a href="../admin/riwayat_transaksi.html" class="menu-item" data-loading="true">
-                <span class="icon">📜</span><span>Riwayat Transaksi</span>
-            </a>
         </div>
         <div class="menu-section">
             <div class="menu-label">Manajemen</div>
-            <a href="../admin/pengaturan.html" class="menu-item" data-loading="true">
+            <a href="../user/pengaturan.html" class="menu-item" data-loading="true">
                 <span class="icon">⚙️</span><span>Pengaturan</span>
             </a>
             <!-- <a href="../admin/notifikasi.html" class="menu-item" data-loading="true">
@@ -1776,12 +1764,10 @@
         });
 
         confirmLogout.addEventListener('click', function () {
-            // Hapus session login
             localStorage.removeItem('userLogin');
             localStorage.removeItem('userRole');
 
-            // Redirect (PATH TERBARU)
-            window.location.href = '../../pages/login.html';
+             window.location.href = '../../pages/login.html';
         });
     </script>
 </body>

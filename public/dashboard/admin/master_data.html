@@ -1,261 +1,885 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Master Data - Mekar Jaya</title>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        html, body { height: 100%; overflow-x: hidden; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            height: 100%;
+            overflow-x: hidden;
+        }
+
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
             background: linear-gradient(135deg, #0c4a6e 0%, #0e7490 50%, #06b6d4 100%);
             background-attachment: fixed;
         }
+
         .sidebar {
-            position: fixed; left: 0; top: 0; width: 280px; height: 100vh;
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 280px;
+            height: 100vh;
             background: linear-gradient(180deg, #164e63 0%, #0e7490 100%);
-            padding: 25px 20px; z-index: 1000; transition: transform 0.3s ease;
-            overflow-y: auto; box-shadow: 4px 0 20px rgba(0,0,0,0.2);
+            padding: 25px 20px;
+            z-index: 1000;
+            transition: transform 0.3s ease;
+            overflow-y: auto;
+            box-shadow: 4px 0 20px rgba(0, 0, 0, 0.2);
         }
+
         .logo-section {
-            display: flex; align-items: center; gap: 15px; padding: 20px 15px;
-            margin-bottom: 35px; background: rgba(255,255,255,0.1); border-radius: 20px;
-            backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.2);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 20px 15px;
+            margin-bottom: 35px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
-        .logo-section .icon { font-size: 36px; }
-        .logo-section h2 { color: white; font-size: 22px; font-weight: 700; }
+
+        .logo-section .icon {
+            font-size: 36px;
+        }
+
+        .logo-section h2 {
+            color: white;
+            font-size: 22px;
+            font-weight: 700;
+        }
+
         .logo-section .badge {
-            background: linear-gradient(135deg, #22d3ee, #06b6d4); color: white;
-            font-size: 10px; padding: 4px 10px; border-radius: 8px; font-weight: 700;
+            background: linear-gradient(135deg, #22d3ee, #06b6d4);
+            color: white;
+            font-size: 10px;
+            padding: 4px 10px;
+            border-radius: 8px;
+            font-weight: 700;
         }
-        .menu-section { margin-bottom: 30px; }
+
+        .menu-section {
+            margin-bottom: 30px;
+        }
+
         .menu-label {
-            color: rgba(255,255,255,0.5); font-size: 11px; font-weight: 600;
-            text-transform: uppercase; letter-spacing: 1px; padding: 0 15px; margin-bottom: 12px;
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 0 15px;
+            margin-bottom: 12px;
         }
+
         .menu-item {
-            display: flex; align-items: center; gap: 15px; padding: 14px 18px;
-            color: rgba(255,255,255,0.8); text-decoration: none; border-radius: 15px;
-            margin-bottom: 6px; transition: all 0.3s; cursor: pointer; font-size: 15px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 14px 18px;
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            border-radius: 15px;
+            margin-bottom: 6px;
+            transition: all 0.3s;
+            cursor: pointer;
+            font-size: 15px;
         }
-        .menu-item:hover { background: rgba(255,255,255,0.15); color: white; transform: translateX(5px); }
+
+        .menu-item:hover {
+            background: rgba(255, 255, 255, 0.15);
+            color: white;
+            transform: translateX(5px);
+        }
+
         .menu-item.active {
-            background: linear-gradient(135deg, rgba(34,211,238,0.3), rgba(6,182,212,0.2));
-            color: white; font-weight: 600; box-shadow: 0 4px 15px rgba(34,211,238,0.3);
-            border: 1px solid rgba(255,255,255,0.2);
+            background: linear-gradient(135deg, rgba(34, 211, 238, 0.3), rgba(6, 182, 212, 0.2));
+            color: white;
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(34, 211, 238, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
-        .menu-item .icon { font-size: 22px; width: 28px; text-align: center; }
+
+        .menu-item .icon {
+            font-size: 22px;
+            width: 28px;
+            text-align: center;
+        }
+
         .menu-item .badge {
-            margin-left: auto; background: linear-gradient(135deg, #f43f5e, #e11d48);
-            color: white; font-size: 11px; padding: 3px 8px; border-radius: 12px; font-weight: 700;
+            margin-left: auto;
+            background: linear-gradient(135deg, #f43f5e, #e11d48);
+            color: white;
+            font-size: 11px;
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-weight: 700;
         }
-        .main-content { margin-left: 280px; padding: 25px; min-height: 100vh; }
+
+        .main-content {
+            margin-left: 280px;
+            padding: 25px;
+            min-height: 100vh;
+        }
+
         .header {
-            background: rgba(255,255,255,0.95); backdrop-filter: blur(10px); padding: 25px 30px;
-            border-radius: 20px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); margin-bottom: 25px;
-            display: flex; justify-content: space-between; align-items: center;
-            border: 1px solid rgba(255,255,255,0.5);
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 25px 30px;
+            border-radius: 20px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            margin-bottom: 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 1px solid rgba(255, 255, 255, 0.5);
         }
+
         .header-left h1 {
             background: linear-gradient(135deg, #0c4a6e, #06b6d4);
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            font-size: 28px; margin-bottom: 6px; font-weight: 800;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-size: 28px;
+            margin-bottom: 6px;
+            font-weight: 800;
         }
-        .header-left p { color: #64748b; font-size: 15px; }
-        .header-right { display: flex; gap: 12px; align-items: center; }
+
+        .header-left p {
+            color: #64748b;
+            font-size: 15px;
+        }
+
+        .header-right {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
         .btn-add {
-            background: linear-gradient(135deg, #0e7490, #06b6d4); border: none;
-            color: white; padding: 12px 24px; border-radius: 15px; cursor: pointer;
-            font-size: 14px; font-weight: 600; transition: all 0.3s;
-            box-shadow: 0 4px 15px rgba(14,116,144,0.3); display: flex; align-items: center; gap: 8px;
+            background: linear-gradient(135deg, #0e7490, #06b6d4);
+            border: none;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 15px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(14, 116, 144, 0.3);
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
-        .btn-add:hover { transform: scale(1.05); box-shadow: 0 6px 20px rgba(14,116,144,0.4); }
+
+        .btn-add:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(14, 116, 144, 0.4);
+        }
+
         .menu-toggle {
-            display: none; background: linear-gradient(135deg, #0e7490, #06b6d4);
-            border: none; color: white; padding: 12px 18px; border-radius: 15px;
-            cursor: pointer; font-size: 20px;
+            display: none;
+            background: linear-gradient(135deg, #0e7490, #06b6d4);
+            border: none;
+            color: white;
+            padding: 12px 18px;
+            border-radius: 15px;
+            cursor: pointer;
+            font-size: 20px;
         }
+
         .tabs {
-            display: flex; gap: 10px; margin-bottom: 25px; overflow-x: auto;
+            display: flex;
+            gap: 10px;
+            margin-bottom: 25px;
+            overflow-x: auto;
             padding-bottom: 5px;
         }
+
         .tab {
-            background: rgba(255,255,255,0.8); backdrop-filter: blur(10px);
-            border: 2px solid rgba(14,116,144,0.2); padding: 14px 28px;
-            border-radius: 15px; cursor: pointer; font-size: 14px; font-weight: 600;
-            color: #0c4a6e; transition: all 0.3s; white-space: nowrap;
-            display: flex; align-items: center; gap: 8px;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(14, 116, 144, 0.2);
+            padding: 14px 28px;
+            border-radius: 15px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            color: #0c4a6e;
+            transition: all 0.3s;
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
-        .tab:hover { border-color: #0e7490; transform: translateY(-2px); }
+
+        .tab:hover {
+            border-color: #0e7490;
+            transform: translateY(-2px);
+        }
+
         .tab.active {
-            background: linear-gradient(135deg, #0e7490, #06b6d4); color: white;
-            border-color: transparent; box-shadow: 0 4px 15px rgba(14,116,144,0.3);
+            background: linear-gradient(135deg, #0e7490, #06b6d4);
+            color: white;
+            border-color: transparent;
+            box-shadow: 0 4px 15px rgba(14, 116, 144, 0.3);
         }
-        .tab-content { display: none; }
-        .tab-content.active { display: block; }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
         .card {
-            background: rgba(255,255,255,0.95); backdrop-filter: blur(10px); padding: 25px;
-            border-radius: 20px; box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-            border: 1px solid rgba(255,255,255,0.5); margin-bottom: 25px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 25px;
+            border-radius: 20px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            margin-bottom: 25px;
         }
+
         .card-header {
-            display: flex; justify-content: space-between; align-items: center;
-            margin-bottom: 20px; flex-wrap: wrap; gap: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 15px;
         }
-        .search-filter-group { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
-        .search-box { position: relative; display: flex; }
+
+        .search-filter-group {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .search-box {
+            position: relative;
+            display: flex;
+        }
+
         .search-box input {
-            padding: 10px 15px 10px 40px; border: 2px solid rgba(14,116,144,0.2);
-            border-radius: 12px; width: 220px; font-size: 14px; transition: all 0.3s;
+            padding: 10px 15px 10px 40px;
+            border: 2px solid rgba(14, 116, 144, 0.2);
+            border-radius: 12px;
+            width: 220px;
+            font-size: 14px;
+            transition: all 0.3s;
         }
-        .search-box input:focus { outline: none; border-color: #0e7490; }
-        .search-box .icon { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); font-size: 16px; }
+
+        .search-box input:focus {
+            outline: none;
+            border-color: #0e7490;
+        }
+
+        .search-box .icon {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 16px;
+        }
+
         .filter-select {
-            padding: 10px 15px; border: 2px solid rgba(14,116,144,0.2); border-radius: 12px;
-            font-size: 14px; color: #0c4a6e; cursor: pointer; background: white; font-weight: 600;
+            padding: 10px 15px;
+            border: 2px solid rgba(14, 116, 144, 0.2);
+            border-radius: 12px;
+            font-size: 14px;
+            color: #0c4a6e;
+            cursor: pointer;
+            background: white;
+            font-weight: 600;
         }
-        .filter-select:focus { outline: none; border-color: #0e7490; }
-        .table-container { overflow-x: auto; border-radius: 12px; }
+
+        .filter-select:focus {
+            outline: none;
+            border-color: #0e7490;
+        }
+
+        .table-container {
+            overflow-x: auto;
+            border-radius: 12px;
+        }
+
         .data-table {
-            width: 100%; border-collapse: separate; border-spacing: 0 8px; min-width: 700px;
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0 8px;
+            min-width: 700px;
         }
+
         .data-table thead tr {
-            background: linear-gradient(135deg, rgba(14,116,144,0.1), rgba(6,182,212,0.1));
+            background: linear-gradient(135deg, rgba(14, 116, 144, 0.1), rgba(6, 182, 212, 0.1));
         }
+
         .data-table th {
-            padding: 15px 12px; text-align: left; font-size: 12px; font-weight: 700;
-            color: #0c4a6e; text-transform: uppercase; letter-spacing: 0.5px;
+            padding: 15px 12px;
+            text-align: left;
+            font-size: 12px;
+            font-weight: 700;
+            color: #0c4a6e;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
-        .data-table th:first-child { border-radius: 10px 0 0 10px; }
-        .data-table th:last-child { border-radius: 0 10px 10px 0; }
+
+        .data-table th:first-child {
+            border-radius: 10px 0 0 10px;
+        }
+
+        .data-table th:last-child {
+            border-radius: 0 10px 10px 0;
+        }
+
         .data-table tbody tr {
-            background: white; transition: all 0.3s; box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            background: white;
+            transition: all 0.3s;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
         }
-        .data-table tbody tr:hover { transform: translateX(5px); box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+
+        .data-table tbody tr:hover {
+            transform: translateX(5px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
         .data-table td {
-            padding: 15px 12px; font-size: 14px; color: #475569;
+            padding: 15px 12px;
+            font-size: 14px;
+            color: #475569;
         }
-        .data-table td:first-child { border-radius: 10px 0 0 10px; font-weight: 600; color: #0c4a6e; }
-        .data-table td:last-child { border-radius: 0 10px 10px 0; }
+
+        .data-table td:first-child {
+            border-radius: 10px 0 0 10px;
+            font-weight: 600;
+            color: #0c4a6e;
+        }
+
+        .data-table td:last-child {
+            border-radius: 0 10px 10px 0;
+        }
+
         .status-badge {
-            padding: 5px 12px; border-radius: 20px; font-size: 12px;
-            font-weight: 700; display: inline-block;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+            display: inline-block;
         }
-        .status-badge.aman { background: rgba(16,185,129,0.15); color: #059669; }
-        .status-badge.rendah { background: rgba(245,158,11,0.15); color: #d97706; }
-        .status-badge.habis { background: rgba(244,63,94,0.15); color: #e11d48; }
-        .status-badge.active { background: rgba(16,185,129,0.15); color: #059669; }
-        .status-badge.inactive { background: rgba(244,63,94,0.15); color: #e11d48; }
+
+        .status-badge.aman {
+            background: rgba(16, 185, 129, 0.15);
+            color: #059669;
+        }
+
+        .status-badge.rendah {
+            background: rgba(245, 158, 11, 0.15);
+            color: #d97706;
+        }
+
+        .status-badge.habis {
+            background: rgba(244, 63, 94, 0.15);
+            color: #e11d48;
+        }
+
+        .status-badge.active {
+            background: rgba(16, 185, 129, 0.15);
+            color: #059669;
+        }
+
+        .status-badge.inactive {
+            background: rgba(244, 63, 94, 0.15);
+            color: #e11d48;
+        }
+
         .action-btn {
-            background: rgba(14,116,144,0.1); border: none; padding: 7px 11px;
-            border-radius: 9px; cursor: pointer; font-size: 15px; transition: all 0.3s; margin: 0 2px;
+            background: rgba(14, 116, 144, 0.1);
+            border: none;
+            padding: 7px 11px;
+            border-radius: 9px;
+            cursor: pointer;
+            font-size: 15px;
+            transition: all 0.3s;
+            margin: 0 2px;
         }
-        .action-btn:hover { background: linear-gradient(135deg, #0e7490, #06b6d4); transform: scale(1.1); }
-        .action-btn.delete:hover { background: linear-gradient(135deg, #f43f5e, #e11d48); }
+
+        .action-btn:hover {
+            background: linear-gradient(135deg, #0e7490, #06b6d4);
+            transform: scale(1.1);
+        }
+
+        .action-btn.delete:hover {
+            background: linear-gradient(135deg, #f43f5e, #e11d48);
+        }
+
         .stats-grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            gap: 15px; margin-bottom: 25px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 15px;
+            margin-bottom: 25px;
         }
+
         .stat-card {
-            background: white; padding: 20px; border-radius: 15px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.08); border-left: 4px solid;
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+            border-left: 4px solid;
         }
-        .stat-card.blue { border-left-color: #0e7490; }
-        .stat-card.green { border-left-color: #059669; }
-        .stat-card.orange { border-left-color: #d97706; }
-        .stat-card.red { border-left-color: #e11d48; }
-        .stat-card .stat-icon { font-size: 30px; margin-bottom: 8px; }
-        .stat-card .stat-value { font-size: 26px; font-weight: 800; color: #0c4a6e; margin-bottom: 4px; }
-        .stat-card .stat-label { font-size: 13px; color: #64748b; font-weight: 600; }
+
+        .stat-card.blue {
+            border-left-color: #0e7490;
+        }
+
+        .stat-card.green {
+            border-left-color: #059669;
+        }
+
+        .stat-card.orange {
+            border-left-color: #d97706;
+        }
+
+        .stat-card.red {
+            border-left-color: #e11d48;
+        }
+
+        .stat-card .stat-icon {
+            font-size: 30px;
+            margin-bottom: 8px;
+        }
+
+        .stat-card .stat-value {
+            font-size: 26px;
+            font-weight: 800;
+            color: #0c4a6e;
+            margin-bottom: 4px;
+        }
+
+        .stat-card .stat-label {
+            font-size: 13px;
+            color: #64748b;
+            font-weight: 600;
+        }
+
         /* Toggle */
-        .toggle-switch { position: relative; display: inline-block; width: 50px; height: 26px; }
-        .toggle-switch input { opacity: 0; width: 0; height: 0; }
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 26px;
+        }
+
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
         .toggle-slider {
-            position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(244,63,94,0.3); border-radius: 26px; transition: all 0.3s;
-            border: 2px solid rgba(244,63,94,0.4);
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(244, 63, 94, 0.3);
+            border-radius: 26px;
+            transition: all 0.3s;
+            border: 2px solid rgba(244, 63, 94, 0.4);
         }
+
         .toggle-slider:before {
-            position: absolute; content: ""; height: 18px; width: 18px;
-            left: 3px; bottom: 2px; background: white; border-radius: 50%; transition: all 0.3s;
+            position: absolute;
+            content: "";
+            height: 18px;
+            width: 18px;
+            left: 3px;
+            bottom: 2px;
+            background: white;
+            border-radius: 50%;
+            transition: all 0.3s;
         }
-        input:checked + .toggle-slider { background: rgba(16,185,129,0.3); border-color: rgba(16,185,129,0.5); }
-        input:checked + .toggle-slider:before { transform: translateX(22px); }
+
+        input:checked+.toggle-slider {
+            background: rgba(16, 185, 129, 0.3);
+            border-color: rgba(16, 185, 129, 0.5);
+        }
+
+        input:checked+.toggle-slider:before {
+            transform: translateX(22px);
+        }
+
         /* Modal */
         .modal {
-            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(12,74,110,0.7); backdrop-filter: blur(5px);
-            z-index: 2000; align-items: center; justify-content: center;
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(12, 74, 110, 0.7);
+            backdrop-filter: blur(5px);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
         }
-        .modal.active { display: flex; }
+
+        .modal.active {
+            display: flex;
+        }
+
         .modal-content {
-            background: white; padding: 30px; border-radius: 20px; width: 90%;
-            max-width: 580px; max-height: 88vh; overflow-y: auto;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.2); animation: slideDown 0.3s ease;
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 580px;
+            max-height: 88vh;
+            overflow-y: auto;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            animation: slideDown 0.3s ease;
         }
+
         @keyframes slideDown {
-            from { opacity: 0; transform: translateY(-30px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
+
         .modal-header {
-            display: flex; justify-content: space-between; align-items: center; margin-bottom: 22px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 22px;
         }
-        .modal-header h2 { color: #0c4a6e; font-size: 20px; font-weight: 800; }
+
+        .modal-header h2 {
+            color: #0c4a6e;
+            font-size: 20px;
+            font-weight: 800;
+        }
+
         .close-btn {
-            background: rgba(244,63,94,0.1); border: none; color: #e11d48;
-            padding: 7px 12px; border-radius: 10px; cursor: pointer; font-size: 17px; transition: all 0.3s;
+            background: rgba(244, 63, 94, 0.1);
+            border: none;
+            color: #e11d48;
+            padding: 7px 12px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 17px;
+            transition: all 0.3s;
         }
-        .close-btn:hover { background: rgba(244,63,94,0.2); }
-        .form-group { margin-bottom: 18px; }
-        .form-group label { display: block; margin-bottom: 7px; color: #0c4a6e; font-weight: 600; font-size: 14px; }
-        .form-group input, .form-group select, .form-group textarea {
-            width: 100%; padding: 11px 14px; border: 2px solid rgba(14,116,144,0.2);
-            border-radius: 11px; font-size: 14px; transition: all 0.3s; font-family: inherit;
+
+        .close-btn:hover {
+            background: rgba(244, 63, 94, 0.2);
         }
-        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
-            outline: none; border-color: #0e7490; box-shadow: 0 0 0 3px rgba(14,116,144,0.1);
+
+        .form-group {
+            margin-bottom: 18px;
         }
-        .form-group textarea { resize: vertical; min-height: 90px; }
-        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-        .form-actions { display: flex; gap: 10px; justify-content: flex-end; margin-top: 22px; }
-        .btn { padding: 11px 22px; border: none; border-radius: 11px; font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.3s; }
-        .btn-primary { background: linear-gradient(135deg, #0e7490, #06b6d4); color: white; box-shadow: 0 4px 15px rgba(14,116,144,0.3); }
-        .btn-primary:hover { transform: scale(1.04); }
-        .btn-secondary { background: rgba(14,116,144,0.1); color: #0c4a6e; }
-        .btn-secondary:hover { background: rgba(14,116,144,0.18); }
-        .overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(12,74,110,0.7); z-index: 999; }
-        .overlay.active { display: block; }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 7px;
+            color: #0c4a6e;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 11px 14px;
+            border: 2px solid rgba(14, 116, 144, 0.2);
+            border-radius: 11px;
+            font-size: 14px;
+            transition: all 0.3s;
+            font-family: inherit;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #0e7490;
+            box-shadow: 0 0 0 3px rgba(14, 116, 144, 0.1);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 90px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+        }
+
+        .form-actions {
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+            margin-top: 22px;
+        }
+
+        .btn {
+            padding: 11px 22px;
+            border: none;
+            border-radius: 11px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #0e7490, #06b6d4);
+            color: white;
+            box-shadow: 0 4px 15px rgba(14, 116, 144, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: scale(1.04);
+        }
+
+        .btn-secondary {
+            background: rgba(14, 116, 144, 0.1);
+            color: #0c4a6e;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(14, 116, 144, 0.18);
+        }
+
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(12, 74, 110, 0.7);
+            z-index: 999;
+        }
+
+        .overlay.active {
+            display: block;
+        }
+
         @keyframes slideOut {
-            from { transform: translateX(0); opacity: 1; }
-            to { transform: translateX(-100%); opacity: 0; }
+            from {
+                transform: translateX(0);
+                opacity: 1;
+            }
+
+            to {
+                transform: translateX(-100%);
+                opacity: 0;
+            }
         }
+
         @keyframes slideInRight {
-            from { transform: translateX(100%); opacity: 0; }
-            to { transform: translateX(0); opacity: 1; }
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
         }
+
         @keyframes slideOutRight {
-            from { transform: translateX(0); opacity: 1; }
-            to { transform: translateX(100%); opacity: 0; }
+            from {
+                transform: translateX(0);
+                opacity: 1;
+            }
+
+            to {
+                transform: translateX(100%);
+                opacity: 0;
+            }
         }
-        .no-data-row td { text-align: center; padding: 30px; color: #94a3b8; font-style: italic; }
+
+        .no-data-row td {
+            text-align: center;
+            padding: 30px;
+            color: #94a3b8;
+            font-style: italic;
+        }
+
         @media (max-width: 768px) {
-            .sidebar { transform: translateX(-100%); }
-            .sidebar.active { transform: translateX(0); }
-            .main-content { margin-left: 0; padding: 18px; }
-            .menu-toggle { display: block; }
-            .header { flex-direction: column; gap: 15px; padding: 20px; }
-            .form-row { grid-template-columns: 1fr; }
+            .sidebar {
+                transform: translateX(-100%);
+            }
+
+            .sidebar.active {
+                transform: translateX(0);
+            }
+
+            .main-content {
+                margin-left: 0;
+                padding: 18px;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            .header {
+                flex-direction: column;
+                gap: 15px;
+                padding: 20px;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
         }
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: rgba(255,255,255,0.1); border-radius: 10px; }
-        ::-webkit-scrollbar-thumb { background: linear-gradient(180deg, #0e7490, #06b6d4); border-radius: 10px; }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, #0e7490, #06b6d4);
+            border-radius: 10px;
+        }
+
+        .logout-modal {
+            position: fixed;
+            inset: 0;
+            background: rgba(12, 74, 110, 0.7);
+            backdrop-filter: blur(6px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 3000;
+        }
+
+        .logout-modal.active {
+            display: flex;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .logout-box {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 35px;
+            border-radius: 25px;
+            text-align: center;
+            width: 350px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+            animation: slideUp 0.3s ease;
+        }
+
+        .logout-icon {
+            font-size: 55px;
+            margin-bottom: 15px;
+        }
+
+        .logout-box h3 {
+            color: #0c4a6e;
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+
+        .logout-box p {
+            color: #64748b;
+            font-size: 14px;
+            margin-bottom: 25px;
+        }
+
+        .logout-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .logout-actions button {
+            flex: 1;
+            padding: 12px;
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            transition: 0.3s;
+        }
+
+        .btn-cancel {
+            background: rgba(148, 163, 184, 0.2);
+            color: #475569;
+        }
+
+        .btn-cancel:hover {
+            background: rgba(148, 163, 184, 0.4);
+        }
+
+        .btn-confirm {
+            background: linear-gradient(135deg, #ef4444, #dc2626);
+            color: white;
+            box-shadow: 0 6px 20px rgba(239, 68, 68, 0.4);
+        }
+
+        .btn-confirm:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(239, 68, 68, 0.5);
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(40px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
     </style>
 </head>
-<body>
-<div class="overlay" id="overlay"></div>
 
-<aside class="sidebar" id="sidebar">
+<body>
+    <div class="overlay" id="overlay"></div>
+
+    <aside class="sidebar" id="sidebar">
         <div class="logo-section">
             <span class="icon">🎣</span>
             <div>
@@ -279,7 +903,7 @@
             </a>
             <a href="../admin/barang_keluar.html" class="menu-item " data-loading="true">
                 <span class="icon">📦</span><span>Barang Keluar</span>
-            
+
             </a>
             <a href="../admin/generate_laporan.html" class="menu-item" data-loading="true">
                 <span class="icon">📝</span><span>Generate Laporan</span>
@@ -293,555 +917,590 @@
             <a href="../admin/pengaturan.html" class="menu-item" data-loading="true">
                 <span class="icon">⚙️</span><span>Pengaturan</span>
             </a>
-           <!-- <a href="../admin/notifikasi.html" class="menu-item" data-loading="true">
+            <!-- <a href="../admin/notifikasi.html" class="menu-item" data-loading="true">
                 <span class="icon">🔔</span><span>Notifikasi</span>
             </a> -->
-            <a href="#" class="menu-item" onclick="location.href='../pages/login.html'">
+            <a href="#" class="menu-item logout-btn">
                 <span class="icon">🚪</span><span>Logout</span>
             </a>
         </div>
     </aside>
 
-<main class="main-content" id="mainContent">
-    <div class="header">
-        <div class="header-left">
-            <h1>Master Data</h1>
-            <p>Kelola data produk, kategori, dan supplier</p>
-        </div>
-        <div class="header-right">
-            <button class="menu-toggle" id="menuToggle">☰</button>
-            <button class="btn-add" id="btnAdd">➕ Tambah Data</button>
-        </div>
-    </div>
-
-    <div class="tabs">
-        <div class="tab active" data-tab="products">🎣 Produk</div>
-        <div class="tab" data-tab="categories">📑 Kategori</div>
-        <div class="tab" data-tab="suppliers">🏢 Supplier</div>
-
-    </div>
-
-    <!-- ===== PRODUCTS TAB ===== -->
-    <div class="tab-content active" id="products-content">
-        <div class="stats-grid">
-            <div class="stat-card blue"><div class="stat-icon">🎣</div><div class="stat-value" id="statTotal">5</div><div class="stat-label">Total Produk</div></div>
-            <div class="stat-card green"><div class="stat-icon">✅</div><div class="stat-value" id="statAman">1</div><div class="stat-label">Stok Aman</div></div>
-            <div class="stat-card orange"><div class="stat-icon">⚠️</div><div class="stat-value" id="statRendah">2</div><div class="stat-label">Stok Menipis</div></div>
-            <div class="stat-card red"><div class="stat-icon">❌</div><div class="stat-value" id="statHabis">2</div><div class="stat-label">Stok Habis</div></div>
-        </div>
-
-        <div class="card">
-            <div class="card-header">
-                <h3 style="color:#0c4a6e;font-weight:800;font-size:18px;">Daftar Produk</h3>
-                <div class="search-filter-group">
-                    <div class="search-box">
-                        <span class="icon">🔍</span>
-                        <input type="text" placeholder="Cari produk..." id="searchProduct">
-                    </div>
-                    <select class="filter-select" id="filterKategori">
-                        <option value="">Semua Kategori</option>
-                        <option value="joran">Joran</option>
-                        <option value="reel">Reel</option>
-                        <option value="senar">Senar</option>
-                        <option value="umpan">Umpan</option>
-                        <option value="aksesoris">Aksesoris</option>
-                    </select>
-                    <select class="filter-select" id="filterStatus">
-                        <option value="">Semua Status</option>
-                        <option value="aman">Aman</option>
-                        <option value="rendah">Stok Rendah</option>
-                        <option value="habis">Habis</option>
-                    </select>
-                </div>
+    <main class="main-content" id="mainContent">
+        <div class="header">
+            <div class="header-left">
+                <h1>Master Data</h1>
+                <p>Kelola data produk, kategori, dan supplier</p>
             </div>
-            <div class="table-container">
-                <table class="data-table">
-                    <thead>
-                        <tr>
-                            <th>Kode</th><th>Nama Produk</th><th>Kategori</th>
-                            <th>Harga Jual</th><th>Stok</th><th>Status</th><th>Aksi</th>
-                        </tr>
-                    </thead>
-                    <tbody id="productsTableBody"></tbody>
-                </table>
+            <div class="header-right">
+                <button class="menu-toggle" id="menuToggle">☰</button>
+                <button class="btn-add" id="btnAdd">➕ Tambah Data</button>
             </div>
         </div>
-    </div>
 
-    <!-- ===== CATEGORIES TAB ===== -->
-    <div class="tab-content" id="categories-content">
-        <div class="card">
-            <div class="card-header">
-                <h3 style="color:#0c4a6e;font-weight:800;font-size:18px;">Daftar Kategori</h3>
-                <div class="search-filter-group">
-                    <div class="search-box">
-                        <span class="icon">🔍</span>
-                        <input type="text" placeholder="Cari kategori..." id="searchCategory">
-                    </div>
-                </div>
-            </div>
-            <div class="table-container">
-                <table class="data-table">
-                    <thead>
-                        <tr>
-                            <th>Kode</th><th>Nama Kategori</th><th>Deskripsi</th>
-                            <th>Jumlah Produk</th><th>Status</th><th>Aksi</th>
-                        </tr>
-                    </thead>
-                    <tbody id="categoriesTableBody"></tbody>
-                </table>
-            </div>
+        <div class="tabs">
+            <div class="tab active" data-tab="products">🎣 Produk</div>
+            <div class="tab" data-tab="categories">📑 Kategori</div>
+            <div class="tab" data-tab="suppliers">🏢 Supplier</div>
+
         </div>
-    </div>
 
-    <!-- ===== SUPPLIERS TAB ===== -->
-    <div class="tab-content" id="suppliers-content">
-        <div class="card">
-            <div class="card-header">
-                <h3 style="color:#0c4a6e;font-weight:800;font-size:18px;">Daftar Supplier</h3>
-                <div class="search-filter-group">
-                    <div class="search-box">
-                        <span class="icon">🔍</span>
-                        <input type="text" placeholder="Cari supplier..." id="searchSupplier">
-                    </div>
+        <!-- ===== PRODUCTS TAB ===== -->
+        <div class="tab-content active" id="products-content">
+            <div class="stats-grid">
+                <div class="stat-card blue">
+                    <div class="stat-icon">🎣</div>
+                    <div class="stat-value" id="statTotal">5</div>
+                    <div class="stat-label">Total Produk</div>
+                </div>
+                <div class="stat-card green">
+                    <div class="stat-icon">✅</div>
+                    <div class="stat-value" id="statAman">1</div>
+                    <div class="stat-label">Stok Aman</div>
+                </div>
+                <div class="stat-card orange">
+                    <div class="stat-icon">⚠️</div>
+                    <div class="stat-value" id="statRendah">2</div>
+                    <div class="stat-label">Stok Menipis</div>
+                </div>
+                <div class="stat-card red">
+                    <div class="stat-icon">❌</div>
+                    <div class="stat-value" id="statHabis">2</div>
+                    <div class="stat-label">Stok Habis</div>
                 </div>
             </div>
-            <div class="table-container">
-                <table class="data-table">
-                    <thead>
-                        <tr>
-                            <th>Kode</th><th>Nama Supplier</th><th>Kontak</th>
-                            <th>Email</th><th>Kota</th><th>Status</th><th>Aksi</th>
-                        </tr>
-                    </thead>
-                    <tbody id="suppliersTableBody"></tbody>
-                </table>
-            </div>
-        </div>
-    </div>
 
-
-</main>
-
-<!-- ===== MODAL TAMBAH PRODUK ===== -->
-<div class="modal" id="modalProduct">
-    <div class="modal-content">
-        <div class="modal-header">
-            <h2>Tambah Produk Baru</h2>
-            <button class="close-btn" onclick="closeModal('modalProduct')">✖</button>
-        </div>
-        <form id="formProduct">
-            <div class="form-row">
-                <div class="form-group">
-                    <label>Kode Produk *</label>
-                    <input type="text" id="addProductCode" placeholder="PRD006" required>
-                </div>
-                <div class="form-group">
-                    <label>Nama Produk *</label>
-                    <input type="text" id="addProductName" placeholder="Nama produk" required>
-                </div>
-            </div>
-            <div class="form-row">
-                <div class="form-group">
-                    <label>Kategori *</label>
-                    <select id="addCategory" required>
-                        <option value="">Pilih Kategori</option>
-                        <option value="joran">Joran</option>
-                        <option value="reel">Reel</option>
-                        <option value="senar">Senar</option>
-                        <option value="umpan">Umpan</option>
-                        <option value="aksesoris">Aksesoris</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label>Brand *</label>
-                    <select id="addBrand" required>
-                        <option value="">Pilih Brand</option>
-                        <option value="shimano">Shimano</option>
-                        <option value="daiwa">Daiwa</option>
-                        <option value="rapala">Rapala</option>
-                        <option value="ygk">YGK</option>
-                        <option value="plano">Plano</option>
-                    </select>
-                </div>
-            </div>
-            <div class="form-row">
-                <div class="form-group">
-                    <label>Harga Beli *</label>
-                    <input type="number" id="addBuyPrice" placeholder="0" min="0" required>
-                </div>
-                <div class="form-group">
-                    <label>Harga Jual *</label>
-                    <input type="number" id="addSellPrice" placeholder="0" min="0" required>
-                </div>
-            </div>
-            <div class="form-row">
-                <div class="form-group">
-                    <label>Stok Awal *</label>
-                    <input type="number" id="addStock" placeholder="0" min="0" required>
-                </div>
-                <div class="form-group">
-                    <label>Minimal Stok</label>
-                    <input type="number" id="addMinStock" placeholder="10" min="0" value="10">
-                </div>
-            </div>
-            <div class="form-group">
-                <label>Deskripsi</label>
-                <textarea id="addDescription" placeholder="Deskripsi produk..."></textarea>
-            </div>
-            <div class="form-actions">
-                <button type="button" class="btn btn-secondary" onclick="closeModal('modalProduct')">Batal</button>
-                <button type="submit" class="btn btn-primary">💾 Simpan Produk</button>
-            </div>
-        </form>
-    </div>
-</div>
-
-<!-- ===== MODAL EDIT PRODUK ===== -->
-<div class="modal" id="modalEditProduct">
-    <div class="modal-content">
-        <div class="modal-header">
-            <h2>Edit Produk</h2>
-            <button class="close-btn" onclick="closeModal('modalEditProduct')">✖</button>
-        </div>
-        <form id="formEditProduct">
-            <div class="form-row">
-                <div class="form-group">
-                    <label>Kode Produk</label>
-                    <input type="text" id="editProductCode" readonly style="background:#f8fafc;">
-                </div>
-                <div class="form-group">
-                    <label>Nama Produk *</label>
-                    <input type="text" id="editProductName" required>
-                </div>
-            </div>
-            <div class="form-row">
-                <div class="form-group">
-                    <label>Kategori *</label>
-                    <select id="editCategory" required>
-                        <option value="joran">Joran</option>
-                        <option value="reel">Reel</option>
-                        <option value="senar">Senar</option>
-                        <option value="umpan">Umpan</option>
-                        <option value="aksesoris">Aksesoris</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label>Brand *</label>
-                    <select id="editBrand" required>
-                        <option value="shimano">Shimano</option>
-                        <option value="daiwa">Daiwa</option>
-                        <option value="rapala">Rapala</option>
-                        <option value="ygk">YGK</option>
-                        <option value="plano">Plano</option>
-                    </select>
-                </div>
-            </div>
-            <div class="form-row">
-                <div class="form-group">
-                    <label>Harga Beli *</label>
-                    <input type="number" id="editBuyPrice" min="0" required>
-                </div>
-                <div class="form-group">
-                    <label>Harga Jual *</label>
-                    <input type="number" id="editSellPrice" min="0" required>
-                </div>
-            </div>
-            <div class="form-row">
-                <div class="form-group">
-                    <label>Stok Saat Ini</label>
-                    <input type="number" id="editStockCurrent" readonly style="background:#f8fafc;">
-                </div>
-                <div class="form-group">
-                    <label>Ubah Stok (isi untuk update)</label>
-                    <div style="display:flex;gap:8px;">
-                        <input type="number" id="editStockUpdate" placeholder="Jumlah" min="0" style="flex:1;">
-                        <select id="editUpdateType" style="width:110px;padding:11px 8px;border:2px solid rgba(14,116,144,0.2);border-radius:11px;font-size:13px;">
-                            <option value="add">+ Tambah</option>
-                            <option value="subtract">- Kurangi</option>
-                            <option value="set">= Set</option>
+            <div class="card">
+                <div class="card-header">
+                    <h3 style="color:#0c4a6e;font-weight:800;font-size:18px;">Daftar Produk</h3>
+                    <div class="search-filter-group">
+                        <div class="search-box">
+                            <span class="icon">🔍</span>
+                            <input type="text" placeholder="Cari produk..." id="searchProduct">
+                        </div>
+                        <select class="filter-select" id="filterKategori">
+                            <option value="">Semua Kategori</option>
+                            <option value="joran">Joran</option>
+                            <option value="reel">Reel</option>
+                            <option value="senar">Senar</option>
+                            <option value="umpan">Umpan</option>
+                            <option value="aksesoris">Aksesoris</option>
+                        </select>
+                        <select class="filter-select" id="filterStatus">
+                            <option value="">Semua Status</option>
+                            <option value="aman">Aman</option>
+                            <option value="rendah">Stok Rendah</option>
+                            <option value="habis">Habis</option>
                         </select>
                     </div>
                 </div>
+                <div class="table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Kode</th>
+                                <th>Nama Produk</th>
+                                <th>Kategori</th>
+                                <th>Harga Jual</th>
+                                <th>Stok</th>
+                                <th>Status</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody id="productsTableBody"></tbody>
+                    </table>
+                </div>
             </div>
-            <div class="form-group">
-                <label>Deskripsi</label>
-                <textarea id="editDescription"></textarea>
+        </div>
+
+        <!-- ===== CATEGORIES TAB ===== -->
+        <div class="tab-content" id="categories-content">
+            <div class="card">
+                <div class="card-header">
+                    <h3 style="color:#0c4a6e;font-weight:800;font-size:18px;">Daftar Kategori</h3>
+                    <div class="search-filter-group">
+                        <div class="search-box">
+                            <span class="icon">🔍</span>
+                            <input type="text" placeholder="Cari kategori..." id="searchCategory">
+                        </div>
+                    </div>
+                </div>
+                <div class="table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Kode</th>
+                                <th>Nama Kategori</th>
+                                <th>Deskripsi</th>
+                                <th>Jumlah Produk</th>
+                                <th>Status</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody id="categoriesTableBody"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== SUPPLIERS TAB ===== -->
+        <div class="tab-content" id="suppliers-content">
+            <div class="card">
+                <div class="card-header">
+                    <h3 style="color:#0c4a6e;font-weight:800;font-size:18px;">Daftar Supplier</h3>
+                    <div class="search-filter-group">
+                        <div class="search-box">
+                            <span class="icon">🔍</span>
+                            <input type="text" placeholder="Cari supplier..." id="searchSupplier">
+                        </div>
+                    </div>
+                </div>
+                <div class="table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Kode</th>
+                                <th>Nama Supplier</th>
+                                <th>Kontak</th>
+                                <th>Email</th>
+                                <th>Kota</th>
+                                <th>Status</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody id="suppliersTableBody"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+
+    </main>
+
+    <!-- ===== MODAL TAMBAH PRODUK ===== -->
+    <div class="modal" id="modalProduct">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Tambah Produk Baru</h2>
+                <button class="close-btn" onclick="closeModal('modalProduct')">✖</button>
+            </div>
+            <form id="formProduct">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Kode Produk *</label>
+                        <input type="text" id="addProductCode" placeholder="PRD006" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Nama Produk *</label>
+                        <input type="text" id="addProductName" placeholder="Nama produk" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Kategori *</label>
+                        <select id="addCategory" required>
+                            <option value="">Pilih Kategori</option>
+                            <option value="joran">Joran</option>
+                            <option value="reel">Reel</option>
+                            <option value="senar">Senar</option>
+                            <option value="umpan">Umpan</option>
+                            <option value="aksesoris">Aksesoris</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Brand *</label>
+                        <select id="addBrand" required>
+                            <option value="">Pilih Brand</option>
+                            <option value="shimano">Shimano</option>
+                            <option value="daiwa">Daiwa</option>
+                            <option value="rapala">Rapala</option>
+                            <option value="ygk">YGK</option>
+                            <option value="plano">Plano</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Harga Beli *</label>
+                        <input type="number" id="addBuyPrice" placeholder="0" min="0" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Harga Jual *</label>
+                        <input type="number" id="addSellPrice" placeholder="0" min="0" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Stok Awal *</label>
+                        <input type="number" id="addStock" placeholder="0" min="0" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Minimal Stok</label>
+                        <input type="number" id="addMinStock" placeholder="10" min="0" value="10">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Deskripsi</label>
+                    <textarea id="addDescription" placeholder="Deskripsi produk..."></textarea>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary" onclick="closeModal('modalProduct')">Batal</button>
+                    <button type="submit" class="btn btn-primary">💾 Simpan Produk</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- ===== MODAL EDIT PRODUK ===== -->
+    <div class="modal" id="modalEditProduct">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Edit Produk</h2>
+                <button class="close-btn" onclick="closeModal('modalEditProduct')">✖</button>
+            </div>
+            <form id="formEditProduct">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Kode Produk</label>
+                        <input type="text" id="editProductCode" readonly style="background:#f8fafc;">
+                    </div>
+                    <div class="form-group">
+                        <label>Nama Produk *</label>
+                        <input type="text" id="editProductName" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Kategori *</label>
+                        <select id="editCategory" required>
+                            <option value="joran">Joran</option>
+                            <option value="reel">Reel</option>
+                            <option value="senar">Senar</option>
+                            <option value="umpan">Umpan</option>
+                            <option value="aksesoris">Aksesoris</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Brand *</label>
+                        <select id="editBrand" required>
+                            <option value="shimano">Shimano</option>
+                            <option value="daiwa">Daiwa</option>
+                            <option value="rapala">Rapala</option>
+                            <option value="ygk">YGK</option>
+                            <option value="plano">Plano</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Harga Beli *</label>
+                        <input type="number" id="editBuyPrice" min="0" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Harga Jual *</label>
+                        <input type="number" id="editSellPrice" min="0" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Stok Saat Ini</label>
+                        <input type="number" id="editStockCurrent" readonly style="background:#f8fafc;">
+                    </div>
+                    <div class="form-group">
+                        <label>Ubah Stok (isi untuk update)</label>
+                        <div style="display:flex;gap:8px;">
+                            <input type="number" id="editStockUpdate" placeholder="Jumlah" min="0" style="flex:1;">
+                            <select id="editUpdateType"
+                                style="width:110px;padding:11px 8px;border:2px solid rgba(14,116,144,0.2);border-radius:11px;font-size:13px;">
+                                <option value="add">+ Tambah</option>
+                                <option value="subtract">- Kurangi</option>
+                                <option value="set">= Set</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Deskripsi</label>
+                    <textarea id="editDescription"></textarea>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary"
+                        onclick="closeModal('modalEditProduct')">Batal</button>
+                    <button type="submit" class="btn btn-primary">✅ Update Produk</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- ===== MODAL TAMBAH KATEGORI ===== -->
+    <div class="modal" id="modalCategory">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Tambah Kategori Baru</h2>
+                <button class="close-btn" onclick="closeModal('modalCategory')">✖</button>
+            </div>
+            <form id="formCategory">
+                <div class="form-group">
+                    <label>Kode Kategori *</label>
+                    <input type="text" id="addCatCode" placeholder="CAT006" required>
+                </div>
+                <div class="form-group">
+                    <label>Nama Kategori *</label>
+                    <input type="text" id="addCatName" placeholder="Nama kategori" required>
+                </div>
+                <div class="form-group">
+                    <label>Deskripsi</label>
+                    <textarea id="addCatDesc" placeholder="Deskripsi kategori..."></textarea>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary" onclick="closeModal('modalCategory')">Batal</button>
+                    <button type="submit" class="btn btn-primary">💾 Simpan Kategori</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- ===== MODAL EDIT KATEGORI ===== -->
+    <div class="modal" id="modalEditCategory">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Edit Kategori</h2>
+                <button class="close-btn" onclick="closeModal('modalEditCategory')">✖</button>
+            </div>
+            <form id="formEditCategory">
+                <div class="form-group">
+                    <label>Kode Kategori</label>
+                    <input type="text" id="editCatCode" readonly style="background:#f8fafc;">
+                </div>
+                <div class="form-group">
+                    <label>Nama Kategori *</label>
+                    <input type="text" id="editCatName" required>
+                </div>
+                <div class="form-group">
+                    <label>Deskripsi</label>
+                    <textarea id="editCatDesc"></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Status</label>
+                    <div style="display:flex;align-items:center;gap:12px;margin-top:6px;">
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="editCatStatus">
+                            <span class="toggle-slider"></span>
+                        </label>
+                        <span id="editCatStatusText" style="font-size:14px;color:#475569;font-weight:600;">Aktif</span>
+                    </div>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary"
+                        onclick="closeModal('modalEditCategory')">Batal</button>
+                    <button type="submit" class="btn btn-primary">✅ Update Kategori</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- ===== MODAL TAMBAH SUPPLIER ===== -->
+    <div class="modal" id="modalSupplier">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Tambah Supplier Baru</h2>
+                <button class="close-btn" onclick="closeModal('modalSupplier')">✖</button>
+            </div>
+            <form id="formSupplier">
+                <div class="form-group">
+                    <label>Kode Supplier *</label>
+                    <input type="text" id="addSupCode" placeholder="SUP004" required>
+                </div>
+                <div class="form-group">
+                    <label>Nama Supplier *</label>
+                    <input type="text" id="addSupName" placeholder="Nama supplier" required>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Nomor Kontak *</label>
+                        <input type="tel" id="addSupPhone" placeholder="081234567890" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Email *</label>
+                        <input type="email" id="addSupEmail" placeholder="email@supplier.com" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Kota *</label>
+                        <input type="text" id="addSupCity" placeholder="Kota" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Kode Pos</label>
+                        <input type="text" id="addSupPostal" placeholder="12345">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Alamat Lengkap *</label>
+                    <textarea id="addSupAddress" placeholder="Alamat lengkap..." required></textarea>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary" onclick="closeModal('modalSupplier')">Batal</button>
+                    <button type="submit" class="btn btn-primary">💾 Simpan Supplier</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- ===== MODAL EDIT SUPPLIER ===== -->
+    <div class="modal" id="modalEditSupplier">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Edit Supplier</h2>
+                <button class="close-btn" onclick="closeModal('modalEditSupplier')">✖</button>
+            </div>
+            <form id="formEditSupplier">
+                <div class="form-group">
+                    <label>Kode Supplier</label>
+                    <input type="text" id="editSupCode" readonly style="background:#f8fafc;">
+                </div>
+                <div class="form-group">
+                    <label>Nama Supplier *</label>
+                    <input type="text" id="editSupName" required>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Nomor Kontak *</label>
+                        <input type="tel" id="editSupPhone" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Email *</label>
+                        <input type="email" id="editSupEmail" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Kota *</label>
+                        <input type="text" id="editSupCity" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Kode Pos</label>
+                        <input type="text" id="editSupPostal">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Alamat Lengkap</label>
+                    <textarea id="editSupAddress"></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Status</label>
+                    <div style="display:flex;align-items:center;gap:12px;margin-top:6px;">
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="editSupStatus">
+                            <span class="toggle-slider"></span>
+                        </label>
+                        <span id="editSupStatusText" style="font-size:14px;color:#475569;font-weight:600;">Aktif</span>
+                    </div>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary"
+                        onclick="closeModal('modalEditSupplier')">Batal</button>
+                    <button type="submit" class="btn btn-primary">✅ Update Supplier</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- ===== MODAL KONFIRMASI HAPUS ===== -->
+    <div class="modal" id="modalDelete">
+        <div class="modal-content" style="max-width:400px;">
+            <div class="modal-header">
+                <h2 style="color:#e11d48;">Konfirmasi Hapus</h2>
+                <button class="close-btn" onclick="closeModal('modalDelete')">✖</button>
+            </div>
+            <div style="text-align:center;padding:20px 0;">
+                <div style="font-size:50px;margin-bottom:15px;">🗑️</div>
+                <h3 style="color:#0c4a6e;margin-bottom:10px;" id="deleteConfirmTitle">Hapus Data?</h3>
+                <p style="color:#64748b;line-height:1.6;" id="deleteConfirmMsg">Tindakan ini tidak dapat dibatalkan.</p>
             </div>
             <div class="form-actions">
-                <button type="button" class="btn btn-secondary" onclick="closeModal('modalEditProduct')">Batal</button>
-                <button type="submit" class="btn btn-primary">✅ Update Produk</button>
+                <button class="btn btn-secondary" onclick="closeModal('modalDelete')">Batal</button>
+                <button class="btn" id="deleteBtnConfirm"
+                    style="background:linear-gradient(135deg,#f43f5e,#e11d48);color:white;">Ya, Hapus</button>
             </div>
-        </form>
-    </div>
-</div>
-
-<!-- ===== MODAL TAMBAH KATEGORI ===== -->
-<div class="modal" id="modalCategory">
-    <div class="modal-content">
-        <div class="modal-header">
-            <h2>Tambah Kategori Baru</h2>
-            <button class="close-btn" onclick="closeModal('modalCategory')">✖</button>
-        </div>
-        <form id="formCategory">
-            <div class="form-group">
-                <label>Kode Kategori *</label>
-                <input type="text" id="addCatCode" placeholder="CAT006" required>
-            </div>
-            <div class="form-group">
-                <label>Nama Kategori *</label>
-                <input type="text" id="addCatName" placeholder="Nama kategori" required>
-            </div>
-            <div class="form-group">
-                <label>Deskripsi</label>
-                <textarea id="addCatDesc" placeholder="Deskripsi kategori..."></textarea>
-            </div>
-            <div class="form-actions">
-                <button type="button" class="btn btn-secondary" onclick="closeModal('modalCategory')">Batal</button>
-                <button type="submit" class="btn btn-primary">💾 Simpan Kategori</button>
-            </div>
-        </form>
-    </div>
-</div>
-
-<!-- ===== MODAL EDIT KATEGORI ===== -->
-<div class="modal" id="modalEditCategory">
-    <div class="modal-content">
-        <div class="modal-header">
-            <h2>Edit Kategori</h2>
-            <button class="close-btn" onclick="closeModal('modalEditCategory')">✖</button>
-        </div>
-        <form id="formEditCategory">
-            <div class="form-group">
-                <label>Kode Kategori</label>
-                <input type="text" id="editCatCode" readonly style="background:#f8fafc;">
-            </div>
-            <div class="form-group">
-                <label>Nama Kategori *</label>
-                <input type="text" id="editCatName" required>
-            </div>
-            <div class="form-group">
-                <label>Deskripsi</label>
-                <textarea id="editCatDesc"></textarea>
-            </div>
-            <div class="form-group">
-                <label>Status</label>
-                <div style="display:flex;align-items:center;gap:12px;margin-top:6px;">
-                    <label class="toggle-switch">
-                        <input type="checkbox" id="editCatStatus">
-                        <span class="toggle-slider"></span>
-                    </label>
-                    <span id="editCatStatusText" style="font-size:14px;color:#475569;font-weight:600;">Aktif</span>
-                </div>
-            </div>
-            <div class="form-actions">
-                <button type="button" class="btn btn-secondary" onclick="closeModal('modalEditCategory')">Batal</button>
-                <button type="submit" class="btn btn-primary">✅ Update Kategori</button>
-            </div>
-        </form>
-    </div>
-</div>
-
-<!-- ===== MODAL TAMBAH SUPPLIER ===== -->
-<div class="modal" id="modalSupplier">
-    <div class="modal-content">
-        <div class="modal-header">
-            <h2>Tambah Supplier Baru</h2>
-            <button class="close-btn" onclick="closeModal('modalSupplier')">✖</button>
-        </div>
-        <form id="formSupplier">
-            <div class="form-group">
-                <label>Kode Supplier *</label>
-                <input type="text" id="addSupCode" placeholder="SUP004" required>
-            </div>
-            <div class="form-group">
-                <label>Nama Supplier *</label>
-                <input type="text" id="addSupName" placeholder="Nama supplier" required>
-            </div>
-            <div class="form-row">
-                <div class="form-group">
-                    <label>Nomor Kontak *</label>
-                    <input type="tel" id="addSupPhone" placeholder="081234567890" required>
-                </div>
-                <div class="form-group">
-                    <label>Email *</label>
-                    <input type="email" id="addSupEmail" placeholder="email@supplier.com" required>
-                </div>
-            </div>
-            <div class="form-row">
-                <div class="form-group">
-                    <label>Kota *</label>
-                    <input type="text" id="addSupCity" placeholder="Kota" required>
-                </div>
-                <div class="form-group">
-                    <label>Kode Pos</label>
-                    <input type="text" id="addSupPostal" placeholder="12345">
-                </div>
-            </div>
-            <div class="form-group">
-                <label>Alamat Lengkap *</label>
-                <textarea id="addSupAddress" placeholder="Alamat lengkap..." required></textarea>
-            </div>
-            <div class="form-actions">
-                <button type="button" class="btn btn-secondary" onclick="closeModal('modalSupplier')">Batal</button>
-                <button type="submit" class="btn btn-primary">💾 Simpan Supplier</button>
-            </div>
-        </form>
-    </div>
-</div>
-
-<!-- ===== MODAL EDIT SUPPLIER ===== -->
-<div class="modal" id="modalEditSupplier">
-    <div class="modal-content">
-        <div class="modal-header">
-            <h2>Edit Supplier</h2>
-            <button class="close-btn" onclick="closeModal('modalEditSupplier')">✖</button>
-        </div>
-        <form id="formEditSupplier">
-            <div class="form-group">
-                <label>Kode Supplier</label>
-                <input type="text" id="editSupCode" readonly style="background:#f8fafc;">
-            </div>
-            <div class="form-group">
-                <label>Nama Supplier *</label>
-                <input type="text" id="editSupName" required>
-            </div>
-            <div class="form-row">
-                <div class="form-group">
-                    <label>Nomor Kontak *</label>
-                    <input type="tel" id="editSupPhone" required>
-                </div>
-                <div class="form-group">
-                    <label>Email *</label>
-                    <input type="email" id="editSupEmail" required>
-                </div>
-            </div>
-            <div class="form-row">
-                <div class="form-group">
-                    <label>Kota *</label>
-                    <input type="text" id="editSupCity" required>
-                </div>
-                <div class="form-group">
-                    <label>Kode Pos</label>
-                    <input type="text" id="editSupPostal">
-                </div>
-            </div>
-            <div class="form-group">
-                <label>Alamat Lengkap</label>
-                <textarea id="editSupAddress"></textarea>
-            </div>
-            <div class="form-group">
-                <label>Status</label>
-                <div style="display:flex;align-items:center;gap:12px;margin-top:6px;">
-                    <label class="toggle-switch">
-                        <input type="checkbox" id="editSupStatus">
-                        <span class="toggle-slider"></span>
-                    </label>
-                    <span id="editSupStatusText" style="font-size:14px;color:#475569;font-weight:600;">Aktif</span>
-                </div>
-            </div>
-            <div class="form-actions">
-                <button type="button" class="btn btn-secondary" onclick="closeModal('modalEditSupplier')">Batal</button>
-                <button type="submit" class="btn btn-primary">✅ Update Supplier</button>
-            </div>
-        </form>
-    </div>
-</div>
-
-<!-- ===== MODAL KONFIRMASI HAPUS ===== -->
-<div class="modal" id="modalDelete">
-    <div class="modal-content" style="max-width:400px;">
-        <div class="modal-header">
-            <h2 style="color:#e11d48;">Konfirmasi Hapus</h2>
-            <button class="close-btn" onclick="closeModal('modalDelete')">✖</button>
-        </div>
-        <div style="text-align:center;padding:20px 0;">
-            <div style="font-size:50px;margin-bottom:15px;">🗑️</div>
-            <h3 style="color:#0c4a6e;margin-bottom:10px;" id="deleteConfirmTitle">Hapus Data?</h3>
-            <p style="color:#64748b;line-height:1.6;" id="deleteConfirmMsg">Tindakan ini tidak dapat dibatalkan.</p>
-        </div>
-        <div class="form-actions">
-            <button class="btn btn-secondary" onclick="closeModal('modalDelete')">Batal</button>
-            <button class="btn" id="deleteBtnConfirm" style="background:linear-gradient(135deg,#f43f5e,#e11d48);color:white;">Ya, Hapus</button>
         </div>
     </div>
-</div>
 
-<script>
-// ========== DATA ==========
-let productsData = [
-    { code:'PRD001', name:'Joran Carbon Pro X1', category:'joran', brand:'shimano', buyPrice:1000000, sellPrice:1250000, stock:45, description:'Joran carbon berkualitas tinggi' },
-    { code:'PRD002', name:'Reel Spinning Daiwa LT3000', category:'reel', brand:'daiwa', buyPrice:2000000, sellPrice:2450000, stock:0, description:'Reel spinning teknologi terbaru' },
-    { code:'PRD003', name:'Senar PE Line 150m', category:'senar', brand:'ygk', buyPrice:150000, sellPrice:185000, stock:8, description:'Senar PE kuat dan lentur' },
-    { code:'PRD004', name:'Umpan Minnow 12cm', category:'umpan', brand:'rapala', buyPrice:100000, sellPrice:125000, stock:0, description:'Umpan minnow realistis' },
-    { code:'PRD005', name:'Tackle Box Waterproof', category:'aksesoris', brand:'plano', buyPrice:280000, sellPrice:350000, stock:25, description:'Kotak pancing tahan air' },
-];
+    <script>
+        // ========== DATA ==========
+        let productsData = [
+            { code: 'PRD001', name: 'Joran Carbon Pro X1', category: 'joran', brand: 'shimano', buyPrice: 1000000, sellPrice: 1250000, stock: 45, description: 'Joran carbon berkualitas tinggi' },
+            { code: 'PRD002', name: 'Reel Spinning Daiwa LT3000', category: 'reel', brand: 'daiwa', buyPrice: 2000000, sellPrice: 2450000, stock: 0, description: 'Reel spinning teknologi terbaru' },
+            { code: 'PRD003', name: 'Senar PE Line 150m', category: 'senar', brand: 'ygk', buyPrice: 150000, sellPrice: 185000, stock: 8, description: 'Senar PE kuat dan lentur' },
+            { code: 'PRD004', name: 'Umpan Minnow 12cm', category: 'umpan', brand: 'rapala', buyPrice: 100000, sellPrice: 125000, stock: 0, description: 'Umpan minnow realistis' },
+            { code: 'PRD005', name: 'Tackle Box Waterproof', category: 'aksesoris', brand: 'plano', buyPrice: 280000, sellPrice: 350000, stock: 25, description: 'Kotak pancing tahan air' },
+        ];
 
-let categoriesData = [
-    { code:'CAT001', name:'Joran', description:'Joran untuk berbagai jenis mancing', productCount:48, status:true },
-    { code:'CAT002', name:'Reel', description:'Reel spinning dan baitcasting', productCount:36, status:true },
-    { code:'CAT003', name:'Senar', description:'Senar PE, monofilament, dan fluorocarbon', productCount:42, status:true },
-    { code:'CAT004', name:'Umpan', description:'Umpan buatan dan natural', productCount:64, status:false },
-    { code:'CAT005', name:'Aksesoris', description:'Perlengkapan tambahan mancing', productCount:28, status:true },
-];
+        let categoriesData = [
+            { code: 'CAT001', name: 'Joran', description: 'Joran untuk berbagai jenis mancing', productCount: 48, status: true },
+            { code: 'CAT002', name: 'Reel', description: 'Reel spinning dan baitcasting', productCount: 36, status: true },
+            { code: 'CAT003', name: 'Senar', description: 'Senar PE, monofilament, dan fluorocarbon', productCount: 42, status: true },
+            { code: 'CAT004', name: 'Umpan', description: 'Umpan buatan dan natural', productCount: 64, status: false },
+            { code: 'CAT005', name: 'Aksesoris', description: 'Perlengkapan tambahan mancing', productCount: 28, status: true },
+        ];
 
-let suppliersData = [
-    { code:'SUP001', name:'PT Shimano Indonesia', phone:'081234567890', email:'info@shimano.co.id', city:'Jakarta', postalCode:'10270', address:'Jl. Gatot Subroto No. 123, Jakarta Pusat', status:true },
-    { code:'SUP002', name:'CV Daiwa Sejahtera', phone:'082345678901', email:'sales@daiwa.co.id', city:'Surabaya', postalCode:'60264', address:'Jl. Raya Darmo No. 456, Surabaya', status:true },
-    { code:'SUP003', name:'Toko Mancing Abadi', phone:'083456789012', email:'abadi@fishing.com', city:'Bandung', postalCode:'40131', address:'Jl. Cihampelas No. 789, Bandung', status:false },
-];
+        let suppliersData = [
+            { code: 'SUP001', name: 'PT Shimano Indonesia', phone: '081234567890', email: 'info@shimano.co.id', city: 'Jakarta', postalCode: '10270', address: 'Jl. Gatot Subroto No. 123, Jakarta Pusat', status: true },
+            { code: 'SUP002', name: 'CV Daiwa Sejahtera', phone: '082345678901', email: 'sales@daiwa.co.id', city: 'Surabaya', postalCode: '60264', address: 'Jl. Raya Darmo No. 456, Surabaya', status: true },
+            { code: 'SUP003', name: 'Toko Mancing Abadi', phone: '083456789012', email: 'abadi@fishing.com', city: 'Bandung', postalCode: '40131', address: 'Jl. Cihampelas No. 789, Bandung', status: false },
+        ];
 
-// ========== HELPERS ==========
-const categoryNames = { joran:'Joran', reel:'Reel', senar:'Senar', umpan:'Umpan', aksesoris:'Aksesoris' };
-const brandNames = { shimano:'Shimano', daiwa:'Daiwa', rapala:'Rapala', ygk:'YGK', plano:'Plano' };
+        // ========== HELPERS ==========
+        const categoryNames = { joran: 'Joran', reel: 'Reel', senar: 'Senar', umpan: 'Umpan', aksesoris: 'Aksesoris' };
+        const brandNames = { shimano: 'Shimano', daiwa: 'Daiwa', rapala: 'Rapala', ygk: 'YGK', plano: 'Plano' };
 
-function getStatus(stock) {
-    if (stock === 0) return { key:'habis', label:'Habis' };
-    if (stock <= 20) return { key:'rendah', label:'Stok Rendah' };
-    return { key:'aman', label:'Aman' };
-}
+        function getStatus(stock) {
+            if (stock === 0) return { key: 'habis', label: 'Habis' };
+            if (stock <= 20) return { key: 'rendah', label: 'Stok Rendah' };
+            return { key: 'aman', label: 'Aman' };
+        }
 
-function formatRp(n) { return 'Rp ' + n.toLocaleString('id-ID'); }
+        function formatRp(n) { return 'Rp ' + n.toLocaleString('id-ID'); }
 
-function showNotif(msg, type='success') {
-    const n = document.createElement('div');
-    const colors = { success:'linear-gradient(135deg,#10b981,#059669)', error:'linear-gradient(135deg,#e11d48,#be123c)', warning:'linear-gradient(135deg,#f59e0b,#d97706)' };
-    n.style.cssText = `position:fixed;top:20px;right:20px;padding:14px 22px;background:${colors[type]||colors.success};color:white;border-radius:13px;font-size:14px;font-weight:600;box-shadow:0 6px 20px rgba(0,0,0,0.2);z-index:9999;animation:slideInRight 0.3s ease;max-width:320px;`;
-    n.textContent = msg;
-    document.body.appendChild(n);
-    setTimeout(() => { n.style.animation='slideOutRight 0.3s ease'; setTimeout(()=>n.remove(), 300); }, 3000);
-}
+        function showNotif(msg, type = 'success') {
+            const n = document.createElement('div');
+            const colors = { success: 'linear-gradient(135deg,#10b981,#059669)', error: 'linear-gradient(135deg,#e11d48,#be123c)', warning: 'linear-gradient(135deg,#f59e0b,#d97706)' };
+            n.style.cssText = `position:fixed;top:20px;right:20px;padding:14px 22px;background:${colors[type] || colors.success};color:white;border-radius:13px;font-size:14px;font-weight:600;box-shadow:0 6px 20px rgba(0,0,0,0.2);z-index:9999;animation:slideInRight 0.3s ease;max-width:320px;`;
+            n.textContent = msg;
+            document.body.appendChild(n);
+            setTimeout(() => { n.style.animation = 'slideOutRight 0.3s ease'; setTimeout(() => n.remove(), 300); }, 3000);
+        }
 
-function openModal(id) { document.getElementById(id).classList.add('active'); }
-function closeModal(id) { document.getElementById(id).classList.remove('active'); }
+        function openModal(id) { document.getElementById(id).classList.add('active'); }
+        function closeModal(id) { document.getElementById(id).classList.remove('active'); }
 
-document.querySelectorAll('.modal').forEach(m => {
-    m.addEventListener('click', e => { if (e.target === m) m.classList.remove('active'); });
-});
+        document.querySelectorAll('.modal').forEach(m => {
+            m.addEventListener('click', e => { if (e.target === m) m.classList.remove('active'); });
+        });
 
-// ========== PRODUCTS ==========
-function renderProducts() {
-    const search = document.getElementById('searchProduct').value.toLowerCase();
-    const filterCat = document.getElementById('filterKategori').value;
-    const filterStat = document.getElementById('filterStatus').value;
+        // ========== PRODUCTS ==========
+        function renderProducts() {
+            const search = document.getElementById('searchProduct').value.toLowerCase();
+            const filterCat = document.getElementById('filterKategori').value;
+            const filterStat = document.getElementById('filterStatus').value;
 
-    let filtered = productsData.filter(p => {
-        const matchSearch = p.name.toLowerCase().includes(search) || p.code.toLowerCase().includes(search);
-        const matchCat = !filterCat || p.category === filterCat;
-        const matchStat = !filterStat || getStatus(p.stock).key === filterStat;
-        return matchSearch && matchCat && matchStat;
-    });
+            let filtered = productsData.filter(p => {
+                const matchSearch = p.name.toLowerCase().includes(search) || p.code.toLowerCase().includes(search);
+                const matchCat = !filterCat || p.category === filterCat;
+                const matchStat = !filterStat || getStatus(p.stock).key === filterStat;
+                return matchSearch && matchCat && matchStat;
+            });
 
-    const tbody = document.getElementById('productsTableBody');
-    if (filtered.length === 0) {
-        tbody.innerHTML = '<tr class="no-data-row"><td colspan="7">Tidak ada produk ditemukan</td></tr>';
-    } else {
-        tbody.innerHTML = filtered.map(p => {
-            const s = getStatus(p.stock);
-            return `<tr>
+            const tbody = document.getElementById('productsTableBody');
+            if (filtered.length === 0) {
+                tbody.innerHTML = '<tr class="no-data-row"><td colspan="7">Tidak ada produk ditemukan</td></tr>';
+            } else {
+                tbody.innerHTML = filtered.map(p => {
+                    const s = getStatus(p.stock);
+                    return `<tr>
                 <td>${p.code}</td>
                 <td>${p.name}</td>
-                <td>${categoryNames[p.category]||p.category}</td>
+                <td>${categoryNames[p.category] || p.category}</td>
                 <td>${formatRp(p.sellPrice)}</td>
                 <td><strong>${p.stock}</strong> unit</td>
                 <td><span class="status-badge ${s.key}">${s.label}</span></td>
@@ -850,98 +1509,98 @@ function renderProducts() {
                     <button class="action-btn delete" onclick="confirmDelete('product','${p.code}')" title="Hapus">🗑️</button>
                 </td>
             </tr>`;
-        }).join('');
-    }
+                }).join('');
+            }
 
-    // Update stats
-    document.getElementById('statTotal').textContent = productsData.length;
-    document.getElementById('statAman').textContent = productsData.filter(p => getStatus(p.stock).key === 'aman').length;
-    document.getElementById('statRendah').textContent = productsData.filter(p => getStatus(p.stock).key === 'rendah').length;
-    document.getElementById('statHabis').textContent = productsData.filter(p => getStatus(p.stock).key === 'habis').length;
-}
+            // Update stats
+            document.getElementById('statTotal').textContent = productsData.length;
+            document.getElementById('statAman').textContent = productsData.filter(p => getStatus(p.stock).key === 'aman').length;
+            document.getElementById('statRendah').textContent = productsData.filter(p => getStatus(p.stock).key === 'rendah').length;
+            document.getElementById('statHabis').textContent = productsData.filter(p => getStatus(p.stock).key === 'habis').length;
+        }
 
-document.getElementById('searchProduct').addEventListener('input', renderProducts);
-document.getElementById('filterKategori').addEventListener('change', renderProducts);
-document.getElementById('filterStatus').addEventListener('change', renderProducts);
+        document.getElementById('searchProduct').addEventListener('input', renderProducts);
+        document.getElementById('filterKategori').addEventListener('change', renderProducts);
+        document.getElementById('filterStatus').addEventListener('change', renderProducts);
 
-// Edit Product
-function openEditProduct(code) {
-    const p = productsData.find(x => x.code === code);
-    if (!p) return;
-    document.getElementById('editProductCode').value = p.code;
-    document.getElementById('editProductName').value = p.name;
-    document.getElementById('editCategory').value = p.category;
-    document.getElementById('editBrand').value = p.brand;
-    document.getElementById('editBuyPrice').value = p.buyPrice;
-    document.getElementById('editSellPrice').value = p.sellPrice;
-    document.getElementById('editStockCurrent').value = p.stock;
-    document.getElementById('editDescription').value = p.description || '';
-    document.getElementById('editStockUpdate').value = '';
-    document.getElementById('editUpdateType').value = 'add';
-    openModal('modalEditProduct');
-}
+        // Edit Product
+        function openEditProduct(code) {
+            const p = productsData.find(x => x.code === code);
+            if (!p) return;
+            document.getElementById('editProductCode').value = p.code;
+            document.getElementById('editProductName').value = p.name;
+            document.getElementById('editCategory').value = p.category;
+            document.getElementById('editBrand').value = p.brand;
+            document.getElementById('editBuyPrice').value = p.buyPrice;
+            document.getElementById('editSellPrice').value = p.sellPrice;
+            document.getElementById('editStockCurrent').value = p.stock;
+            document.getElementById('editDescription').value = p.description || '';
+            document.getElementById('editStockUpdate').value = '';
+            document.getElementById('editUpdateType').value = 'add';
+            openModal('modalEditProduct');
+        }
 
-document.getElementById('formEditProduct').addEventListener('submit', e => {
-    e.preventDefault();
-    const code = document.getElementById('editProductCode').value;
-    const p = productsData.find(x => x.code === code);
-    if (!p) return;
+        document.getElementById('formEditProduct').addEventListener('submit', e => {
+            e.preventDefault();
+            const code = document.getElementById('editProductCode').value;
+            const p = productsData.find(x => x.code === code);
+            if (!p) return;
 
-    p.name = document.getElementById('editProductName').value;
-    p.category = document.getElementById('editCategory').value;
-    p.brand = document.getElementById('editBrand').value;
-    p.buyPrice = parseInt(document.getElementById('editBuyPrice').value) || 0;
-    p.sellPrice = parseInt(document.getElementById('editSellPrice').value) || 0;
-    p.description = document.getElementById('editDescription').value;
+            p.name = document.getElementById('editProductName').value;
+            p.category = document.getElementById('editCategory').value;
+            p.brand = document.getElementById('editBrand').value;
+            p.buyPrice = parseInt(document.getElementById('editBuyPrice').value) || 0;
+            p.sellPrice = parseInt(document.getElementById('editSellPrice').value) || 0;
+            p.description = document.getElementById('editDescription').value;
 
-    const stockUpdate = parseInt(document.getElementById('editStockUpdate').value) || 0;
-    const updateType = document.getElementById('editUpdateType').value;
-    if (stockUpdate > 0 || updateType === 'set') {
-        if (updateType === 'add') p.stock += stockUpdate;
-        else if (updateType === 'subtract') p.stock = Math.max(0, p.stock - stockUpdate);
-        else if (updateType === 'set') p.stock = stockUpdate;
-    }
+            const stockUpdate = parseInt(document.getElementById('editStockUpdate').value) || 0;
+            const updateType = document.getElementById('editUpdateType').value;
+            if (stockUpdate > 0 || updateType === 'set') {
+                if (updateType === 'add') p.stock += stockUpdate;
+                else if (updateType === 'subtract') p.stock = Math.max(0, p.stock - stockUpdate);
+                else if (updateType === 'set') p.stock = stockUpdate;
+            }
 
-    closeModal('modalEditProduct');
-    renderProducts();
-    showNotif(`✅ Produk ${p.name} berhasil diupdate!`);
-});
+            closeModal('modalEditProduct');
+            renderProducts();
+            showNotif(`✅ Produk ${p.name} berhasil diupdate!`);
+        });
 
-// Tambah Product
-document.getElementById('formProduct').addEventListener('submit', e => {
-    e.preventDefault();
-    const code = document.getElementById('addProductCode').value.trim();
-    if (productsData.find(p => p.code === code)) {
-        showNotif('❌ Kode produk sudah digunakan!', 'error'); return;
-    }
-    const newProduct = {
-        code,
-        name: document.getElementById('addProductName').value.trim(),
-        category: document.getElementById('addCategory').value,
-        brand: document.getElementById('addBrand').value,
-        buyPrice: parseInt(document.getElementById('addBuyPrice').value) || 0,
-        sellPrice: parseInt(document.getElementById('addSellPrice').value) || 0,
-        stock: parseInt(document.getElementById('addStock').value) || 0,
-        description: document.getElementById('addDescription').value,
-    };
-    productsData.push(newProduct);
-    closeModal('modalProduct');
-    document.getElementById('formProduct').reset();
-    renderProducts();
-    showNotif(`✅ Produk ${newProduct.name} berhasil ditambahkan!`);
-});
+        // Tambah Product
+        document.getElementById('formProduct').addEventListener('submit', e => {
+            e.preventDefault();
+            const code = document.getElementById('addProductCode').value.trim();
+            if (productsData.find(p => p.code === code)) {
+                showNotif('❌ Kode produk sudah digunakan!', 'error'); return;
+            }
+            const newProduct = {
+                code,
+                name: document.getElementById('addProductName').value.trim(),
+                category: document.getElementById('addCategory').value,
+                brand: document.getElementById('addBrand').value,
+                buyPrice: parseInt(document.getElementById('addBuyPrice').value) || 0,
+                sellPrice: parseInt(document.getElementById('addSellPrice').value) || 0,
+                stock: parseInt(document.getElementById('addStock').value) || 0,
+                description: document.getElementById('addDescription').value,
+            };
+            productsData.push(newProduct);
+            closeModal('modalProduct');
+            document.getElementById('formProduct').reset();
+            renderProducts();
+            showNotif(`✅ Produk ${newProduct.name} berhasil ditambahkan!`);
+        });
 
-// ========== CATEGORIES ==========
-function renderCategories() {
-    const search = document.getElementById('searchCategory').value.toLowerCase();
-    const filtered = categoriesData.filter(c =>
-        c.name.toLowerCase().includes(search) || c.code.toLowerCase().includes(search)
-    );
-    const tbody = document.getElementById('categoriesTableBody');
-    if (filtered.length === 0) {
-        tbody.innerHTML = '<tr class="no-data-row"><td colspan="6">Tidak ada kategori ditemukan</td></tr>';
-    } else {
-        tbody.innerHTML = filtered.map(c => `
+        // ========== CATEGORIES ==========
+        function renderCategories() {
+            const search = document.getElementById('searchCategory').value.toLowerCase();
+            const filtered = categoriesData.filter(c =>
+                c.name.toLowerCase().includes(search) || c.code.toLowerCase().includes(search)
+            );
+            const tbody = document.getElementById('categoriesTableBody');
+            if (filtered.length === 0) {
+                tbody.innerHTML = '<tr class="no-data-row"><td colspan="6">Tidak ada kategori ditemukan</td></tr>';
+            } else {
+                tbody.innerHTML = filtered.map(c => `
             <tr>
                 <td>${c.code}</td>
                 <td>${c.name}</td>
@@ -958,76 +1617,76 @@ function renderCategories() {
                     <button class="action-btn delete" onclick="confirmDelete('category','${c.code}')" title="Hapus">🗑️</button>
                 </td>
             </tr>`).join('');
-    }
-}
+            }
+        }
 
-document.getElementById('searchCategory').addEventListener('input', renderCategories);
+        document.getElementById('searchCategory').addEventListener('input', renderCategories);
 
-function toggleCatStatus(code, val) {
-    const c = categoriesData.find(x => x.code === code);
-    if (c) { c.status = val; showNotif(`Kategori ${c.name} ${val ? 'diaktifkan' : 'dinonaktifkan'}`, val ? 'success' : 'warning'); }
-}
+        function toggleCatStatus(code, val) {
+            const c = categoriesData.find(x => x.code === code);
+            if (c) { c.status = val; showNotif(`Kategori ${c.name} ${val ? 'diaktifkan' : 'dinonaktifkan'}`, val ? 'success' : 'warning'); }
+        }
 
-function openEditCategory(code) {
-    const c = categoriesData.find(x => x.code === code);
-    if (!c) return;
-    document.getElementById('editCatCode').value = c.code;
-    document.getElementById('editCatName').value = c.name;
-    document.getElementById('editCatDesc').value = c.description;
-    document.getElementById('editCatStatus').checked = c.status;
-    document.getElementById('editCatStatusText').textContent = c.status ? 'Aktif' : 'Nonaktif';
-    openModal('modalEditCategory');
-}
+        function openEditCategory(code) {
+            const c = categoriesData.find(x => x.code === code);
+            if (!c) return;
+            document.getElementById('editCatCode').value = c.code;
+            document.getElementById('editCatName').value = c.name;
+            document.getElementById('editCatDesc').value = c.description;
+            document.getElementById('editCatStatus').checked = c.status;
+            document.getElementById('editCatStatusText').textContent = c.status ? 'Aktif' : 'Nonaktif';
+            openModal('modalEditCategory');
+        }
 
-document.getElementById('editCatStatus').addEventListener('change', function() {
-    document.getElementById('editCatStatusText').textContent = this.checked ? 'Aktif' : 'Nonaktif';
-});
+        document.getElementById('editCatStatus').addEventListener('change', function () {
+            document.getElementById('editCatStatusText').textContent = this.checked ? 'Aktif' : 'Nonaktif';
+        });
 
-document.getElementById('formEditCategory').addEventListener('submit', e => {
-    e.preventDefault();
-    const code = document.getElementById('editCatCode').value;
-    const c = categoriesData.find(x => x.code === code);
-    if (!c) return;
-    c.name = document.getElementById('editCatName').value.trim();
-    c.description = document.getElementById('editCatDesc').value.trim();
-    c.status = document.getElementById('editCatStatus').checked;
-    closeModal('modalEditCategory');
-    renderCategories();
-    showNotif(`✅ Kategori ${c.name} berhasil diupdate!`);
-});
+        document.getElementById('formEditCategory').addEventListener('submit', e => {
+            e.preventDefault();
+            const code = document.getElementById('editCatCode').value;
+            const c = categoriesData.find(x => x.code === code);
+            if (!c) return;
+            c.name = document.getElementById('editCatName').value.trim();
+            c.description = document.getElementById('editCatDesc').value.trim();
+            c.status = document.getElementById('editCatStatus').checked;
+            closeModal('modalEditCategory');
+            renderCategories();
+            showNotif(`✅ Kategori ${c.name} berhasil diupdate!`);
+        });
 
-// Tambah Kategori
-document.getElementById('formCategory').addEventListener('submit', e => {
-    e.preventDefault();
-    const code = document.getElementById('addCatCode').value.trim();
-    if (categoriesData.find(c => c.code === code)) {
-        showNotif('❌ Kode kategori sudah digunakan!', 'error'); return;
-    }
-    const newCat = {
-        code,
-        name: document.getElementById('addCatName').value.trim(),
-        description: document.getElementById('addCatDesc').value.trim(),
-        productCount: 0,
-        status: true,
-    };
-    categoriesData.push(newCat);
-    closeModal('modalCategory');
-    document.getElementById('formCategory').reset();
-    renderCategories();
-    showNotif(`✅ Kategori ${newCat.name} berhasil ditambahkan!`);
-});
+        // Tambah Kategori
+        document.getElementById('formCategory').addEventListener('submit', e => {
+            e.preventDefault();
+            const code = document.getElementById('addCatCode').value.trim();
+            if (categoriesData.find(c => c.code === code)) {
+                showNotif('❌ Kode kategori sudah digunakan!', 'error'); return;
+            }
+            const newCat = {
+                code,
+                name: document.getElementById('addCatName').value.trim(),
+                description: document.getElementById('addCatDesc').value.trim(),
+                productCount: 0,
+                status: true,
+            };
+            categoriesData.push(newCat);
+            closeModal('modalCategory');
+            document.getElementById('formCategory').reset();
+            renderCategories();
+            showNotif(`✅ Kategori ${newCat.name} berhasil ditambahkan!`);
+        });
 
-// ========== SUPPLIERS ==========
-function renderSuppliers() {
-    const search = document.getElementById('searchSupplier').value.toLowerCase();
-    const filtered = suppliersData.filter(s =>
-        s.name.toLowerCase().includes(search) || s.code.toLowerCase().includes(search) || s.city.toLowerCase().includes(search)
-    );
-    const tbody = document.getElementById('suppliersTableBody');
-    if (filtered.length === 0) {
-        tbody.innerHTML = '<tr class="no-data-row"><td colspan="7">Tidak ada supplier ditemukan</td></tr>';
-    } else {
-        tbody.innerHTML = filtered.map(s => `
+        // ========== SUPPLIERS ==========
+        function renderSuppliers() {
+            const search = document.getElementById('searchSupplier').value.toLowerCase();
+            const filtered = suppliersData.filter(s =>
+                s.name.toLowerCase().includes(search) || s.code.toLowerCase().includes(search) || s.city.toLowerCase().includes(search)
+            );
+            const tbody = document.getElementById('suppliersTableBody');
+            if (filtered.length === 0) {
+                tbody.innerHTML = '<tr class="no-data-row"><td colspan="7">Tidak ada supplier ditemukan</td></tr>';
+            } else {
+                tbody.innerHTML = filtered.map(s => `
             <tr>
                 <td>${s.code}</td>
                 <td>${s.name}</td>
@@ -1045,130 +1704,168 @@ function renderSuppliers() {
                     <button class="action-btn delete" onclick="confirmDelete('supplier','${s.code}')" title="Hapus">🗑️</button>
                 </td>
             </tr>`).join('');
-    }
-}
+            }
+        }
 
-document.getElementById('searchSupplier').addEventListener('input', renderSuppliers);
+        document.getElementById('searchSupplier').addEventListener('input', renderSuppliers);
 
-function toggleSupStatus(code, val) {
-    const s = suppliersData.find(x => x.code === code);
-    if (s) { s.status = val; showNotif(`Supplier ${s.name} ${val ? 'diaktifkan' : 'dinonaktifkan'}`, val ? 'success' : 'warning'); }
-}
+        function toggleSupStatus(code, val) {
+            const s = suppliersData.find(x => x.code === code);
+            if (s) { s.status = val; showNotif(`Supplier ${s.name} ${val ? 'diaktifkan' : 'dinonaktifkan'}`, val ? 'success' : 'warning'); }
+        }
 
-function openEditSupplier(code) {
-    const s = suppliersData.find(x => x.code === code);
-    if (!s) return;
-    document.getElementById('editSupCode').value = s.code;
-    document.getElementById('editSupName').value = s.name;
-    document.getElementById('editSupPhone').value = s.phone;
-    document.getElementById('editSupEmail').value = s.email;
-    document.getElementById('editSupCity').value = s.city;
-    document.getElementById('editSupPostal').value = s.postalCode || '';
-    document.getElementById('editSupAddress').value = s.address || '';
-    document.getElementById('editSupStatus').checked = s.status;
-    document.getElementById('editSupStatusText').textContent = s.status ? 'Aktif' : 'Nonaktif';
-    openModal('modalEditSupplier');
-}
+        function openEditSupplier(code) {
+            const s = suppliersData.find(x => x.code === code);
+            if (!s) return;
+            document.getElementById('editSupCode').value = s.code;
+            document.getElementById('editSupName').value = s.name;
+            document.getElementById('editSupPhone').value = s.phone;
+            document.getElementById('editSupEmail').value = s.email;
+            document.getElementById('editSupCity').value = s.city;
+            document.getElementById('editSupPostal').value = s.postalCode || '';
+            document.getElementById('editSupAddress').value = s.address || '';
+            document.getElementById('editSupStatus').checked = s.status;
+            document.getElementById('editSupStatusText').textContent = s.status ? 'Aktif' : 'Nonaktif';
+            openModal('modalEditSupplier');
+        }
 
-document.getElementById('editSupStatus').addEventListener('change', function() {
-    document.getElementById('editSupStatusText').textContent = this.checked ? 'Aktif' : 'Nonaktif';
-});
+        document.getElementById('editSupStatus').addEventListener('change', function () {
+            document.getElementById('editSupStatusText').textContent = this.checked ? 'Aktif' : 'Nonaktif';
+        });
 
-document.getElementById('formEditSupplier').addEventListener('submit', e => {
-    e.preventDefault();
-    const code = document.getElementById('editSupCode').value;
-    const s = suppliersData.find(x => x.code === code);
-    if (!s) return;
-    s.name = document.getElementById('editSupName').value.trim();
-    s.phone = document.getElementById('editSupPhone').value.trim();
-    s.email = document.getElementById('editSupEmail').value.trim();
-    s.city = document.getElementById('editSupCity').value.trim();
-    s.postalCode = document.getElementById('editSupPostal').value.trim();
-    s.address = document.getElementById('editSupAddress').value.trim();
-    s.status = document.getElementById('editSupStatus').checked;
-    closeModal('modalEditSupplier');
-    renderSuppliers();
-    showNotif(`✅ Supplier ${s.name} berhasil diupdate!`);
-});
+        document.getElementById('formEditSupplier').addEventListener('submit', e => {
+            e.preventDefault();
+            const code = document.getElementById('editSupCode').value;
+            const s = suppliersData.find(x => x.code === code);
+            if (!s) return;
+            s.name = document.getElementById('editSupName').value.trim();
+            s.phone = document.getElementById('editSupPhone').value.trim();
+            s.email = document.getElementById('editSupEmail').value.trim();
+            s.city = document.getElementById('editSupCity').value.trim();
+            s.postalCode = document.getElementById('editSupPostal').value.trim();
+            s.address = document.getElementById('editSupAddress').value.trim();
+            s.status = document.getElementById('editSupStatus').checked;
+            closeModal('modalEditSupplier');
+            renderSuppliers();
+            showNotif(`✅ Supplier ${s.name} berhasil diupdate!`);
+        });
 
-// Tambah Supplier
-document.getElementById('formSupplier').addEventListener('submit', e => {
-    e.preventDefault();
-    const code = document.getElementById('addSupCode').value.trim();
-    if (suppliersData.find(s => s.code === code)) {
-        showNotif('❌ Kode supplier sudah digunakan!', 'error'); return;
-    }
-    const newSup = {
-        code,
-        name: document.getElementById('addSupName').value.trim(),
-        phone: document.getElementById('addSupPhone').value.trim(),
-        email: document.getElementById('addSupEmail').value.trim(),
-        city: document.getElementById('addSupCity').value.trim(),
-        postalCode: document.getElementById('addSupPostal').value.trim(),
-        address: document.getElementById('addSupAddress').value.trim(),
-        status: true,
-    };
-    suppliersData.push(newSup);
-    closeModal('modalSupplier');
-    document.getElementById('formSupplier').reset();
-    renderSuppliers();
-    showNotif(`✅ Supplier ${newSup.name} berhasil ditambahkan!`);
-});
+        // Tambah Supplier
+        document.getElementById('formSupplier').addEventListener('submit', e => {
+            e.preventDefault();
+            const code = document.getElementById('addSupCode').value.trim();
+            if (suppliersData.find(s => s.code === code)) {
+                showNotif('❌ Kode supplier sudah digunakan!', 'error'); return;
+            }
+            const newSup = {
+                code,
+                name: document.getElementById('addSupName').value.trim(),
+                phone: document.getElementById('addSupPhone').value.trim(),
+                email: document.getElementById('addSupEmail').value.trim(),
+                city: document.getElementById('addSupCity').value.trim(),
+                postalCode: document.getElementById('addSupPostal').value.trim(),
+                address: document.getElementById('addSupAddress').value.trim(),
+                status: true,
+            };
+            suppliersData.push(newSup);
+            closeModal('modalSupplier');
+            document.getElementById('formSupplier').reset();
+            renderSuppliers();
+            showNotif(`✅ Supplier ${newSup.name} berhasil ditambahkan!`);
+        });
 
-// ========== DELETE ==========
-function confirmDelete(type, code) {
-    let item, name;
-    if (type === 'product') { item = productsData.find(x => x.code === code); name = item?.name; }
-    else if (type === 'category') { item = categoriesData.find(x => x.code === code); name = item?.name; }
-    else { item = suppliersData.find(x => x.code === code); name = item?.name; }
-    if (!item) return;
+        // ========== DELETE ==========
+        function confirmDelete(type, code) {
+            let item, name;
+            if (type === 'product') { item = productsData.find(x => x.code === code); name = item?.name; }
+            else if (type === 'category') { item = categoriesData.find(x => x.code === code); name = item?.name; }
+            else { item = suppliersData.find(x => x.code === code); name = item?.name; }
+            if (!item) return;
 
-    document.getElementById('deleteConfirmTitle').textContent = `Hapus ${name}?`;
-    document.getElementById('deleteConfirmMsg').textContent = `Anda akan menghapus "${name}" (${code}). Tindakan ini tidak dapat dibatalkan.`;
-    document.getElementById('deleteBtnConfirm').onclick = () => {
-        if (type === 'product') productsData = productsData.filter(x => x.code !== code);
-        else if (type === 'category') categoriesData = categoriesData.filter(x => x.code !== code);
-        else suppliersData = suppliersData.filter(x => x.code !== code);
-        closeModal('modalDelete');
-        if (type === 'product') renderProducts();
-        else if (type === 'category') renderCategories();
-        else renderSuppliers();
-        showNotif(`🗑️ ${name} berhasil dihapus!`);
-    };
-    openModal('modalDelete');
-}
+            document.getElementById('deleteConfirmTitle').textContent = `Hapus ${name}?`;
+            document.getElementById('deleteConfirmMsg').textContent = `Anda akan menghapus "${name}" (${code}). Tindakan ini tidak dapat dibatalkan.`;
+            document.getElementById('deleteBtnConfirm').onclick = () => {
+                if (type === 'product') productsData = productsData.filter(x => x.code !== code);
+                else if (type === 'category') categoriesData = categoriesData.filter(x => x.code !== code);
+                else suppliersData = suppliersData.filter(x => x.code !== code);
+                closeModal('modalDelete');
+                if (type === 'product') renderProducts();
+                else if (type === 'category') renderCategories();
+                else renderSuppliers();
+                showNotif(`🗑️ ${name} berhasil dihapus!`);
+            };
+            openModal('modalDelete');
+        }
 
-// ========== TABS ==========
-document.querySelectorAll('.tab').forEach(tab => {
-    tab.addEventListener('click', () => {
-        document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-        document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-        tab.classList.add('active');
-        document.getElementById(tab.dataset.tab + '-content').classList.add('active');
-    });
-});
+        // ========== TABS ==========
+        document.querySelectorAll('.tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                tab.classList.add('active');
+                document.getElementById(tab.dataset.tab + '-content').classList.add('active');
+            });
+        });
 
-// ========== TAMBAH DATA BUTTON ==========
-document.getElementById('btnAdd').addEventListener('click', () => {
-    const activeTab = document.querySelector('.tab.active').dataset.tab;
-    const modalMap = { products:'modalProduct', categories:'modalCategory', suppliers:'modalSupplier' };
-    openModal(modalMap[activeTab] || 'modalProduct');
-});
+        // ========== TAMBAH DATA BUTTON ==========
+        document.getElementById('btnAdd').addEventListener('click', () => {
+            const activeTab = document.querySelector('.tab.active').dataset.tab;
+            const modalMap = { products: 'modalProduct', categories: 'modalCategory', suppliers: 'modalSupplier' };
+            openModal(modalMap[activeTab] || 'modalProduct');
+        });
 
-// ========== SIDEBAR TOGGLE ==========
-document.getElementById('menuToggle').addEventListener('click', () => {
-    document.getElementById('sidebar').classList.toggle('active');
-    document.getElementById('overlay').classList.toggle('active');
-});
-document.getElementById('overlay').addEventListener('click', () => {
-    document.getElementById('sidebar').classList.remove('active');
-    document.getElementById('overlay').classList.remove('active');
-});
+        // ========== SIDEBAR TOGGLE ==========
+        document.getElementById('menuToggle').addEventListener('click', () => {
+            document.getElementById('sidebar').classList.toggle('active');
+            document.getElementById('overlay').classList.toggle('active');
+        });
+        document.getElementById('overlay').addEventListener('click', () => {
+            document.getElementById('sidebar').classList.remove('active');
+            document.getElementById('overlay').classList.remove('active');
+        });
 
-// ========== INIT ==========
-renderProducts();
-renderCategories();
-renderSuppliers();
-</script>
+        // ========== INIT ==========
+        renderProducts();
+        renderCategories();
+        renderSuppliers();
+    </script>
+
+    <div class="logout-modal" id="logoutModal">
+        <div class="logout-box">
+            <div class="logout-icon">🚪</div>
+            <h3>Yakin ingin logout?</h3>
+            <p>Anda akan keluar dari sistem Kasir Mekar Jaya</p>
+            <div class="logout-actions">
+                <button class="btn-cancel" id="cancelLogout">Batal</button>
+                <button class="btn-confirm" id="confirmLogout">Ya, Logout</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const logoutBtn = document.querySelector('.logout-btn');
+        const logoutModal = document.getElementById('logoutModal');
+        const cancelLogout = document.getElementById('cancelLogout');
+        const confirmLogout = document.getElementById('confirmLogout');
+
+        logoutBtn.addEventListener('click', function (e) {
+            e.preventDefault();
+            logoutModal.classList.add('active');
+        });
+
+        cancelLogout.addEventListener('click', function () {
+            logoutModal.classList.remove('active');
+        });
+
+        confirmLogout.addEventListener('click', function () {
+            // Hapus session login
+            localStorage.removeItem('userLogin');
+            localStorage.removeItem('userRole');
+
+            // Redirect (PATH TERBARU)
+            window.location.href = '../../pages/login.html';
+        });
+    </script>
 </body>
+
 </html>

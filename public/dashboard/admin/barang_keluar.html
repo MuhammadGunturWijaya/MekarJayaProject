@@ -141,23 +141,10 @@
             outline: none; border-color: #0e7490;
             box-shadow: 0 0 0 4px rgba(14,116,144,0.1); background: white;
         }
-        .search-box .icon {
+        .search-box .search-icon {
             position: absolute; left: 15px; top: 50%;
             transform: translateY(-50%); font-size: 18px;
-        }
-
-        .notification-btn {
-            position: relative; background: linear-gradient(135deg, #0e7490, #06b6d4);
-            border: none; padding: 12px; border-radius: 15px;
-            cursor: pointer; font-size: 20px; transition: all 0.3s;
-            box-shadow: 0 4px 15px rgba(14,116,144,0.3);
-        }
-        .notification-btn:hover { transform: scale(1.05) rotate(-5deg); }
-        .notification-badge {
-            position: absolute; top: 5px; right: 5px;
-            background: linear-gradient(135deg, #f43f5e, #e11d48);
-            color: white; font-size: 10px; padding: 3px 6px;
-            border-radius: 10px; font-weight: 700;
+            pointer-events: none;
         }
 
         .menu-toggle {
@@ -297,6 +284,7 @@
             background: linear-gradient(135deg, #0e7490, #06b6d4);
             color: white; border-color: #0e7490;
         }
+        .pagination-btn:disabled { opacity: 0.4; cursor: not-allowed; }
 
         /* Modal */
         .modal-overlay {
@@ -474,7 +462,6 @@
             </a>
             <a href="../admin/barang_keluar.html" class="menu-item active" data-loading="true">
                 <span class="icon">📦</span><span>Barang Keluar</span>
-               
             </a>
             <a href="../admin/generate_laporan.html" class="menu-item" data-loading="true">
                 <span class="icon">📝</span><span>Generate Laporan</span>
@@ -488,9 +475,6 @@
             <a href="../admin/pengaturan.html" class="menu-item" data-loading="true">
                 <span class="icon">⚙️</span><span>Pengaturan</span>
             </a>
-            <!-- <a href="../admin/notifikasi.html" class="menu-item" data-loading="true">
-                <span class="icon">🔔</span><span>Notifikasi</span>
-            </a> -->
             <a href="#" class="menu-item" onclick="location.href='../pages/login.html'">
                 <span class="icon">🚪</span><span>Logout</span>
             </a>
@@ -513,7 +497,7 @@
             <div class="header-right">
                 <button class="menu-toggle" id="menuToggle">☰</button>
                 <div class="search-box">
-                    <span class="icon">🔍</span>
+                    <span class="search-icon">🔍</span>
                     <input type="text" id="searchInput" placeholder="Cari barang keluar...">
                 </div>
             </div>
@@ -823,10 +807,6 @@
             return `BK-${year}-${String(max + 1).padStart(3, '0')}`;
         }
 
-        function updateSidebarBadge() {
-            document.getElementById('sidebarBadge').textContent = outgoingData.length;
-        }
-
         // ===== FILTER =====
         function applyFilters() {
             const startDate = document.getElementById('startDate').value;
@@ -918,9 +898,8 @@
 
             renderPagination(totalPages);
             updateSelectAllState();
-            updateSidebarBadge();
 
-            // Button events
+            // Button events - bind after render
             document.querySelectorAll('.view-btn').forEach(btn => {
                 btn.addEventListener('click', () => viewItem(parseInt(btn.dataset.index)));
             });
@@ -994,13 +973,13 @@
                             <button class="close-modal" onclick="closeDetailModal()">✕</button>
                         </div>
                         <div style="display:grid;gap:12px;margin-top:5px;">
-                            ${row('ID Transaksi', item.id)}
-                            ${row('Tanggal', item.date.replace('T', ' '), true)}
-                            ${row('Tujuan', formatDestination(item.destination))}
-                            ${row('Keterangan Tujuan', item.destinationNote || '-', true)}
-                            ${row('Alamat', item.address)}
-                            ${row('Status', statusText, true)}
-                            ${row('Petugas', item.officer)}
+                            ${detailRow('ID Transaksi', item.id)}
+                            ${detailRow('Tanggal', item.date.replace('T', ' '), true)}
+                            ${detailRow('Tujuan', formatDestination(item.destination))}
+                            ${detailRow('Keterangan Tujuan', item.destinationNote || '-', true)}
+                            ${detailRow('Alamat', item.address)}
+                            ${detailRow('Status', statusText, true)}
+                            ${detailRow('Petugas', item.officer)}
                             <div style="padding:15px;background:rgba(6,182,212,0.08);border-radius:8px;border-left:4px solid #06b6d4;">
                                 <strong style="color:#0c4a6e;display:block;margin-bottom:12px;">Daftar Barang:</strong>
                                 <table style="width:100%;border-collapse:collapse;font-size:13px;">
@@ -1033,11 +1012,13 @@
                     </div>
                 </div>`;
 
-            document.getElementById('detailModal')?.remove();
+            // Remove existing detail modal if any
+            const existing = document.getElementById('detailModal');
+            if (existing) existing.remove();
             document.body.insertAdjacentHTML('beforeend', html);
         }
 
-        function row(label, value, alt = false) {
+        function detailRow(label, value, alt = false) {
             const bg = alt ? 'background:rgba(14,116,144,0.05);border-radius:8px;' : '';
             return `<div style="display:grid;grid-template-columns:150px 1fr;gap:10px;padding:10px;${bg}">
                 <strong style="color:#0c4a6e;">${label}:</strong>
@@ -1056,7 +1037,6 @@
             document.getElementById('outgoingForm').reset();
             document.getElementById('editIndex').value = '-1';
             document.getElementById('transactionId').value = generateId();
-            // Set default date to now
             const now = new Date();
             now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
             document.getElementById('outgoingDate').value = now.toISOString().slice(0, 16);
@@ -1132,7 +1112,6 @@
 
             div.querySelector('.qty-input').addEventListener('input', updateSubtotal);
             div.querySelector('.price-input').addEventListener('input', updateSubtotal);
-
             div.querySelector('.remove-item-btn').addEventListener('click', () => div.remove());
 
             container.appendChild(div);
@@ -1142,7 +1121,6 @@
         document.getElementById('outgoingForm').addEventListener('submit', function (e) {
             e.preventDefault();
 
-            // Collect product items
             const rows = document.querySelectorAll('.product-item');
             const items = [];
             let valid = true;
@@ -1223,7 +1201,8 @@
                     </div>
                 </div>`;
 
-            document.getElementById('confirmDeleteModal')?.remove();
+            const existing = document.getElementById('confirmDeleteModal');
+            if (existing) existing.remove();
             document.body.insertAdjacentHTML('beforeend', html);
         }
 
@@ -1310,8 +1289,16 @@
             win.print();
         }
 
+        function deleteBulk(ids) {
+            outgoingData = outgoingData.filter(d => !ids.includes(d.id));
+            closeConfirmModal();
+            applyFilters();
+            showNotification(`${ids.length} item berhasil dihapus!`, 'success');
+        }
+
         // ===== INIT =====
         document.addEventListener('DOMContentLoaded', function () {
+            // Initial render
             applyFilters();
 
             // Loading navigation
@@ -1325,17 +1312,13 @@
             });
 
             // Sidebar toggle
-            const menuToggle = document.getElementById('menuToggle');
-            const sidebar = document.getElementById('sidebar');
-            const overlay = document.getElementById('overlay');
-
-            menuToggle.addEventListener('click', () => {
-                sidebar.classList.toggle('active');
-                overlay.classList.toggle('active');
+            document.getElementById('menuToggle').addEventListener('click', () => {
+                document.getElementById('sidebar').classList.toggle('active');
+                document.getElementById('overlay').classList.toggle('active');
             });
-            overlay.addEventListener('click', () => {
-                sidebar.classList.remove('active');
-                overlay.classList.remove('active');
+            document.getElementById('overlay').addEventListener('click', () => {
+                document.getElementById('sidebar').classList.remove('active');
+                document.getElementById('overlay').classList.remove('active');
             });
 
             // Add button
@@ -1345,10 +1328,10 @@
             document.getElementById('closeModal').addEventListener('click', closeModal);
             document.getElementById('cancelBtn').addEventListener('click', closeModal);
 
-            // Add product
+            // Add product item
             document.getElementById('addProductBtn').addEventListener('click', () => addProductItem());
 
-            // Select all
+            // Select all checkbox
             document.getElementById('selectAll').addEventListener('change', function () {
                 document.querySelectorAll('.row-checkbox').forEach(cb => cb.checked = this.checked);
             });
@@ -1375,7 +1358,7 @@
                 showNotification('Filter direset!', 'success');
             });
 
-            // Search live
+            // Live search
             document.getElementById('searchInput').addEventListener('input', applyFilters);
 
             // Refresh
@@ -1410,22 +1393,11 @@
                             </div>
                         </div>
                     </div>`;
-                document.getElementById('confirmDeleteModal')?.remove();
+                const existing = document.getElementById('confirmDeleteModal');
+                if (existing) existing.remove();
                 document.body.insertAdjacentHTML('beforeend', html);
             });
-
-            // Notification
-            document.querySelector('.notification-btn').addEventListener('click', () => {
-                showNotification('🔔 Anda memiliki 5 notifikasi baru', 'success');
-            });
         });
-
-        function deleteBulk(ids) {
-            outgoingData = outgoingData.filter(d => !ids.includes(d.id));
-            closeConfirmModal();
-            applyFilters();
-            showNotification(`${ids.length} item berhasil dihapus!`, 'success');
-        }
     </script>
 </body>
 </html>

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,7 +12,8 @@
             box-sizing: border-box;
         }
 
-        html, body {
+        html,
+        body {
             height: 100%;
             overflow-x: hidden;
         }
@@ -31,7 +33,7 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: 
+            background:
                 radial-gradient(circle at 20% 50%, rgba(34, 211, 238, 0.1) 0%, transparent 50%),
                 radial-gradient(circle at 80% 80%, rgba(6, 182, 212, 0.1) 0%, transparent 50%);
             pointer-events: none;
@@ -78,8 +80,15 @@
         }
 
         @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
+
+            0%,
+            100% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
         }
 
         .logo-section h2 {
@@ -101,8 +110,15 @@
         }
 
         @keyframes pulse-badge {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.05);
+            }
         }
 
         .menu-section {
@@ -195,8 +211,15 @@
         }
 
         @keyframes pulse-notification {
-            0%, 100% { box-shadow: 0 2px 8px rgba(244, 63, 94, 0.4); }
-            50% { box-shadow: 0 2px 16px rgba(244, 63, 94, 0.8); }
+
+            0%,
+            100% {
+                box-shadow: 0 2px 8px rgba(244, 63, 94, 0.4);
+            }
+
+            50% {
+                box-shadow: 0 2px 16px rgba(244, 63, 94, 0.8);
+            }
         }
 
         .user-profile {
@@ -253,7 +276,8 @@
             outline: none;
         }
 
-        .logout-btn:hover, .logout-btn:focus {
+        .logout-btn:hover,
+        .logout-btn:focus {
             background: rgba(244, 63, 94, 0.4);
             transform: scale(1.1) rotate(5deg);
             box-shadow: 0 0 0 3px rgba(244, 63, 94, 0.3);
@@ -302,8 +326,15 @@
         }
 
         @keyframes gradient-shift {
-            0%, 100% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
+
+            0%,
+            100% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
         }
 
         .header-left h1 {
@@ -319,8 +350,15 @@
         }
 
         @keyframes gradient-text {
-            0%, 100% { background-position: 0% center; }
-            50% { background-position: 100% center; }
+
+            0%,
+            100% {
+                background-position: 0% center;
+            }
+
+            50% {
+                background-position: 100% center;
+            }
         }
 
         .header-left p {
@@ -345,7 +383,8 @@
             outline: none;
         }
 
-        .menu-toggle:hover, .menu-toggle:focus {
+        .menu-toggle:hover,
+        .menu-toggle:focus {
             transform: scale(1.05);
             box-shadow: 0 6px 20px rgba(14, 116, 144, 0.4);
         }
@@ -391,7 +430,8 @@
             left: 100%;
         }
 
-        .stat-card:hover, .stat-card:focus {
+        .stat-card:hover,
+        .stat-card:focus {
             transform: translateY(-8px) scale(1.02);
             box-shadow: 0 16px 48px rgba(0, 0, 0, 0.12);
         }
@@ -421,7 +461,8 @@
             transition: transform 0.3s;
         }
 
-        .stat-card:hover .stat-icon, .stat-card:focus .stat-icon {
+        .stat-card:hover .stat-icon,
+        .stat-card:focus .stat-icon {
             transform: scale(1.1) rotate(5deg);
         }
 
@@ -516,7 +557,8 @@
             box-shadow: 0 4px 15px rgba(14, 116, 144, 0.3);
         }
 
-        .btn-primary:hover, .btn-primary:focus {
+        .btn-primary:hover,
+        .btn-primary:focus {
             transform: translateY(-2px);
             box-shadow: 0 8px 24px rgba(14, 116, 144, 0.4);
         }
@@ -527,7 +569,8 @@
             border: 2px solid rgba(100, 116, 139, 0.2);
         }
 
-        .btn-secondary:hover, .btn-secondary:focus {
+        .btn-secondary:hover,
+        .btn-secondary:focus {
             background: rgba(100, 116, 139, 0.2);
             transform: translateY(-2px);
         }
@@ -559,7 +602,8 @@
             box-shadow: 0 0 0 3px rgba(6, 182, 212, 0.5);
         }
 
-        .notification-item:hover, .notification-item:focus {
+        .notification-item:hover,
+        .notification-item:focus {
             transform: translateX(8px) translateY(-2px);
             box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12);
         }
@@ -598,7 +642,8 @@
             transition: transform 0.3s;
         }
 
-        .notification-item:hover .notification-icon, .notification-item:focus .notification-icon {
+        .notification-item:hover .notification-icon,
+        .notification-item:focus .notification-icon {
             transform: scale(1.1) rotate(5deg);
         }
 
@@ -729,7 +774,8 @@
             border: 1px solid rgba(14, 116, 144, 0.2);
         }
 
-        .action-btn.view:hover, .action-btn.view:focus {
+        .action-btn.view:hover,
+        .action-btn.view:focus {
             background: linear-gradient(135deg, rgba(14, 116, 144, 0.2), rgba(14, 116, 144, 0.1));
             transform: translateY(-2px);
         }
@@ -740,7 +786,8 @@
             border: 1px solid rgba(100, 116, 139, 0.2);
         }
 
-        .action-btn.dismiss:hover, .action-btn.dismiss:focus {
+        .action-btn.dismiss:hover,
+        .action-btn.dismiss:focus {
             background: linear-gradient(135deg, rgba(100, 116, 139, 0.2), rgba(100, 116, 139, 0.1));
             transform: translateY(-2px);
         }
@@ -758,10 +805,13 @@
         }
 
         @keyframes pulse-indicator {
-            0%, 100% {
+
+            0%,
+            100% {
                 box-shadow: 0 0 0 4px rgba(6, 182, 212, 0.2);
                 transform: scale(1);
             }
+
             50% {
                 box-shadow: 0 0 0 8px rgba(6, 182, 212, 0.1);
                 transform: scale(1.1);
@@ -818,8 +868,13 @@
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
         }
 
         /* Modal */
@@ -858,6 +913,7 @@
                 opacity: 0;
                 transform: scale(0.9) translateY(-30px);
             }
+
             to {
                 opacity: 1;
                 transform: scale(1) translateY(0);
@@ -898,7 +954,8 @@
             outline: none;
         }
 
-        .close-modal:hover, .close-modal:focus {
+        .close-modal:hover,
+        .close-modal:focus {
             background: rgba(244, 63, 94, 0.2);
             transform: rotate(90deg) scale(1.1);
         }
@@ -1003,7 +1060,8 @@
                 grid-template-columns: repeat(2, 1fr);
             }
 
-            .filter-bar, .search-bar {
+            .filter-bar,
+            .search-bar {
                 flex-direction: column;
             }
 
@@ -1083,6 +1141,7 @@
                 transform: translateX(400px);
                 opacity: 0;
             }
+
             to {
                 transform: translateX(0);
                 opacity: 1;
@@ -1098,6 +1157,7 @@
                 transform: translateX(0);
                 opacity: 1;
             }
+
             to {
                 transform: translateX(400px);
                 opacity: 0;
@@ -1125,10 +1185,10 @@
 </head>
 
 <body>
-    
+
     <div class="overlay" id="overlay"></div>
 
-     <aside class="sidebar" id="sidebar">
+    <aside class="sidebar" id="sidebar">
         <div class="logo-section">
             <span class="icon">🎣</span>
             <div>
@@ -1136,54 +1196,42 @@
                 <span class="badge">ADMIN</span>
             </div>
         </div>
-        <a href="#" class="menu-item " onclick="location.href='../dashboard/kasir.html'">
-            <span class="icon">🖥️</span>
-            <span>Kasir</span>
+        <a href="../admin/kasir.html" class="menu-item" data-loading="true">
+            <span class="icon">🖥️</span><span>Kasir</span>
         </a>
         <div class="menu-section">
             <div class="menu-label">Menu Utama</div>
-            <a href="#" class="menu-item " onclick="location.href='../dashboard/dashboard.html'">
-                <span class="icon">📊</span>
-                <span>Dashboard</span>
+            <a href="../admin/dashboard.html" class="menu-item" data-loading="true">
+                <span class="icon">📊</span><span>Dashboard</span>
             </a>
-            <a href="../dashboard/master_data.html" class="menu-item" data-loading="true">
-                <span class="icon">🧾</span>
-                <span>Master Data</span>
+            <a href="../admin/master_data.html" class="menu-item" data-loading="true">
+                <span class="icon">🧾</span><span>Master Data</span>
             </a>
-            <a href="#" class="menu-item">
-                <span class="icon">🚚</span>
-                <span>Barang Masuk</span>
+            <a href="../admin/barang_masuk.html" class="menu-item " data-loading="true">
+                <span class="icon">🚚</span><span>Barang Masuk</span>
             </a>
-            <a href="#" class="menu-item">
-                <span class="icon">📦</span>
-                <span>Barang Keluar</span>
-                <span class="badge">8</span>
+            <a href="../admin/barang_keluar.html" class="menu-item " data-loading="true">
+                <span class="icon">📦</span><span>Barang Keluar</span>
+                
             </a>
-            <a href="#" class="menu-item">
-                <span class="icon">📝</span>
-                <span>Generate Laporan</span>
+            <a href="../admin/generate_laporan.html" class="menu-item" data-loading="true">
+                <span class="icon">📝</span><span>Generate Laporan</span>
             </a>
-            <a href="#" class="menu-item">
-                <span class="icon">📜</span>
-                <span>Riwayat Transaksi</span>
+            <a href="../admin/riwayat_transaksi.html" class="menu-item" data-loading="true">
+                <span class="icon">📜</span><span>Riwayat Transaksi</span>
             </a>
         </div>
-
         <div class="menu-section">
             <div class="menu-label">Manajemen</div>
-            <a href="#" class="menu-item">
-                <span class="icon">⚙️</span>
-                <span>Pengaturan</span>
+            <a href="../admin/pengaturan.html" class="menu-item" data-loading="true">
+                <span class="icon">⚙️</span><span>Pengaturan</span>
             </a>
-            <a href="#" class="menu-item active">
-                <span class="icon">🔔</span>
-                <span>Notifikasi</span>
+            <a href="../admin/notifikasi.html" class="menu-item active" data-loading="true">
+                <span class="icon">🔔</span><span>Notifikasi</span>
             </a>
             <a href="#" class="menu-item" onclick="location.href='../pages/login.html'">
-                <span class="icon">🚪</span>
-                <span>Logout</span>
+                <span class="icon">🚪</span><span>Logout</span>
             </a>
-
         </div>
     </aside>
 
@@ -1191,13 +1239,16 @@
         <div class="header">
             <div class="header-left">
                 <h1>Pusat Notifikasi</h1>
-                <p>Kelola semua notifikasi sistem <span style="animation: pulse-notification 2s ease-in-out infinite; display: inline-block;" aria-hidden="true">🔔</span></p>
+                <p>Kelola semua notifikasi sistem <span
+                        style="animation: pulse-notification 2s ease-in-out infinite; display: inline-block;"
+                        aria-hidden="true">🔔</span></p>
             </div>
             <button class="menu-toggle" id="menuToggle" aria-label="Buka/tutup menu">☰</button>
         </div>
 
         <div class="stats-grid" role="region" aria-label="Statistik notifikasi">
-            <div class="stat-card active" data-filter="all" onclick="filterNotifications('all')" tabindex="0" role="button" aria-label="Lihat semua notifikasi">
+            <div class="stat-card active" data-filter="all" onclick="filterNotifications('all')" tabindex="0"
+                role="button" aria-label="Lihat semua notifikasi">
                 <div class="stat-header">
                     <div class="stat-icon all" aria-hidden="true">🔔</div>
                 </div>
@@ -1205,7 +1256,8 @@
                 <div class="stat-label">Semua Notifikasi</div>
             </div>
 
-            <div class="stat-card" data-filter="critical" onclick="filterNotifications('critical')" tabindex="0" role="button" aria-label="Lihat notifikasi kritis">
+            <div class="stat-card" data-filter="critical" onclick="filterNotifications('critical')" tabindex="0"
+                role="button" aria-label="Lihat notifikasi kritis">
                 <div class="stat-header">
                     <div class="stat-icon critical" aria-hidden="true">🚨</div>
                 </div>
@@ -1213,7 +1265,8 @@
                 <div class="stat-label">Kritis</div>
             </div>
 
-            <div class="stat-card" data-filter="warning" onclick="filterNotifications('warning')" tabindex="0" role="button" aria-label="Lihat notifikasi peringatan">
+            <div class="stat-card" data-filter="warning" onclick="filterNotifications('warning')" tabindex="0"
+                role="button" aria-label="Lihat notifikasi peringatan">
                 <div class="stat-header">
                     <div class="stat-icon warning" aria-hidden="true">⚠️</div>
                 </div>
@@ -1221,7 +1274,8 @@
                 <div class="stat-label">Peringatan</div>
             </div>
 
-            <div class="stat-card" data-filter="info" onclick="filterNotifications('info')" tabindex="0" role="button" aria-label="Lihat notifikasi informasi">
+            <div class="stat-card" data-filter="info" onclick="filterNotifications('info')" tabindex="0" role="button"
+                aria-label="Lihat notifikasi informasi">
                 <div class="stat-header">
                     <div class="stat-icon info" aria-hidden="true">ℹ️</div>
                 </div>
@@ -1229,7 +1283,8 @@
                 <div class="stat-label">Informasi</div>
             </div>
 
-            <div class="stat-card" data-filter="success" onclick="filterNotifications('success')" tabindex="0" role="button" aria-label="Lihat notifikasi sukses">
+            <div class="stat-card" data-filter="success" onclick="filterNotifications('success')" tabindex="0"
+                role="button" aria-label="Lihat notifikasi sukses">
                 <div class="stat-header">
                     <div class="stat-icon success" aria-hidden="true">✅</div>
                 </div>
@@ -1239,7 +1294,8 @@
         </div>
 
         <div class="search-bar">
-            <input type="text" id="searchInput" placeholder="Cari notifikasi..." aria-label="Cari notifikasi" oninput="applyFilters()">
+            <input type="text" id="searchInput" placeholder="Cari notifikasi..." aria-label="Cari notifikasi"
+                oninput="applyFilters()">
         </div>
 
         <div class="filter-bar" role="toolbar" aria-label="Filter notifikasi">
@@ -1260,7 +1316,8 @@
 
             <input type="date" id="dateFilter" onchange="applyFilters()" aria-label="Filter berdasarkan tanggal">
 
-            <button class="btn btn-primary" onclick="markAllAsRead()" aria-label="Tandai semua notifikasi sebagai sudah dibaca">
+            <button class="btn btn-primary" onclick="markAllAsRead()"
+                aria-label="Tandai semua notifikasi sebagai sudah dibaca">
                 <span aria-hidden="true">✓</span>
                 <span>Tandai Semua Dibaca</span>
             </button>
@@ -1292,8 +1349,10 @@
             <div id="modalDetailContent"></div>
 
             <div class="notification-actions" style="margin-top: 30px; justify-content: flex-end; display: flex;">
-                <button class="btn btn-secondary" onclick="closeModal()" style="margin-right: 10px;" aria-label="Tutup dialog">✕ Tutup</button>
-                <button class="btn btn-primary" onclick="takeAction()" aria-label="Ambil tindakan untuk notifikasi ini">📦 Ambil Tindakan</button>
+                <button class="btn btn-secondary" onclick="closeModal()" style="margin-right: 10px;"
+                    aria-label="Tutup dialog">✕ Tutup</button>
+                <button class="btn btn-primary" onclick="takeAction()"
+                    aria-label="Ambil tindakan untuk notifikasi ini">📦 Ambil Tindakan</button>
             </div>
         </div>
     </div>
@@ -1581,7 +1640,7 @@
             filteredNotifications.forEach(notif => {
                 const categoryClass = `category-${notif.category}`;
                 const categoryText = getCategoryText(notif.category);
-                
+
                 const notificationItem = document.createElement('div');
                 notificationItem.className = `notification-item ${notif.type} ${notif.status === 'unread' ? 'unread' : ''}`;
                 notificationItem.setAttribute('data-type', notif.type);
@@ -1617,7 +1676,7 @@
                 `;
 
                 // Tambahkan event listener untuk klik dan keyboard
-                notificationItem.addEventListener('click', function(e) {
+                notificationItem.addEventListener('click', function (e) {
                     if (!e.target.closest('button')) {
                         if (this.classList.contains('unread')) {
                             dismissNotification(notif.id);
@@ -1626,7 +1685,7 @@
                     }
                 });
 
-                notificationItem.addEventListener('keydown', function(e) {
+                notificationItem.addEventListener('keydown', function (e) {
                     if (e.key === 'Enter' || e.key === ' ') {
                         e.preventDefault();
                         if (this.classList.contains('unread')) {
@@ -1657,7 +1716,7 @@
         // Filter Notifications
         function filterNotifications(type) {
             currentFilter = type;
-            
+
             document.querySelectorAll('.stat-card').forEach(card => {
                 card.classList.remove('active');
             });
@@ -1675,8 +1734,8 @@
                 const matchType = currentFilter === 'all' || notif.type === currentFilter;
                 const matchCategory = !categoryFilter || notif.category === categoryFilter;
                 const matchStatus = !statusFilter || notif.status === statusFilter;
-                const matchSearch = !searchInput || 
-                    notif.title.toLowerCase().includes(searchInput) || 
+                const matchSearch = !searchInput ||
+                    notif.title.toLowerCase().includes(searchInput) ||
                     notif.message.toLowerCase().includes(searchInput);
 
                 return matchType && matchCategory && matchStatus && matchSearch;
@@ -1691,7 +1750,7 @@
                 notifications.forEach(notif => {
                     notif.status = 'read';
                 });
-                
+
                 document.getElementById('sidebarBadge').textContent = '0';
                 applyFilters();
                 showToast('✅ Semua notifikasi telah ditandai sebagai sudah dibaca!');
@@ -1704,14 +1763,14 @@
                 notifications.length = 0;
                 filteredNotifications = [];
                 renderNotifications();
-                
+
                 document.getElementById('countAll').textContent = '0';
                 document.getElementById('countCritical').textContent = '0';
                 document.getElementById('countWarning').textContent = '0';
                 document.getElementById('countInfo').textContent = '0';
                 document.getElementById('countSuccess').textContent = '0';
                 document.getElementById('sidebarBadge').textContent = '0';
-                
+
                 showToast('🗑️ Semua notifikasi telah dihapus!', 'error');
             }
         }
@@ -1722,7 +1781,7 @@
             if (!detail) return;
 
             document.getElementById('modalTitle').innerHTML = detail.title;
-            
+
             let html = '';
             detail.items.forEach(item => {
                 html += `
@@ -1735,10 +1794,10 @@
                     </div>
                 `;
             });
-            
+
             document.getElementById('modalDetailContent').innerHTML = html;
             document.getElementById('detailModal').classList.add('active');
-            
+
             // Fokus ke tombol tutup modal untuk aksesibilitas
             setTimeout(() => {
                 document.querySelector('.close-modal').focus();
@@ -1753,7 +1812,7 @@
         // Dismiss Notification
         function dismissNotification(id, event) {
             if (event) event.stopPropagation();
-            
+
             const notifIndex = notifications.findIndex(n => n.id === id);
             if (notifIndex !== -1 && notifications[notifIndex].status === 'unread') {
                 notifications[notifIndex].status = 'read';
@@ -1786,7 +1845,7 @@
             toast.innerHTML = `<span aria-hidden="true">${type === 'success' ? '✅' : '⚠️'}</span> ${message}`;
             toast.setAttribute('aria-live', 'polite');
             document.body.appendChild(toast);
-            
+
             setTimeout(() => {
                 toast.style.animation = 'slideOut 0.4s cubic-bezier(0.4, 0, 0.2, 1)';
                 setTimeout(() => toast.remove(), 400);
@@ -1814,18 +1873,18 @@
         const sidebar = document.getElementById('sidebar');
         const overlay = document.getElementById('overlay');
 
-        menuToggle.addEventListener('click', function() {
+        menuToggle.addEventListener('click', function () {
             sidebar.classList.toggle('active');
             overlay.classList.toggle('active');
         });
 
-        overlay.addEventListener('click', function() {
+        overlay.addEventListener('click', function () {
             sidebar.classList.remove('active');
             overlay.classList.remove('active');
         });
 
         // Close modal on outside click
-        window.addEventListener('click', function(e) {
+        window.addEventListener('click', function (e) {
             const modal = document.getElementById('detailModal');
             if (e.target === modal) {
                 closeModal();
@@ -1833,13 +1892,13 @@
         });
 
         // Keyboard shortcuts
-        document.addEventListener('keydown', function(e) {
+        document.addEventListener('keydown', function (e) {
             if (e.key === 'Escape') {
                 closeModal();
                 sidebar.classList.remove('active');
                 overlay.classList.remove('active');
             }
-            
+
             if ((e.ctrlKey || e.metaKey) && e.key === 'a') {
                 e.preventDefault();
                 markAllAsRead();
@@ -1847,7 +1906,7 @@
         });
 
         // Responsive
-        window.addEventListener('resize', function() {
+        window.addEventListener('resize', function () {
             if (window.innerWidth > 768) {
                 sidebar.classList.remove('active');
                 overlay.classList.remove('active');
@@ -1855,13 +1914,13 @@
         });
 
         // Inisialisasi saat halaman dimuat
-        window.addEventListener('load', function() {
+        window.addEventListener('load', function () {
             const today = new Date().toISOString().split('T')[0];
             document.getElementById('dateFilter').max = today;
-            
+
             // Render notifikasi pertama kali
             renderNotifications();
-            
+
             console.log('✅ Halaman Notifikasi berhasil dimuat!');
             console.log('💡 Tips: Gunakan Ctrl/Cmd + A untuk menandai semua sebagai sudah dibaca');
             console.log('💡 Tips: Tekan ESC untuk menutup modal');
@@ -1873,4 +1932,5 @@
         }, 60000);
     </script>
 </body>
+
 </html>

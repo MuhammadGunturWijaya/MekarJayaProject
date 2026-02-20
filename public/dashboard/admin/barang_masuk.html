@@ -223,30 +223,51 @@
 <div class="overlay" id="overlay"></div>
 
 <aside class="sidebar" id="sidebar">
-    <div class="logo-section">
-        <span class="icon">🎣</span>
-        <div>
-            <h2>Mekar Jaya</h2>
-            <span class="badge">ADMIN</span>
+        <div class="logo-section">
+            <span class="icon">🎣</span>
+            <div>
+                <h2>Mekar Jaya</h2>
+                <span class="badge">ADMIN</span>
+            </div>
         </div>
-    </div>
-    <a href="../admin/kasir.html" class="menu-item"><span class="icon">🖥️</span><span>Kasir</span></a>
-    <div class="menu-section">
-        <div class="menu-label">Menu Utama</div>
-        <a href="../admin/dashboard.html" class="menu-item"><span class="icon">📊</span><span>Dashboard</span></a>
-        <a href="../admin/master_data.html" class="menu-item"><span class="icon">🧾</span><span>Master Data</span></a>
-        <a href="../admin/barang_masuk.html" class="menu-item active"><span class="icon">🚚</span><span>Barang Masuk</span></a>
-        <a href="../admin/barang_keluar.html" class="menu-item"><span class="icon">📦</span><span>Barang Keluar</span><span class="badge">8</span></a>
-        <a href="../admin/generate_laporan.html" class="menu-item"><span class="icon">📝</span><span>Generate Laporan</span></a>
-        <a href="../admin/riwayat_transaksi.html" class="menu-item"><span class="icon">📜</span><span>Riwayat Transaksi</span></a>
-    </div>
-    <div class="menu-section">
-        <div class="menu-label">Manajemen</div>
-        <a href="../admin/pengaturan.html" class="menu-item"><span class="icon">⚙️</span><span>Pengaturan</span></a>
-        <a href="../admin/notifikasi.html" class="menu-item"><span class="icon">🔔</span><span>Notifikasi</span></a>
-        <a href="#" class="menu-item"><span class="icon">🚪</span><span>Logout</span></a>
-    </div>
-</aside>
+        <a href="../admin/kasir.html" class="menu-item" data-loading="true">
+            <span class="icon">🖥️</span><span>Kasir</span>
+        </a>
+        <div class="menu-section">
+            <div class="menu-label">Menu Utama</div>
+            <a href="../admin/dashboard.html" class="menu-item" data-loading="true">
+                <span class="icon">📊</span><span>Dashboard</span>
+            </a>
+            <a href="../admin/master_data.html" class="menu-item" data-loading="true">
+                <span class="icon">🧾</span><span>Master Data</span>
+            </a>
+            <a href="../admin/barang_masuk.html" class="menu-item active" data-loading="true">
+                <span class="icon">🚚</span><span>Barang Masuk</span>
+            </a>
+            <a href="../admin/barang_keluar.html" class="menu-item " data-loading="true">
+                <span class="icon">📦</span><span>Barang Keluar</span>
+     
+            </a>
+            <a href="../admin/generate_laporan.html" class="menu-item" data-loading="true">
+                <span class="icon">📝</span><span>Generate Laporan</span>
+            </a>
+            <a href="../admin/riwayat_transaksi.html" class="menu-item" data-loading="true">
+                <span class="icon">📜</span><span>Riwayat Transaksi</span>
+            </a>
+        </div>
+        <div class="menu-section">
+            <div class="menu-label">Manajemen</div>
+            <a href="../admin/pengaturan.html" class="menu-item" data-loading="true">
+                <span class="icon">⚙️</span><span>Pengaturan</span>
+            </a>
+           <!-- <a href="../admin/notifikasi.html" class="menu-item" data-loading="true">
+                <span class="icon">🔔</span><span>Notifikasi</span>
+            </a> -->
+            <a href="#" class="menu-item" onclick="location.href='../pages/login.html'">
+                <span class="icon">🚪</span><span>Logout</span>
+            </a>
+        </div>
+    </aside>
 
 <main class="main-content" id="mainContent">
     <div class="header">

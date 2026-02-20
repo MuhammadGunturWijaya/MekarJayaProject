@@ -306,6 +306,7 @@
                 opacity: 0;
                 transform: translateY(10px);
             }
+
             to {
                 opacity: 1;
                 transform: translateY(0);
@@ -710,6 +711,7 @@
                 opacity: 0;
                 transform: scale(0.9) translateY(-20px);
             }
+
             to {
                 opacity: 1;
                 transform: scale(1) translateY(0);
@@ -887,54 +889,42 @@
                 <span class="badge">ADMIN</span>
             </div>
         </div>
-        <a href="../dashboard/kasir.html" class="menu-item" data-loading="true">
-            <span class="icon">🖥️</span>
-            <span>Kasir</span>
+        <a href="../admin/kasir.html" class="menu-item" data-loading="true">
+            <span class="icon">🖥️</span><span>Kasir</span>
         </a>
         <div class="menu-section">
             <div class="menu-label">Menu Utama</div>
-            <a href="#" class="menu-item ">
-                <span class="icon">📊</span>
-                <span>Dashboard</span>
+            <a href="../admin/dashboard.html" class="menu-item" data-loading="true">
+                <span class="icon">📊</span><span>Dashboard</span>
             </a>
-            <a href="../dashboard/master_data.html" class="menu-item" data-loading="true">
-                <span class="icon">🧾</span>
-                <span>Master Data</span>
+            <a href="../admin/master_data.html" class="menu-item" data-loading="true">
+                <span class="icon">🧾</span><span>Master Data</span>
             </a>
-            <a href="#" class="menu-item">
-                <span class="icon">🚚</span>
-                <span>Barang Masuk</span>
+            <a href="../admin/barang_masuk.html" class="menu-item " data-loading="true">
+                <span class="icon">🚚</span><span>Barang Masuk</span>
             </a>
-            <a href="#" class="menu-item">
-                <span class="icon">📦</span>
-                <span>Barang Keluar</span>
-                <span class="badge">8</span>
+            <a href="../admin/barang_keluar.html" class="menu-item " data-loading="true">
+                <span class="icon">📦</span><span>Barang Keluar</span>
+              
             </a>
-            <a href="../dashboard/generate_laporan.html" class="menu-item" data-loading="true">
-                <span class="icon">📝</span>
-                <span>Generate Laporan</span>
+            <a href="../admin/generate_laporan.html" class="menu-item" data-loading="true">
+                <span class="icon">📝</span><span>Generate Laporan</span>
             </a>
-            <a href="../dashboard/riwayat_transaksi.html" class="menu-item" data-loading="true">
-                <span class="icon">📜</span>
-                <span>Riwayat Transaksi</span>
+            <a href="../admin/riwayat_transaksi.html" class="menu-item" data-loading="true">
+                <span class="icon">📜</span><span>Riwayat Transaksi</span>
             </a>
         </div>
-
         <div class="menu-section">
             <div class="menu-label">Manajemen</div>
-            <a href="../dashboard/pengaturan.html" class="menu-item active" data-loading="true">
-                <span class="icon">⚙️</span>
-                <span>Pengaturan</span>
+            <a href="../admin/pengaturan.html" class="menu-item active" data-loading="true">
+                <span class="icon">⚙️</span><span>Pengaturan</span>
             </a>
-            <a href="#" class="menu-item">
-                <span class="icon">🔔</span>
-                <span>Notifikasi</span>
-            </a>
+           <!-- <a href="../admin/notifikasi.html" class="menu-item" data-loading="true">
+                <span class="icon">🔔</span><span>Notifikasi</span>
+            </a> -->
             <a href="#" class="menu-item" onclick="location.href='../pages/login.html'">
-                <span class="icon">🚪</span>
-                <span>Logout</span>
+                <span class="icon">🚪</span><span>Logout</span>
             </a>
-
         </div>
     </aside>
 
@@ -1606,18 +1596,18 @@
         const sidebar = document.getElementById('sidebar');
         const overlay = document.getElementById('overlay');
 
-        menuToggle.addEventListener('click', function() {
+        menuToggle.addEventListener('click', function () {
             sidebar.classList.toggle('active');
             overlay.classList.toggle('active');
         });
 
-        overlay.addEventListener('click', function() {
+        overlay.addEventListener('click', function () {
             sidebar.classList.remove('active');
             overlay.classList.remove('active');
         });
 
         // Prevent sidebar close when clicking inside
-        sidebar.addEventListener('click', function(e) {
+        sidebar.addEventListener('click', function (e) {
             e.stopPropagation();
         });
 
@@ -1626,7 +1616,7 @@
         const tabContents = document.querySelectorAll('.tab-content');
 
         tabBtns.forEach(btn => {
-            btn.addEventListener('click', function() {
+            btn.addEventListener('click', function () {
                 const targetTab = this.dataset.tab;
 
                 // Remove active class from all tabs
@@ -1676,7 +1666,7 @@
             }
 
             alert('✅ Password berhasil diubah!\n\nSilakan login kembali dengan password baru Anda.');
-            
+
             // Clear fields
             document.getElementById('oldPassword').value = '';
             document.getElementById('newPassword').value = '';
@@ -1687,7 +1677,7 @@
         function savePreferences() {
             const theme = document.getElementById('theme').value;
             const language = document.getElementById('language').value;
-            
+
             alert('✅ Preferensi berhasil disimpan!\n\nTema: ' + theme + '\nBahasa: ' + (language === 'id' ? 'Indonesia' : 'English'));
         }
 
@@ -1756,14 +1746,14 @@
             document.getElementById('empJoinDate').value = '';
             document.getElementById('empAddress').value = '';
             document.getElementById('empPassword').value = '';
-            
+
             openModal('employeeModal');
         }
 
         // Edit Employee
         function editEmployee(empId) {
             document.getElementById('modalTitle').innerHTML = '✏️ Edit Data Pegawai';
-            
+
             // In real application, load employee data based on empId
             // For demo, populate with sample data
             document.getElementById('empName').value = 'Budi Santoso';
@@ -1775,7 +1765,7 @@
             document.getElementById('empSalary').value = '4500000';
             document.getElementById('empJoinDate').value = '2023-01-15';
             document.getElementById('empAddress').value = 'Jl. Merdeka No. 45, Jember, Jawa Timur';
-            
+
             closeModal('viewModal');
             openModal('employeeModal');
         }
@@ -1807,7 +1797,7 @@
             }
 
             closeModal('employeeModal');
-            
+
             // In real application, refresh employee list
         }
 
@@ -1819,7 +1809,7 @@
                 card.style.opacity = '0';
                 card.style.transform = 'scale(0.9) translateX(-20px)';
                 card.style.transition = 'all 0.4s ease';
-                
+
                 setTimeout(() => {
                     card.remove();
                     alert('✅ Pegawai ' + empName + ' berhasil dihapus!');
@@ -1829,7 +1819,7 @@
 
         // Logout
         const logoutBtn = document.querySelector('.logout-btn');
-        logoutBtn.addEventListener('click', function() {
+        logoutBtn.addEventListener('click', function () {
             if (confirm('🚪 Apakah Anda yakin ingin keluar?')) {
                 alert('✅ Logout berhasil! Sampai jumpa! 👋');
                 // window.location.href = '../pages/login.html';
@@ -1837,7 +1827,7 @@
         });
 
         // Close modal when clicking outside
-        window.addEventListener('click', function(e) {
+        window.addEventListener('click', function (e) {
             const modals = document.querySelectorAll('.modal');
             modals.forEach(modal => {
                 if (e.target === modal) {
@@ -1848,32 +1838,32 @@
 
         // Upload photo simulation
         const uploadBtn = document.querySelector('.upload-btn');
-        uploadBtn.addEventListener('click', function() {
+        uploadBtn.addEventListener('click', function () {
             const input = document.createElement('input');
             input.type = 'file';
             input.accept = 'image/*';
-            
-            input.onchange = function(e) {
+
+            input.onchange = function (e) {
                 const file = e.target.files[0];
                 if (file) {
                     if (file.size > 2 * 1024 * 1024) {
                         alert('❌ Ukuran file terlalu besar! Maksimal 2MB.');
                         return;
                     }
-                    
+
                     const reader = new FileReader();
-                    reader.onload = function(event) {
+                    reader.onload = function (event) {
                         alert('✅ Foto berhasil diupload!\n\nFile: ' + file.name + '\nUkuran: ' + (file.size / 1024).toFixed(2) + ' KB');
                     };
                     reader.readAsDataURL(file);
                 }
             };
-            
+
             input.click();
         });
 
         // Responsive menu
-        window.addEventListener('resize', function() {
+        window.addEventListener('resize', function () {
             if (window.innerWidth > 768) {
                 sidebar.classList.remove('active');
                 overlay.classList.remove('active');
@@ -1883,17 +1873,17 @@
         // Menu items navigation
         const menuItems = document.querySelectorAll('.menu-item');
         menuItems.forEach(item => {
-            item.addEventListener('click', function(e) {
+            item.addEventListener('click', function (e) {
                 if (!this.classList.contains('active')) {
                     // For demo purposes, prevent navigation
                     e.preventDefault();
-                    
+
                     // Remove active from all items
                     menuItems.forEach(i => i.classList.remove('active'));
-                    
+
                     // Add active to clicked item
                     this.classList.add('active');
-                    
+
                     if (window.innerWidth <= 768) {
                         sidebar.classList.remove('active');
                         overlay.classList.remove('active');
@@ -1908,7 +1898,7 @@
         // Auto-format phone number
         const phoneInputs = document.querySelectorAll('input[type="tel"]');
         phoneInputs.forEach(input => {
-            input.addEventListener('input', function(e) {
+            input.addEventListener('input', function (e) {
                 let value = e.target.value.replace(/\D/g, '');
                 if (value.startsWith('62')) {
                     value = value.substring(2);
@@ -1926,7 +1916,7 @@
         });
 
         // Show success message on page load (optional)
-        window.addEventListener('load', function() {
+        window.addEventListener('load', function () {
             console.log('✅ Halaman Pengaturan berhasil dimuat!');
         });
     </script>

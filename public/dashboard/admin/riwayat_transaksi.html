@@ -351,18 +351,6 @@
             background: rgba(14, 116, 144, 0.2);
         }
 
-        .filter-btn.export {
-            background: linear-gradient(135deg, #10b981, #059669);
-            color: white;
-            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
-            margin-left: auto;
-        }
-
-        .filter-btn.export:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
-        }
-
         /* Transaction Table */
         .transaction-section {
             background: rgba(255, 255, 255, 0.95);
@@ -533,15 +521,6 @@
 
         .action-btn.view:hover {
             background: rgba(14, 116, 144, 0.2);
-        }
-
-        .action-btn.print {
-            background: rgba(99, 102, 241, 0.1);
-            color: #4f46e5;
-        }
-
-        .action-btn.print:hover {
-            background: rgba(99, 102, 241, 0.2);
         }
 
         /* Card View */
@@ -862,16 +841,12 @@
                 flex-direction: column;
             }
 
-            .filter-btn.export {
-                margin-left: 0;
-            }
-
             .table-container {
                 overflow-x: scroll;
             }
 
             table {
-                min-width: 800px;
+                min-width: 700px;
             }
 
             .transaction-cards {
@@ -937,51 +912,41 @@
                 <span class="badge">ADMIN</span>
             </div>
         </div>
-        <a href="#" class="menu-item" onclick="location.href='kasir.html'">
-            <span class="icon">🖥️</span>
-            <span>Kasir</span>
+        <a href="../admin/kasir.html" class="menu-item" data-loading="true">
+            <span class="icon">🖥️</span><span>Kasir</span>
         </a>
         <div class="menu-section">
             <div class="menu-label">Menu Utama</div>
-            <a href="#" class="menu-item" onclick="location.href='dashboard.html'">
-                <span class="icon">📊</span>
-                <span>Dashboard</span>
+            <a href="../admin/dashboard.html" class="menu-item" data-loading="true">
+                <span class="icon">📊</span><span>Dashboard</span>
             </a>
-            <a href="#" class="menu-item">
-                <span class="icon">🧾</span>
-                <span>Master Data</span>
+            <a href="../admin/master_data.html" class="menu-item" data-loading="true">
+                <span class="icon">🧾</span><span>Master Data</span>
             </a>
-            <a href="#" class="menu-item">
-                <span class="icon">🚚</span>
-                <span>Barang Masuk</span>
+            <a href="../admin/barang_masuk.html" class="menu-item" data-loading="true">
+                <span class="icon">🚚</span><span>Barang Masuk</span>
             </a>
-            <a href="#" class="menu-item">
-                <span class="icon">📦</span>
-                <span>Barang Keluar</span>
+            <a href="../admin/barang_keluar.html" class="menu-item " data-loading="true">
+                <span class="icon">📦</span><span>Barang Keluar</span>
+              
             </a>
-            <a href="#" class="menu-item">
-                <span class="icon">📝</span>
-                <span>Generate Laporan</span>
+            <a href="../admin/generate_laporan.html" class="menu-item" data-loading="true">
+                <span class="icon">📝</span><span>Generate Laporan</span>
             </a>
-            <a href="#" class="menu-item active">
-                <span class="icon">📜</span>
-                <span>Riwayat Transaksi</span>
+            <a href="../admin/riwayat_transaksi.html" class="menu-item active" data-loading="true">
+                <span class="icon">📜</span><span>Riwayat Transaksi</span>
             </a>
         </div>
-
         <div class="menu-section">
             <div class="menu-label">Manajemen</div>
-            <a href="#" class="menu-item">
-                <span class="icon">⚙️</span>
-                <span>Pengaturan</span>
+            <a href="../admin/pengaturan.html" class="menu-item" data-loading="true">
+                <span class="icon">⚙️</span><span>Pengaturan</span>
             </a>
-            <a href="#" class="menu-item">
-                <span class="icon">🔔</span>
-                <span>Notifikasi</span>
-            </a>
-            <a href="#" class="menu-item" onclick="location.href='login.html'">
-                <span class="icon">🚪</span>
-                <span>Logout</span>
+           <!-- <a href="../admin/notifikasi.html" class="menu-item" data-loading="true">
+                <span class="icon">🔔</span><span>Notifikasi</span>
+            </a> -->
+            <a href="#" class="menu-item" onclick="location.href='../pages/login.html'">
+                <span class="icon">🚪</span><span>Logout</span>
             </a>
         </div>
     </aside>
@@ -997,7 +962,7 @@
             <button class="menu-toggle" id="menuToggle">☰</button>
         </div>
 
-        <!-- Stats Cards -->
+        <!-- Stats Cards (hanya 2: Total Pendapatan & Total Transaksi) -->
         <div class="stats-grid">
             <div class="stat-card">
                 <div class="stat-header">
@@ -1014,22 +979,6 @@
                 </div>
                 <div class="stat-value" id="totalTransactions">0</div>
                 <div class="stat-label">Total Transaksi</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-header">
-                    <div class="stat-icon">📦</div>
-                    <div class="stat-trend down">↓ 3%</div>
-                </div>
-                <div class="stat-value" id="totalItems">0</div>
-                <div class="stat-label">Total Item Terjual</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-header">
-                    <div class="stat-icon">📈</div>
-                    <div class="stat-trend up">↑ 15%</div>
-                </div>
-                <div class="stat-value" id="avgTransaction">Rp 0</div>
-                <div class="stat-label">Rata-rata Transaksi</div>
             </div>
         </div>
 
@@ -1056,7 +1005,8 @@
                 </div>
                 <div class="filter-group">
                     <label class="filter-label">Cari Transaksi</label>
-                    <input type="text" class="filter-input" id="searchTransaction" placeholder="ID, nama, atau telepon...">
+                    <input type="text" class="filter-input" id="searchTransaction"
+                        placeholder="ID, nama, atau telepon...">
                 </div>
             </div>
             <div class="filter-actions">
@@ -1065,9 +1015,6 @@
                 </button>
                 <button class="filter-btn secondary" id="resetFilter">
                     🔄 Reset
-                </button>
-                <button class="filter-btn export" id="exportBtn">
-                    📥 Export Excel
                 </button>
             </div>
         </div>
@@ -1190,9 +1137,6 @@
             </div>
 
             <div class="filter-actions">
-                <button class="filter-btn primary" id="printDetailBtn">
-                    🖨️ Print Struk
-                </button>
                 <button class="filter-btn secondary" id="closeDetailBtn">
                     Tutup
                 </button>
@@ -1332,14 +1276,12 @@
         const searchTransaction = document.getElementById('searchTransaction');
         const applyFilterBtn = document.getElementById('applyFilter');
         const resetFilterBtn = document.getElementById('resetFilter');
-        const exportBtn = document.getElementById('exportBtn');
         const tableView = document.getElementById('tableView');
         const cardView = document.getElementById('cardView');
         const viewBtns = document.querySelectorAll('.view-btn');
         const detailModal = document.getElementById('detailModal');
         const closeModal = document.getElementById('closeModal');
         const closeDetailBtn = document.getElementById('closeDetailBtn');
-        const printDetailBtn = document.getElementById('printDetailBtn');
 
         // Initialize
         setDefaultDates();
@@ -1360,15 +1302,9 @@
         function updateStats() {
             const totalRevenue = filteredData.reduce((sum, t) => sum + t.total, 0);
             const totalTransactions = filteredData.length;
-            const totalItems = filteredData.reduce((sum, t) => 
-                sum + t.items.reduce((itemSum, item) => itemSum + item.quantity, 0), 0
-            );
-            const avgTransaction = totalTransactions > 0 ? totalRevenue / totalTransactions : 0;
 
             document.getElementById('totalRevenue').textContent = formatCurrency(totalRevenue);
             document.getElementById('totalTransactions').textContent = totalTransactions;
-            document.getElementById('totalItems').textContent = totalItems;
-            document.getElementById('avgTransaction').textContent = formatCurrency(avgTransaction);
         }
 
         // Format Currency
@@ -1412,7 +1348,7 @@
         // Render Table View
         function renderTableView() {
             const tbody = document.getElementById('transactionTableBody');
-            
+
             if (filteredData.length === 0) {
                 tbody.innerHTML = `
                     <tr>
@@ -1450,9 +1386,6 @@
                             <button class="action-btn view" onclick="viewDetail('${transaction.id}')">
                                 👁️ Lihat
                             </button>
-                            <button class="action-btn print" onclick="printReceipt('${transaction.id}')">
-                                🖨️ Print
-                            </button>
                         </div>
                     </td>
                 </tr>
@@ -1462,7 +1395,7 @@
         // Render Card View
         function renderCardView() {
             const container = document.getElementById('cardView');
-            
+
             if (filteredData.length === 0) {
                 container.innerHTML = `
                     <div class="empty-state" style="grid-column: 1/-1;">
@@ -1498,9 +1431,6 @@
                             <button class="action-btn view" onclick="viewDetail('${transaction.id}')">
                                 👁️ Lihat
                             </button>
-                            <button class="action-btn print" onclick="printReceipt('${transaction.id}')">
-                                🖨️
-                            </button>
                         </div>
                     </div>
                 </div>
@@ -1511,7 +1441,7 @@
         function renderPagination() {
             const totalPages = Math.ceil(filteredData.length / itemsPerPage);
             document.getElementById('pageInfo').textContent = `Halaman ${currentPage} dari ${totalPages}`;
-            
+
             document.getElementById('prevPage').disabled = currentPage === 1;
             document.getElementById('nextPage').disabled = currentPage === totalPages || totalPages === 0;
         }
@@ -1526,7 +1456,7 @@
             document.getElementById('detailCustomer').textContent = transaction.customer.name;
             document.getElementById('detailPhone').textContent = transaction.customer.phone;
             document.getElementById('detailCashier').textContent = transaction.cashier;
-            
+
             const paymentNames = {
                 cash: 'Tunai',
                 card: 'Kartu Debit/Kredit',
@@ -1552,19 +1482,13 @@
             detailModal.classList.add('active');
         }
 
-        // Print Receipt
-        function printReceipt(transactionId) {
-            alert(`🖨️ Mencetak struk untuk ${transactionId}...\n\nFitur print akan segera tersedia!`);
-        }
-
         // Apply Filter
         applyFilterBtn.addEventListener('click', () => {
             filteredData = transactionsData.filter(transaction => {
-                // Date filter
                 const transactionDate = new Date(transaction.date);
                 const start = startDate.valueAsDate;
                 const end = endDate.valueAsDate;
-                
+
                 if (start && transactionDate < start) return false;
                 if (end) {
                     const endOfDay = new Date(end);
@@ -1572,17 +1496,15 @@
                     if (transactionDate > endOfDay) return false;
                 }
 
-                // Payment filter
                 if (paymentFilter.value && transaction.payment !== paymentFilter.value) {
                     return false;
                 }
 
-                // Search filter
                 const searchTerm = searchTransaction.value.toLowerCase();
                 if (searchTerm) {
                     return transaction.id.toLowerCase().includes(searchTerm) ||
-                           transaction.customer.name.toLowerCase().includes(searchTerm) ||
-                           transaction.customer.phone.includes(searchTerm);
+                        transaction.customer.name.toLowerCase().includes(searchTerm) ||
+                        transaction.customer.phone.includes(searchTerm);
                 }
 
                 return true;
@@ -1604,19 +1526,14 @@
             renderTransactions();
         });
 
-        // Export to Excel
-        exportBtn.addEventListener('click', () => {
-            alert('📥 Export ke Excel\n\nFitur export akan segera tersedia!\n\nData akan diexport dalam format Excel (.xlsx)');
-        });
-
         // View Toggle
         viewBtns.forEach(btn => {
             btn.addEventListener('click', () => {
                 viewBtns.forEach(b => b.classList.remove('active'));
                 btn.classList.add('active');
-                
+
                 currentView = btn.dataset.view;
-                
+
                 if (currentView === 'table') {
                     tableView.style.display = 'block';
                     cardView.classList.remove('active');
@@ -1624,7 +1541,7 @@
                     tableView.style.display = 'none';
                     cardView.classList.add('active');
                 }
-                
+
                 renderTransactions();
             });
         });
@@ -1660,12 +1577,6 @@
             }
         });
 
-        // Print from Detail
-        printDetailBtn.addEventListener('click', () => {
-            const transactionId = document.getElementById('detailId').textContent;
-            printReceipt(transactionId);
-        });
-
         // Sidebar Toggle
         menuToggle.addEventListener('click', () => {
             sidebar.classList.toggle('active');
@@ -1679,27 +1590,17 @@
 
         // Keyboard Shortcuts
         document.addEventListener('keydown', (e) => {
-            // ESC to close modal
             if (e.key === 'Escape' && detailModal.classList.contains('active')) {
                 detailModal.classList.remove('active');
             }
-
-            // Ctrl/Cmd + F to focus search
             if ((e.ctrlKey || e.metaKey) && e.key === 'f') {
                 e.preventDefault();
                 searchTransaction.focus();
-            }
-
-            // Ctrl/Cmd + E to export
-            if ((e.ctrlKey || e.metaKey) && e.key === 'e') {
-                e.preventDefault();
-                exportBtn.click();
             }
         });
 
         // Real-time search
         searchTransaction.addEventListener('input', () => {
-            // Debounce implementation could be added here
             applyFilterBtn.click();
         });
     </script>

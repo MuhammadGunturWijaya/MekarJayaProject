@@ -6,18 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kasir - Mekar Jaya</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html,
-        body {
-            height: 100%;
-            overflow-x: hidden;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html, body { height: 100%; overflow-x: hidden; }
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
             background: linear-gradient(135deg, #0c4a6e 0%, #0e7490 50%, #06b6d4 100%);
@@ -25,933 +15,344 @@
         }
 
         .sidebar {
-            position: fixed;
-            left: 0;
-            top: 0;
-            width: 280px;
-            height: 100vh;
+            position: fixed; left: 0; top: 0; width: 280px; height: 100vh;
             background: linear-gradient(180deg, #164e63 0%, #0e7490 100%);
-            padding: 25px 20px;
-            z-index: 1000;
-            transition: transform 0.3s ease;
-            overflow-y: auto;
-            box-shadow: 4px 0 20px rgba(0, 0, 0, 0.2);
+            padding: 25px 20px; z-index: 1000; transition: transform 0.3s ease;
+            overflow-y: auto; box-shadow: 4px 0 20px rgba(0,0,0,0.2);
         }
-
-        .sidebar.hidden {
-            transform: translateX(-100%);
-        }
+        .sidebar.hidden { transform: translateX(-100%); }
 
         .logo-section {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            padding: 20px 15px;
-            margin-bottom: 35px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 20px;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            display: flex; align-items: center; gap: 15px;
+            padding: 20px 15px; margin-bottom: 35px;
+            background: rgba(255,255,255,0.1); border-radius: 20px;
+            backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.2);
         }
-
-        .logo-section .icon {
-            font-size: 36px;
-            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
-        }
-
-        .logo-section h2 {
-            color: white;
-            font-size: 22px;
-            font-weight: 700;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-        }
-
+        .logo-section .icon { font-size: 36px; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3)); }
+        .logo-section h2 { color: white; font-size: 22px; font-weight: 700; text-shadow: 0 2px 4px rgba(0,0,0,0.2); }
         .logo-section .badge {
-            background: linear-gradient(135deg, #22d3ee, #06b6d4);
-            color: white;
-            font-size: 10px;
-            padding: 4px 10px;
-            border-radius: 8px;
-            font-weight: 700;
-            box-shadow: 0 2px 8px rgba(34, 211, 238, 0.4);
+            background: linear-gradient(135deg, #22d3ee, #06b6d4); color: white;
+            font-size: 10px; padding: 4px 10px; border-radius: 8px; font-weight: 700;
+            box-shadow: 0 2px 8px rgba(34,211,238,0.4);
         }
 
-        .menu-section {
-            margin-bottom: 30px;
-        }
-
+        .menu-section { margin-bottom: 30px; }
         .menu-label {
-            color: rgba(255, 255, 255, 0.5);
-            font-size: 11px;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            padding: 0 15px;
-            margin-bottom: 12px;
+            color: rgba(255,255,255,0.5); font-size: 11px; font-weight: 600;
+            text-transform: uppercase; letter-spacing: 1px; padding: 0 15px; margin-bottom: 12px;
         }
-
         .menu-item {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            padding: 14px 18px;
-            color: rgba(255, 255, 255, 0.8);
-            text-decoration: none;
-            border-radius: 15px;
-            margin-bottom: 6px;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            cursor: pointer;
-            font-size: 15px;
-            position: relative;
+            display: flex; align-items: center; gap: 15px; padding: 14px 18px;
+            color: rgba(255,255,255,0.8); text-decoration: none; border-radius: 15px;
+            margin-bottom: 6px; transition: all 0.3s cubic-bezier(0.4,0,0.2,1);
+            cursor: pointer; font-size: 15px; position: relative;
         }
-
-        .menu-item:hover {
-            background: rgba(255, 255, 255, 0.15);
-            color: white;
-            transform: translateX(5px);
-        }
-
+        .menu-item:hover { background: rgba(255,255,255,0.15); color: white; transform: translateX(5px); }
         .menu-item.active {
-            background: linear-gradient(135deg, rgba(34, 211, 238, 0.3), rgba(6, 182, 212, 0.2));
-            color: white;
-            font-weight: 600;
-            box-shadow: 0 4px 15px rgba(34, 211, 238, 0.3);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: linear-gradient(135deg, rgba(34,211,238,0.3), rgba(6,182,212,0.2));
+            color: white; font-weight: 600; box-shadow: 0 4px 15px rgba(34,211,238,0.3);
+            border: 1px solid rgba(255,255,255,0.2);
         }
+        .menu-item .icon { font-size: 22px; width: 28px; text-align: center; }
 
-        .menu-item .icon {
-            font-size: 22px;
-            width: 28px;
-            text-align: center;
-        }
-
-        .main-content {
-            margin-left: 280px;
-            padding: 25px;
-            min-height: 100vh;
-            transition: margin-left 0.3s ease;
-        }
-
-        .main-content.expanded {
-            margin-left: 0;
-        }
+        .main-content { margin-left: 280px; padding: 25px; min-height: 100vh; transition: margin-left 0.3s ease; }
+        .main-content.expanded { margin-left: 0; }
 
         .header {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            padding: 25px 30px;
-            border-radius: 20px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-            margin-bottom: 25px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border: 1px solid rgba(255, 255, 255, 0.5);
+            background: rgba(255,255,255,0.95); backdrop-filter: blur(10px);
+            padding: 25px 30px; border-radius: 20px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1); margin-bottom: 25px;
+            display: flex; justify-content: space-between; align-items: center;
+            border: 1px solid rgba(255,255,255,0.5);
         }
-
         .header-left h1 {
             background: linear-gradient(135deg, #0c4a6e, #06b6d4);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            font-size: 28px;
-            margin-bottom: 6px;
-            font-weight: 800;
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            font-size: 28px; margin-bottom: 6px; font-weight: 800;
         }
-
-        .header-left p {
-            color: #64748b;
-            font-size: 15px;
-        }
+        .header-left p { color: #64748b; font-size: 15px; }
 
         .menu-toggle {
-            display: none;
-            background: linear-gradient(135deg, #0e7490, #06b6d4);
-            border: none;
-            color: white;
-            padding: 12px 18px;
-            border-radius: 15px;
-            cursor: pointer;
-            font-size: 20px;
-            box-shadow: 0 4px 15px rgba(14, 116, 144, 0.3);
+            display: none; background: linear-gradient(135deg, #0e7490, #06b6d4);
+            border: none; color: white; padding: 12px 18px; border-radius: 15px;
+            cursor: pointer; font-size: 20px; box-shadow: 0 4px 15px rgba(14,116,144,0.3);
         }
 
         .kasir-container {
-            display: grid;
-            grid-template-columns: 2fr 1fr;
-            gap: 20px;
-            height: calc(100vh - 180px);
-            max-height: calc(100vh - 180px);
+            display: grid; grid-template-columns: 2fr 1fr; gap: 20px;
+            height: calc(100vh - 180px); max-height: calc(100vh - 180px);
         }
 
         .product-section {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            padding: 25px;
-            border-radius: 20px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.5);
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
+            background: rgba(255,255,255,0.95); backdrop-filter: blur(10px);
+            padding: 25px; border-radius: 20px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1); border: 1px solid rgba(255,255,255,0.5);
+            display: flex; flex-direction: column; overflow: hidden;
         }
 
-        .search-product {
-            position: relative;
-            margin-bottom: 20px;
-            flex-shrink: 0;
-        }
-
+        .search-product { position: relative; margin-bottom: 20px; flex-shrink: 0; }
         .search-product input {
-            width: 100%;
-            padding: 15px 20px 15px 50px;
-            border: 2px solid rgba(14, 116, 144, 0.2);
-            border-radius: 15px;
-            font-size: 15px;
-            transition: all 0.3s;
-            background: rgba(255, 255, 255, 0.9);
+            width: 100%; padding: 15px 20px 15px 50px;
+            border: 2px solid rgba(14,116,144,0.2); border-radius: 15px;
+            font-size: 15px; transition: all 0.3s; background: rgba(255,255,255,0.9);
         }
-
         .search-product input:focus {
-            outline: none;
-            border-color: #0e7490;
-            box-shadow: 0 0 0 4px rgba(14, 116, 144, 0.1);
+            outline: none; border-color: #0e7490; box-shadow: 0 0 0 4px rgba(14,116,144,0.1);
         }
-
         .search-product .icon {
-            position: absolute;
-            left: 18px;
-            top: 50%;
-            transform: translateY(-50%);
-            font-size: 20px;
-            color: #64748b;
+            position: absolute; left: 18px; top: 50%; transform: translateY(-50%);
+            font-size: 20px; color: #64748b;
         }
 
         .category-tabs {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 20px;
-            overflow-x: auto;
-            padding-bottom: 5px;
-            flex-shrink: 0;
+            display: flex; gap: 10px; margin-bottom: 20px;
+            overflow-x: auto; padding-bottom: 5px; flex-shrink: 0;
         }
-
         .category-tab {
-            padding: 10px 20px;
-            border: 2px solid rgba(14, 116, 144, 0.2);
-            border-radius: 12px;
-            background: white;
-            cursor: pointer;
-            transition: all 0.3s;
-            white-space: nowrap;
-            font-size: 14px;
-            font-weight: 600;
-            color: #475569;
+            padding: 10px 20px; border: 2px solid rgba(14,116,144,0.2);
+            border-radius: 12px; background: white; cursor: pointer;
+            transition: all 0.3s; white-space: nowrap; font-size: 14px;
+            font-weight: 600; color: #475569;
         }
-
-        .category-tab:hover {
-            border-color: #0e7490;
-            background: rgba(14, 116, 144, 0.05);
-        }
-
+        .category-tab:hover { border-color: #0e7490; background: rgba(14,116,144,0.05); }
         .category-tab.active {
-            background: linear-gradient(135deg, #0e7490, #06b6d4);
-            color: white;
-            border-color: transparent;
-            box-shadow: 0 4px 15px rgba(14, 116, 144, 0.3);
+            background: linear-gradient(135deg, #0e7490, #06b6d4); color: white;
+            border-color: transparent; box-shadow: 0 4px 15px rgba(14,116,144,0.3);
         }
 
         .product-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-            gap: 15px;
-            overflow-y: auto;
-            flex: 1;
-            padding-right: 5px;
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            gap: 15px; overflow-y: auto; flex: 1; padding-right: 5px;
         }
-
         .product-card {
-            background: white;
-            border: 2px solid rgba(14, 116, 144, 0.1);
-            border-radius: 15px;
-            padding: 15px;
-            cursor: pointer;
-            transition: all 0.3s;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            min-height: 180px;
-            max-height: 180px;
+            background: white; border: 2px solid rgba(14,116,144,0.1); border-radius: 15px;
+            padding: 15px; cursor: pointer; transition: all 0.3s;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            min-height: 180px; max-height: 180px;
         }
-
         .product-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 25px rgba(14, 116, 144, 0.2);
+            transform: translateY(-5px); box-shadow: 0 8px 25px rgba(14,116,144,0.2);
             border-color: #0e7490;
         }
-
-        .product-icon {
-            font-size: 40px;
-            text-align: center;
-            margin-bottom: 8px;
-        }
-
+        .product-icon { font-size: 40px; text-align: center; margin-bottom: 8px; }
         .product-name {
-            font-size: 13px;
-            font-weight: 600;
-            color: #0c4a6e;
-            margin-bottom: 6px;
-            text-align: center;
-            line-height: 1.3;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
+            font-size: 13px; font-weight: 600; color: #0c4a6e; margin-bottom: 6px;
+            text-align: center; line-height: 1.3; overflow: hidden; text-overflow: ellipsis;
+            display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;
         }
-
-        .product-price {
-            font-size: 14px;
-            font-weight: 700;
-            color: #0e7490;
-            text-align: center;
-            margin-bottom: 4px;
-        }
-
-        .product-stock {
-            font-size: 11px;
-            color: #64748b;
-            text-align: center;
-        }
+        .product-price { font-size: 14px; font-weight: 700; color: #0e7490; text-align: center; margin-bottom: 4px; }
+        .product-stock { font-size: 11px; color: #64748b; text-align: center; }
 
         .cart-section {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            padding: 25px;
-            border-radius: 20px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.5);
-            display: flex;
-            flex-direction: column;
-            max-height: 100%;
-            overflow: hidden;
-            overflow-y: auto;
-            scrollbar-width: none;
+            background: rgba(255,255,255,0.95); backdrop-filter: blur(10px);
+            padding: 25px; border-radius: 20px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1); border: 1px solid rgba(255,255,255,0.5);
+            display: flex; flex-direction: column; max-height: 100%;
+            overflow: hidden; overflow-y: auto; scrollbar-width: none;
         }
-
         .cart-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-            flex-shrink: 0;
+            display: flex; justify-content: space-between; align-items: center;
+            margin-bottom: 20px; flex-shrink: 0;
         }
-
-        .cart-header h3 {
-            color: #0c4a6e;
-            font-size: 20px;
-            font-weight: 800;
-        }
-
+        .cart-header h3 { color: #0c4a6e; font-size: 20px; font-weight: 800; }
         .clear-cart-btn {
-            background: rgba(244, 63, 94, 0.1);
-            border: none;
-            color: #e11d48;
-            padding: 8px 15px;
-            border-radius: 10px;
-            cursor: pointer;
-            font-size: 13px;
-            font-weight: 600;
-            transition: all 0.3s;
+            background: rgba(244,63,94,0.1); border: none; color: #e11d48;
+            padding: 8px 15px; border-radius: 10px; cursor: pointer;
+            font-size: 13px; font-weight: 600; transition: all 0.3s;
         }
+        .clear-cart-btn:hover { background: rgba(244,63,94,0.2); transform: scale(1.05); }
 
-        .clear-cart-btn:hover {
-            background: rgba(244, 63, 94, 0.2);
-            transform: scale(1.05);
-        }
-
-        .cart-items {
-            flex: 1;
-            overflow-y: auto;
-            margin-bottom: 20px;
-            padding-right: 5px;
-            min-height: 200px;
-        }
-
+        .cart-items { flex: 1; overflow-y: auto; margin-bottom: 20px; padding-right: 5px; min-height: 200px; }
         .cart-item {
-            background: white;
-            border: 1px solid rgba(14, 116, 144, 0.1);
-            border-radius: 12px;
-            padding: 12px;
-            margin-bottom: 10px;
-            transition: all 0.3s;
+            background: white; border: 1px solid rgba(14,116,144,0.1);
+            border-radius: 12px; padding: 12px; margin-bottom: 10px; transition: all 0.3s;
         }
+        .cart-item:hover { box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        .cart-item-header { display: flex; justify-content: space-between; align-items: start; margin-bottom: 10px; }
+        .cart-item-name { font-size: 14px; font-weight: 600; color: #0c4a6e; }
+        .cart-item-price { font-size: 13px; color: #0e7490; font-weight: 700; }
+        .cart-item-controls { display: flex; justify-content: space-between; align-items: center; }
 
-        .cart-item:hover {
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-        }
-
-        .cart-item-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: start;
-            margin-bottom: 10px;
-        }
-
-        .cart-item-name {
-            font-size: 14px;
-            font-weight: 600;
-            color: #0c4a6e;
-        }
-
-        .cart-item-price {
-            font-size: 13px;
-            color: #0e7490;
-            font-weight: 700;
-        }
-
-        .cart-item-controls {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .quantity-control {
-            display: flex;
-            gap: 8px;
-            align-items: center;
-        }
-
+        .quantity-control { display: flex; gap: 8px; align-items: center; }
         .qty-btn {
-            background: linear-gradient(135deg, #0e7490, #06b6d4);
-            border: none;
-            color: white;
-            width: 28px;
-            height: 28px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 16px;
-            font-weight: 700;
-            transition: all 0.3s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            background: linear-gradient(135deg, #0e7490, #06b6d4); border: none;
+            color: white; width: 28px; height: 28px; border-radius: 8px;
+            cursor: pointer; font-size: 16px; font-weight: 700; transition: all 0.3s;
+            display: flex; align-items: center; justify-content: center;
         }
-
-        .qty-btn:hover {
-            transform: scale(1.1);
-            box-shadow: 0 4px 12px rgba(14, 116, 144, 0.3);
-        }
-
-        .qty-display {
-            font-size: 14px;
-            font-weight: 600;
-            color: #0c4a6e;
-            min-width: 30px;
-            text-align: center;
-        }
+        .qty-btn:hover { transform: scale(1.1); box-shadow: 0 4px 12px rgba(14,116,144,0.3); }
+        .qty-display { font-size: 14px; font-weight: 600; color: #0c4a6e; min-width: 30px; text-align: center; }
 
         .remove-item-btn {
-            background: rgba(244, 63, 94, 0.1);
-            border: none;
-            color: #e11d48;
-            padding: 6px 10px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 12px;
-            font-weight: 600;
-            transition: all 0.3s;
+            background: rgba(244,63,94,0.1); border: none; color: #e11d48;
+            padding: 6px 10px; border-radius: 8px; cursor: pointer;
+            font-size: 12px; font-weight: 600; transition: all 0.3s;
         }
+        .remove-item-btn:hover { background: rgba(244,63,94,0.2); }
+        .cart-item-subtotal { font-size: 13px; color: #64748b; font-weight: 600; }
 
-        .remove-item-btn:hover {
-            background: rgba(244, 63, 94, 0.2);
-        }
+        .cart-empty { text-align: center; padding: 40px 20px; color: #94a3b8; }
+        .cart-empty-icon { font-size: 60px; margin-bottom: 15px; }
 
-        .cart-item-subtotal {
-            font-size: 13px;
-            color: #64748b;
-            font-weight: 600;
-        }
-
-        .cart-empty {
-            text-align: center;
-            padding: 40px 20px;
-            color: #94a3b8;
-        }
-
-        .cart-empty-icon {
-            font-size: 60px;
-            margin-bottom: 15px;
-        }
-
-        .cart-summary {
-            border-top: 2px solid rgba(14, 116, 144, 0.1);
-            padding-top: 20px;
-            flex-shrink: 0;
-        }
-
-        .summary-row {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 12px;
-            font-size: 14px;
-        }
-
+        .cart-summary { border-top: 2px solid rgba(14,116,144,0.1); padding-top: 20px; flex-shrink: 0; }
+        .summary-row { display: flex; justify-content: space-between; margin-bottom: 12px; font-size: 14px; }
         .summary-row.total {
-            font-size: 18px;
-            font-weight: 800;
-            color: #0c4a6e;
-            padding-top: 12px;
-            border-top: 2px solid rgba(14, 116, 144, 0.2);
+            font-size: 18px; font-weight: 800; color: #0c4a6e;
+            padding-top: 12px; border-top: 2px solid rgba(14,116,144,0.2);
         }
+        .summary-label { color: #64748b; }
+        .summary-value { color: #0e7490; font-weight: 600; }
 
-        .summary-label {
-            color: #64748b;
-        }
-
-        .summary-value {
-            color: #0e7490;
-            font-weight: 600;
-        }
-
-        .checkout-section {
-            margin-top: 15px;
-            flex-shrink: 0;
-        }
-
-        .customer-info {
-            background: rgba(14, 116, 144, 0.05);
-            padding: 15px;
-            border-radius: 12px;
-            margin-bottom: 15px;
-        }
-
+        .checkout-section { margin-top: 15px; flex-shrink: 0; }
+        .customer-info { background: rgba(14,116,144,0.05); padding: 15px; border-radius: 12px; margin-bottom: 15px; }
         .customer-info input {
-            width: 100%;
-            padding: 10px 15px;
-            border: 2px solid rgba(14, 116, 144, 0.2);
-            border-radius: 10px;
-            font-size: 14px;
-            margin-bottom: 10px;
-            transition: all 0.3s;
+            width: 100%; padding: 10px 15px;
+            border: 2px solid rgba(14,116,144,0.2); border-radius: 10px;
+            font-size: 14px; margin-bottom: 10px; transition: all 0.3s;
         }
+        .customer-info input:last-child { margin-bottom: 0; }
+        .customer-info input:focus { outline: none; border-color: #0e7490; box-shadow: 0 0 0 4px rgba(14,116,144,0.1); }
 
-        .customer-info input:focus {
-            outline: none;
-            border-color: #0e7490;
-            box-shadow: 0 0 0 4px rgba(14, 116, 144, 0.1);
-        }
-
-        .payment-methods {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-            margin-bottom: 15px;
-        }
-
+        .payment-methods { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 15px; }
         .payment-method {
-            padding: 12px;
-            border: 2px solid rgba(14, 116, 144, 0.2);
-            border-radius: 12px;
-            cursor: pointer;
-            transition: all 0.3s;
-            text-align: center;
-            font-size: 13px;
-            font-weight: 600;
-            color: #475569;
-            background: white;
+            padding: 12px; border: 2px solid rgba(14,116,144,0.2); border-radius: 12px;
+            cursor: pointer; transition: all 0.3s; text-align: center;
+            font-size: 13px; font-weight: 600; color: #475569; background: white;
         }
-
-        .payment-method:hover {
-            border-color: #0e7490;
-            background: rgba(14, 116, 144, 0.05);
-        }
-
+        .payment-method:hover { border-color: #0e7490; background: rgba(14,116,144,0.05); }
         .payment-method.active {
-            background: linear-gradient(135deg, #0e7490, #06b6d4);
-            color: white;
-            border-color: transparent;
-            box-shadow: 0 4px 15px rgba(14, 116, 144, 0.3);
+            background: linear-gradient(135deg, #0e7490, #06b6d4); color: white;
+            border-color: transparent; box-shadow: 0 4px 15px rgba(14,116,144,0.3);
         }
+        .payment-method .icon { font-size: 20px; margin-bottom: 5px; }
 
-        .payment-method .icon {
-            font-size: 20px;
-            margin-bottom: 5px;
-        }
-
-        /* Input Bayar Tunai */
         .cash-payment-section {
-            display: none;
-            background: rgba(34, 211, 238, 0.1);
-            padding: 15px;
-            border-radius: 12px;
-            margin-bottom: 15px;
-            border: 2px solid rgba(34, 211, 238, 0.3);
+            display: none; background: rgba(34,211,238,0.1); padding: 15px;
+            border-radius: 12px; margin-bottom: 15px; border: 2px solid rgba(34,211,238,0.3);
         }
-
-        .cash-payment-section.active {
-            display: block;
-            animation: slideDown 0.3s ease;
-        }
-
+        .cash-payment-section.active { display: block; animation: slideDown 0.3s ease; }
         @keyframes slideDown {
-            from {
-                opacity: 0;
-                transform: translateY(-10px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
-
-        .cash-input-group {
-            margin-bottom: 12px;
-        }
-
-        .cash-input-label {
-            font-size: 12px;
-            color: #0c4a6e;
-            font-weight: 600;
-            margin-bottom: 6px;
-            display: block;
-        }
-
+        .cash-input-group { margin-bottom: 12px; }
+        .cash-input-label { font-size: 12px; color: #0c4a6e; font-weight: 600; margin-bottom: 6px; display: block; }
         .cash-input {
-            width: 100%;
-            padding: 12px 15px;
-            border: 2px solid rgba(14, 116, 144, 0.3);
-            border-radius: 10px;
-            font-size: 16px;
-            font-weight: 700;
-            color: #0c4a6e;
-            transition: all 0.3s;
+            width: 100%; padding: 12px 15px; border: 2px solid rgba(14,116,144,0.3);
+            border-radius: 10px; font-size: 16px; font-weight: 700; color: #0c4a6e; transition: all 0.3s;
         }
-
-        .cash-input:focus {
-            outline: none;
-            border-color: #0e7490;
-            box-shadow: 0 0 0 4px rgba(14, 116, 144, 0.1);
-        }
-
+        .cash-input:focus { outline: none; border-color: #0e7490; box-shadow: 0 0 0 4px rgba(14,116,144,0.1); }
         .cash-change-display {
-            background: white;
-            padding: 12px 15px;
-            border-radius: 10px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border: 2px solid rgba(16, 185, 129, 0.3);
+            background: white; padding: 12px 15px; border-radius: 10px;
+            display: flex; justify-content: space-between; align-items: center;
+            border: 2px solid rgba(16,185,129,0.3);
         }
-
-        .change-label {
-            font-size: 13px;
-            color: #64748b;
-            font-weight: 600;
-        }
-
-        .change-value {
-            font-size: 18px;
-            font-weight: 800;
-            color: #10b981;
-        }
-
-        .change-value.negative {
-            color: #e11d48;
-        }
+        .change-label { font-size: 13px; color: #64748b; font-weight: 600; }
+        .change-value { font-size: 18px; font-weight: 800; color: #10b981; }
+        .change-value.negative { color: #e11d48; }
 
         .checkout-btn {
-            width: 100%;
-            background: linear-gradient(135deg, #10b981, #059669);
-            border: none;
-            color: white;
-            padding: 16px;
-            border-radius: 15px;
-            font-size: 16px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.3s;
-            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+            width: 100%; background: linear-gradient(135deg, #10b981, #059669);
+            border: none; color: white; padding: 16px; border-radius: 15px;
+            font-size: 16px; font-weight: 700; cursor: pointer; transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(16,185,129,0.3);
         }
-
-        .checkout-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
-        }
-
+        .checkout-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(16,185,129,0.4); }
         .checkout-btn:disabled {
             background: linear-gradient(135deg, #94a3b8, #64748b);
-            cursor: not-allowed;
-            transform: none;
-            box-shadow: none;
+            cursor: not-allowed; transform: none; box-shadow: none;
         }
 
         /* Modal */
         .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(12, 74, 110, 0.8);
-            backdrop-filter: blur(5px);
-            z-index: 2000;
-            align-items: center;
-            justify-content: center;
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(12,74,110,0.8); backdrop-filter: blur(5px);
+            z-index: 2000; align-items: center; justify-content: center;
         }
-
-        .modal.active {
-            display: flex;
-        }
-
+        .modal.active { display: flex; }
         .modal-content {
-            background: white;
-            padding: 35px;
-            border-radius: 20px;
-            max-width: 450px;
-            width: 90%;
-            max-height: 90vh;
-            overflow-y: auto;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
-            animation: modalSlideIn 0.3s ease;
+            background: white; padding: 35px; border-radius: 20px;
+            max-width: 450px; width: 90%; max-height: 90vh; overflow-y: auto;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3); animation: modalSlideIn 0.3s ease;
         }
-
         @keyframes modalSlideIn {
-            from {
-                transform: translateY(-50px);
-                opacity: 0;
-            }
-
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
+            from { transform: translateY(-50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
         }
 
-        .modal-header {
-            text-align: center;
-            margin-bottom: 25px;
-        }
-
-        .modal-icon {
-            font-size: 60px;
-            margin-bottom: 15px;
-        }
-
-        .modal-title {
-            font-size: 24px;
-            font-weight: 800;
-            color: #0c4a6e;
-            margin-bottom: 8px;
-        }
-
-        .modal-subtitle {
-            color: #64748b;
-            font-size: 14px;
-        }
+        .modal-header { text-align: center; margin-bottom: 25px; }
+        .modal-icon { font-size: 60px; margin-bottom: 15px; }
+        .modal-title { font-size: 24px; font-weight: 800; color: #0c4a6e; margin-bottom: 8px; }
+        .modal-subtitle { color: #64748b; font-size: 14px; }
 
         .receipt {
-            background: rgba(14, 116, 144, 0.05);
-            padding: 20px;
-            border-radius: 15px;
-            margin-bottom: 20px;
+            background: rgba(14,116,144,0.05); padding: 20px;
+            border-radius: 15px; margin-bottom: 20px;
         }
-
-        .receipt-row {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 10px;
-            font-size: 14px;
-        }
-
+        .receipt-row { display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 14px; }
         .receipt-row.highlight {
-            font-size: 18px;
-            font-weight: 800;
-            color: #0c4a6e;
-            padding-top: 12px;
-            border-top: 2px dashed rgba(14, 116, 144, 0.3);
+            font-size: 18px; font-weight: 800; color: #0c4a6e;
+            padding-top: 12px; border-top: 2px dashed rgba(14,116,144,0.3);
         }
-
         .receipt-items {
-            margin: 15px 0;
-            padding: 15px 0;
-            border-top: 1px dashed rgba(14, 116, 144, 0.3);
-            border-bottom: 1px dashed rgba(14, 116, 144, 0.3);
+            margin: 15px 0; padding: 15px 0;
+            border-top: 1px dashed rgba(14,116,144,0.3);
+            border-bottom: 1px dashed rgba(14,116,144,0.3);
         }
+        .receipt-item { display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 13px; color: #475569; }
+        .receipt-item-name { flex: 1; }
+        .receipt-item-qty { margin: 0 10px; color: #64748b; }
+        .receipt-item-price { font-weight: 600; color: #0c4a6e; }
 
-        .receipt-item {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 8px;
-            font-size: 13px;
-            color: #475569;
-        }
-
-        .receipt-item-name {
-            flex: 1;
-        }
-
-        .receipt-item-qty {
-            margin: 0 10px;
-            color: #64748b;
-        }
-
-        .receipt-item-price {
-            font-weight: 600;
-            color: #0c4a6e;
-        }
-
-        .modal-actions {
-            display: flex;
-            gap: 10px;
-        }
-
+        .modal-actions { display: flex; gap: 10px; }
         .modal-btn {
-            flex: 1;
-            padding: 14px;
-            border: none;
-            border-radius: 12px;
-            font-size: 15px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.3s;
+            flex: 1; padding: 14px; border: none; border-radius: 12px;
+            font-size: 15px; font-weight: 700; cursor: pointer; transition: all 0.3s;
         }
-
         .modal-btn.primary {
-            background: linear-gradient(135deg, #0e7490, #06b6d4);
-            color: white;
-            box-shadow: 0 4px 15px rgba(14, 116, 144, 0.3);
+            background: linear-gradient(135deg, #0e7490, #06b6d4); color: white;
+            box-shadow: 0 4px 15px rgba(14,116,144,0.3);
         }
+        .modal-btn.primary:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(14,116,144,0.4); }
+        .modal-btn.secondary { background: rgba(14,116,144,0.1); color: #0e7490; }
+        .modal-btn.secondary:hover { background: rgba(14,116,144,0.2); }
 
-        .modal-btn.primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(14, 116, 144, 0.4);
-        }
-
-        .modal-btn.secondary {
-            background: rgba(14, 116, 144, 0.1);
-            color: #0e7490;
-        }
-
-        .modal-btn.secondary:hover {
-            background: rgba(14, 116, 144, 0.2);
-        }
-
-        /* Print Styles */
         @media print {
-            body * {
-                visibility: hidden;
-            }
-
-            .receipt,
-            .receipt * {
-                visibility: visible;
-            }
-
-            .receipt {
-                position: absolute;
-                left: 0;
-                top: 0;
-                width: 100%;
-                background: white;
-            }
-
-            .modal-actions {
-                display: none;
-            }
+            body * { visibility: hidden; }
+            .receipt, .receipt * { visibility: visible; }
+            .receipt { position: absolute; left: 0; top: 0; width: 100%; background: white; }
+            .modal-actions { display: none; }
         }
 
-        ::-webkit-scrollbar {
-            width: 8px;
-            height: 8px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 10px;
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: linear-gradient(180deg, #0e7490, #06b6d4);
-            border-radius: 10px;
-        }
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: rgba(255,255,255,0.1); border-radius: 10px; }
+        ::-webkit-scrollbar-thumb { background: linear-gradient(180deg, #0e7490, #06b6d4); border-radius: 10px; }
 
         .overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(12, 74, 110, 0.7);
-            backdrop-filter: blur(5px);
-            z-index: 999;
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(12,74,110,0.7); backdrop-filter: blur(5px); z-index: 999;
         }
-
-        .overlay.active {
-            display: block;
-        }
+        .overlay.active { display: block; }
 
         @media (max-width: 1024px) {
-            .kasir-container {
-                grid-template-columns: 1fr;
-                height: auto;
-            }
-
-            .product-section {
-                height: 400px;
-            }
-
-            .cart-section {
-                height: 500px;
-            }
+            .kasir-container { grid-template-columns: 1fr; height: auto; }
+            .product-section { height: 400px; }
+            .cart-section { height: 500px; }
         }
 
         @media (max-width: 768px) {
-            .sidebar {
-                transform: translateX(-100%);
-            }
-
-            .sidebar.active {
-                transform: translateX(0);
-            }
-
-            .main-content {
-                margin-left: 0;
-                padding: 18px;
-            }
-
-            .menu-toggle {
-                display: block;
-            }
-
-            .header {
-                flex-direction: column;
-                gap: 18px;
-                padding: 20px;
-            }
-
-            .product-grid {
-                grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
-            }
-
-            .payment-methods {
-                grid-template-columns: 1fr;
-            }
+            .sidebar { transform: translateX(-100%); }
+            .sidebar.active { transform: translateX(0); }
+            .main-content { margin-left: 0; padding: 18px; }
+            .menu-toggle { display: block; }
+            .header { flex-direction: column; gap: 18px; padding: 20px; }
+            .product-grid { grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); }
+            .payment-methods { grid-template-columns: 1fr; }
         }
 
         @keyframes slideIn {
-            from {
-                transform: translateX(100%);
-                opacity: 0;
-            }
-
-            to {
-                transform: translateX(0);
-                opacity: 1;
-            }
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
         }
     </style>
 </head>
@@ -973,7 +374,7 @@
         </a>
         <div class="menu-section">
             <div class="menu-label">Menu Utama</div>
-            <a href="#" class="menu-item " onclick="location.href='../admin/dashboard.html'">
+            <a href="#" class="menu-item" onclick="location.href='../admin/dashboard.html'">
                 <span class="icon">📊</span>
                 <span>Dashboard</span>
             </a>
@@ -1025,6 +426,7 @@
         </div>
 
         <div class="kasir-container">
+            <!-- Product Section -->
             <div class="product-section">
                 <div class="search-product">
                     <span class="icon">🔍</span>
@@ -1047,6 +449,7 @@
                 <div class="product-grid" id="productGrid"></div>
             </div>
 
+            <!-- Cart Section -->
             <div class="cart-section">
                 <div class="cart-header">
                     <h3>Keranjang Belanja</h3>
@@ -1100,7 +503,6 @@
                         </div>
                     </div>
 
-                    <!-- Input Bayar Tunai -->
                     <div class="cash-payment-section active" id="cashPaymentSection">
                         <div class="cash-input-group">
                             <label class="cash-input-label">💵 Jumlah Uang Diterima</label>
@@ -1118,25 +520,25 @@
                 </div>
             </div>
         </div>
+
         <!-- Modal Riwayat Transaksi -->
         <div class="modal" id="historyModal">
-            <div class="modal-content" style="max-width: 1000px; max-height: 85vh;">
+            <div class="modal-content" style="max-width: 900px; max-height: 85vh;">
                 <div class="modal-header">
                     <div class="modal-icon">📜</div>
                     <h3 class="modal-title">Riwayat Transaksi</h3>
-                    <p class="modal-subtitle">Kelola semua transaksi yang telah dilakukan</p>
+                    <p class="modal-subtitle">Daftar semua transaksi yang telah dilakukan</p>
                 </div>
 
                 <div style="margin-bottom: 20px;">
                     <div style="display: flex; gap: 10px; margin-bottom: 15px;">
                         <div style="flex: 1; position: relative;">
-                            <span
-                                style="position: absolute; left: 15px; top: 50%; transform: translateY(-50%); font-size: 18px;">🔍</span>
+                            <span style="position: absolute; left: 15px; top: 50%; transform: translateY(-50%); font-size: 18px;">🔍</span>
                             <input type="text" id="historySearchInput" placeholder="Cari transaksi..."
-                                style="width: 100%; padding: 12px 15px 12px 45px; border: 2px solid rgba(14, 116, 144, 0.2); border-radius: 12px; font-size: 14px;">
+                                style="width: 100%; padding: 12px 15px 12px 45px; border: 2px solid rgba(14,116,144,0.2); border-radius: 12px; font-size: 14px;">
                         </div>
                         <select id="historyFilterPayment"
-                            style="padding: 12px 15px; border: 2px solid rgba(14, 116, 144, 0.2); border-radius: 12px; font-size: 14px; cursor: pointer;">
+                            style="padding: 12px 15px; border: 2px solid rgba(14,116,144,0.2); border-radius: 12px; font-size: 14px; cursor: pointer;">
                             <option value="all">Semua Metode</option>
                             <option value="cash">Tunai</option>
                             <option value="card">Kartu</option>
@@ -1144,152 +546,22 @@
                             <option value="ewallet">E-Wallet</option>
                         </select>
                     </div>
-                    <div
-                        style="display: flex; justify-content: space-between; align-items: center; padding: 10px 15px; background: rgba(14, 116, 144, 0.05); border-radius: 10px;">
-                        <span style="font-size: 13px; color: #64748b;">Total Transaksi: <strong
-                                id="totalTransactions">0</strong></span>
-                        <span style="font-size: 13px; color: #64748b;">Total Pendapatan: <strong id="totalRevenue"
-                                style="color: #10b981;">Rp 0</strong></span>
+                    <div style="display: flex; justify-content: space-between; align-items: center; padding: 10px 15px; background: rgba(14,116,144,0.05); border-radius: 10px;">
+                        <span style="font-size: 13px; color: #64748b;">Total Transaksi: <strong id="totalTransactions">0</strong></span>
+                        <span style="font-size: 13px; color: #64748b;">Total Pendapatan: <strong id="totalRevenue" style="color: #10b981;">Rp 0</strong></span>
                     </div>
                 </div>
 
-                <div id="historyList" style="max-height: 400px; overflow-y: auto; margin-bottom: 20px;"></div>
+                <div id="historyList" style="max-height: 450px; overflow-y: auto; margin-bottom: 20px;"></div>
 
                 <div class="modal-actions">
                     <button class="modal-btn secondary" onclick="closeHistoryModal()">✖️ Tutup</button>
                 </div>
             </div>
         </div>
-
-        <!-- Modal Edit Transaksi -->
-        <div class="modal" id="editModal">
-            <div class="modal-content" style="max-width: 700px;">
-                <div class="modal-header">
-                    <div class="modal-icon">✏️</div>
-                    <h3 class="modal-title">Edit Transaksi</h3>
-                    <p class="modal-subtitle">Ubah pesanan pelanggan</p>
-                </div>
-
-                <div
-                    style="background: rgba(14, 116, 144, 0.05); padding: 20px; border-radius: 15px; margin-bottom: 20px;">
-                    <!-- Info Transaksi -->
-                    <div
-                        style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 20px; padding-bottom: 20px; border-bottom: 2px dashed rgba(14, 116, 144, 0.2);">
-                        <div>
-                            <label
-                                style="display: block; font-size: 13px; font-weight: 600; color: #0c4a6e; margin-bottom: 6px;">📋
-                                ID Transaksi</label>
-                            <input type="text" id="editTransactionId" disabled
-                                style="width: 100%; padding: 10px 15px; border: 2px solid rgba(14, 116, 144, 0.2); border-radius: 10px; font-size: 14px; background: rgba(255,255,255,0.5);">
-                        </div>
-                        <div>
-                            <label
-                                style="display: block; font-size: 13px; font-weight: 600; color: #0c4a6e; margin-bottom: 6px;">📅
-                                Tanggal</label>
-                            <input type="text" id="editTransactionDate" disabled
-                                style="width: 100%; padding: 10px 15px; border: 2px solid rgba(14, 116, 144, 0.2); border-radius: 10px; font-size: 14px; background: rgba(255,255,255,0.5);">
-                        </div>
-                    </div>
-
-                    <!-- Data Pelanggan -->
-                    <div
-                        style="margin-bottom: 20px; padding-bottom: 20px; border-bottom: 2px dashed rgba(14, 116, 144, 0.2);">
-                        <h4 style="font-size: 14px; color: #0c4a6e; margin-bottom: 12px; font-weight: 700;">👤 Data
-                            Pelanggan</h4>
-                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
-                            <div>
-                                <label
-                                    style="display: block; font-size: 12px; font-weight: 600; color: #64748b; margin-bottom: 6px;">Nama</label>
-                                <input type="text" id="editCustomerName"
-                                    style="width: 100%; padding: 10px 15px; border: 2px solid rgba(14, 116, 144, 0.2); border-radius: 10px; font-size: 14px;">
-                            </div>
-                            <div>
-                                <label
-                                    style="display: block; font-size: 12px; font-weight: 600; color: #64748b; margin-bottom: 6px;">No.
-                                    Telepon</label>
-                                <input type="tel" id="editCustomerPhone"
-                                    style="width: 100%; padding: 10px 15px; border: 2px solid rgba(14, 116, 144, 0.2); border-radius: 10px; font-size: 14px;">
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Item Pesanan -->
-                    <div
-                        style="margin-bottom: 20px; padding-bottom: 20px; border-bottom: 2px dashed rgba(14, 116, 144, 0.2);">
-                        <div
-                            style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
-                            <h4 style="font-size: 14px; color: #0c4a6e; font-weight: 700;">🛒 Item Pesanan</h4>
-                            <button onclick="openAddItemModal()"
-                                style="background: linear-gradient(135deg, #10b981, #059669); border: none; color: white; padding: 6px 14px; border-radius: 8px; cursor: pointer; font-size: 12px; font-weight: 600;">
-                                ➕ Tambah Item
-                            </button>
-                        </div>
-                        <div id="editItemsList" style="max-height: 250px; overflow-y: auto;"></div>
-                    </div>
-
-                    <!-- Metode Pembayaran -->
-                    <div
-                        style="margin-bottom: 20px; padding-bottom: 20px; border-bottom: 2px dashed rgba(14, 116, 144, 0.2);">
-                        <h4 style="font-size: 14px; color: #0c4a6e; margin-bottom: 12px; font-weight: 700;">💳 Metode
-                            Pembayaran</h4>
-                        <select id="editPaymentMethod"
-                            style="width: 100%; padding: 10px 15px; border: 2px solid rgba(14, 116, 144, 0.2); border-radius: 10px; font-size: 14px; cursor: pointer;">
-                            <option value="cash">💵 Tunai</option>
-                            <option value="card">💳 Kartu Debit/Kredit</option>
-                            <option value="transfer">🏦 Transfer Bank</option>
-                            <option value="ewallet">📱 E-Wallet</option>
-                        </select>
-                    </div>
-
-                    <!-- Total -->
-                    <div style="background: white; padding: 15px; border-radius: 12px;">
-                        <div
-                            style="display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 13px;">
-                            <span style="color: #64748b;">Subtotal:</span>
-                            <span style="font-weight: 600; color: #0c4a6e;" id="editSubtotal">Rp 0</span>
-                        </div>
-                        <div
-                            style="display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 13px;">
-                            <span style="color: #64748b;">Pajak (10%):</span>
-                            <span style="font-weight: 600; color: #0c4a6e;" id="editTax">Rp 0</span>
-                        </div>
-                        <div
-                            style="display: flex; justify-content: space-between; padding-top: 12px; border-top: 2px solid rgba(14, 116, 144, 0.2); font-size: 16px;">
-                            <span style="color: #0c4a6e; font-weight: 700;">Total:</span>
-                            <span style="font-weight: 800; color: #10b981;" id="editTotal">Rp 0</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="modal-actions">
-                    <button class="modal-btn secondary" onclick="closeEditModal()">Batal</button>
-                    <button class="modal-btn primary" onclick="saveEditTransaction()">💾 Simpan Perubahan</button>
-                </div>
-            </div>
-        </div>
-
-        <!-- Modal Tambah Item -->
-        <div class="modal" id="addItemModal">
-            <div class="modal-content" style="max-width: 500px;">
-                <div class="modal-header">
-                    <div class="modal-icon">➕</div>
-                    <h3 class="modal-title">Tambah Item</h3>
-                    <p class="modal-subtitle">Pilih produk untuk ditambahkan</p>
-                </div>
-
-                <div style="margin-bottom: 20px;">
-                    <input type="text" id="addItemSearch" placeholder="🔍 Cari produk..."
-                        style="width: 100%; padding: 12px 15px; border: 2px solid rgba(14, 116, 144, 0.2); border-radius: 12px; font-size: 14px; margin-bottom: 15px;">
-                    <div id="addItemProductList" style="max-height: 350px; overflow-y: auto;"></div>
-                </div>
-
-                <div class="modal-actions">
-                    <button class="modal-btn secondary" onclick="closeAddItemModal()">Tutup</button>
-                </div>
-            </div>
-        </div>
     </main>
 
+    <!-- Modal Sukses -->
     <div class="modal" id="successModal">
         <div class="modal-content">
             <div class="modal-header">
@@ -1299,13 +571,11 @@
             </div>
 
             <div class="receipt" id="receiptContent">
-                <div
-                    style="text-align: center; margin-bottom: 20px; border-bottom: 2px dashed rgba(14, 116, 144, 0.3); padding-bottom: 15px;">
+                <div style="text-align: center; margin-bottom: 20px; border-bottom: 2px dashed rgba(14,116,144,0.3); padding-bottom: 15px;">
                     <h2 style="margin: 0; color: #0c4a6e; font-size: 20px;">🎣 Mekar Jaya</h2>
                     <p style="margin: 5px 0; font-size: 12px; color: #64748b;">Toko Alat Pancing Terpercaya</p>
                     <p style="margin: 0; font-size: 11px; color: #94a3b8;">Jl. Mancing No. 123, Kota Ikan</p>
                 </div>
-
                 <div class="receipt-row">
                     <span>No. Transaksi:</span>
                     <strong id="transactionId">#TRX-001</strong>
@@ -1322,9 +592,7 @@
                     <span>Pelanggan:</span>
                     <strong id="customerNameReceipt">-</strong>
                 </div>
-
                 <div class="receipt-items" id="receiptItems"></div>
-
                 <div class="receipt-row">
                     <span>Subtotal:</span>
                     <strong id="receiptSubtotal">Rp 0</strong>
@@ -1337,9 +605,7 @@
                     <span>Total:</span>
                     <strong id="receiptTotal">Rp 0</strong>
                 </div>
-
-                <div class="receipt-row"
-                    style="margin-top: 15px; padding-top: 15px; border-top: 2px dashed rgba(14, 116, 144, 0.3);">
+                <div class="receipt-row" style="margin-top: 15px; padding-top: 15px; border-top: 2px dashed rgba(14,116,144,0.3);">
                     <span>Metode Bayar:</span>
                     <strong id="paymentMethodText">Tunai</strong>
                 </div>
@@ -1351,12 +617,9 @@
                     <span>Kembalian:</span>
                     <strong id="changeReceivedText" style="color: #10b981;">Rp 0</strong>
                 </div>
-
-                <div
-                    style="text-align: center; margin-top: 20px; padding-top: 15px; border-top: 2px dashed rgba(14, 116, 144, 0.3);">
+                <div style="text-align: center; margin-top: 20px; padding-top: 15px; border-top: 2px dashed rgba(14,116,144,0.3);">
                     <p style="font-size: 12px; color: #64748b; margin: 5px 0;">Terima kasih atas kunjungan Anda!</p>
-                    <p style="font-size: 11px; color: #94a3b8; margin: 0;">Barang yang sudah dibeli tidak dapat ditukar
-                    </p>
+                    <p style="font-size: 11px; color: #94a3b8; margin: 0;">Barang yang sudah dibeli tidak dapat ditukar</p>
                 </div>
             </div>
 
@@ -1388,274 +651,33 @@
         let transactionCounter = 1;
         let cashReceived = 0;
 
-        // History variables
-        let transactionHistory = [];
-        let currentEditingId = null;
-        let editingTransaction = null;
-
-        function editTransaction(id) {
-            const transaction = transactionHistory.find(trx => trx.id === id);
-            if (!transaction) return;
-
-            editingTransaction = JSON.parse(JSON.stringify(transaction)); // Deep copy
-            currentEditingId = id;
-
-            const dateStr = transaction.date.toLocaleDateString('id-ID', {
-                day: '2-digit',
-                month: 'long',
-                year: 'numeric',
-                hour: '2-digit',
-                minute: '2-digit'
-            });
-
-            document.getElementById('editTransactionId').value = transaction.id;
-            document.getElementById('editTransactionDate').value = dateStr;
-            document.getElementById('editCustomerName').value = transaction.customer.name;
-            document.getElementById('editCustomerPhone').value = transaction.customer.phone;
-            document.getElementById('editPaymentMethod').value = transaction.payment;
-
-            renderEditItems();
-            updateEditSummary();
-            editModal.classList.add('active');
-        }
-
-        function renderEditItems() {
-            const container = document.getElementById('editItemsList');
-            if (!editingTransaction || !editingTransaction.items || editingTransaction.items.length === 0) {
-                container.innerHTML = `
-            <div style="text-align: center; padding: 30px; color: #94a3b8;">
-                <div style="font-size: 40px; margin-bottom: 10px;">📦</div>
-                <p style="font-size: 14px;">Belum ada item</p>
-            </div>
-        `;
-                return;
-            }
-
-            container.innerHTML = editingTransaction.items.map((item, index) => `
-        <div style="background: white; border: 2px solid rgba(14, 116, 144, 0.1); border-radius: 12px; padding: 12px; margin-bottom: 10px;">
-            <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 10px;">
-                <div style="flex: 1;">
-                    <div style="font-size: 14px; font-weight: 600; color: #0c4a6e; margin-bottom: 4px;">${item.name}</div>
-                    <div style="font-size: 13px; color: #0e7490; font-weight: 700;">${formatCurrency(item.price)}</div>
-                </div>
-                <button onclick="removeEditItem(${index})" 
-                    style="background: rgba(244, 63, 94, 0.1); border: none; color: #e11d48; padding: 6px 10px; border-radius: 8px; cursor: pointer; font-size: 12px; font-weight: 600;">
-                    🗑️
-                </button>
-            </div>
-            <div style="display: flex; justify-content: space-between; align-items: center;">
-                <div style="display: flex; gap: 8px; align-items: center;">
-                    <button onclick="decreaseEditItemQty(${index})" 
-                        style="background: linear-gradient(135deg, #0e7490, #06b6d4); border: none; color: white; width: 28px; height: 28px; border-radius: 8px; cursor: pointer; font-size: 16px; font-weight: 700;">
-                        -
-                    </button>
-                    <div style="font-size: 14px; font-weight: 600; color: #0c4a6e; min-width: 30px; text-align: center;">${item.quantity}</div>
-                    <button onclick="increaseEditItemQty(${index})" 
-                        style="background: linear-gradient(135deg, #0e7490, #06b6d4); border: none; color: white; width: 28px; height: 28px; border-radius: 8px; cursor: pointer; font-size: 16px; font-weight: 700;">
-                        +
-                    </button>
-                </div>
-                <div style="font-size: 14px; font-weight: 700; color: #10b981;">${formatCurrency(item.price * item.quantity)}</div>
-            </div>
-        </div>
-    `).join('');
-        }
-
-        function increaseEditItemQty(index) {
-            if (editingTransaction.items[index].quantity < 999) {
-                editingTransaction.items[index].quantity++;
-                renderEditItems();
-                updateEditSummary();
-            }
-        }
-
-        function decreaseEditItemQty(index) {
-            if (editingTransaction.items[index].quantity > 1) {
-                editingTransaction.items[index].quantity--;
-                renderEditItems();
-                updateEditSummary();
-            }
-        }
-
-        function removeEditItem(index) {
-            if (confirm('Hapus item ini dari pesanan?')) {
-                editingTransaction.items.splice(index, 1);
-                renderEditItems();
-                updateEditSummary();
-            }
-        }
-
-        function updateEditSummary() {
-            if (!editingTransaction) return;
-
-            const subtotal = editingTransaction.items.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-            const tax = subtotal * 0.1;
-            const total = subtotal + tax;
-
-            editingTransaction.subtotal = subtotal;
-            editingTransaction.tax = tax;
-            editingTransaction.total = total;
-
-            document.getElementById('editSubtotal').textContent = formatCurrency(subtotal);
-            document.getElementById('editTax').textContent = formatCurrency(tax);
-            document.getElementById('editTotal').textContent = formatCurrency(total);
-        }
-
-        function openAddItemModal() {
-            document.getElementById('addItemModal').classList.add('active');
-            renderAddItemProducts();
-        }
-
-        function closeAddItemModal() {
-            document.getElementById('addItemModal').classList.remove('active');
-        }
-
-        function renderAddItemProducts(searchQuery = '') {
-            const container = document.getElementById('addItemProductList');
-            const filtered = productsData.filter(p =>
-                p.name.toLowerCase().includes(searchQuery.toLowerCase())
-            );
-
-            container.innerHTML = filtered.map(product => `
-        <div onclick="addItemToEdit(${product.id})" 
-            style="background: white; border: 2px solid rgba(14, 116, 144, 0.1); border-radius: 12px; padding: 15px; margin-bottom: 10px; cursor: pointer; transition: all 0.3s;"
-            onmouseover="this.style.borderColor='#0e7490'; this.style.transform='translateX(5px)';"
-            onmouseout="this.style.borderColor='rgba(14, 116, 144, 0.1)'; this.style.transform='translateX(0)';">
-            <div style="display: flex; justify-content: space-between; align-items: center;">
-                <div>
-                    <div style="font-size: 14px; font-weight: 600; color: #0c4a6e; margin-bottom: 4px;">${product.icon} ${product.name}</div>
-                    <div style="font-size: 13px; color: #0e7490; font-weight: 700;">${formatCurrency(product.price)}</div>
-                    <div style="font-size: 11px; color: #64748b;">Stok: ${product.stock}</div>
-                </div>
-                <div style="background: linear-gradient(135deg, #10b981, #059669); color: white; width: 35px; height: 35px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 18px; font-weight: 700;">
-                    +
-                </div>
-            </div>
-        </div>
-    `).join('');
-        }
-
-        function addItemToEdit(productId) {
-            const product = productsData.find(p => p.id === productId);
-            if (!product) return;
-
-            const existingItem = editingTransaction.items.find(item => item.id === productId);
-
-            if (existingItem) {
-                existingItem.quantity++;
-            } else {
-                editingTransaction.items.push({
-                    id: product.id,
-                    name: product.name,
-                    price: product.price,
-                    quantity: 1
-                });
-            }
-
-            renderEditItems();
-            updateEditSummary();
-            closeAddItemModal();
-            showNotification('✅ Item berhasil ditambahkan!', 'success');
-        }
-
-        function saveEditTransaction() {
-            if (!currentEditingId || !editingTransaction) return;
-
-            if (editingTransaction.items.length === 0) {
-                alert('Pesanan harus memiliki minimal 1 item!');
-                return;
-            }
-
-            const transaction = transactionHistory.find(trx => trx.id === currentEditingId);
-            if (!transaction) return;
-
-            // Update data
-            transaction.customer.name = document.getElementById('editCustomerName').value || 'Umum';
-            transaction.customer.phone = document.getElementById('editCustomerPhone').value || '-';
-            transaction.payment = document.getElementById('editPaymentMethod').value;
-            transaction.items = [...editingTransaction.items];
-            transaction.subtotal = editingTransaction.subtotal;
-            transaction.tax = editingTransaction.tax;
-            transaction.total = editingTransaction.total;
-
-            // Update cash info jika cash
-            if (transaction.payment === 'cash' && transaction.cashReceived) {
-                transaction.change = transaction.cashReceived - transaction.total;
-            } else {
-                transaction.cashReceived = null;
-                transaction.change = null;
-            }
-
-            closeEditModal();
-            renderTransactionHistory();
-            showNotification('✅ Transaksi berhasil diperbarui!', 'success');
-        }
-
-        function closeEditModal() {
-            editModal.classList.remove('active');
-            currentEditingId = null;
-            editingTransaction = null;
-        }
-
-        // Event listener untuk search add item
-        document.addEventListener('DOMContentLoaded', () => {
-            const addItemSearch = document.getElementById('addItemSearch');
-            if (addItemSearch) {
-                addItemSearch.addEventListener('input', (e) => {
-                    renderAddItemProducts(e.target.value);
-                });
-            }
-
-            // Close modal add item on overlay click
-            const addItemModal = document.getElementById('addItemModal');
-            if (addItemModal) {
-                addItemModal.addEventListener('click', (e) => {
-                    if (e.target === addItemModal) closeAddItemModal();
-                });
-            }
-        });
-
-        transactionHistory = [
+        let transactionHistory = [
             {
                 id: 'TRX-0001',
                 date: new Date('2024-01-15T10:30:00'),
-                customer: {
-                    name: 'Budi Santoso',
-                    phone: '081234567890'
-                },
+                customer: { name: 'Budi Santoso', phone: '081234567890' },
                 items: [
                     { id: 1, name: 'Joran Carbon Pro X1', price: 1250000, quantity: 1 },
                     { id: 5, name: 'Kail Set Professional', price: 350000, quantity: 2 }
                 ],
-                payment: 'cash',
-                cashReceived: 2000000,
-                change: 50000,
-                subtotal: 1950000,
-                tax: 195000,
-                total: 1950000
+                payment: 'cash', cashReceived: 2000000, change: 50000,
+                subtotal: 1950000, tax: 195000, total: 2145000
             },
             {
                 id: 'TRX-0002',
                 date: new Date('2024-01-15T14:45:00'),
-                customer: {
-                    name: 'Siti Nurhaliza',
-                    phone: '082345678901'
-                },
+                customer: { name: 'Siti Nurhaliza', phone: '082345678901' },
                 items: [
                     { id: 2, name: 'Reel Shimano 5000', price: 850000, quantity: 1 },
                     { id: 3, name: 'Umpan Set Premium', price: 450000, quantity: 1 },
                     { id: 10, name: 'Senar PE 50lb', price: 180000, quantity: 3 }
                 ],
-                payment: 'card',
-                cashReceived: null,
-                change: null,
-                subtotal: 1840000,
-                tax: 184000,
-                total: 2024000
+                payment: 'card', cashReceived: null, change: null,
+                subtotal: 1840000, tax: 184000, total: 2024000
             }
         ];
 
-
+        // DOM refs
         const productGrid = document.getElementById('productGrid');
         const cartItems = document.getElementById('cartItems');
         const searchInput = document.getElementById('searchInput');
@@ -1671,11 +693,9 @@
         const overlay = document.getElementById('overlay');
         const cashPaymentSection = document.getElementById('cashPaymentSection');
         const cashInput = document.getElementById('cashInput');
-        const changeValue = document.getElementById('changeValue');
         const historyModal = document.getElementById('historyModal');
-        const editModal = document.getElementById('editModal');
-        const historyMenuBtn = document.getElementById('historyMenuBtn');
 
+        // Init
         renderProducts(productsData);
 
         function renderProducts(products) {
@@ -1691,48 +711,26 @@
 
         function addToCart(productId) {
             const product = productsData.find(p => p.id === productId);
-            if (!product || product.stock === 0) {
-                alert('Stok produk habis!');
-                return;
-            }
+            if (!product || product.stock === 0) { alert('Stok produk habis!'); return; }
 
             const existingItem = cart.find(item => item.id === productId);
-
             if (existingItem) {
-                if (existingItem.quantity < product.stock) {
-                    existingItem.quantity++;
-                } else {
-                    alert('Stok tidak mencukupi!');
-                    return;
-                }
+                if (existingItem.quantity < product.stock) { existingItem.quantity++; }
+                else { alert('Stok tidak mencukupi!'); return; }
             } else {
-                cart.push({
-                    id: product.id,
-                    name: product.name,
-                    price: product.price,
-                    quantity: 1,
-                    maxStock: product.stock
-                });
+                cart.push({ id: product.id, name: product.name, price: product.price, quantity: 1, maxStock: product.stock });
             }
-
             renderCart();
             updateSummary();
         }
 
         function renderCart() {
             if (cart.length === 0) {
-                cartItems.innerHTML = `
-                    <div class="cart-empty">
-                        <div class="cart-empty-icon">🛒</div>
-                        <p>Keranjang masih kosong</p>
-                    </div>
-                `;
+                cartItems.innerHTML = `<div class="cart-empty"><div class="cart-empty-icon">🛒</div><p>Keranjang masih kosong</p></div>`;
                 checkoutBtn.disabled = true;
                 return;
             }
-
             checkoutBtn.disabled = false;
-
             cartItems.innerHTML = cart.map((item, index) => `
                 <div class="cart-item">
                     <div class="cart-item-header">
@@ -1753,47 +751,26 @@
         }
 
         function increaseQuantity(index) {
-            if (cart[index].quantity < cart[index].maxStock) {
-                cart[index].quantity++;
-                renderCart();
-                updateSummary();
-            } else {
-                alert('Stok tidak mencukupi!');
-            }
+            if (cart[index].quantity < cart[index].maxStock) { cart[index].quantity++; renderCart(); updateSummary(); }
+            else alert('Stok tidak mencukupi!');
         }
-
         function decreaseQuantity(index) {
-            if (cart[index].quantity > 1) {
-                cart[index].quantity--;
-                renderCart();
-                updateSummary();
-            }
+            if (cart[index].quantity > 1) { cart[index].quantity--; renderCart(); updateSummary(); }
         }
-
-        function removeFromCart(index) {
-            cart.splice(index, 1);
-            renderCart();
-            updateSummary();
-        }
+        function removeFromCart(index) { cart.splice(index, 1); renderCart(); updateSummary(); }
 
         clearCartBtn.addEventListener('click', () => {
             if (cart.length === 0) return;
-            if (confirm('Kosongkan keranjang belanja?')) {
-                cart = [];
-                renderCart();
-                updateSummary();
-            }
+            if (confirm('Kosongkan keranjang belanja?')) { cart = []; renderCart(); updateSummary(); }
         });
 
         function updateSummary() {
             const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
             const tax = subtotal * 0.1;
             const total = subtotal + tax;
-
             document.getElementById('subtotalValue').textContent = formatCurrency(subtotal);
             document.getElementById('taxValue').textContent = formatCurrency(tax);
             document.getElementById('totalValue').textContent = formatCurrency(total);
-
             updateChange();
         }
 
@@ -1801,115 +778,79 @@
             return 'Rp ' + amount.toLocaleString('id-ID');
         }
 
+        // Category tabs
         categoryTabs.forEach(tab => {
             tab.addEventListener('click', () => {
-                // Jangan ubah active state untuk button history
                 if (tab.id === 'historyTabBtn') return;
-
-                categoryTabs.forEach(t => {
-                    if (t.id !== 'historyTabBtn') {
-                        t.classList.remove('active');
-                    }
-                });
+                categoryTabs.forEach(t => { if (t.id !== 'historyTabBtn') t.classList.remove('active'); });
                 tab.classList.add('active');
-
                 const category = tab.dataset.category;
-                const filtered = category === 'all'
-                    ? productsData
-                    : productsData.filter(p => p.category === category);
-
-                renderProducts(filtered);
+                renderProducts(category === 'all' ? productsData : productsData.filter(p => p.category === category));
             });
         });
 
         searchInput.addEventListener('input', (e) => {
             const query = e.target.value.toLowerCase();
-            const filtered = productsData.filter(p =>
-                p.name.toLowerCase().includes(query)
-            );
-            renderProducts(filtered);
+            renderProducts(productsData.filter(p => p.name.toLowerCase().includes(query)));
         });
 
+        // Payment methods
         paymentMethods.forEach(method => {
             method.addEventListener('click', () => {
                 paymentMethods.forEach(m => m.classList.remove('active'));
                 method.classList.add('active');
                 selectedPaymentMethod = method.dataset.method;
-
-                if (selectedPaymentMethod === 'cash') {
-                    cashPaymentSection.classList.add('active');
-                } else {
-                    cashPaymentSection.classList.remove('active');
-                }
+                cashPaymentSection.classList.toggle('active', selectedPaymentMethod === 'cash');
+                updateChange();
             });
         });
 
         cashInput.addEventListener('input', (e) => {
-            const cursorPosition = e.target.selectionStart;
-            const oldLength = e.target.value.length;
-
-            const rawValue = e.target.value.replace(/\./g, '');
-            const formattedValue = formatNumberInput(rawValue);
-            e.target.value = formattedValue;
-
-            const newLength = formattedValue.length;
-            const newCursorPosition = cursorPosition + (newLength - oldLength);
-            e.target.setSelectionRange(newCursorPosition, newCursorPosition);
-
-            cashReceived = parseFormattedNumber(formattedValue);
+            const cursorPos = e.target.selectionStart;
+            const oldLen = e.target.value.length;
+            const raw = e.target.value.replace(/\./g, '');
+            const formatted = raw.replace(/\D/g, '').replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+            e.target.value = formatted;
+            const newCursor = cursorPos + (formatted.length - oldLen);
+            e.target.setSelectionRange(newCursor, newCursor);
+            cashReceived = parseFloat(formatted.replace(/\./g, '')) || 0;
             updateChange();
         });
 
         function updateChange() {
             const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-            const tax = subtotal * 0.1;
-            const total = subtotal + tax;
+            const total = subtotal * 1.1;
             const change = cashReceived - total;
-
-            const changeElement = document.getElementById('changeValue');
-            changeElement.textContent = formatCurrency(Math.abs(change));
-
+            const changeEl = document.getElementById('changeValue');
             if (change < 0) {
-                changeElement.classList.add('negative');
-                changeElement.textContent = '- ' + formatCurrency(Math.abs(change));
+                changeEl.classList.add('negative');
+                changeEl.textContent = '- ' + formatCurrency(Math.abs(change));
             } else {
-                changeElement.classList.remove('negative');
-                changeElement.textContent = formatCurrency(change);
+                changeEl.classList.remove('negative');
+                changeEl.textContent = formatCurrency(change);
             }
-
-            if (selectedPaymentMethod === 'cash' && cart.length > 0) {
-                checkoutBtn.disabled = change < 0;
-            }
+            if (selectedPaymentMethod === 'cash' && cart.length > 0) checkoutBtn.disabled = change < 0;
         }
 
+        // Checkout
         checkoutBtn.addEventListener('click', () => {
             if (cart.length === 0) return;
-
             const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
             const tax = subtotal * 0.1;
             const total = subtotal + tax;
 
-            if (selectedPaymentMethod === 'cash') {
-                if (cashReceived < total) {
-                    alert('Uang yang diterima kurang dari total pembayaran!');
-                    return;
-                }
+            if (selectedPaymentMethod === 'cash' && cashReceived < total) {
+                alert('Uang yang diterima kurang dari total pembayaran!');
+                return;
             }
 
             const customerName = document.getElementById('customerName').value || 'Umum';
             const customerPhone = document.getElementById('customerPhone').value || '-';
-
             const transactionId = `TRX-${String(transactionCounter).padStart(4, '0')}`;
             transactionCounter++;
 
             const now = new Date();
-            const dateStr = now.toLocaleDateString('id-ID', {
-                day: '2-digit',
-                month: 'long',
-                year: 'numeric',
-                hour: '2-digit',
-                minute: '2-digit'
-            });
+            const dateStr = now.toLocaleDateString('id-ID', { day: '2-digit', month: 'long', year: 'numeric', hour: '2-digit', minute: '2-digit' });
 
             document.getElementById('transactionId').textContent = transactionId;
             document.getElementById('transactionDate').textContent = dateStr;
@@ -1917,133 +858,69 @@
             document.getElementById('receiptSubtotal').textContent = formatCurrency(subtotal);
             document.getElementById('receiptTax').textContent = formatCurrency(tax);
             document.getElementById('receiptTotal').textContent = formatCurrency(total);
-
-            const receiptItemsHtml = cart.map(item => `
+            document.getElementById('receiptItems').innerHTML = cart.map(item => `
                 <div class="receipt-item">
                     <span class="receipt-item-name">${item.name}</span>
                     <span class="receipt-item-qty">x${item.quantity}</span>
                     <span class="receipt-item-price">${formatCurrency(item.price * item.quantity)}</span>
                 </div>
             `).join('');
-            document.getElementById('receiptItems').innerHTML = receiptItemsHtml;
 
-            const paymentMethodNames = {
-                cash: 'Tunai',
-                card: 'Kartu Debit/Kredit',
-                transfer: 'Transfer Bank',
-                ewallet: 'E-Wallet'
-            };
-            document.getElementById('paymentMethodText').textContent = paymentMethodNames[selectedPaymentMethod];
+            const paymentNames = { cash: 'Tunai', card: 'Kartu Debit/Kredit', transfer: 'Transfer Bank', ewallet: 'E-Wallet' };
+            document.getElementById('paymentMethodText').textContent = paymentNames[selectedPaymentMethod];
 
             const cashPaymentRow = document.getElementById('cashPaymentRow');
             const changeRow = document.getElementById('changeRow');
-
             if (selectedPaymentMethod === 'cash') {
-                const change = cashReceived - total;
                 cashPaymentRow.style.display = 'flex';
                 changeRow.style.display = 'flex';
                 document.getElementById('cashReceivedText').textContent = formatCurrency(cashReceived);
-                document.getElementById('changeReceivedText').textContent = formatCurrency(change);
+                document.getElementById('changeReceivedText').textContent = formatCurrency(cashReceived - total);
             } else {
                 cashPaymentRow.style.display = 'none';
                 changeRow.style.display = 'none';
             }
 
             successModal.classList.add('active');
-
             cart.forEach(item => {
                 const product = productsData.find(p => p.id === item.id);
-                if (product) {
-                    product.stock -= item.quantity;
-                }
+                if (product) product.stock -= item.quantity;
             });
 
-            // Save to history
             transactionHistory.push({
-                id: transactionId,
-                date: now,
+                id: transactionId, date: now,
                 customer: { name: customerName, phone: customerPhone },
-                items: [...cart],
-                payment: selectedPaymentMethod,
+                items: [...cart], payment: selectedPaymentMethod,
                 cashReceived: selectedPaymentMethod === 'cash' ? cashReceived : null,
                 change: selectedPaymentMethod === 'cash' ? cashReceived - total : null,
-                subtotal,
-                tax,
-                total
+                subtotal, tax, total
             });
-
-            console.log('Transaction:', transactionHistory[transactionHistory.length - 1]);
         });
 
         newTransactionBtn.addEventListener('click', () => {
-            cart = [];
-            cashReceived = 0;
-            cashInput.value = '';
+            cart = []; cashReceived = 0; cashInput.value = '';
             document.getElementById('customerName').value = '';
             document.getElementById('customerPhone').value = '';
-            renderCart();
-            updateSummary();
+            renderCart(); updateSummary();
             successModal.classList.remove('active');
             renderProducts(productsData);
         });
 
-        printBtn.addEventListener('click', () => {
-            window.print();
-        });
+        printBtn.addEventListener('click', () => window.print());
 
-        menuToggle.addEventListener('click', () => {
-            sidebar.classList.toggle('active');
-            overlay.classList.toggle('active');
-        });
-
-        overlay.addEventListener('click', () => {
-            sidebar.classList.remove('active');
-            overlay.classList.remove('active');
-        });
-
-        successModal.addEventListener('click', (e) => {
-            if (e.target === successModal) {
-                successModal.classList.remove('active');
-            }
-        });
+        menuToggle.addEventListener('click', () => { sidebar.classList.toggle('active'); overlay.classList.toggle('active'); });
+        overlay.addEventListener('click', () => { sidebar.classList.remove('active'); overlay.classList.remove('active'); });
+        successModal.addEventListener('click', (e) => { if (e.target === successModal) successModal.classList.remove('active'); });
 
         document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && successModal.classList.contains('active')) {
-                successModal.classList.remove('active');
-            }
-
-            if (e.key === 'F9' && !checkoutBtn.disabled) {
-                e.preventDefault();
-                checkoutBtn.click();
-            }
+            if (e.key === 'Escape' && successModal.classList.contains('active')) successModal.classList.remove('active');
+            if (e.key === 'F9' && !checkoutBtn.disabled) { e.preventDefault(); checkoutBtn.click(); }
         });
 
-        function formatNumberInput(value) {
-            const numbers = value.replace(/\D/g, '');
-            return numbers.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
-        }
-
-        function parseFormattedNumber(value) {
-            return parseFloat(value.replace(/\./g, '')) || 0;
-        }
-
-        // ============= HISTORY FUNCTIONS =============
-
-        // History button di sidebar
-        if (historyMenuBtn) {
-            historyMenuBtn.addEventListener('click', (e) => {
-                e.preventDefault();
-                openHistoryModal();
-            });
-        }
-
-        // History button di category tabs
+        // ===== HISTORY =====
         const historyTabBtn = document.getElementById('historyTabBtn');
         if (historyTabBtn) {
-            historyTabBtn.addEventListener('click', (e) => {
-                e.stopPropagation();
-                openHistoryModal();
-            });
+            historyTabBtn.addEventListener('click', (e) => { e.stopPropagation(); openHistoryModal(); });
         }
 
         function openHistoryModal() {
@@ -2057,27 +934,16 @@
             historyModal.classList.remove('active');
         }
 
-        function closeEditModal() {
-            editModal.classList.remove('active');
-            currentEditingId = null;
-        }
-
         function renderTransactionHistory() {
             const historyList = document.getElementById('historyList');
-            const searchInput = document.getElementById('historySearchInput');
-            const filterPayment = document.getElementById('historyFilterPayment');
-
-            const searchQuery = searchInput ? searchInput.value.toLowerCase() : '';
-            const paymentFilter = filterPayment ? filterPayment.value : 'all';
+            const searchQ = document.getElementById('historySearchInput').value.toLowerCase();
+            const paymentFilter = document.getElementById('historyFilterPayment').value;
 
             let filtered = transactionHistory.filter(trx => {
-                const matchSearch = trx.id.toLowerCase().includes(searchQuery) ||
-                    trx.customer.name.toLowerCase().includes(searchQuery);
+                const matchSearch = trx.id.toLowerCase().includes(searchQ) || trx.customer.name.toLowerCase().includes(searchQ);
                 const matchPayment = paymentFilter === 'all' || trx.payment === paymentFilter;
                 return matchSearch && matchPayment;
-            });
-
-            filtered.sort((a, b) => b.date - a.date);
+            }).sort((a, b) => b.date - a.date);
 
             if (filtered.length === 0) {
                 historyList.innerHTML = `
@@ -2085,41 +951,29 @@
                         <div style="font-size: 60px; margin-bottom: 15px;">📭</div>
                         <p style="font-size: 16px; font-weight: 600; margin-bottom: 5px;">Tidak ada transaksi</p>
                         <p style="font-size: 14px;">Belum ada riwayat transaksi yang tersimpan</p>
-                    </div>
-                `;
+                    </div>`;
             } else {
+                const paymentIcons = { cash: '💵', card: '💳', transfer: '🏦', ewallet: '📱' };
+                const paymentNames = { cash: 'Tunai', card: 'Kartu', transfer: 'Transfer', ewallet: 'E-Wallet' };
+
                 historyList.innerHTML = filtered.map(trx => {
-                    const dateStr = trx.date.toLocaleDateString('id-ID', {
-                        day: '2-digit',
-                        month: 'short',
-                        year: 'numeric',
-                        hour: '2-digit',
-                        minute: '2-digit'
-                    });
-
-                    const paymentIcons = { cash: '💵', card: '💳', transfer: '🏦', ewallet: '📱' };
-                    const paymentNames = { cash: 'Tunai', card: 'Kartu', transfer: 'Transfer', ewallet: 'E-Wallet' };
-
+                    const dateStr = trx.date.toLocaleDateString('id-ID', { day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' });
                     return `
-                        <div style="background: white; border: 2px solid rgba(14, 116, 144, 0.1); border-radius: 15px; padding: 20px; margin-bottom: 12px; transition: all 0.3s;">
+                        <div style="background: white; border: 2px solid rgba(14,116,144,0.1); border-radius: 15px; padding: 20px; margin-bottom: 12px; transition: all 0.3s;">
                             <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 15px;">
                                 <div>
                                     <div style="font-size: 16px; font-weight: 700; color: #0c4a6e; margin-bottom: 4px;">${trx.id}</div>
                                     <div style="font-size: 12px; color: #64748b;">🕒 ${dateStr}</div>
                                 </div>
-                                <div style="display: flex; gap: 8px;">
-                                    <button onclick="editTransaction('${trx.id}')" 
-                                        style="background: linear-gradient(135deg, #0e7490, #06b6d4); border: none; color: white; padding: 8px 16px; border-radius: 10px; cursor: pointer; font-size: 13px; font-weight: 600;">
-                                        ✏️ Edit
-                                    </button>
-                                    <button onclick="deleteTransaction('${trx.id}')" 
-                                        style="background: linear-gradient(135deg, #e11d48, #be123c); border: none; color: white; padding: 8px 16px; border-radius: 10px; cursor: pointer; font-size: 13px; font-weight: 600;">
-                                        🗑️ Hapus
-                                    </button>
-                                </div>
+                                <button onclick="deleteTransaction('${trx.id}')"
+                                    style="background: linear-gradient(135deg, #f43f5e, #e11d48); border: none; color: white; padding: 8px 16px; border-radius: 10px; cursor: pointer; font-size: 13px; font-weight: 600; transition: all 0.3s;"
+                                    onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 4px 12px rgba(244,63,94,0.4)';"
+                                    onmouseout="this.style.transform='none'; this.style.boxShadow='none';">
+                                    🗑️ Hapus
+                                </button>
                             </div>
-                            
-                            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; padding: 15px; background: rgba(14, 116, 144, 0.03); border-radius: 10px; margin-bottom: 15px;">
+
+                            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; padding: 15px; background: rgba(14,116,144,0.03); border-radius: 10px; margin-bottom: 15px;">
                                 <div>
                                     <div style="font-size: 11px; color: #64748b; margin-bottom: 3px;">Pelanggan</div>
                                     <div style="font-size: 13px; font-weight: 600; color: #0c4a6e;">👤 ${trx.customer.name}</div>
@@ -2130,7 +984,7 @@
                                 </div>
                             </div>
 
-                            <div style="background: rgba(34, 211, 238, 0.05); padding: 12px; border-radius: 10px; margin-bottom: 12px;">
+                            <div style="background: rgba(34,211,238,0.05); padding: 12px; border-radius: 10px; margin-bottom: 12px;">
                                 <div style="font-size: 11px; color: #64748b; margin-bottom: 8px; font-weight: 600;">📦 Item (${trx.items.length})</div>
                                 ${trx.items.map(item => `
                                     <div style="display: flex; justify-content: space-between; font-size: 12px; color: #475569; margin-bottom: 4px;">
@@ -2140,9 +994,21 @@
                                 `).join('')}
                             </div>
 
-                            <div style="display: flex; justify-content: space-between; align-items: center; padding-top: 12px; border-top: 2px dashed rgba(14, 116, 144, 0.2);">
-                                <span style="font-size: 13px; color: #64748b; font-weight: 600;">Total Pembayaran</span>
-                                <span style="font-size: 18px; font-weight: 800; color: #10b981;">${formatCurrency(trx.total)}</span>
+                            <div style="padding-top: 12px; border-top: 2px dashed rgba(14,116,144,0.2);">
+                                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: ${trx.payment === 'cash' ? '8px' : '0'};">
+                                    <span style="font-size: 13px; color: #64748b; font-weight: 600;">Total Pembayaran</span>
+                                    <span style="font-size: 18px; font-weight: 800; color: #10b981;">${formatCurrency(trx.total)}</span>
+                                </div>
+                                ${trx.payment === 'cash' && trx.cashReceived != null ? `
+                                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; padding: 8px 12px; background: rgba(14,116,144,0.06); border-radius: 8px;">
+                                    <span style="font-size: 12px; color: #64748b; font-weight: 600;">💵 Uang Diterima</span>
+                                    <span style="font-size: 14px; font-weight: 700; color: #0e7490;">${formatCurrency(trx.cashReceived)}</span>
+                                </div>
+                                <div style="display: flex; justify-content: space-between; align-items: center; padding: 8px 12px; background: rgba(16,185,129,0.08); border-radius: 8px; border: 1px solid rgba(16,185,129,0.2);">
+                                    <span style="font-size: 12px; color: #64748b; font-weight: 600;">↩️ Kembalian</span>
+                                    <span style="font-size: 14px; font-weight: 700; color: #059669;">${formatCurrency(trx.change)}</span>
+                                </div>
+                                ` : ''}
                             </div>
                         </div>
                     `;
@@ -2150,83 +1016,36 @@
             }
 
             const totalRevenue = filtered.reduce((sum, trx) => sum + trx.total, 0);
-            if (document.getElementById('totalTransactions')) {
-                document.getElementById('totalTransactions').textContent = filtered.length;
-            }
-            if (document.getElementById('totalRevenue')) {
-                document.getElementById('totalRevenue').textContent = formatCurrency(totalRevenue);
-            }
-        }
-
-        function editTransaction(id) {
-            const transaction = transactionHistory.find(trx => trx.id === id);
-            if (!transaction) return;
-
-            currentEditingId = id;
-            document.getElementById('editTransactionId').value = transaction.id;
-            document.getElementById('editCustomerName').value = transaction.customer.name;
-            document.getElementById('editCustomerPhone').value = transaction.customer.phone;
-            document.getElementById('editPaymentMethod').value = transaction.payment;
-
-            editModal.classList.add('active');
-        }
-
-        function saveEditTransaction() {
-            if (!currentEditingId) return;
-
-            const transaction = transactionHistory.find(trx => trx.id === currentEditingId);
-            if (!transaction) return;
-
-            transaction.customer.name = document.getElementById('editCustomerName').value || 'Umum';
-            transaction.customer.phone = document.getElementById('editCustomerPhone').value || '-';
-            transaction.payment = document.getElementById('editPaymentMethod').value;
-
-            closeEditModal();
-            renderTransactionHistory();
-            showNotification('✅ Transaksi berhasil diperbarui!', 'success');
+            document.getElementById('totalTransactions').textContent = filtered.length;
+            document.getElementById('totalRevenue').textContent = formatCurrency(totalRevenue);
         }
 
         function deleteTransaction(id) {
             if (!confirm('Yakin ingin menghapus transaksi ini?')) return;
-
             const index = transactionHistory.findIndex(trx => trx.id === id);
             if (index === -1) return;
-
             transactionHistory.splice(index, 1);
             renderTransactionHistory();
             showNotification('🗑️ Transaksi berhasil dihapus!', 'danger');
         }
 
         function showNotification(message, type = 'success') {
-            const notification = document.createElement('div');
-            notification.textContent = message;
-            notification.style.cssText = `
+            const n = document.createElement('div');
+            n.textContent = message;
+            n.style.cssText = `
                 position: fixed; top: 20px; right: 20px;
                 background: ${type === 'success' ? 'linear-gradient(135deg, #10b981, #059669)' : 'linear-gradient(135deg, #e11d48, #be123c)'};
                 color: white; padding: 16px 24px; border-radius: 15px;
-                font-size: 14px; font-weight: 600; box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+                font-size: 14px; font-weight: 600; box-shadow: 0 8px 25px rgba(0,0,0,0.2);
                 z-index: 9999; animation: slideIn 0.3s ease;
             `;
-            document.body.appendChild(notification);
-            setTimeout(() => notification.remove(), 3000);
+            document.body.appendChild(n);
+            setTimeout(() => n.remove(), 3000);
         }
 
-        // Event listeners untuk history
-        if (document.getElementById('historySearchInput')) {
-            document.getElementById('historySearchInput').addEventListener('input', renderTransactionHistory);
-        }
-        if (document.getElementById('historyFilterPayment')) {
-            document.getElementById('historyFilterPayment').addEventListener('change', renderTransactionHistory);
-        }
-
-        historyModal.addEventListener('click', (e) => {
-            if (e.target === historyModal) closeHistoryModal();
-        });
-
-        editModal.addEventListener('click', (e) => {
-            if (e.target === editModal) closeEditModal();
-        });
+        document.getElementById('historySearchInput').addEventListener('input', renderTransactionHistory);
+        document.getElementById('historyFilterPayment').addEventListener('change', renderTransactionHistory);
+        historyModal.addEventListener('click', (e) => { if (e.target === historyModal) closeHistoryModal(); });
     </script>
 </body>
-
 </html>

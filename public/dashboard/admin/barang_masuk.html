@@ -336,7 +336,7 @@
         <div class="card-header">
             <h3>📋 Daftar Barang Masuk</h3>
             <div style="display:flex;gap:10px;">
-                <button class="print-btn" id="printBtn">🖨️ Cetak Laporan</button>
+                <!-- <button class="print-btn" id="printBtn">🖨️ Cetak Laporan</button> -->
                 <button class="filter-btn" id="filterToggleBtn">🔍 Filter</button>
             </div>
         </div>
@@ -952,10 +952,10 @@ document.getElementById('confirmDelete').addEventListener('click', function() {
 // ========================
 // PRINT
 // ========================
-document.getElementById('printBtn').addEventListener('click', function() {
-    showLoading();
-    setTimeout(() => { hideLoading(); window.print(); }, 800);
-});
+// document.getElementById('printBtn').addEventListener('click', function() {
+//     showLoading();
+//     setTimeout(() => { hideLoading(); window.print(); }, 800);
+// });
 
 // ========================
 // SIDEBAR TOGGLE

@@ -354,21 +354,10 @@
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
         }
 
-        .stat-icon.blue {
-            background: linear-gradient(135deg, #06b6d4, #0891b2);
-        }
-
-        .stat-icon.green {
-            background: linear-gradient(135deg, #10b981, #059669);
-        }
-
-        .stat-icon.yellow {
-            background: linear-gradient(135deg, #f59e0b, #d97706);
-        }
-
-        .stat-icon.red {
-            background: linear-gradient(135deg, #f43f5e, #e11d48);
-        }
+        .stat-icon.blue { background: linear-gradient(135deg, #06b6d4, #0891b2); }
+        .stat-icon.green { background: linear-gradient(135deg, #10b981, #059669); }
+        .stat-icon.yellow { background: linear-gradient(135deg, #f59e0b, #d97706); }
+        .stat-icon.red { background: linear-gradient(135deg, #f43f5e, #e11d48); }
 
         .stat-trend {
             display: flex;
@@ -380,87 +369,12 @@
             border-radius: 12px;
         }
 
-        .stat-trend.up {
-            background: rgba(16, 185, 129, 0.15);
-            color: #059669;
-        }
+        .stat-trend.up { background: rgba(16, 185, 129, 0.15); color: #059669; }
+        .stat-trend.down { background: rgba(244, 63, 94, 0.15); color: #e11d48; }
 
-        .stat-trend.down {
-            background: rgba(244, 63, 94, 0.15);
-            color: #e11d48;
-        }
-
-        .stat-label {
-            color: #64748b;
-            font-size: 14px;
-            margin-bottom: 10px;
-            font-weight: 500;
-        }
-
-        .stat-value {
-            color: #0c4a6e;
-            font-size: 30px;
-            font-weight: 800;
-            margin-bottom: 8px;
-        }
-
-        .stat-description {
-            color: #94a3b8;
-            font-size: 13px;
-        }
-
-        .quick-actions {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 15px;
-            margin-bottom: 25px;
-        }
-
-        .quick-action-btn {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            border: 2px solid rgba(14, 116, 144, 0.2);
-            padding: 22px;
-            border-radius: 18px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .quick-action-btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(6, 182, 212, 0.1), transparent);
-            transition: left 0.5s;
-        }
-
-        .quick-action-btn:hover::before {
-            left: 100%;
-        }
-
-        .quick-action-btn:hover {
-            border-color: #0e7490;
-            transform: translateY(-5px) rotate(2deg);
-            box-shadow: 0 8px 25px rgba(14, 116, 144, 0.2);
-        }
-
-        .quick-action-btn .icon {
-            font-size: 32px;
-            margin-bottom: 10px;
-            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
-        }
-
-        .quick-action-btn .label {
-            color: #475569;
-            font-size: 14px;
-            font-weight: 600;
-        }
+        .stat-label { color: #64748b; font-size: 14px; margin-bottom: 10px; font-weight: 500; }
+        .stat-value { color: #0c4a6e; font-size: 30px; font-weight: 800; margin-bottom: 8px; }
+        .stat-description { color: #94a3b8; font-size: 13px; }
 
         .content-grid {
             display: grid;
@@ -485,11 +399,7 @@
             margin-bottom: 20px;
         }
 
-        .card-header h3 {
-            color: #0c4a6e;
-            font-size: 18px;
-            font-weight: 800;
-        }
+        .card-header h3 { color: #0c4a6e; font-size: 18px; font-weight: 800; }
 
         .card-header .filter-btn {
             background: linear-gradient(135deg, #0e7490, #06b6d4);
@@ -536,13 +446,8 @@
             letter-spacing: 0.5px;
         }
 
-        .data-table th:first-child {
-            border-radius: 10px 0 0 10px;
-        }
-
-        .data-table th:last-child {
-            border-radius: 0 10px 10px 0;
-        }
+        .data-table th:first-child { border-radius: 10px 0 0 10px; }
+        .data-table th:last-child { border-radius: 0 10px 10px 0; }
 
         .data-table tbody tr {
             background: white;
@@ -562,15 +467,8 @@
             border: none;
         }
 
-        .data-table td:first-child {
-            border-radius: 10px 0 0 10px;
-            font-weight: 600;
-            color: #0c4a6e;
-        }
-
-        .data-table td:last-child {
-            border-radius: 0 10px 10px 0;
-        }
+        .data-table td:first-child { border-radius: 10px 0 0 10px; font-weight: 600; color: #0c4a6e; }
+        .data-table td:last-child { border-radius: 0 10px 10px 0; }
 
         .status-badge {
             padding: 6px 14px;
@@ -580,19 +478,41 @@
             display: inline-block;
         }
 
-        .status-badge.active {
-            background: linear-gradient(135deg, rgba(16, 185, 129, 0.2), rgba(5, 150, 105, 0.2));
-            color: #059669;
+        .status-badge.active { background: linear-gradient(135deg, rgba(16, 185, 129, 0.2), rgba(5, 150, 105, 0.2)); color: #059669; }
+        .status-badge.pending { background: linear-gradient(135deg, rgba(245, 158, 11, 0.2), rgba(217, 119, 6, 0.2)); color: #d97706; }
+        .status-badge.inactive { background: linear-gradient(135deg, rgba(244, 63, 94, 0.2), rgba(225, 29, 72, 0.2)); color: #e11d48; }
+
+        /* Stock bar */
+        .stock-bar-wrap {
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
-        .status-badge.pending {
-            background: linear-gradient(135deg, rgba(245, 158, 11, 0.2), rgba(217, 119, 6, 0.2));
-            color: #d97706;
+        .stock-bar {
+            flex: 1;
+            height: 8px;
+            background: rgba(14, 116, 144, 0.1);
+            border-radius: 99px;
+            overflow: hidden;
+            min-width: 80px;
         }
 
-        .status-badge.inactive {
-            background: linear-gradient(135deg, rgba(244, 63, 94, 0.2), rgba(225, 29, 72, 0.2));
-            color: #e11d48;
+        .stock-bar-fill {
+            height: 100%;
+            border-radius: 99px;
+            transition: width 0.8s ease;
+        }
+
+        .stock-bar-fill.high { background: linear-gradient(90deg, #10b981, #34d399); }
+        .stock-bar-fill.medium { background: linear-gradient(90deg, #f59e0b, #fbbf24); }
+        .stock-bar-fill.low { background: linear-gradient(90deg, #f43f5e, #fb7185); }
+
+        .stock-number {
+            font-size: 13px;
+            font-weight: 700;
+            min-width: 28px;
+            text-align: right;
         }
 
         .action-btn {
@@ -637,10 +557,7 @@
             border-color: transparent;
         }
 
-        .activity-list {
-            max-height: 500px;
-            overflow-y: auto;
-        }
+        .activity-list { max-height: 500px; overflow-y: auto; }
 
         .activity-item {
             display: flex;
@@ -650,13 +567,8 @@
             transition: all 0.3s;
         }
 
-        .activity-item:hover {
-            transform: translateX(5px);
-        }
-
-        .activity-item:last-child {
-            border-bottom: none;
-        }
+        .activity-item:hover { transform: translateX(5px); }
+        .activity-item:last-child { border-bottom: none; }
 
         .activity-icon {
             width: 50px;
@@ -670,43 +582,19 @@
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         }
 
-        .activity-icon.blue {
-            background: linear-gradient(135deg, #06b6d4, #0891b2);
-        }
+        .activity-icon.blue { background: linear-gradient(135deg, #06b6d4, #0891b2); }
+        .activity-icon.green { background: linear-gradient(135deg, #10b981, #059669); }
+        .activity-icon.yellow { background: linear-gradient(135deg, #f59e0b, #d97706); }
 
-        .activity-icon.green {
-            background: linear-gradient(135deg, #10b981, #059669);
-        }
-
-        .activity-icon.yellow {
-            background: linear-gradient(135deg, #f59e0b, #d97706);
-        }
-
-        .activity-content h4 {
-            color: #0c4a6e;
-            font-size: 15px;
-            margin-bottom: 5px;
-            font-weight: 700;
-        }
-
-        .activity-content p {
-            color: #64748b;
-            font-size: 13px;
-            margin-bottom: 5px;
-        }
-
-        .activity-time {
-            color: #94a3b8;
-            font-size: 12px;
-        }
+        .activity-content h4 { color: #0c4a6e; font-size: 15px; margin-bottom: 5px; font-weight: 700; }
+        .activity-content p { color: #64748b; font-size: 13px; margin-bottom: 5px; }
+        .activity-time { color: #94a3b8; font-size: 12px; }
 
         @media (min-width: 1024px) {
-            .content-grid {
-                grid-template-columns: 2fr 1fr;
-            }
+            .content-grid { grid-template-columns: 2fr 1fr; }
         }
 
-        /* ===== FILTER SECTION BARU ===== */
+        /* ===== FILTER SECTION ===== */
         .filter-section {
             background: linear-gradient(135deg, rgba(14, 116, 144, 0.05), rgba(6, 182, 212, 0.05));
             border: 1px solid rgba(14, 116, 144, 0.15);
@@ -716,9 +604,7 @@
             display: none;
         }
 
-        .filter-section.visible {
-            display: block;
-        }
+        .filter-section.visible { display: block; }
 
         .filter-title {
             font-size: 14px;
@@ -737,11 +623,7 @@
             margin-bottom: 14px;
         }
 
-        .filter-group {
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-        }
+        .filter-group { display: flex; flex-direction: column; gap: 6px; }
 
         .filter-group label {
             font-size: 12px;
@@ -784,12 +666,7 @@
             box-shadow: 0 0 0 3px rgba(14, 116, 144, 0.1);
         }
 
-        .filter-actions {
-            display: flex;
-            gap: 10px;
-            justify-content: flex-end;
-            flex-wrap: wrap;
-        }
+        .filter-actions { display: flex; gap: 10px; justify-content: flex-end; flex-wrap: wrap; }
 
         .action-btn-primary {
             background: linear-gradient(135deg, #0e7490, #06b6d4);
@@ -836,8 +713,53 @@
             display: none;
         }
 
-        .filter-result-info.visible {
-            display: block;
+        .filter-result-info.visible { display: block; }
+
+        /* Stock Summary Bar */
+        .stock-summary {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 14px;
+            margin-bottom: 20px;
+        }
+
+        .stock-summary-item {
+            padding: 14px 18px;
+            border-radius: 14px;
+            text-align: center;
+        }
+
+        .stock-summary-item.green-bg {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(5, 150, 105, 0.1));
+            border: 1px solid rgba(16, 185, 129, 0.25);
+        }
+
+        .stock-summary-item.yellow-bg {
+            background: linear-gradient(135deg, rgba(245, 158, 11, 0.1), rgba(217, 119, 6, 0.1));
+            border: 1px solid rgba(245, 158, 11, 0.25);
+        }
+
+        .stock-summary-item.red-bg {
+            background: linear-gradient(135deg, rgba(244, 63, 94, 0.1), rgba(225, 29, 72, 0.1));
+            border: 1px solid rgba(244, 63, 94, 0.25);
+        }
+
+        .stock-summary-count {
+            font-size: 24px;
+            font-weight: 800;
+            margin-bottom: 4px;
+        }
+
+        .stock-summary-item.green-bg .stock-summary-count { color: #059669; }
+        .stock-summary-item.yellow-bg .stock-summary-count { color: #d97706; }
+        .stock-summary-item.red-bg .stock-summary-count { color: #e11d48; }
+
+        .stock-summary-label {
+            font-size: 12px;
+            font-weight: 600;
+            color: #64748b;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
         /* Modal */
@@ -856,9 +778,7 @@
             padding: 20px;
         }
 
-        .modal-overlay.active {
-            display: flex;
-        }
+        .modal-overlay.active { display: flex; }
 
         .modal-content {
             background: rgba(255, 255, 255, 0.95);
@@ -875,15 +795,8 @@
         }
 
         @keyframes modalSlideIn {
-            from {
-                opacity: 0;
-                transform: translateY(-30px) scale(0.9);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0) scale(1);
-            }
+            from { opacity: 0; transform: translateY(-30px) scale(0.9); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
         }
 
         .modal-header {
@@ -895,12 +808,7 @@
             border-bottom: 2px solid rgba(14, 116, 144, 0.1);
         }
 
-        .modal-header h3 {
-            color: #0c4a6e;
-            font-size: 22px;
-            font-weight: 800;
-            margin: 0;
-        }
+        .modal-header h3 { color: #0c4a6e; font-size: 22px; font-weight: 800; margin: 0; }
 
         .close-modal {
             background: rgba(244, 63, 94, 0.1);
@@ -925,16 +833,8 @@
             margin-bottom: 25px;
         }
 
-        .detail-section {
-            margin-bottom: 20px;
-        }
-
-        .detail-section h4 {
-            color: #0c4a6e;
-            font-size: 16px;
-            margin-bottom: 12px;
-            font-weight: 700;
-        }
+        .detail-section { margin-bottom: 20px; }
+        .detail-section h4 { color: #0c4a6e; font-size: 16px; margin-bottom: 12px; font-weight: 700; }
 
         .detail-item {
             display: flex;
@@ -943,31 +843,12 @@
             border-bottom: 1px solid rgba(14, 116, 144, 0.1);
         }
 
-        .detail-item:last-child {
-            border-bottom: none;
-        }
+        .detail-item:last-child { border-bottom: none; }
+        .detail-label { color: #64748b; font-size: 14px; font-weight: 500; }
+        .detail-value { color: #0c4a6e; font-size: 14px; font-weight: 600; }
+        .detail-value.total { font-size: 18px; color: #059669; font-weight: 800; }
 
-        .detail-label {
-            color: #64748b;
-            font-size: 14px;
-            font-weight: 500;
-        }
-
-        .detail-value {
-            color: #0c4a6e;
-            font-size: 14px;
-            font-weight: 600;
-        }
-
-        .detail-value.total {
-            font-size: 18px;
-            color: #059669;
-            font-weight: 800;
-        }
-
-        .products-list {
-            margin-top: 10px;
-        }
+        .products-list { margin-top: 10px; }
 
         .product-item {
             display: flex;
@@ -977,32 +858,11 @@
             border-bottom: 1px solid rgba(14, 116, 144, 0.1);
         }
 
-        .product-item:last-child {
-            border-bottom: none;
-        }
-
-        .product-info {
-            flex: 1;
-        }
-
-        .product-name {
-            color: #0c4a6e;
-            font-size: 14px;
-            font-weight: 600;
-            margin-bottom: 4px;
-        }
-
-        .product-specs {
-            color: #64748b;
-            font-size: 12px;
-        }
-
-        .product-price {
-            color: #0c4a6e;
-            font-size: 14px;
-            font-weight: 700;
-            text-align: right;
-        }
+        .product-item:last-child { border-bottom: none; }
+        .product-info { flex: 1; }
+        .product-name { color: #0c4a6e; font-size: 14px; font-weight: 600; margin-bottom: 4px; }
+        .product-specs { color: #64748b; font-size: 12px; }
+        .product-price { color: #0c4a6e; font-size: 14px; font-weight: 700; text-align: right; }
 
         .modal-actions {
             display: flex;
@@ -1014,10 +874,7 @@
         }
 
         /* Dropdown */
-        .dropdown {
-            position: relative;
-            display: inline-block;
-        }
+        .dropdown { position: relative; display: inline-block; }
 
         .dropdown-btn {
             background: #ffffff;
@@ -1029,9 +886,7 @@
             transition: 0.2s;
         }
 
-        .dropdown-btn:hover {
-            background: #f1f1f1;
-        }
+        .dropdown-btn:hover { background: #f1f1f1; }
 
         .dropdown-menu {
             display: none;
@@ -1047,16 +902,8 @@
             z-index: 10;
         }
 
-        .dropdown-item {
-            padding: 8px 12px;
-            font-size: 12px;
-            cursor: pointer;
-            transition: 0.2s;
-        }
-
-        .dropdown-item:hover {
-            background: #f3f3f3;
-        }
+        .dropdown-item { padding: 8px 12px; font-size: 12px; cursor: pointer; transition: 0.2s; }
+        .dropdown-item:hover { background: #f3f3f3; }
 
         /* Loading */
         .loading-overlay {
@@ -1070,9 +917,7 @@
             z-index: 9999;
         }
 
-        .loading-overlay.active {
-            display: flex;
-        }
+        .loading-overlay.active { display: flex; }
 
         .dots-loader {
             background: linear-gradient(120deg, rgba(90, 167, 255, 0.35), rgba(255, 255, 255, 0.05));
@@ -1084,12 +929,7 @@
             text-align: center;
         }
 
-        .dots {
-            display: flex;
-            gap: 10px;
-            justify-content: center;
-            margin-bottom: 15px;
-        }
+        .dots { display: flex; gap: 10px; justify-content: center; margin-bottom: 15px; }
 
         .dots span {
             width: 12px;
@@ -1100,43 +940,18 @@
             box-shadow: 0 0 10px rgba(123, 93, 252, 0.6);
         }
 
-        .dots span:nth-child(1) {
-            animation-delay: 0s;
-        }
-
-        .dots span:nth-child(2) {
-            animation-delay: 0.2s;
-        }
-
-        .dots span:nth-child(3) {
-            animation-delay: 0.4s;
-        }
+        .dots span:nth-child(1) { animation-delay: 0s; }
+        .dots span:nth-child(2) { animation-delay: 0.2s; }
+        .dots span:nth-child(3) { animation-delay: 0.4s; }
 
         @keyframes pulseDots {
-            0% {
-                transform: scale(0.6);
-                opacity: 0.5;
-            }
-
-            40% {
-                transform: scale(1.2);
-                opacity: 1;
-            }
-
-            100% {
-                transform: scale(0.6);
-                opacity: 0.5;
-            }
+            0% { transform: scale(0.6); opacity: 0.5; }
+            40% { transform: scale(1.2); opacity: 1; }
+            100% { transform: scale(0.6); opacity: 0.5; }
         }
 
-        .loading-title {
-            font-size: 14px;
-            color: #444;
-            letter-spacing: 1px;
-            margin: 0;
-        }
+        .loading-title { font-size: 14px; color: #444; letter-spacing: 1px; margin: 0; }
 
-        /* Overlay */
         .overlay {
             display: none;
             position: fixed;
@@ -1149,154 +964,106 @@
             z-index: 999;
         }
 
-        .overlay.active {
-            display: block;
-        }
+        .overlay.active { display: block; }
 
         @keyframes wave {
-
-            0%,
-            100% {
-                transform: rotate(0deg);
-            }
-
-            25% {
-                transform: rotate(10deg);
-            }
-
-            75% {
-                transform: rotate(-10deg);
-            }
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(10deg); }
+            75% { transform: rotate(-10deg); }
         }
 
-        .menu-item:hover .icon {
-            animation: wave 0.5s ease;
+        .menu-item:hover .icon { animation: wave 0.5s ease; }
+
+        /* Stock Detail Modal */
+        .stock-detail-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+            margin-bottom: 20px;
+        }
+
+        .stock-detail-box {
+            padding: 18px;
+            border-radius: 14px;
+            text-align: center;
+        }
+
+        .stock-detail-box .sdb-label {
+            font-size: 12px;
+            font-weight: 600;
+            color: #64748b;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+        }
+
+        .stock-detail-box .sdb-value {
+            font-size: 24px;
+            font-weight: 800;
+        }
+
+        .stock-history-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(14, 116, 144, 0.1);
+            font-size: 14px;
+        }
+
+        .stock-history-item:last-child { border-bottom: none; }
+
+        .stock-history-type {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        .stock-history-type.masuk {
+            background: rgba(16, 185, 129, 0.15);
+            color: #059669;
+        }
+
+        .stock-history-type.keluar {
+            background: rgba(244, 63, 94, 0.15);
+            color: #e11d48;
         }
 
         @media (max-width: 768px) {
-            .order-details-grid {
-                grid-template-columns: 1fr;
-                gap: 15px;
-            }
-
-            .modal-content {
-                padding: 20px;
-            }
-
-            .modal-actions {
-                flex-direction: column;
-            }
-
-            .action-btn-primary,
-            .action-btn-secondary {
-                width: 100%;
-                text-align: center;
-            }
-
-            .sidebar {
-                transform: translateX(-100%);
-            }
-
-            .sidebar.active {
-                transform: translateX(0);
-            }
-
-            .main-content {
-                margin-left: 0;
-                padding: 18px;
-            }
-
-            .menu-toggle {
-                display: block;
-            }
-
-            .header {
-                flex-direction: column;
-                gap: 18px;
-                padding: 20px;
-            }
-
-            .header-left {
-                width: 100%;
-            }
-
-            .header-right {
-                width: 100%;
-                justify-content: space-between;
-            }
-
-            .search-box {
-                flex: 1;
-            }
-
-            .search-box input {
-                width: 100%;
-            }
-
-            .stats-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .quick-actions {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-            .user-profile {
-                position: static;
-                margin-top: 20px;
-            }
-
-            .filter-row {
-                grid-template-columns: 1fr;
-            }
+            .order-details-grid { grid-template-columns: 1fr; gap: 15px; }
+            .modal-content { padding: 20px; }
+            .modal-actions { flex-direction: column; }
+            .action-btn-primary, .action-btn-secondary { width: 100%; text-align: center; }
+            .sidebar { transform: translateX(-100%); }
+            .sidebar.active { transform: translateX(0); }
+            .main-content { margin-left: 0; padding: 18px; }
+            .menu-toggle { display: block; }
+            .header { flex-direction: column; gap: 18px; padding: 20px; }
+            .header-left { width: 100%; }
+            .header-right { width: 100%; justify-content: space-between; }
+            .search-box { flex: 1; }
+            .search-box input { width: 100%; }
+            .stats-grid { grid-template-columns: 1fr; }
+            .user-profile { position: static; margin-top: 20px; }
+            .filter-row { grid-template-columns: 1fr; }
+            .stock-summary { grid-template-columns: 1fr; }
+            .stock-detail-grid { grid-template-columns: 1fr; }
         }
 
         @media (max-width: 480px) {
-            .main-content {
-                padding: 12px;
-            }
-
-            .header-left h1 {
-                font-size: 22px;
-            }
-
-            .stat-value {
-                font-size: 24px;
-            }
-
-            .quick-actions {
-                grid-template-columns: 1fr;
-            }
-
-            .card {
-                padding: 18px;
-            }
-
-            .data-table th,
-            .data-table td {
-                padding: 12px 10px;
-                font-size: 13px;
-            }
+            .main-content { padding: 12px; }
+            .header-left h1 { font-size: 22px; }
+            .stat-value { font-size: 24px; }
+            .card { padding: 18px; }
+            .data-table th, .data-table td { padding: 12px 10px; font-size: 13px; }
         }
 
-        ::-webkit-scrollbar {
-            width: 10px;
-            height: 10px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 10px;
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: linear-gradient(180deg, #0e7490, #06b6d4);
-            border-radius: 10px;
-        }
-
-        ::-webkit-scrollbar-thumb:hover {
-            background: linear-gradient(180deg, #06b6d4, #0e7490);
-        }
+        ::-webkit-scrollbar { width: 10px; height: 10px; }
+        ::-webkit-scrollbar-track { background: rgba(255, 255, 255, 0.1); border-radius: 10px; }
+        ::-webkit-scrollbar-thumb { background: linear-gradient(180deg, #0e7490, #06b6d4); border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: linear-gradient(180deg, #06b6d4, #0e7490); }
 
         .logout-modal {
             position: fixed;
@@ -1309,10 +1076,7 @@
             z-index: 3000;
         }
 
-        .logout-modal.active {
-            display: flex;
-            animation: fadeIn 0.3s ease;
-        }
+        .logout-modal.active { display: flex; animation: fadeIn 0.3s ease; }
 
         .logout-box {
             background: rgba(255, 255, 255, 0.95);
@@ -1324,27 +1088,11 @@
             animation: slideUp 0.3s ease;
         }
 
-        .logout-icon {
-            font-size: 55px;
-            margin-bottom: 15px;
-        }
+        .logout-icon { font-size: 55px; margin-bottom: 15px; }
+        .logout-box h3 { color: #0c4a6e; font-size: 20px; margin-bottom: 10px; }
+        .logout-box p { color: #64748b; font-size: 14px; margin-bottom: 25px; }
 
-        .logout-box h3 {
-            color: #0c4a6e;
-            font-size: 20px;
-            margin-bottom: 10px;
-        }
-
-        .logout-box p {
-            color: #64748b;
-            font-size: 14px;
-            margin-bottom: 25px;
-        }
-
-        .logout-actions {
-            display: flex;
-            gap: 10px;
-        }
+        .logout-actions { display: flex; gap: 10px; }
 
         .logout-actions button {
             flex: 1;
@@ -1356,14 +1104,8 @@
             transition: 0.3s;
         }
 
-        .btn-cancel {
-            background: rgba(148, 163, 184, 0.2);
-            color: #475569;
-        }
-
-        .btn-cancel:hover {
-            background: rgba(148, 163, 184, 0.4);
-        }
+        .btn-cancel { background: rgba(148, 163, 184, 0.2); color: #475569; }
+        .btn-cancel:hover { background: rgba(148, 163, 184, 0.4); }
 
         .btn-confirm {
             background: linear-gradient(135deg, #ef4444, #dc2626);
@@ -1371,31 +1113,13 @@
             box-shadow: 0 6px 20px rgba(239, 68, 68, 0.4);
         }
 
-        .btn-confirm:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(239, 68, 68, 0.5);
-        }
+        .btn-confirm:hover { transform: translateY(-3px); box-shadow: 0 8px 25px rgba(239, 68, 68, 0.5); }
 
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-
-            to {
-                opacity: 1;
-            }
-        }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
         @keyframes slideUp {
-            from {
-                transform: translateY(40px);
-                opacity: 0;
-            }
-
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
+            from { transform: translateY(40px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
         }
     </style>
 </head>
@@ -1432,7 +1156,6 @@
             <a href="../admin/barang_keluar.html" class="menu-item" data-loading="true">
                 <span class="icon">📦</span>
                 <span>Barang Keluar</span>
-
             </a>
             <a href="../admin/generate_laporan.html" class="menu-item" data-loading="true">
                 <span class="icon">📝</span>
@@ -1449,10 +1172,6 @@
                 <span class="icon">⚙️</span>
                 <span>Pengaturan</span>
             </a>
-            <!-- <a href="../admin/notifikasi.html" class="menu-item" data-loading="true">
-                <span class="icon">🔔</span>
-                <span>Notifikasi</span>
-            </a> -->
             <a href="#" class="menu-item logout-btn">
                 <span class="icon">🚪</span><span>Logout</span>
             </a>
@@ -1528,14 +1247,12 @@
                     <button class="filter-btn" id="filterBtn">🔽 Filter</button>
                 </div>
 
-                <!-- Filter Section Baru -->
                 <div class="filter-section" id="filterSection">
                     <div class="filter-title">🔍 Cari & Filter Pesanan</div>
                     <div class="filter-row">
                         <div class="filter-group">
                             <label>Nama Produk</label>
-                            <input type="text" class="filter-input" id="filterProduct"
-                                placeholder="Cari nama produk...">
+                            <input type="text" class="filter-input" id="filterProduct" placeholder="Cari nama produk...">
                         </div>
                         <div class="filter-group">
                             <label>Tanggal</label>
@@ -1710,163 +1427,169 @@
             </div>
         </div>
 
-        <!-- Modal Detail Produk -->
-        <div class="modal-overlay" id="productModal">
+        <!-- Modal Detail Stok Produk -->
+        <div class="modal-overlay" id="stockDetailModal">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h3>Detail Produk</h3>
-                    <button class="close-modal" id="closeProductModal">✕</button>
+                    <h3>Detail Stok Produk</h3>
+                    <button class="close-modal" id="closeStockModal">✕</button>
                 </div>
                 <div style="display:flex;gap:20px;align-items:flex-start;margin-bottom:20px;flex-wrap:wrap;">
-                    <div id="productIconDisplay"
+                    <div id="stockIconDisplay"
                         style="width:80px;height:80px;border-radius:20px;background:linear-gradient(135deg,#06b6d4,#0891b2);display:flex;align-items:center;justify-content:center;font-size:38px;flex-shrink:0;box-shadow:0 6px 20px rgba(6,182,212,0.3);">
                         🎣</div>
                     <div style="flex:1;">
-                        <h4 id="pdName" style="color:#0c4a6e;font-size:20px;font-weight:800;margin-bottom:6px;"></h4>
-                        <span id="pdCategory"
+                        <h4 id="sdName" style="color:#0c4a6e;font-size:20px;font-weight:800;margin-bottom:6px;"></h4>
+                        <span id="sdCategory"
                             style="background:linear-gradient(135deg,rgba(14,116,144,0.12),rgba(6,182,212,0.12));color:#0e7490;font-size:12px;font-weight:700;padding:4px 12px;border-radius:20px;border:1px solid rgba(14,116,144,0.2);"></span>
                     </div>
                 </div>
-                <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:20px;">
-                    <div
-                        style="background:linear-gradient(135deg,rgba(16,185,129,0.08),rgba(5,150,105,0.08));border:1px solid rgba(16,185,129,0.2);border-radius:14px;padding:16px;text-align:center;">
-                        <div
-                            style="color:#64748b;font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:8px;">
-                            Harga Satuan</div>
-                        <div id="pdPrice" style="color:#059669;font-size:20px;font-weight:800;"></div>
+
+                <!-- Stock Stats Grid -->
+                <div class="stock-detail-grid">
+                    <div class="stock-detail-box" style="background:linear-gradient(135deg,rgba(14,116,144,0.08),rgba(6,182,212,0.08));border:1px solid rgba(14,116,144,0.2);">
+                        <div class="sdb-label">Stok Saat Ini</div>
+                        <div class="sdb-value" id="sdCurrent" style="color:#0e7490;"></div>
                     </div>
-                    <div
-                        style="background:linear-gradient(135deg,rgba(14,116,144,0.08),rgba(6,182,212,0.08));border:1px solid rgba(14,116,144,0.2);border-radius:14px;padding:16px;text-align:center;">
-                        <div
-                            style="color:#64748b;font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:8px;">
-                            Total Revenue</div>
-                        <div id="pdRevenue" style="color:#0e7490;font-size:20px;font-weight:800;"></div>
+                    <div class="stock-detail-box" style="background:linear-gradient(135deg,rgba(16,185,129,0.08),rgba(5,150,105,0.08));border:1px solid rgba(16,185,129,0.2);">
+                        <div class="sdb-label">Total Masuk</div>
+                        <div class="sdb-value" id="sdIn" style="color:#059669;"></div>
                     </div>
-                    <div
-                        style="background:linear-gradient(135deg,rgba(245,158,11,0.08),rgba(217,119,6,0.08));border:1px solid rgba(245,158,11,0.2);border-radius:14px;padding:16px;text-align:center;">
-                        <div
-                            style="color:#64748b;font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:8px;">
-                            Terjual</div>
-                        <div id="pdSold" style="color:#d97706;font-size:20px;font-weight:800;"></div>
+                    <div class="stock-detail-box" style="background:linear-gradient(135deg,rgba(244,63,94,0.08),rgba(225,29,72,0.08));border:1px solid rgba(244,63,94,0.2);">
+                        <div class="sdb-label">Total Keluar</div>
+                        <div class="sdb-value" id="sdOut" style="color:#e11d48;"></div>
                     </div>
-                    <div style="border-radius:14px;padding:16px;text-align:center;" id="pdStockBox">
-                        <div
-                            style="color:#64748b;font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:8px;">
-                            Stok Tersisa</div>
-                        <div id="pdStock" style="font-size:20px;font-weight:800;"></div>
+                    <div class="stock-detail-box" style="background:linear-gradient(135deg,rgba(245,158,11,0.08),rgba(217,119,6,0.08));border:1px solid rgba(245,158,11,0.2);">
+                        <div class="sdb-label">Harga Satuan</div>
+                        <div class="sdb-value" id="sdPrice" style="color:#d97706;font-size:16px;"></div>
                     </div>
                 </div>
+
+                <!-- Riwayat Stok -->
+                <div class="detail-section">
+                    <h4>Riwayat Mutasi Stok</h4>
+                    <div id="sdHistory"></div>
+                </div>
+
                 <div class="modal-actions">
-                    <button class="action-btn-secondary" id="closeProductModalBtn">Tutup</button>
+                    <button class="action-btn-secondary" id="closeStockModalBtn">Tutup</button>
+                    <button class="action-btn-primary" id="editStockBtn">✏️ Update Stok</button>
                 </div>
             </div>
         </div>
 
-        <!-- Modal Lihat Semua Produk -->
-        <div class="modal-overlay" id="allProductsModal">
-            <div class="modal-content" style="max-width:800px;">
-                <div class="modal-header">
-                    <h3>Semua Produk Terlaris</h3>
-                    <button class="close-modal" id="closeAllProductsModal">✕</button>
-                </div>
-                <div style="margin-bottom:16px;">
-                    <input type="text" id="allProductSearch" class="filter-input" placeholder="🔍 Cari produk..."
-                        style="width:100%;">
-                </div>
-                <div class="table-container">
-                    <table class="data-table" style="min-width:500px;">
-                        <thead>
-                            <tr>
-                                <th>Produk</th>
-                                <th>Kategori</th>
-                                <th>Harga</th>
-                                <th>Terjual</th>
-                                <th>Stok</th>
-                                <th>Revenue</th>
-                            </tr>
-                        </thead>
-                        <tbody id="allProductsTableBody"></tbody>
-                    </table>
-                </div>
-                <div style="margin-top:16px;text-align:right;">
-                    <button class="action-btn-secondary" id="closeAllProductsBtn">Tutup</button>
-                </div>
-            </div>
-        </div>
-
-        <!-- Best Selling Products -->
+        <!-- ============================================================ -->
+        <!-- INFORMASI STOK PRODUK (ganti Produk Terlaris Bulan Ini)      -->
+        <!-- ============================================================ -->
         <div class="card">
             <div class="card-header">
-                <h3>Produk Terlaris Bulan Ini</h3>
-                <button class="filter-btn" id="viewAllProducts">Lihat Semua →</button>
+                <h3>📦 Informasi Stok Produk</h3>
+                <button class="filter-btn" id="stockFilterToggle">🔽 Filter Stok</button>
             </div>
+
+            <!-- Filter Stok -->
+            <div class="filter-section" id="stockFilterSection">
+                <div class="filter-title">🔍 Cari & Filter Stok</div>
+                <div class="filter-row">
+                    <div class="filter-group">
+                        <label>Nama Produk</label>
+                        <input type="text" class="filter-input" id="stockFilterName" placeholder="Cari nama produk...">
+                    </div>
+                    <div class="filter-group">
+                        <label>Kategori</label>
+                        <select class="filter-select" id="stockFilterCategory">
+                            <option value="all">Semua Kategori</option>
+                            <option value="Joran">Joran</option>
+                            <option value="Reel">Reel</option>
+                            <option value="Umpan">Umpan</option>
+                            <option value="Aksesoris">Aksesoris</option>
+                            <option value="Kail">Kail</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label>Status Stok</label>
+                        <select class="filter-select" id="stockFilterStatus">
+                            <option value="all">Semua Status</option>
+                            <option value="aman">Aman (> 10)</option>
+                            <option value="menipis">Menipis (1–10)</option>
+                            <option value="habis">Habis (0)</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="filter-actions">
+                    <button class="action-btn-secondary" id="resetStockFilter">↺ Reset</button>
+                    <button class="action-btn-primary" id="applyStockFilter">✓ Terapkan</button>
+                </div>
+            </div>
+
+            <!-- Ringkasan Stok -->
+            <div class="stock-summary" id="stockSummary">
+                <div class="stock-summary-item green-bg">
+                    <div class="stock-summary-count" id="summaryAman">0</div>
+                    <div class="stock-summary-label">✅ Stok Aman</div>
+                </div>
+                <div class="stock-summary-item yellow-bg">
+                    <div class="stock-summary-count" id="summaryMenipis">0</div>
+                    <div class="stock-summary-label">⚠️ Stok Menipis</div>
+                </div>
+                <div class="stock-summary-item red-bg">
+                    <div class="stock-summary-count" id="summaryHabis">0</div>
+                    <div class="stock-summary-label">🚫 Stok Habis</div>
+                </div>
+            </div>
+
             <div class="table-container">
-                <table class="data-table" id="bestSellingTable">
+                <table class="data-table" id="stockTable">
                     <thead>
                         <tr>
                             <th>Produk</th>
                             <th>Kategori</th>
-                            <th>Harga</th>
-                            <th>Terjual</th>
-                            <th>Stok</th>
-                            <th>Revenue</th>
+                            <th>Stok Masuk</th>
+                            <th>Stok Keluar</th>
+                            <th>Sisa Stok</th>
+                            <th>Status</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
-                    <tbody id="bestSellingTableBody"></tbody>
+                    <tbody id="stockTableBody"></tbody>
                 </table>
             </div>
         </div>
     </main>
 
     <script>
-        // Data pesanan - ditambah field dateRaw untuk filter tanggal
+        // ===== DATA =====
         const orderData = {
             'GK001': {
-                id: 'GK001',
-                date: '15 Nov 2023, 14:30',
-                dateRaw: '2023-11-15',
-                status: 'Selesai',
+                id: 'GK001', date: '15 Nov 2023, 14:30', dateRaw: '2023-11-15', status: 'Selesai',
                 customer: { name: 'Budi Santoso', phone: '081234567890' },
                 products: [{ name: 'Joran Carbon Pro', specs: 'Panjang: 2.1m, Aksi: Medium', price: 'Rp 1.250.000', quantity: 1 }],
                 subtotal: 'Rp 1.250.000', shipping: 'Rp 25.000', total: 'Rp 1.275.000', totalNum: 1275000,
                 shippingInfo: { address: 'Jl. Merdeka No. 123, Jakarta Pusat', courier: 'JNE REG', tracking: 'JNE0012345678' }
             },
             'GK002': {
-                id: 'GK002',
-                date: '15 Nov 2023, 15:45',
-                dateRaw: '2023-11-15',
-                status: 'Batal',
+                id: 'GK002', date: '15 Nov 2023, 15:45', dateRaw: '2023-11-15', status: 'Batal',
                 customer: { name: 'Siti Nurhaliza', phone: '081298765432' },
                 products: [{ name: 'Reel Shimano 5000', specs: 'Gear Ratio: 5.2:1, Bearing: 10+1', price: 'Rp 850.000', quantity: 1 }],
                 subtotal: 'Rp 850.000', shipping: 'Rp 25.000', total: 'Rp 875.000', totalNum: 875000,
                 shippingInfo: { address: 'Jl. Sudirman No. 456, Jakarta Selatan', courier: 'JNE YES', tracking: '-' }
             },
             'GK003': {
-                id: 'GK003',
-                date: '14 Nov 2023, 10:15',
-                dateRaw: '2023-11-14',
-                status: 'Selesai',
+                id: 'GK003', date: '14 Nov 2023, 10:15', dateRaw: '2023-11-14', status: 'Selesai',
                 customer: { name: 'Ahmad Rizki', phone: '081355557777' },
                 products: [{ name: 'Umpan Set Lengkap', specs: '10 jenis umpan, 50pcs total', price: 'Rp 450.000', quantity: 1 }],
                 subtotal: 'Rp 450.000', shipping: 'Rp 20.000', total: 'Rp 470.000', totalNum: 470000,
                 shippingInfo: { address: 'Jl. Thamrin No. 789, Jakarta Pusat', courier: 'TIKI', tracking: 'TIKI123456789' }
             },
             'GK004': {
-                id: 'GK004',
-                date: '14 Nov 2023, 16:20',
-                dateRaw: '2023-11-14',
-                status: 'Selesai',
+                id: 'GK004', date: '14 Nov 2023, 16:20', dateRaw: '2023-11-14', status: 'Selesai',
                 customer: { name: 'Dewi Lestari', phone: '081366668888' },
                 products: [{ name: 'Tas Pancing Premium', specs: 'Waterproof, Kapasitas: 30L', price: 'Rp 675.000', quantity: 1 }],
                 subtotal: 'Rp 675.000', shipping: 'Rp 30.000', total: 'Rp 705.000', totalNum: 705000,
                 shippingInfo: { address: 'Jl. Gatot Subroto No. 321, Jakarta Selatan', courier: 'J&T', tracking: 'JT987654321' }
             },
             'GK005': {
-                id: 'GK005',
-                date: '13 Nov 2023, 09:30',
-                dateRaw: '2023-11-13',
-                status: 'Batal',
+                id: 'GK005', date: '13 Nov 2023, 09:30', dateRaw: '2023-11-13', status: 'Batal',
                 customer: { name: 'Joko Widodo', phone: '081377779999' },
                 products: [{ name: 'Kail Set 100pcs', specs: 'Berbagai ukuran, bahan stainless', price: 'Rp 350.000', quantity: 1 }],
                 subtotal: 'Rp 350.000', shipping: 'Rp 20.000', total: 'Rp 370.000', totalNum: 370000,
@@ -1874,12 +1597,58 @@
             }
         };
 
-        const bestSellingProducts = [
-            { id: 1, name: 'Joran Carbon Pro X1', category: 'Joran', price: 'Rp 1.250.000', sold: 156, stock: 25, revenue: 'Rp 195M' },
-            { id: 2, name: 'Reel Shimano 5000', category: 'Reel', price: 'Rp 850.000', sold: 134, stock: 42, revenue: 'Rp 113M' },
-            { id: 3, name: 'Umpan Set Premium', category: 'Umpan', price: 'Rp 450.000', sold: 289, stock: 8, revenue: 'Rp 130M' },
-            { id: 4, name: 'Tas Pancing Waterproof', category: 'Aksesoris', price: 'Rp 675.000', sold: 97, stock: 31, revenue: 'Rp 65M' },
-            { id: 5, name: 'Kail Set Professional', category: 'Kail', price: 'Rp 350.000', sold: 178, stock: 0, revenue: 'Rp 62M' }
+        // Data Stok Produk (menggantikan bestSellingProducts)
+        const stockProducts = [
+            {
+                id: 1, name: 'Joran Carbon Pro X1', category: 'Joran', price: 'Rp 1.250.000',
+                stockIn: 181, stockOut: 156, stock: 25,
+                history: [
+                    { date: '10 Nov 2023', type: 'masuk', qty: 50, keterangan: 'Restok dari supplier' },
+                    { date: '12 Nov 2023', type: 'keluar', qty: 30, keterangan: 'Penjualan' },
+                    { date: '14 Nov 2023', type: 'keluar', qty: 15, keterangan: 'Penjualan' },
+                    { date: '15 Nov 2023', type: 'masuk', qty: 20, keterangan: 'Restok darurat' },
+                ]
+            },
+            {
+                id: 2, name: 'Reel Shimano 5000', category: 'Reel', price: 'Rp 850.000',
+                stockIn: 176, stockOut: 134, stock: 42,
+                history: [
+                    { date: '08 Nov 2023', type: 'masuk', qty: 60, keterangan: 'Restok dari supplier' },
+                    { date: '11 Nov 2023', type: 'keluar', qty: 50, keterangan: 'Penjualan' },
+                    { date: '13 Nov 2023', type: 'keluar', qty: 44, keterangan: 'Penjualan' },
+                    { date: '15 Nov 2023', type: 'masuk', qty: 76, keterangan: 'Restok bulanan' },
+                ]
+            },
+            {
+                id: 3, name: 'Umpan Set Premium', category: 'Umpan', price: 'Rp 450.000',
+                stockIn: 297, stockOut: 289, stock: 8,
+                history: [
+                    { date: '01 Nov 2023', type: 'masuk', qty: 100, keterangan: 'Restok dari supplier' },
+                    { date: '05 Nov 2023', type: 'keluar', qty: 120, keterangan: 'Penjualan besar' },
+                    { date: '10 Nov 2023', type: 'keluar', qty: 89, keterangan: 'Penjualan' },
+                    { date: '13 Nov 2023', type: 'masuk', qty: 17, keterangan: 'Sisa retur' },
+                ]
+            },
+            {
+                id: 4, name: 'Tas Pancing Waterproof', category: 'Aksesoris', price: 'Rp 675.000',
+                stockIn: 128, stockOut: 97, stock: 31,
+                history: [
+                    { date: '05 Nov 2023', type: 'masuk', qty: 60, keterangan: 'Restok dari supplier' },
+                    { date: '09 Nov 2023', type: 'keluar', qty: 40, keterangan: 'Penjualan' },
+                    { date: '12 Nov 2023', type: 'keluar', qty: 37, keterangan: 'Penjualan' },
+                    { date: '14 Nov 2023', type: 'masuk', qty: 48, keterangan: 'Restok bulanan' },
+                ]
+            },
+            {
+                id: 5, name: 'Kail Set Professional', category: 'Kail', price: 'Rp 350.000',
+                stockIn: 178, stockOut: 178, stock: 0,
+                history: [
+                    { date: '01 Nov 2023', type: 'masuk', qty: 100, keterangan: 'Restok awal bulan' },
+                    { date: '07 Nov 2023', type: 'keluar', qty: 80, keterangan: 'Penjualan' },
+                    { date: '10 Nov 2023', type: 'masuk', qty: 78, keterangan: 'Restok tambahan' },
+                    { date: '14 Nov 2023', type: 'keluar', qty: 98, keterangan: 'Penjualan — HABIS' },
+                ]
+            }
         ];
 
         // ===== DROPDOWN PENDAPATAN =====
@@ -1906,14 +1675,13 @@
             }
         });
 
-        // ===== FILTER TOGGLE =====
+        // ===== FILTER PESANAN =====
         document.getElementById('filterBtn').addEventListener('click', function () {
             const fs = document.getElementById('filterSection');
             fs.classList.toggle('visible');
             this.textContent = fs.classList.contains('visible') ? '🔼 Filter' : '🔽 Filter';
         });
 
-        // ===== APPLY FILTER =====
         document.getElementById('applyFilter').addEventListener('click', applyFilters);
 
         document.getElementById('resetFilter').addEventListener('click', function () {
@@ -1936,53 +1704,31 @@
             const sortQ = document.getElementById('sortFilter').value;
 
             let filtered = Object.values(orderData);
-
-            // Filter nama produk
-            if (productQ) {
-                filtered = filtered.filter(o =>
-                    o.products.some(p => p.name.toLowerCase().includes(productQ))
-                );
-            }
-
-            // Filter tanggal
-            if (dateQ) {
-                filtered = filtered.filter(o => o.dateRaw === dateQ);
-            }
-
-            // Filter total
+            if (productQ) filtered = filtered.filter(o => o.products.some(p => p.name.toLowerCase().includes(productQ)));
+            if (dateQ) filtered = filtered.filter(o => o.dateRaw === dateQ);
             filtered = filtered.filter(o => o.totalNum >= totalMin && o.totalNum <= totalMax);
-
-            // Filter status
-            if (statusQ !== 'all') {
-                filtered = filtered.filter(o => o.status.toLowerCase() === statusQ);
-            }
-
-            // Sorting
+            if (statusQ !== 'all') filtered = filtered.filter(o => o.status.toLowerCase() === statusQ);
             if (sortQ === 'total-desc') filtered.sort((a, b) => b.totalNum - a.totalNum);
             else if (sortQ === 'total-asc') filtered.sort((a, b) => a.totalNum - b.totalNum);
             else if (sortQ === 'date-desc') filtered.sort((a, b) => new Date(b.dateRaw) - new Date(a.dateRaw));
             else if (sortQ === 'date-asc') filtered.sort((a, b) => new Date(a.dateRaw) - new Date(b.dateRaw));
 
             loadOrdersTable(filtered);
-
-            // Info hasil
             const info = document.getElementById('filterResultInfo');
             info.textContent = `Menampilkan ${filtered.length} dari ${Object.keys(orderData).length} pesanan`;
             info.classList.add('visible');
         }
 
-        // ===== MODAL =====
+        // ===== MODAL PESANAN =====
         function openOrderModal(orderId) {
             const order = orderData[orderId];
             if (!order) return;
-
             document.getElementById('modalOrderId').textContent = order.id;
             document.getElementById('modalOrderDate').textContent = order.date;
             document.getElementById('modalOrderStatus').textContent = order.status;
             document.getElementById('modalOrderStatus').className = `status-badge ${order.status === 'Selesai' ? 'active' : 'inactive'}`;
             document.getElementById('modalCustomerName').textContent = order.customer.name;
             document.getElementById('modalCustomerPhone').textContent = order.customer.phone;
-
             const productsList = document.getElementById('modalProductsList');
             productsList.innerHTML = '';
             order.products.forEach(product => {
@@ -1997,45 +1743,28 @@
                 `;
                 productsList.appendChild(productItem);
             });
-
             document.getElementById('modalSubtotal').textContent = order.subtotal;
             document.getElementById('modalShipping').textContent = order.shipping;
             document.getElementById('modalTotal').textContent = order.total;
             document.getElementById('modalShippingAddress').textContent = order.shippingInfo.address;
             document.getElementById('modalCourier').textContent = order.shippingInfo.courier;
             document.getElementById('modalTrackingNumber').textContent = order.shippingInfo.tracking;
-
             document.getElementById('orderModal').classList.add('active');
         }
 
-        document.getElementById('closeModal').addEventListener('click', () => {
-            document.getElementById('orderModal').classList.remove('active');
-        });
-
-        document.getElementById('orderModal').addEventListener('click', (e) => {
-            if (e.target === document.getElementById('orderModal')) {
-                document.getElementById('orderModal').classList.remove('active');
-            }
-        });
-
-        document.getElementById('printOrder').addEventListener('click', () => {
-            alert(`Mencetak detail pesanan ${document.getElementById('modalOrderId').textContent}`);
-        });
-
-        document.getElementById('editOrder').addEventListener('click', () => {
-            alert(`Mengedit pesanan ${document.getElementById('modalOrderId').textContent}`);
-        });
+        document.getElementById('closeModal').addEventListener('click', () => document.getElementById('orderModal').classList.remove('active'));
+        document.getElementById('orderModal').addEventListener('click', (e) => { if (e.target === document.getElementById('orderModal')) document.getElementById('orderModal').classList.remove('active'); });
+        document.getElementById('printOrder').addEventListener('click', () => alert(`Mencetak detail pesanan ${document.getElementById('modalOrderId').textContent}`));
+        document.getElementById('editOrder').addEventListener('click', () => alert(`Mengedit pesanan ${document.getElementById('modalOrderId').textContent}`));
 
         // ===== LOAD TABEL PESANAN =====
         function loadOrdersTable(orders) {
             const tbody = document.getElementById('ordersTableBody');
             tbody.innerHTML = '';
-
             if (orders.length === 0) {
                 tbody.innerHTML = `<tr><td colspan="6" style="text-align:center;padding:30px;color:#94a3b8;">Tidak ada data pesanan ditemukan</td></tr>`;
                 return;
             }
-
             orders.forEach(order => {
                 const row = document.createElement('tr');
                 row.innerHTML = `
@@ -2051,17 +1780,12 @@
                 `;
                 tbody.appendChild(row);
             });
-
             document.querySelectorAll('.view-btn').forEach(btn => {
-                btn.addEventListener('click', function () {
-                    openOrderModal(this.getAttribute('data-id'));
-                });
+                btn.addEventListener('click', function () { openOrderModal(this.getAttribute('data-id')); });
             });
-
             document.querySelectorAll('.delete-btn').forEach(btn => {
                 btn.addEventListener('click', function () {
-                    const orderId = this.getAttribute('data-id');
-                    if (confirm(`Hapus pesanan ${orderId}?`)) {
+                    if (confirm(`Hapus pesanan ${this.getAttribute('data-id')}?`)) {
                         const row = this.closest('tr');
                         row.style.opacity = '0';
                         row.style.transform = 'scale(0.9) translateX(-20px)';
@@ -2072,37 +1796,98 @@
             });
         }
 
-        // ===== LOAD TABEL PRODUK TERLARIS =====
-        function loadBestSellingTable(products) {
-            const tbody = document.getElementById('bestSellingTableBody');
+        // ===== MODAL DETAIL STOK =====
+        function openStockModal(p) {
+            const icons = { 'Joran': '🎣', 'Reel': '⚙️', 'Umpan': '🪱', 'Aksesoris': '🎒', 'Kail': '🪝' };
+            document.getElementById('stockIconDisplay').textContent = icons[p.category] || '📦';
+            document.getElementById('sdName').textContent = p.name;
+            document.getElementById('sdCategory').textContent = p.category;
+            document.getElementById('sdCurrent').textContent = p.stock + ' pcs';
+            document.getElementById('sdIn').textContent = '+' + p.stockIn + ' pcs';
+            document.getElementById('sdOut').textContent = '-' + p.stockOut + ' pcs';
+            document.getElementById('sdPrice').textContent = p.price;
+
+            const histEl = document.getElementById('sdHistory');
+            histEl.innerHTML = '';
+            p.history.forEach(h => {
+                const item = document.createElement('div');
+                item.className = 'stock-history-item';
+                item.innerHTML = `
+                    <span style="color:#64748b;font-size:13px;">${h.date}</span>
+                    <span class="stock-history-type ${h.type}">${h.type === 'masuk' ? '▲ Masuk' : '▼ Keluar'}</span>
+                    <span style="font-weight:700;color:${h.type === 'masuk' ? '#059669' : '#e11d48'};">${h.type === 'masuk' ? '+' : '-'}${h.qty} pcs</span>
+                    <span style="color:#94a3b8;font-size:12px;max-width:140px;text-align:right;">${h.keterangan}</span>
+                `;
+                histEl.appendChild(item);
+            });
+            document.getElementById('stockDetailModal').classList.add('active');
+        }
+
+        document.getElementById('closeStockModal').addEventListener('click', () => document.getElementById('stockDetailModal').classList.remove('active'));
+        document.getElementById('closeStockModalBtn').addEventListener('click', () => document.getElementById('stockDetailModal').classList.remove('active'));
+        document.getElementById('stockDetailModal').addEventListener('click', (e) => { if (e.target === document.getElementById('stockDetailModal')) document.getElementById('stockDetailModal').classList.remove('active'); });
+        document.getElementById('editStockBtn').addEventListener('click', () => alert('Fitur update stok akan segera tersedia!'));
+
+        // ===== LOAD TABEL STOK =====
+        function loadStockTable(products) {
+            const tbody = document.getElementById('stockTableBody');
             tbody.innerHTML = '';
-            products.forEach(product => {
+
+            let aman = 0, menipis = 0, habis = 0;
+            products.forEach(p => {
+                if (p.stock === 0) habis++;
+                else if (p.stock <= 10) menipis++;
+                else aman++;
+            });
+            document.getElementById('summaryAman').textContent = aman;
+            document.getElementById('summaryMenipis').textContent = menipis;
+            document.getElementById('summaryHabis').textContent = habis;
+
+            if (products.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="7" style="text-align:center;padding:30px;color:#94a3b8;">Tidak ada data stok ditemukan</td></tr>`;
+                return;
+            }
+
+            products.forEach(p => {
+                const maxStock = p.stockIn;
+                const pct = maxStock > 0 ? Math.round((p.stock / maxStock) * 100) : 0;
+                const barClass = p.stock === 0 ? 'low' : p.stock <= 10 ? 'medium' : 'high';
+                const statusLabel = p.stock === 0 ? 'Habis' : p.stock <= 10 ? 'Menipis' : 'Aman';
+                const statusClass = p.stock === 0 ? 'inactive' : p.stock <= 10 ? 'pending' : 'active';
+
                 const row = document.createElement('tr');
                 row.innerHTML = `
-                    <td><strong>${product.name}</strong></td>
-                    <td>${product.category}</td>
-                    <td>${product.price}</td>
-                    <td>${product.sold} unit</td>
-                    <td><span class="status-badge ${product.stock > 10 ? 'active' : product.stock > 0 ? 'pending' : 'inactive'}">${product.stock}</span></td>
-                    <td>${product.revenue}</td>
+                    <td><strong>${p.name}</strong></td>
+                    <td>${p.category}</td>
+                    <td style="color:#059669;font-weight:700;">+${p.stockIn} pcs</td>
+                    <td style="color:#e11d48;font-weight:700;">-${p.stockOut} pcs</td>
                     <td>
-                        <button class="action-btn btn-view view-product-btn" data-id="${product.id}">👁️ Lihat</button>
-                        <button class="action-btn btn-delete delete-product-btn" data-id="${product.id}">🗑️ Hapus</button>
+                        <div class="stock-bar-wrap">
+                            <div class="stock-bar">
+                                <div class="stock-bar-fill ${barClass}" style="width:${pct}%;"></div>
+                            </div>
+                            <span class="stock-number" style="color:${p.stock === 0 ? '#e11d48' : p.stock <= 10 ? '#d97706' : '#059669'};">${p.stock}</span>
+                        </div>
+                    </td>
+                    <td><span class="status-badge ${statusClass}">${statusLabel}</span></td>
+                    <td>
+                        <button class="action-btn btn-view view-stock-btn" data-id="${p.id}">👁️ Detail</button>
+                        <button class="action-btn btn-delete del-stock-btn" data-id="${p.id}">🗑️ Hapus</button>
                     </td>
                 `;
                 tbody.appendChild(row);
             });
 
-            document.querySelectorAll('.view-product-btn').forEach(btn => {
+            document.querySelectorAll('.view-stock-btn').forEach(btn => {
                 btn.addEventListener('click', function () {
-                    const p = bestSellingProducts.find(x => x.id == this.getAttribute('data-id'));
-                    openProductModal(p);
+                    const p = stockProducts.find(x => x.id == this.getAttribute('data-id'));
+                    if (p) openStockModal(p);
                 });
             });
 
-            document.querySelectorAll('.delete-product-btn').forEach(btn => {
+            document.querySelectorAll('.del-stock-btn').forEach(btn => {
                 btn.addEventListener('click', function () {
-                    if (confirm('Hapus produk ini?')) {
+                    if (confirm('Hapus data stok produk ini?')) {
                         const row = this.closest('tr');
                         row.style.opacity = '0';
                         row.style.transform = 'scale(0.9) translateX(-20px)';
@@ -2113,96 +1898,40 @@
             });
         }
 
-        document.getElementById('viewAllProducts').addEventListener('click', function () {
-            openAllProductsModal(bestSellingProducts);
+        // ===== FILTER STOK =====
+        document.getElementById('stockFilterToggle').addEventListener('click', function () {
+            const fs = document.getElementById('stockFilterSection');
+            fs.classList.toggle('visible');
+            this.textContent = fs.classList.contains('visible') ? '🔼 Filter Stok' : '🔽 Filter Stok';
         });
 
-        // ===== PRODUCT DETAIL MODAL =====
-        function openProductModal(p) {
-            const categoryIcons = { 'Joran': '🎣', 'Reel': '⚙️', 'Umpan': '🪱', 'Aksesoris': '🎒', 'Kail': '🪝' };
-            document.getElementById('productIconDisplay').textContent = categoryIcons[p.category] || '📦';
-            document.getElementById('pdName').textContent = p.name;
-            document.getElementById('pdCategory').textContent = p.category;
-            document.getElementById('pdPrice').textContent = p.price;
-            document.getElementById('pdRevenue').textContent = p.revenue;
-            document.getElementById('pdSold').textContent = p.sold + ' unit';
+        document.getElementById('applyStockFilter').addEventListener('click', function () {
+            const name = document.getElementById('stockFilterName').value.toLowerCase().trim();
+            const cat = document.getElementById('stockFilterCategory').value;
+            const status = document.getElementById('stockFilterStatus').value;
 
-            const stockEl = document.getElementById('pdStock');
-            const stockBox = document.getElementById('pdStockBox');
-            stockEl.textContent = p.stock + ' pcs';
-            if (p.stock === 0) {
-                stockBox.style.background = 'linear-gradient(135deg,rgba(244,63,94,0.08),rgba(225,29,72,0.08))';
-                stockBox.style.border = '1px solid rgba(244,63,94,0.2)';
-                stockEl.style.color = '#e11d48';
-            } else if (p.stock <= 10) {
-                stockBox.style.background = 'linear-gradient(135deg,rgba(245,158,11,0.08),rgba(217,119,6,0.08))';
-                stockBox.style.border = '1px solid rgba(245,158,11,0.2)';
-                stockEl.style.color = '#d97706';
-            } else {
-                stockBox.style.background = 'linear-gradient(135deg,rgba(16,185,129,0.08),rgba(5,150,105,0.08))';
-                stockBox.style.border = '1px solid rgba(16,185,129,0.2)';
-                stockEl.style.color = '#059669';
-            }
-            document.getElementById('productModal').classList.add('active');
-        }
+            let filtered = [...stockProducts];
+            if (name) filtered = filtered.filter(p => p.name.toLowerCase().includes(name));
+            if (cat !== 'all') filtered = filtered.filter(p => p.category === cat);
+            if (status === 'aman') filtered = filtered.filter(p => p.stock > 10);
+            else if (status === 'menipis') filtered = filtered.filter(p => p.stock > 0 && p.stock <= 10);
+            else if (status === 'habis') filtered = filtered.filter(p => p.stock === 0);
 
-        document.getElementById('closeProductModal').addEventListener('click', () => {
-            document.getElementById('productModal').classList.remove('active');
-        });
-        document.getElementById('closeProductModalBtn').addEventListener('click', () => {
-            document.getElementById('productModal').classList.remove('active');
-        });
-        document.getElementById('productModal').addEventListener('click', (e) => {
-            if (e.target === document.getElementById('productModal')) document.getElementById('productModal').classList.remove('active');
+            loadStockTable(filtered);
         });
 
-        // ===== SEMUA PRODUK MODAL =====
-        function openAllProductsModal(products) {
-            renderAllProductsTable(products);
-            document.getElementById('allProductsModal').classList.add('active');
-        }
-
-        function renderAllProductsTable(products) {
-            const tbody = document.getElementById('allProductsTableBody');
-            tbody.innerHTML = '';
-            products.forEach(p => {
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td><strong>${p.name}</strong></td>
-                    <td>${p.category}</td>
-                    <td>${p.price}</td>
-                    <td>${p.sold} unit</td>
-                    <td><span class="status-badge ${p.stock > 10 ? 'active' : p.stock > 0 ? 'pending' : 'inactive'}">${p.stock}</span></td>
-                    <td>${p.revenue}</td>
-                `;
-                tbody.appendChild(row);
-            });
-        }
-
-        document.getElementById('closeAllProductsModal').addEventListener('click', () => {
-            document.getElementById('allProductsModal').classList.remove('active');
-        });
-        document.getElementById('closeAllProductsBtn').addEventListener('click', () => {
-            document.getElementById('allProductsModal').classList.remove('active');
-        });
-        document.getElementById('allProductsModal').addEventListener('click', (e) => {
-            if (e.target === document.getElementById('allProductsModal')) document.getElementById('allProductsModal').classList.remove('active');
-        });
-
-        document.getElementById('allProductSearch').addEventListener('input', function () {
-            const q = this.value.toLowerCase();
-            const filtered = bestSellingProducts.filter(p =>
-                p.name.toLowerCase().includes(q) || p.category.toLowerCase().includes(q)
-            );
-            renderAllProductsTable(filtered);
+        document.getElementById('resetStockFilter').addEventListener('click', function () {
+            document.getElementById('stockFilterName').value = '';
+            document.getElementById('stockFilterCategory').value = 'all';
+            document.getElementById('stockFilterStatus').value = 'all';
+            loadStockTable(stockProducts);
         });
 
         // ===== INIT =====
         document.addEventListener('DOMContentLoaded', function () {
             loadOrdersTable(Object.values(orderData));
-            loadBestSellingTable(bestSellingProducts);
+            loadStockTable(stockProducts);
 
-            // Loading
             function showLoading() { document.getElementById('loadingOverlay').classList.add('active'); }
 
             document.querySelectorAll('.menu-item[data-loading="true"]').forEach(item => {
@@ -2214,7 +1943,6 @@
                 });
             });
 
-            // Sidebar toggle
             const menuToggle = document.getElementById('menuToggle');
             const sidebar = document.getElementById('sidebar');
             const overlay = document.getElementById('overlay');
@@ -2229,9 +1957,8 @@
                 overlay.classList.remove('active');
             });
 
-            // Menu active state
             document.querySelectorAll('.menu-item').forEach(item => {
-                item.addEventListener('click', function (e) {
+                item.addEventListener('click', function () {
                     document.querySelectorAll('.menu-item').forEach(i => i.classList.remove('active'));
                     this.classList.add('active');
                     if (window.innerWidth <= 768) {
@@ -2241,9 +1968,6 @@
                 });
             });
 
-
-
-            // Search
             document.querySelector('.search-box input').addEventListener('keypress', function (e) {
                 if (e.key === 'Enter' && this.value) {
                     alert(`🔍 Mencari: "${this.value}"\n\nFitur pencarian akan segera tersedia!`);
@@ -2274,12 +1998,12 @@
     </div>
 
     <script>
-        const logoutBtn = document.querySelector('.logout-btn');
+        const logoutBtnEl = document.querySelector('.logout-btn');
         const logoutModal = document.getElementById('logoutModal');
         const cancelLogout = document.getElementById('cancelLogout');
         const confirmLogout = document.getElementById('confirmLogout');
 
-        logoutBtn.addEventListener('click', function (e) {
+        logoutBtnEl.addEventListener('click', function (e) {
             e.preventDefault();
             logoutModal.classList.add('active');
         });
@@ -2289,11 +2013,8 @@
         });
 
         confirmLogout.addEventListener('click', function () {
-            // Hapus session login
             localStorage.removeItem('userLogin');
             localStorage.removeItem('userRole');
-
-            // Redirect (PATH TERBARU)
             window.location.href = '../../pages/login.html';
         });
     </script>

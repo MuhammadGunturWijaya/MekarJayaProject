@@ -854,30 +854,13 @@
             animation: pulseDots 1.2s infinite ease-in-out;
         }
 
-        .dots span:nth-child(1) {
-            animation-delay: 0s;
-        }
-
-        .dots span:nth-child(2) {
-            animation-delay: 0.2s;
-        }
-
-        .dots span:nth-child(3) {
-            animation-delay: 0.4s;
-        }
+        .dots span:nth-child(1) { animation-delay: 0s; }
+        .dots span:nth-child(2) { animation-delay: 0.2s; }
+        .dots span:nth-child(3) { animation-delay: 0.4s; }
 
         @keyframes pulseDots {
-
-            0%,
-            100% {
-                transform: scale(0.6);
-                opacity: 0.5
-            }
-
-            40% {
-                transform: scale(1.2);
-                opacity: 1
-            }
+            0%, 100% { transform: scale(0.6); opacity: 0.5 }
+            40% { transform: scale(1.2); opacity: 1 }
         }
 
         .loading-title {
@@ -948,6 +931,138 @@
             background: rgba(14, 116, 144, 0.07);
             border-radius: 8px;
             display: inline-block;
+        }
+
+        /* ========================
+           IMAGE UPLOAD STYLES
+        ======================== */
+        .image-upload-area {
+            border: 2px dashed rgba(14, 116, 144, 0.35);
+            border-radius: 14px;
+            padding: 20px 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: rgba(14, 116, 144, 0.03);
+            position: relative;
+            min-height: 110px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .image-upload-area:hover {
+            border-color: #0e7490;
+            background: rgba(14, 116, 144, 0.07);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(14, 116, 144, 0.12);
+        }
+
+        .image-upload-area.dragover {
+            border-color: #06b6d4;
+            background: rgba(6, 182, 212, 0.1);
+            box-shadow: 0 0 0 4px rgba(6, 182, 212, 0.15);
+        }
+
+        .image-upload-area.has-image {
+            border-style: solid;
+            border-color: rgba(16, 185, 129, 0.5);
+            background: rgba(16, 185, 129, 0.04);
+            padding: 10px;
+        }
+
+        .upload-icon {
+            font-size: 28px;
+            line-height: 1;
+        }
+
+        .upload-label-text {
+            font-size: 13px;
+            font-weight: 600;
+            color: #0e7490;
+        }
+
+        .upload-sub-text {
+            font-size: 11px;
+            color: #94a3b8;
+        }
+
+        .upload-btn-trigger {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            background: linear-gradient(135deg, #0e7490, #06b6d4);
+            color: white;
+            padding: 8px 18px;
+            border-radius: 10px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            transition: all 0.3s;
+            box-shadow: 0 3px 12px rgba(14, 116, 144, 0.3);
+            margin-top: 4px;
+        }
+
+        .upload-btn-trigger:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 18px rgba(14, 116, 144, 0.4);
+        }
+
+        #fotoBarang {
+            display: none;
+        }
+
+        /* Image preview */
+        .image-preview-wrap {
+            position: relative;
+            width: 100%;
+        }
+
+        .image-preview-wrap img {
+            width: 100%;
+            max-height: 130px;
+            object-fit: contain;
+            border-radius: 10px;
+            display: block;
+        }
+
+        .image-remove-btn {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: linear-gradient(135deg, #f43f5e, #e11d48);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 26px;
+            height: 26px;
+            font-size: 13px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 8px rgba(244, 63, 94, 0.4);
+            transition: transform 0.2s;
+            line-height: 1;
+        }
+
+        .image-remove-btn:hover {
+            transform: scale(1.15);
+        }
+
+        .image-filename {
+            font-size: 11px;
+            color: #059669;
+            font-weight: 600;
+            margin-top: 6px;
+            text-align: center;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 100%;
         }
 
         @media (max-width: 768px) {
@@ -1071,25 +1186,13 @@
         }
 
         @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-
-            to {
-                opacity: 1;
-            }
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
 
         @keyframes slideUp {
-            from {
-                transform: translateY(40px);
-                opacity: 0;
-            }
-
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
+            from { transform: translateY(40px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
         }
     </style>
 </head>
@@ -1120,9 +1223,8 @@
             <a href="../admin/barang_masuk.html" class="menu-item active" data-loading="true">
                 <span class="icon">🚚</span><span>Barang Masuk</span>
             </a>
-            <a href="../admin/barang_keluar.html" class="menu-item " data-loading="true">
+            <a href="../admin/barang_keluar.html" class="menu-item" data-loading="true">
                 <span class="icon">📦</span><span>Barang Keluar</span>
-
             </a>
             <a href="../admin/generate_laporan.html" class="menu-item" data-loading="true">
                 <span class="icon">📝</span><span>Generate Laporan</span>
@@ -1136,9 +1238,6 @@
             <a href="../admin/pengaturan.html" class="menu-item" data-loading="true">
                 <span class="icon">⚙️</span><span>Pengaturan</span>
             </a>
-            <!-- <a href="../admin/notifikasi.html" class="menu-item" data-loading="true">
-                <span class="icon">🔔</span><span>Notifikasi</span>
-            </a> -->
             <a href="#" class="menu-item logout-btn">
                 <span class="icon">🚪</span><span>Logout</span>
             </a>
@@ -1168,8 +1267,7 @@
                             <input type="text" id="namaBarang" placeholder="Ketik atau pilih nama barang..." required>
                             <div class="autocomplete-dropdown" id="autocompleteDropdown"></div>
                         </div>
-                        <div class="autocomplete-hint">💡 Ketik untuk mencari barang terdaftar, atau ketik nama baru
-                        </div>
+                        <div class="autocomplete-hint">💡 Ketik untuk mencari barang terdaftar, atau ketik nama baru</div>
                     </div>
 
                     <div class="form-group">
@@ -1217,6 +1315,32 @@
                         <label for="hargaJual">Harga Jual (Rp)</label>
                         <input type="number" id="hargaJual" placeholder="0" min="0" required>
                     </div>
+
+                    <!-- ===== FOTO BARANG (NEW) ===== -->
+                    <div class="form-group">
+                        <label>Foto Barang</label>
+                        <input type="file" id="fotoBarang" accept="image/*">
+                        <div class="image-upload-area" id="uploadArea">
+                            <div id="uploadPlaceholder">
+                                <div class="upload-icon">🖼️</div>
+                                <div class="upload-label-text">Upload Foto Barang</div>
+                                <div class="upload-sub-text">JPG, PNG, WEBP · Maks. 5 MB</div>
+                                <button type="button" class="upload-btn-trigger" id="uploadTriggerBtn">
+                                    📷 Pilih Foto
+                                </button>
+                            </div>
+                            <div id="imagePreviewContainer" style="display:none; width:100%;">
+                                <div class="image-preview-wrap">
+                                    <img id="imagePreview" src="" alt="Preview">
+                                    <button type="button" class="image-remove-btn" id="removeImageBtn" title="Hapus foto">✕</button>
+                                </div>
+                                <div class="image-filename" id="imageFilename"></div>
+                            </div>
+                        </div>
+                        <div class="autocomplete-hint">💡 Drag & drop atau klik tombol untuk memilih gambar</div>
+                    </div>
+                    <!-- ===== END FOTO BARANG ===== -->
+
                 </div>
                 <div class="form-actions">
                     <button type="reset" class="btn btn-secondary" id="resetBtn">
@@ -1234,7 +1358,6 @@
             <div class="card-header">
                 <h3>📋 Daftar Barang Masuk</h3>
                 <div style="display:flex;gap:10px;">
-                    <!-- <button class="print-btn" id="printBtn">🖨️ Cetak Laporan</button> -->
                     <button class="filter-btn" id="filterToggleBtn">🔍 Filter</button>
                 </div>
             </div>
@@ -1403,8 +1526,7 @@
                 <button class="modal-close" id="closeDeleteModal">✕</button>
             </div>
             <div class="modal-body">
-                <p style="color:#64748b;margin-bottom:12px;">Apakah Anda yakin ingin menghapus data barang masuk ini?
-                </p>
+                <p style="color:#64748b;margin-bottom:12px;">Apakah Anda yakin ingin menghapus data barang masuk ini?</p>
                 <p style="font-weight:700;color:#0c4a6e;font-size:16px;" id="itemToDeleteName"></p>
             </div>
             <div class="modal-footer">
@@ -1442,7 +1564,6 @@
             pcs: 'Pcs', pack: 'Pack', lusin: 'Lusin', kg: 'Kg'
         };
 
-        // Daftar nama barang terdaftar (master data)
         let masterBarang = [
             { nama: 'Joran Ultralight', kategori: 'pancing' },
             { nama: 'Joran Carbon 2m', kategori: 'pancing' },
@@ -1476,6 +1597,90 @@
 
         const ITEMS_PER_PAGE = 10;
         let currentPage = 1;
+
+        // ========================
+        // IMAGE UPLOAD LOGIC
+        // ========================
+        const uploadArea       = document.getElementById('uploadArea');
+        const fotoBarangInput  = document.getElementById('fotoBarang');
+        const uploadPlaceholder= document.getElementById('uploadPlaceholder');
+        const previewContainer = document.getElementById('imagePreviewContainer');
+        const imagePreview     = document.getElementById('imagePreview');
+        const imageFilename    = document.getElementById('imageFilename');
+        const removeImageBtn   = document.getElementById('removeImageBtn');
+        const uploadTriggerBtn = document.getElementById('uploadTriggerBtn');
+
+        // Klik tombol "Pilih Foto" → trigger file input
+        uploadTriggerBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            fotoBarangInput.click();
+        });
+
+        // Klik area upload juga buka file picker
+        uploadArea.addEventListener('click', function(e) {
+            if (e.target !== removeImageBtn && !removeImageBtn.contains(e.target)) {
+                fotoBarangInput.click();
+            }
+        });
+
+        // File dipilih lewat dialog
+        fotoBarangInput.addEventListener('change', function() {
+            const file = this.files[0];
+            if (file) handleImageFile(file);
+        });
+
+        // Drag & Drop
+        uploadArea.addEventListener('dragover', function(e) {
+            e.preventDefault();
+            this.classList.add('dragover');
+        });
+
+        uploadArea.addEventListener('dragleave', function() {
+            this.classList.remove('dragover');
+        });
+
+        uploadArea.addEventListener('drop', function(e) {
+            e.preventDefault();
+            this.classList.remove('dragover');
+            const file = e.dataTransfer.files[0];
+            if (file && file.type.startsWith('image/')) {
+                handleImageFile(file);
+            } else {
+                showToast('File harus berupa gambar (JPG, PNG, WEBP)!', 'error');
+            }
+        });
+
+        function handleImageFile(file) {
+            const maxSize = 5 * 1024 * 1024; // 5 MB
+            if (file.size > maxSize) {
+                showToast('Ukuran file terlalu besar! Maksimal 5 MB.', 'error');
+                return;
+            }
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                imagePreview.src = e.target.result;
+                imageFilename.textContent = '✅ ' + file.name;
+                uploadPlaceholder.style.display = 'none';
+                previewContainer.style.display = 'block';
+                uploadArea.classList.add('has-image');
+            };
+            reader.readAsDataURL(file);
+        }
+
+        // Hapus gambar
+        removeImageBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            resetImageUpload();
+        });
+
+        function resetImageUpload() {
+            fotoBarangInput.value = '';
+            imagePreview.src = '';
+            imageFilename.textContent = '';
+            previewContainer.style.display = 'none';
+            uploadPlaceholder.style.display = '';
+            uploadArea.classList.remove('has-image');
+        }
 
         // ========================
         // TOAST
@@ -1528,15 +1733,15 @@
             let html = '';
             matched.forEach(b => {
                 html += `<div class="autocomplete-item" data-nama="${b.nama}" data-kat="${b.kategori}">
-            <span>📦</span> ${b.nama}
-            <span class="item-cat">${kategoriMap[b.kategori] || b.kategori}</span>
-        </div>`;
+                    <span>📦</span> ${b.nama}
+                    <span class="item-cat">${kategoriMap[b.kategori] || b.kategori}</span>
+                </div>`;
             });
 
             if (!isExact && this.value.trim().length >= 2) {
                 html += `<div class="autocomplete-item new-item" data-nama="${this.value.trim()}" data-kat="">
-            <span>➕</span> Tambah baru: "<strong>${this.value.trim()}</strong>"
-        </div>`;
+                    <span>➕</span> Tambah baru: "<strong>${this.value.trim()}</strong>"
+                </div>`;
             }
 
             if (!html) { dropdown.classList.remove('open'); return; }
@@ -1550,8 +1755,6 @@
                     namaBarangInput.value = nama;
                     if (kat) document.getElementById('kategori').value = kat;
                     dropdown.classList.remove('open');
-
-                    // If new item, add to master
                     if (!masterBarang.find(b => b.nama === nama)) {
                         masterBarang.push({ nama, kategori: kat });
                     }
@@ -1575,7 +1778,6 @@
         function getFilteredData() {
             let data = [...barangMasukData];
 
-            // Search
             if (searchKeyword) {
                 const kw = searchKeyword.toLowerCase();
                 data = data.filter(d =>
@@ -1585,22 +1787,11 @@
                 );
             }
 
-            // Filters
-            if (activeFilters.tanggalDari) {
-                data = data.filter(d => d.tanggalMasuk >= activeFilters.tanggalDari);
-            }
-            if (activeFilters.tanggalSampai) {
-                data = data.filter(d => d.tanggalMasuk <= activeFilters.tanggalSampai);
-            }
-            if (activeFilters.kategori) {
-                data = data.filter(d => d.kategori === activeFilters.kategori);
-            }
-            if (activeFilters.supplier) {
-                data = data.filter(d => d.supplier === activeFilters.supplier);
-            }
-            if (activeFilters.status) {
-                data = data.filter(d => d.status === activeFilters.status);
-            }
+            if (activeFilters.tanggalDari) data = data.filter(d => d.tanggalMasuk >= activeFilters.tanggalDari);
+            if (activeFilters.tanggalSampai) data = data.filter(d => d.tanggalMasuk <= activeFilters.tanggalSampai);
+            if (activeFilters.kategori) data = data.filter(d => d.kategori === activeFilters.kategori);
+            if (activeFilters.supplier) data = data.filter(d => d.supplier === activeFilters.supplier);
+            if (activeFilters.status) data = data.filter(d => d.status === activeFilters.status);
             if (activeFilters.jumlahMin !== undefined && activeFilters.jumlahMin !== '') {
                 data = data.filter(d => d.jumlah >= parseInt(activeFilters.jumlahMin));
             }
@@ -1619,34 +1810,32 @@
             const body = document.getElementById('tableBody');
             if (filtered.length === 0) {
                 body.innerHTML = `<div class="empty-state">
-            <span class="icon">📭</span>
-            <p>Tidak ada data yang sesuai dengan pencarian atau filter.</p>
-        </div>`;
+                    <span class="icon">📭</span>
+                    <p>Tidak ada data yang sesuai dengan pencarian atau filter.</p>
+                </div>`;
             } else {
                 body.innerHTML = pageData.map(item => `
-            <div class="item-row" data-id="${item.id}">
-                <div><strong>${item.nama}</strong></div>
-                <div>${kategoriMap[item.kategori] || item.kategori}</div>
-                <div>${item.jumlah} ${satuanMap[item.satuan] || item.satuan}</div>
-                <div class="harga">${formatRp(item.hargaBeli)}</div>
-                <div class="harga">${formatRp(item.hargaJual)}</div>
-                <div>${supplierMap[item.supplier] || item.supplier}</div>
-                <div>${formatDate(item.tanggalMasuk)}</div>
-                <div><span class="status-badge ${item.status}">${statusLabel(item.status)}</span></div>
-                <div class="item-actions">
-                    <button class="btn-icon btn-edit" onclick="openEdit(${item.id})">✏️</button>
-                    <button class="btn-icon btn-delete" onclick="openDelete(${item.id})">🗑️</button>
-                </div>
-            </div>
-        `).join('');
+                    <div class="item-row" data-id="${item.id}">
+                        <div><strong>${item.nama}</strong></div>
+                        <div>${kategoriMap[item.kategori] || item.kategori}</div>
+                        <div>${item.jumlah} ${satuanMap[item.satuan] || item.satuan}</div>
+                        <div class="harga">${formatRp(item.hargaBeli)}</div>
+                        <div class="harga">${formatRp(item.hargaJual)}</div>
+                        <div>${supplierMap[item.supplier] || item.supplier}</div>
+                        <div>${formatDate(item.tanggalMasuk)}</div>
+                        <div><span class="status-badge ${item.status}">${statusLabel(item.status)}</span></div>
+                        <div class="item-actions">
+                            <button class="btn-icon btn-edit" onclick="openEdit(${item.id})">✏️</button>
+                            <button class="btn-icon btn-delete" onclick="openDelete(${item.id})">🗑️</button>
+                        </div>
+                    </div>
+                `).join('');
             }
 
-            // Summary
             const totalNilai = filtered.reduce((s, d) => s + (d.hargaBeli * d.jumlah), 0);
             document.getElementById('totalItems').textContent = filtered.length;
             document.getElementById('totalValue').textContent = formatRp(totalNilai);
 
-            // Result count
             const rc = document.getElementById('resultCount');
             if (searchKeyword || Object.keys(activeFilters).some(k => activeFilters[k] !== '' && activeFilters[k] !== undefined)) {
                 rc.style.display = 'inline-block';
@@ -1744,17 +1933,18 @@
                 const newItem = {
                     id: nextId++,
                     nama, kategori, jumlah, satuan, supplier, tanggalMasuk, hargaBeli, hargaJual,
-                    status: getStatus(jumlah)
+                    status: getStatus(jumlah),
+                    foto: imagePreview.src || null
                 };
                 barangMasukData.unshift(newItem);
 
-                // Add to master if new
                 if (!masterBarang.find(b => b.nama === nama)) {
                     masterBarang.push({ nama, kategori });
                 }
 
                 document.getElementById('barangMasukForm').reset();
                 document.getElementById('tanggalMasuk').valueAsDate = new Date();
+                resetImageUpload();
                 currentPage = 1;
                 renderTable();
                 showToast(`Barang "${nama}" berhasil ditambahkan!`, 'success');
@@ -1762,7 +1952,10 @@
         });
 
         document.getElementById('resetBtn').addEventListener('click', function () {
-            setTimeout(() => { document.getElementById('tanggalMasuk').valueAsDate = new Date(); }, 10);
+            setTimeout(() => {
+                document.getElementById('tanggalMasuk').valueAsDate = new Date();
+                resetImageUpload();
+            }, 10);
         });
 
         // ========================
@@ -1851,14 +2044,6 @@
         });
 
         // ========================
-        // PRINT
-        // ========================
-        // document.getElementById('printBtn').addEventListener('click', function() {
-        //     showLoading();
-        //     setTimeout(() => { hideLoading(); window.print(); }, 800);
-        // });
-
-        // ========================
         // SIDEBAR TOGGLE
         // ========================
         document.getElementById('menuToggle').addEventListener('click', function () {
@@ -1905,11 +2090,8 @@
         });
 
         confirmLogout.addEventListener('click', function () {
-            // Hapus session login
             localStorage.removeItem('userLogin');
             localStorage.removeItem('userRole');
-
-            // Redirect (PATH TERBARU)
             window.location.href = '../../pages/login.html';
         });
     </script>

@@ -19,93 +19,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            overflow: hidden;
             position: relative;
-        }
-
-        /* Bubbles Animation */
-        .bubble {
-            position: absolute;
-            bottom: -100px;
-            background: rgba(255, 255, 255, 0.15);
-            border-radius: 50%;
-            animation: rise 15s infinite ease-in;
-        }
-
-        .bubble:nth-child(1) {
-            width: 40px;
-            height: 40px;
-            left: 10%;
-            animation-duration: 12s;
-        }
-
-        .bubble:nth-child(2) {
-            width: 60px;
-            height: 60px;
-            left: 25%;
-            animation-duration: 14s;
-            animation-delay: 2s;
-        }
-
-        .bubble:nth-child(3) {
-            width: 30px;
-            height: 30px;
-            left: 45%;
-            animation-duration: 10s;
-            animation-delay: 4s;
-        }
-
-        .bubble:nth-child(4) {
-            width: 50px;
-            height: 50px;
-            left: 65%;
-            animation-duration: 16s;
-            animation-delay: 1s;
-        }
-
-        .bubble:nth-child(5) {
-            width: 35px;
-            height: 35px;
-            left: 80%;
-            animation-duration: 13s;
-            animation-delay: 3s;
-        }
-
-        .bubble:nth-child(6) {
-            width: 45px;
-            height: 45px;
-            left: 90%;
-            animation-duration: 11s;
-            animation-delay: 5s;
-        }
-
-        @keyframes rise {
-            0% {
-                bottom: -100px;
-                transform: translateX(0) scale(1);
-                opacity: 0;
-            }
-
-            50% {
-                opacity: 0.4;
-                transform: translateX(100px) scale(1.1);
-            }
-
-            100% {
-                bottom: 110vh;
-                transform: translateX(-100px) scale(0.8);
-                opacity: 0;
-            }
-        }
-
-        /* Animated Waves */
-        .ocean {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 150px;
-            overflow: hidden;
         }
 
         /* Popup */
@@ -132,20 +46,7 @@
             padding: 40px 50px;
             border-radius: 25px;
             text-align: center;
-            animation: popupScale 0.4s ease;
             box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
-        }
-
-        @keyframes popupScale {
-            from {
-                transform: scale(0.7);
-                opacity: 0;
-            }
-
-            to {
-                transform: scale(1);
-                opacity: 1;
-            }
         }
 
         .checkmark {
@@ -161,17 +62,6 @@
 
         .popup-content p {
             color: #475569;
-        }
-
-        .wave {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 200%;
-            height: 100%;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120"><path d="M0,50 Q300,100 600,50 T1200,50 L1200,120 L0,120 Z" fill="%23004080" opacity="0.3"/></svg>');
-            background-size: 50% 100%;
-            animation: wave-motion 15s linear infinite;
         }
 
         /* Error Style */
@@ -201,92 +91,9 @@
             background: #dc2626;
         }
 
-        .wave:nth-child(2) {
-            bottom: -10px;
-            animation: wave-motion 10s linear infinite reverse;
-            opacity: 0.5;
-        }
-
-        .wave:nth-child(3) {
-            bottom: -20px;
-            animation: wave-motion 20s linear infinite;
-            opacity: 0.3;
-        }
-
-        @keyframes wave-motion {
-            0% {
-                transform: translateX(0);
-            }
-
-            100% {
-                transform: translateX(-50%);
-            }
-        }
-
-        /* Swimming Fish */
-        .fish {
-            position: absolute;
-            font-size: 35px;
-            animation: swim 20s linear infinite;
-            opacity: 0.7;
-            filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.3));
-        }
-
-        .fish:nth-child(7) {
-            top: 15%;
-            animation-duration: 18s;
-            animation-delay: 0s;
-        }
-
-        .fish:nth-child(8) {
-            top: 35%;
-            animation-duration: 22s;
-            animation-delay: 3s;
-            font-size: 28px;
-        }
-
-        .fish:nth-child(9) {
-            top: 55%;
-            animation-duration: 16s;
-            animation-delay: 6s;
-            font-size: 32px;
-        }
-
-        .fish:nth-child(10) {
-            top: 75%;
-            animation-duration: 24s;
-            animation-delay: 2s;
-        }
-
-        @keyframes swim {
-            0% {
-                left: -100px;
-                transform: scaleX(1) translateY(0);
-            }
-
-            48% {
-                transform: scaleX(1) translateY(-20px);
-            }
-
-            50% {
-                left: 50%;
-                transform: scaleX(1) translateY(-20px);
-            }
-
-            52% {
-                transform: scaleX(1) translateY(0);
-            }
-
-            100% {
-                left: calc(100% + 100px);
-                transform: scaleX(1) translateY(0);
-            }
-        }
-
-        /* Login Container - Enhanced */
+        /* Login Container */
         .login-container {
             background: linear-gradient(145deg, rgba(255, 255, 255, 0.98), rgba(255, 255, 255, 0.95));
-            backdrop-filter: blur(20px);
             border-radius: 30px;
             padding: 50px 45px;
             width: 450px;
@@ -297,20 +104,7 @@
                 0 10px 30px rgba(59, 130, 246, 0.3);
             position: relative;
             z-index: 10;
-            animation: fadeInScale 1s ease;
             border: 2px solid rgba(255, 255, 255, 0.5);
-        }
-
-        @keyframes fadeInScale {
-            from {
-                opacity: 0;
-                transform: translateY(-30px) scale(0.9);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0) scale(1);
-            }
         }
 
         /* Decorative Corner Elements */
@@ -343,20 +137,8 @@
         .logo-icon {
             font-size: 80px;
             margin-bottom: 15px;
-            animation: float 4s ease-in-out infinite;
+            display: block;
             filter: drop-shadow(0 5px 15px rgba(0, 102, 204, 0.3));
-        }
-
-        @keyframes float {
-
-            0%,
-            100% {
-                transform: translateY(0px) rotate(-5deg);
-            }
-
-            50% {
-                transform: translateY(-15px) rotate(5deg);
-            }
         }
 
         h1 {
@@ -396,7 +178,7 @@
             border: 2px solid #e2e8f0;
             border-radius: 15px;
             font-size: 15px;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: border-color 0.3s, box-shadow 0.3s, background 0.3s;
             background: #f8fafc;
             color: #1e293b;
         }
@@ -413,7 +195,6 @@
             box-shadow:
                 0 0 0 4px rgba(59, 130, 246, 0.1),
                 0 4px 12px rgba(59, 130, 246, 0.15);
-            transform: translateY(-2px);
         }
 
         .input-icon {
@@ -421,11 +202,6 @@
             left: 18px;
             top: 45px;
             font-size: 20px;
-            transition: all 0.3s;
-        }
-
-        input:focus+.input-icon {
-            transform: scale(1.1);
         }
 
         .forgot-password {
@@ -438,7 +214,7 @@
             text-decoration: none;
             font-size: 13px;
             font-weight: 500;
-            transition: all 0.3s;
+            transition: color 0.3s;
         }
 
         .forgot-password a:hover {
@@ -457,41 +233,18 @@
             font-weight: 700;
             cursor: pointer;
             margin-top: 25px;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: box-shadow 0.3s, background 0.3s;
             box-shadow:
                 0 8px 20px rgba(59, 130, 246, 0.4),
                 0 2px 8px rgba(0, 0, 0, 0.1);
             letter-spacing: 0.5px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .login-btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-            transition: left 0.5s;
-        }
-
-        .login-btn:hover::before {
-            left: 100%;
         }
 
         .login-btn:hover {
-            transform: translateY(-3px);
             box-shadow:
                 0 12px 30px rgba(59, 130, 246, 0.5),
                 0 4px 12px rgba(0, 0, 0, 0.15);
             background: linear-gradient(135deg, #2563eb 0%, #1e40af 50%, #1e3a8a 100%);
-        }
-
-        .login-btn:active {
-            transform: translateY(-1px);
-            box-shadow: 0 6px 15px rgba(59, 130, 246, 0.4);
         }
 
         .register-link {
@@ -506,7 +259,7 @@
             color: #3b82f6;
             text-decoration: none;
             font-weight: 700;
-            transition: all 0.3s;
+            transition: color 0.3s;
         }
 
         .register-link a:hover {
@@ -536,7 +289,6 @@
             background: linear-gradient(145deg, rgba(255, 255, 255, 0.98), rgba(255, 255, 255, 0.95));
         }
 
-        /* Checkbox Remember Me */
         .remember-me {
             display: flex;
             align-items: center;
@@ -553,7 +305,6 @@
             padding: 0;
         }
 
-        /* Responsive */
         @media (max-width: 500px) {
             .login-container {
                 padding: 40px 30px;
@@ -571,31 +322,10 @@
 </head>
 
 <body>
-    <!-- Bubbles -->
-    <div class="bubble"></div>
-    <div class="bubble"></div>
-    <div class="bubble"></div>
-    <div class="bubble"></div>
-    <div class="bubble"></div>
-    <div class="bubble"></div>
-
-    <!-- Ocean Waves -->
-    <div class="ocean">
-        <div class="wave"></div>
-        <div class="wave"></div>
-        <div class="wave"></div>
-    </div>
-
-    <!-- Swimming Fish -->
-    <div class="fish">🐟</div>
-    <div class="fish">🐠</div>
-    <div class="fish">🐡</div>
-    <div class="fish">🦈</div>
-
     <!-- Login Container -->
     <div class="login-container">
         <div class="logo">
-            <div class="logo-icon">🎣</div>
+            <span class="logo-icon">🎣</span>
             <h1>Mekar Jaya</h1>
             <p class="subtitle">Selamat datang kembali! Masuk untuk melanjutkan</p>
         </div>
@@ -623,61 +353,7 @@
                 </div>
             </div>
 
-            <!-- SEMENTARA -->
             <button type="submit" class="login-btn" id="loginberhasil">🎣 Masuk Sekarang</button>
-            <script>
-                document.getElementById('loginForm').addEventListener('submit', function (e) {
-                    e.preventDefault();
-
-                    const email = document.getElementById('email').value;
-                    const password = document.getElementById('password').value;
-
-                    const adminEmail = "admin@gmail.com";
-                    const adminPassword = "123123";
-
-                    const userEmail = "user@gmail.com";
-                    const userPassword = "123123";
-
-                    const successPopup = document.getElementById("successPopup");
-                    const popupMessage = document.getElementById("popupMessage");
-
-                    const errorPopup = document.getElementById("errorPopup");
-                    const errorMessage = document.getElementById("errorMessage");
-
-                    function showSuccess(message, redirectUrl) {
-                        popupMessage.textContent = message;
-                        successPopup.classList.add("active");
-
-                        setTimeout(() => {
-                            window.location.href = redirectUrl;
-                        }, 2000);
-                    }
-
-                    function showError(message) {
-                        errorMessage.textContent = message;
-                        errorPopup.classList.add("active");
-                    }
-
-                    if (email === adminEmail && password === adminPassword) {
-
-                        showSuccess("Login berhasil sebagai Admin 🎉",
-                            "../dashboard/admin/dashboard.html");
-
-                    } else if (email === userEmail && password === userPassword) {
-
-                        showSuccess("Login berhasil sebagai User 🎉",
-                            "../dashboard/user/kasir.html");
-
-                    } else {
-
-                        showError("❌ Email atau Password salah!");
-                    }
-                });
-
-                function closeErrorPopup() {
-                    document.getElementById("errorPopup").classList.remove("active");
-                }
-            </script>
 
             <div class="divider">
                 <span>atau</span>
@@ -689,7 +365,6 @@
         </form>
     </div>
 
-    <!-- validasi berhasil login -->
     <!-- Success Popup -->
     <div id="successPopup" class="popup">
         <div class="popup-content">
@@ -708,6 +383,52 @@
             <button onclick="closeErrorPopup()" class="close-btn">Coba Lagi</button>
         </div>
     </div>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+
+            const adminEmail = "admin@gmail.com";
+            const adminPassword = "123123";
+
+            const userEmail = "user@gmail.com";
+            const userPassword = "123123";
+
+            const successPopup = document.getElementById("successPopup");
+            const popupMessage = document.getElementById("popupMessage");
+
+            const errorPopup = document.getElementById("errorPopup");
+            const errorMessage = document.getElementById("errorMessage");
+
+            function showSuccess(message, redirectUrl) {
+                popupMessage.textContent = message;
+                successPopup.classList.add("active");
+                setTimeout(() => {
+                    window.location.href = redirectUrl;
+                }, 2000);
+            }
+
+            function showError(message) {
+                errorMessage.textContent = message;
+                errorPopup.classList.add("active");
+            }
+
+            if (email === adminEmail && password === adminPassword) {
+                showSuccess("Login berhasil sebagai Admin 🎉", "../dashboard/admin/dashboard.html");
+            } else if (email === userEmail && password === userPassword) {
+                showSuccess("Login berhasil sebagai User 🎉", "../dashboard/user/kasir.html");
+            } else {
+                showError("❌ Email atau Password salah!");
+            }
+        });
+
+        function closeErrorPopup() {
+            document.getElementById("errorPopup").classList.remove("active");
+        }
+    </script>
 </body>
 
 </html>

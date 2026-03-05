@@ -482,7 +482,6 @@
         .status-badge.pending { background: linear-gradient(135deg, rgba(245, 158, 11, 0.2), rgba(217, 119, 6, 0.2)); color: #d97706; }
         .status-badge.inactive { background: linear-gradient(135deg, rgba(244, 63, 94, 0.2), rgba(225, 29, 72, 0.2)); color: #e11d48; }
 
-        /* Stock bar */
         .stock-bar-wrap {
             display: flex;
             align-items: center;
@@ -543,6 +542,21 @@
             border-color: transparent;
         }
 
+        /* Print button in table row */
+        .action-btn.btn-print {
+            background: linear-gradient(135deg, rgba(124, 58, 237, 0.12), rgba(139, 92, 246, 0.12));
+            color: #7c3aed;
+            border: 1.5px solid rgba(124, 58, 237, 0.25);
+        }
+
+        .action-btn.btn-print:hover {
+            background: linear-gradient(135deg, #7c3aed, #8b5cf6);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(124, 58, 237, 0.35);
+            border-color: transparent;
+        }
+
         .action-btn.btn-delete {
             background: linear-gradient(135deg, rgba(244, 63, 94, 0.1), rgba(225, 29, 72, 0.1));
             color: #e11d48;
@@ -594,7 +608,6 @@
             .content-grid { grid-template-columns: 2fr 1fr; }
         }
 
-        /* ===== FILTER SECTION ===== */
         .filter-section {
             background: linear-gradient(135deg, rgba(14, 116, 144, 0.05), rgba(6, 182, 212, 0.05));
             border: 1px solid rgba(14, 116, 144, 0.15);
@@ -715,7 +728,6 @@
 
         .filter-result-info.visible { display: block; }
 
-        /* Stock Summary Bar */
         .stock-summary {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -873,7 +885,6 @@
             border-top: 2px solid rgba(14, 116, 144, 0.1);
         }
 
-        /* Dropdown */
         .dropdown { position: relative; display: inline-block; }
 
         .dropdown-btn {
@@ -905,7 +916,6 @@
         .dropdown-item { padding: 8px 12px; font-size: 12px; cursor: pointer; transition: 0.2s; }
         .dropdown-item:hover { background: #f3f3f3; }
 
-        /* Loading */
         .loading-overlay {
             position: fixed;
             inset: 0;
@@ -974,7 +984,6 @@
 
         .menu-item:hover .icon { animation: wave 0.5s ease; }
 
-        /* Stock Detail Modal */
         .stock-detail-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -1021,14 +1030,24 @@
             font-weight: 700;
         }
 
-        .stock-history-type.masuk {
-            background: rgba(16, 185, 129, 0.15);
-            color: #059669;
-        }
+        .stock-history-type.masuk { background: rgba(16, 185, 129, 0.15); color: #059669; }
+        .stock-history-type.keluar { background: rgba(244, 63, 94, 0.15); color: #e11d48; }
 
-        .stock-history-type.keluar {
-            background: rgba(244, 63, 94, 0.15);
-            color: #e11d48;
+        /* ===== PRINT STYLES ===== */
+        #printArea { display: none; }
+
+        @media print {
+            body > *:not(#printArea) { display: none !important; }
+            #printArea {
+                display: block !important;
+                position: fixed;
+                top: 0; left: 0;
+                width: 100%;
+                background: white;
+                padding: 30px;
+                font-family: 'Segoe UI', Arial, sans-serif;
+                color: #1e293b;
+            }
         }
 
         @media (max-width: 768px) {
@@ -1125,6 +1144,9 @@
 </head>
 
 <body>
+    <!-- Hidden area for printing -->
+    <div id="printArea"></div>
+
     <div class="overlay" id="overlay"></div>
 
     <aside class="sidebar" id="sidebar">
@@ -1420,9 +1442,10 @@
                         <span class="detail-value" id="modalTrackingNumber">JNE0012345678</span>
                     </div>
                 </div>
+                <!-- Edit Pesanan button REMOVED. Only Close + Print remain -->
                 <div class="modal-actions">
-                    <button class="action-btn-secondary" id="printOrder">🖨️ Cetak</button>
-                    <button class="action-btn-primary" id="editOrder">✏️ Edit Pesanan</button>
+                    <button class="action-btn-secondary" id="closeModalBtn">✕ Tutup</button>
+                    <button class="action-btn-primary" id="printOrderBtn">🖨️ Cetak Detail Pesanan</button>
                 </div>
             </div>
         </div>
@@ -1444,8 +1467,6 @@
                             style="background:linear-gradient(135deg,rgba(14,116,144,0.12),rgba(6,182,212,0.12));color:#0e7490;font-size:12px;font-weight:700;padding:4px 12px;border-radius:20px;border:1px solid rgba(14,116,144,0.2);"></span>
                     </div>
                 </div>
-
-                <!-- Stock Stats Grid -->
                 <div class="stock-detail-grid">
                     <div class="stock-detail-box" style="background:linear-gradient(135deg,rgba(14,116,144,0.08),rgba(6,182,212,0.08));border:1px solid rgba(14,116,144,0.2);">
                         <div class="sdb-label">Stok Saat Ini</div>
@@ -1464,13 +1485,10 @@
                         <div class="sdb-value" id="sdPrice" style="color:#d97706;font-size:16px;"></div>
                     </div>
                 </div>
-
-                <!-- Riwayat Stok -->
                 <div class="detail-section">
                     <h4>Riwayat Mutasi Stok</h4>
                     <div id="sdHistory"></div>
                 </div>
-
                 <div class="modal-actions">
                     <button class="action-btn-secondary" id="closeStockModalBtn">Tutup</button>
                     <button class="action-btn-primary" id="editStockBtn">✏️ Update Stok</button>
@@ -1478,16 +1496,12 @@
             </div>
         </div>
 
-        <!-- ============================================================ -->
-        <!-- INFORMASI STOK PRODUK (ganti Produk Terlaris Bulan Ini)      -->
-        <!-- ============================================================ -->
+        <!-- Informasi Stok Produk -->
         <div class="card">
             <div class="card-header">
                 <h3>📦 Informasi Stok Produk</h3>
                 <button class="filter-btn" id="stockFilterToggle">🔽 Filter Stok</button>
             </div>
-
-            <!-- Filter Stok -->
             <div class="filter-section" id="stockFilterSection">
                 <div class="filter-title">🔍 Cari & Filter Stok</div>
                 <div class="filter-row">
@@ -1521,8 +1535,6 @@
                     <button class="action-btn-primary" id="applyStockFilter">✓ Terapkan</button>
                 </div>
             </div>
-
-            <!-- Ringkasan Stok -->
             <div class="stock-summary" id="stockSummary">
                 <div class="stock-summary-item green-bg">
                     <div class="stock-summary-count" id="summaryAman">0</div>
@@ -1537,7 +1549,6 @@
                     <div class="stock-summary-label">🚫 Stok Habis</div>
                 </div>
             </div>
-
             <div class="table-container">
                 <table class="data-table" id="stockTable">
                     <thead>
@@ -1556,6 +1567,18 @@
             </div>
         </div>
     </main>
+
+    <div class="logout-modal" id="logoutModal">
+        <div class="logout-box">
+            <div class="logout-icon">🚪</div>
+            <h3>Yakin ingin logout?</h3>
+            <p>Anda akan keluar dari sistem Kasir Mekar Jaya</p>
+            <div class="logout-actions">
+                <button class="btn-cancel" id="cancelLogout">Batal</button>
+                <button class="btn-confirm" id="confirmLogout">Ya, Logout</button>
+            </div>
+        </div>
+    </div>
 
     <script>
         // ===== DATA =====
@@ -1597,7 +1620,6 @@
             }
         };
 
-        // Data Stok Produk (menggantikan bestSellingProducts)
         const stockProducts = [
             {
                 id: 1, name: 'Joran Carbon Pro X1', category: 'Joran', price: 'Rp 1.250.000',
@@ -1606,7 +1628,7 @@
                     { date: '10 Nov 2023', type: 'masuk', qty: 50, keterangan: 'Restok dari supplier' },
                     { date: '12 Nov 2023', type: 'keluar', qty: 30, keterangan: 'Penjualan' },
                     { date: '14 Nov 2023', type: 'keluar', qty: 15, keterangan: 'Penjualan' },
-                    { date: '15 Nov 2023', type: 'masuk', qty: 20, keterangan: 'Restok darurat' },
+                    { date: '15 Nov 2023', type: 'masuk', qty: 20, keterangan: 'Restok darurat' }
                 ]
             },
             {
@@ -1616,7 +1638,7 @@
                     { date: '08 Nov 2023', type: 'masuk', qty: 60, keterangan: 'Restok dari supplier' },
                     { date: '11 Nov 2023', type: 'keluar', qty: 50, keterangan: 'Penjualan' },
                     { date: '13 Nov 2023', type: 'keluar', qty: 44, keterangan: 'Penjualan' },
-                    { date: '15 Nov 2023', type: 'masuk', qty: 76, keterangan: 'Restok bulanan' },
+                    { date: '15 Nov 2023', type: 'masuk', qty: 76, keterangan: 'Restok bulanan' }
                 ]
             },
             {
@@ -1626,7 +1648,7 @@
                     { date: '01 Nov 2023', type: 'masuk', qty: 100, keterangan: 'Restok dari supplier' },
                     { date: '05 Nov 2023', type: 'keluar', qty: 120, keterangan: 'Penjualan besar' },
                     { date: '10 Nov 2023', type: 'keluar', qty: 89, keterangan: 'Penjualan' },
-                    { date: '13 Nov 2023', type: 'masuk', qty: 17, keterangan: 'Sisa retur' },
+                    { date: '13 Nov 2023', type: 'masuk', qty: 17, keterangan: 'Sisa retur' }
                 ]
             },
             {
@@ -1636,7 +1658,7 @@
                     { date: '05 Nov 2023', type: 'masuk', qty: 60, keterangan: 'Restok dari supplier' },
                     { date: '09 Nov 2023', type: 'keluar', qty: 40, keterangan: 'Penjualan' },
                     { date: '12 Nov 2023', type: 'keluar', qty: 37, keterangan: 'Penjualan' },
-                    { date: '14 Nov 2023', type: 'masuk', qty: 48, keterangan: 'Restok bulanan' },
+                    { date: '14 Nov 2023', type: 'masuk', qty: 48, keterangan: 'Restok bulanan' }
                 ]
             },
             {
@@ -1646,10 +1668,135 @@
                     { date: '01 Nov 2023', type: 'masuk', qty: 100, keterangan: 'Restok awal bulan' },
                     { date: '07 Nov 2023', type: 'keluar', qty: 80, keterangan: 'Penjualan' },
                     { date: '10 Nov 2023', type: 'masuk', qty: 78, keterangan: 'Restok tambahan' },
-                    { date: '14 Nov 2023', type: 'keluar', qty: 98, keterangan: 'Penjualan — HABIS' },
+                    { date: '14 Nov 2023', type: 'keluar', qty: 98, keterangan: 'Penjualan — HABIS' }
                 ]
             }
         ];
+
+        // ===== TRACK CURRENT ORDER FOR PRINT =====
+        let currentPrintOrderId = null;
+
+        // ===== PRINT DETAIL PESANAN =====
+        function doPrintOrder(orderId) {
+            const order = orderData[orderId];
+            if (!order) return;
+
+            const statusColor = order.status === 'Selesai' ? '#059669' : '#e11d48';
+            const statusBg    = order.status === 'Selesai' ? '#d1fae5'  : '#fee2e2';
+
+            const productRows = order.products.map(p => `
+                <tr>
+                    <td style="padding:10px 12px;border-bottom:1px solid #e2e8f0;">${p.name}</td>
+                    <td style="padding:10px 12px;border-bottom:1px solid #e2e8f0;color:#64748b;">${p.specs}</td>
+                    <td style="padding:10px 12px;border-bottom:1px solid #e2e8f0;text-align:right;font-weight:700;">${p.price}</td>
+                </tr>`).join('');
+
+            const printDate = new Date().toLocaleDateString('id-ID', {
+                day: '2-digit', month: 'long', year: 'numeric',
+                hour: '2-digit', minute: '2-digit'
+            });
+
+            const html = `
+                <div style="max-width:680px;margin:0 auto;font-family:'Segoe UI',Arial,sans-serif;color:#1e293b;">
+
+                    <!-- Kop Surat -->
+                    <div style="display:flex;justify-content:space-between;align-items:flex-start;padding-bottom:18px;border-bottom:3px solid #0e7490;margin-bottom:24px;">
+                        <div>
+                            <div style="font-size:32px;margin-bottom:4px;">🎣</div>
+                            <h1 style="margin:0;font-size:24px;font-weight:800;color:#0c4a6e;">Mekar Jaya</h1>
+                            <p style="margin:4px 0 0;font-size:13px;color:#64748b;">Toko Alat Pancing Terpercaya</p>
+                            <p style="margin:2px 0 0;font-size:12px;color:#94a3b8;">Jl. Mancing No. 123, Kota Ikan</p>
+                        </div>
+                        <div style="text-align:right;">
+                            <p style="margin:0 0 4px;font-size:12px;color:#94a3b8;text-transform:uppercase;letter-spacing:.5px;">Detail Pesanan</p>
+                            <p style="margin:0;font-size:24px;font-weight:800;color:#0e7490;">${order.id}</p>
+                            <p style="margin:6px 0 0;font-size:11px;color:#94a3b8;">Dicetak: ${printDate}</p>
+                        </div>
+                    </div>
+
+                    <!-- Info Grid -->
+                    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:24px;">
+                        <div style="background:#f8fafc;padding:16px;border-radius:12px;border:1px solid #e2e8f0;">
+                            <p style="margin:0 0 10px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:#0e7490;">Informasi Pesanan</p>
+                            <table style="width:100%;font-size:13px;border-collapse:collapse;">
+                                <tr><td style="color:#64748b;padding:4px 0;width:50%;">Tanggal</td><td style="font-weight:600;text-align:right;">${order.date}</td></tr>
+                                <tr><td style="color:#64748b;padding:4px 0;">Status</td>
+                                    <td style="text-align:right;">
+                                        <span style="background:${statusBg};color:${statusColor};padding:3px 10px;border-radius:20px;font-size:11px;font-weight:700;">${order.status}</span>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div style="background:#f8fafc;padding:16px;border-radius:12px;border:1px solid #e2e8f0;">
+                            <p style="margin:0 0 10px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:#0e7490;">Informasi Pelanggan</p>
+                            <table style="width:100%;font-size:13px;border-collapse:collapse;">
+                                <tr><td style="color:#64748b;padding:4px 0;width:40%;">Nama</td><td style="font-weight:600;text-align:right;">${order.customer.name}</td></tr>
+                                <tr><td style="color:#64748b;padding:4px 0;">Telepon</td><td style="font-weight:600;text-align:right;">${order.customer.phone}</td></tr>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Produk -->
+                    <div style="margin-bottom:20px;">
+                        <p style="margin:0 0 10px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:#0e7490;">Produk Dipesan</p>
+                        <table style="width:100%;border-collapse:collapse;">
+                            <thead>
+                                <tr style="background:#f0f9ff;">
+                                    <th style="padding:10px 12px;text-align:left;font-size:12px;color:#0c4a6e;border-bottom:2px solid #bae6fd;">Nama Produk</th>
+                                    <th style="padding:10px 12px;text-align:left;font-size:12px;color:#0c4a6e;border-bottom:2px solid #bae6fd;">Spesifikasi</th>
+                                    <th style="padding:10px 12px;text-align:right;font-size:12px;color:#0c4a6e;border-bottom:2px solid #bae6fd;">Harga</th>
+                                </tr>
+                            </thead>
+                            <tbody>${productRows}</tbody>
+                        </table>
+                    </div>
+
+                    <!-- Ringkasan Harga -->
+                    <div style="background:#f0f9ff;padding:16px 20px;border-radius:12px;border:1px solid #bae6fd;margin-bottom:20px;">
+                        <div style="display:flex;justify-content:space-between;margin-bottom:8px;font-size:14px;">
+                            <span style="color:#64748b;">Subtotal</span>
+                            <span style="font-weight:600;">${order.subtotal}</span>
+                        </div>
+                        <div style="display:flex;justify-content:space-between;margin-bottom:14px;font-size:14px;">
+                            <span style="color:#64748b;">Biaya Pengiriman</span>
+                            <span style="font-weight:600;">${order.shipping}</span>
+                        </div>
+                        <div style="display:flex;justify-content:space-between;padding-top:14px;border-top:2px dashed #bae6fd;">
+                            <span style="font-size:17px;font-weight:800;color:#0c4a6e;">Total</span>
+                            <span style="font-size:20px;font-weight:800;color:#059669;">${order.total}</span>
+                        </div>
+                    </div>
+
+                    <!-- Info Pengiriman -->
+                    <div style="margin-bottom:24px;">
+                        <p style="margin:0 0 10px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:#0e7490;">Informasi Pengiriman</p>
+                        <div style="background:#f8fafc;padding:16px;border-radius:12px;border:1px solid #e2e8f0;font-size:13px;">
+                            <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #e2e8f0;">
+                                <span style="color:#64748b;font-weight:500;">Alamat Tujuan</span>
+                                <span style="font-weight:600;max-width:55%;text-align:right;">${order.shippingInfo.address}</span>
+                            </div>
+                            <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #e2e8f0;">
+                                <span style="color:#64748b;font-weight:500;">Kurir</span>
+                                <span style="font-weight:600;">${order.shippingInfo.courier}</span>
+                            </div>
+                            <div style="display:flex;justify-content:space-between;padding:6px 0;">
+                                <span style="color:#64748b;font-weight:500;">No. Resi</span>
+                                <span style="font-weight:600;">${order.shippingInfo.tracking}</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Footer -->
+                    <div style="text-align:center;padding-top:18px;border-top:2px dashed #e2e8f0;color:#94a3b8;font-size:12px;">
+                        <p style="margin:0 0 4px;">Terima kasih telah berbelanja di <strong style="color:#0e7490;">Mekar Jaya</strong></p>
+                        <p style="margin:0;">Simpan dokumen ini sebagai bukti pembelian Anda.</p>
+                    </div>
+                </div>`;
+
+            const printArea = document.getElementById('printArea');
+            printArea.innerHTML = html;
+            window.print();
+        }
 
         // ===== DROPDOWN PENDAPATAN =====
         const dropdownBtn = document.getElementById('dropdownBtn');
@@ -1723,12 +1870,16 @@
         function openOrderModal(orderId) {
             const order = orderData[orderId];
             if (!order) return;
+
+            currentPrintOrderId = orderId;
+
             document.getElementById('modalOrderId').textContent = order.id;
             document.getElementById('modalOrderDate').textContent = order.date;
             document.getElementById('modalOrderStatus').textContent = order.status;
             document.getElementById('modalOrderStatus').className = `status-badge ${order.status === 'Selesai' ? 'active' : 'inactive'}`;
             document.getElementById('modalCustomerName').textContent = order.customer.name;
             document.getElementById('modalCustomerPhone').textContent = order.customer.phone;
+
             const productsList = document.getElementById('modalProductsList');
             productsList.innerHTML = '';
             order.products.forEach(product => {
@@ -1743,6 +1894,7 @@
                 `;
                 productsList.appendChild(productItem);
             });
+
             document.getElementById('modalSubtotal').textContent = order.subtotal;
             document.getElementById('modalShipping').textContent = order.shipping;
             document.getElementById('modalTotal').textContent = order.total;
@@ -1752,10 +1904,22 @@
             document.getElementById('orderModal').classList.add('active');
         }
 
-        document.getElementById('closeModal').addEventListener('click', () => document.getElementById('orderModal').classList.remove('active'));
-        document.getElementById('orderModal').addEventListener('click', (e) => { if (e.target === document.getElementById('orderModal')) document.getElementById('orderModal').classList.remove('active'); });
-        document.getElementById('printOrder').addEventListener('click', () => alert(`Mencetak detail pesanan ${document.getElementById('modalOrderId').textContent}`));
-        document.getElementById('editOrder').addEventListener('click', () => alert(`Mengedit pesanan ${document.getElementById('modalOrderId').textContent}`));
+        // Close modal
+        document.getElementById('closeModal').addEventListener('click', () => {
+            document.getElementById('orderModal').classList.remove('active');
+        });
+        document.getElementById('closeModalBtn').addEventListener('click', () => {
+            document.getElementById('orderModal').classList.remove('active');
+        });
+        document.getElementById('orderModal').addEventListener('click', (e) => {
+            if (e.target === document.getElementById('orderModal'))
+                document.getElementById('orderModal').classList.remove('active');
+        });
+
+        // Print button inside modal
+        document.getElementById('printOrderBtn').addEventListener('click', () => {
+            if (currentPrintOrderId) doPrintOrder(currentPrintOrderId);
+        });
 
         // ===== LOAD TABEL PESANAN =====
         function loadOrdersTable(orders) {
@@ -1775,14 +1939,28 @@
                     <td><span class="status-badge ${order.status === 'Selesai' ? 'active' : 'inactive'}">${order.status}</span></td>
                     <td>
                         <button class="action-btn btn-view view-btn" data-id="${order.id}">👁️ Lihat</button>
+                        <button class="action-btn btn-print print-row-btn" data-id="${order.id}">🖨️ Cetak</button>
                         <button class="action-btn btn-delete delete-btn" data-id="${order.id}">🗑️ Hapus</button>
                     </td>
                 `;
                 tbody.appendChild(row);
             });
+
+            // Lihat → buka modal
             document.querySelectorAll('.view-btn').forEach(btn => {
-                btn.addEventListener('click', function () { openOrderModal(this.getAttribute('data-id')); });
+                btn.addEventListener('click', function () {
+                    openOrderModal(this.getAttribute('data-id'));
+                });
             });
+
+            // Cetak langsung dari baris tabel (tanpa buka modal)
+            document.querySelectorAll('.print-row-btn').forEach(btn => {
+                btn.addEventListener('click', function () {
+                    doPrintOrder(this.getAttribute('data-id'));
+                });
+            });
+
+            // Hapus baris
             document.querySelectorAll('.delete-btn').forEach(btn => {
                 btn.addEventListener('click', function () {
                     if (confirm(`Hapus pesanan ${this.getAttribute('data-id')}?`)) {
@@ -1825,7 +2003,10 @@
 
         document.getElementById('closeStockModal').addEventListener('click', () => document.getElementById('stockDetailModal').classList.remove('active'));
         document.getElementById('closeStockModalBtn').addEventListener('click', () => document.getElementById('stockDetailModal').classList.remove('active'));
-        document.getElementById('stockDetailModal').addEventListener('click', (e) => { if (e.target === document.getElementById('stockDetailModal')) document.getElementById('stockDetailModal').classList.remove('active'); });
+        document.getElementById('stockDetailModal').addEventListener('click', (e) => {
+            if (e.target === document.getElementById('stockDetailModal'))
+                document.getElementById('stockDetailModal').classList.remove('active');
+        });
         document.getElementById('editStockBtn').addEventListener('click', () => alert('Fitur update stok akan segera tersedia!'));
 
         // ===== LOAD TABEL STOK =====
@@ -1983,21 +2164,8 @@
 
             sidebar.addEventListener('click', function (e) { e.stopPropagation(); });
         });
-    </script>
 
-    <div class="logout-modal" id="logoutModal">
-        <div class="logout-box">
-            <div class="logout-icon">🚪</div>
-            <h3>Yakin ingin logout?</h3>
-            <p>Anda akan keluar dari sistem Kasir Mekar Jaya</p>
-            <div class="logout-actions">
-                <button class="btn-cancel" id="cancelLogout">Batal</button>
-                <button class="btn-confirm" id="confirmLogout">Ya, Logout</button>
-            </div>
-        </div>
-    </div>
-
-    <script>
+        // ===== LOGOUT =====
         const logoutBtnEl = document.querySelector('.logout-btn');
         const logoutModal = document.getElementById('logoutModal');
         const cancelLogout = document.getElementById('cancelLogout');

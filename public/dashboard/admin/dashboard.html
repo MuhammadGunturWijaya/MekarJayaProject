@@ -542,7 +542,6 @@
             border-color: transparent;
         }
 
-        /* Print button in table row */
         .action-btn.btn-print {
             background: linear-gradient(135deg, rgba(124, 58, 237, 0.12), rgba(139, 92, 246, 0.12));
             color: #7c3aed;
@@ -774,7 +773,7 @@
             letter-spacing: 0.5px;
         }
 
-        /* Modal */
+        /* ===== MODAL ===== */
         .modal-overlay {
             display: none;
             position: fixed;
@@ -1033,6 +1032,170 @@
         .stock-history-type.masuk { background: rgba(16, 185, 129, 0.15); color: #059669; }
         .stock-history-type.keluar { background: rgba(244, 63, 94, 0.15); color: #e11d48; }
 
+        /* ===== CUSTOM DELETE CONFIRMATION MODAL ===== */
+        .delete-confirm-modal {
+            position: fixed;
+            inset: 0;
+            background: rgba(12, 74, 110, 0.6);
+            backdrop-filter: blur(8px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 4000;
+            padding: 20px;
+        }
+
+        .delete-confirm-modal.active {
+            display: flex;
+            animation: fadeInDelete 0.25s ease;
+        }
+
+        @keyframes fadeInDelete {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .delete-confirm-box {
+            background: white;
+            border-radius: 24px;
+            padding: 36px 32px 28px;
+            width: 100%;
+            max-width: 380px;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(12, 74, 110, 0.25), 0 0 0 1px rgba(255,255,255,0.6);
+            animation: popInDelete 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .delete-confirm-box::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #f43f5e, #e11d48, #fb7185);
+            border-radius: 24px 24px 0 0;
+        }
+
+        @keyframes popInDelete {
+            from { opacity: 0; transform: scale(0.8) translateY(20px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
+        }
+
+        .delete-confirm-icon-wrap {
+            width: 72px;
+            height: 72px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, rgba(244, 63, 94, 0.12), rgba(225, 29, 72, 0.08));
+            border: 2px solid rgba(244, 63, 94, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 34px;
+            margin: 0 auto 18px;
+            animation: shakeIcon 0.5s ease 0.2s;
+        }
+
+        @keyframes shakeIcon {
+            0%, 100% { transform: rotate(0deg); }
+            20% { transform: rotate(-12deg); }
+            40% { transform: rotate(10deg); }
+            60% { transform: rotate(-8deg); }
+            80% { transform: rotate(6deg); }
+        }
+
+        .delete-confirm-title {
+            font-size: 20px;
+            font-weight: 800;
+            color: #0c4a6e;
+            margin-bottom: 8px;
+        }
+
+        .delete-confirm-subtitle {
+            font-size: 14px;
+            color: #64748b;
+            margin-bottom: 6px;
+            line-height: 1.5;
+        }
+
+        .delete-confirm-id {
+            display: inline-block;
+            background: linear-gradient(135deg, rgba(244, 63, 94, 0.1), rgba(225, 29, 72, 0.08));
+            color: #e11d48;
+            font-size: 13px;
+            font-weight: 700;
+            padding: 5px 14px;
+            border-radius: 20px;
+            border: 1px solid rgba(244, 63, 94, 0.2);
+            margin-bottom: 24px;
+        }
+
+        .delete-warning-note {
+            background: linear-gradient(135deg, rgba(245, 158, 11, 0.08), rgba(217, 119, 6, 0.06));
+            border: 1px solid rgba(245, 158, 11, 0.25);
+            border-radius: 12px;
+            padding: 10px 14px;
+            font-size: 12px;
+            color: #92400e;
+            margin-bottom: 22px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-align: left;
+        }
+
+        .delete-confirm-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .delete-cancel-btn {
+            flex: 1;
+            padding: 13px;
+            border-radius: 14px;
+            border: 2px solid rgba(100, 116, 139, 0.2);
+            background: rgba(100, 116, 139, 0.06);
+            color: #475569;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.25s ease;
+        }
+
+        .delete-cancel-btn:hover {
+            background: rgba(100, 116, 139, 0.15);
+            border-color: rgba(100, 116, 139, 0.35);
+            transform: translateY(-1px);
+        }
+
+        .delete-proceed-btn {
+            flex: 1.3;
+            padding: 13px;
+            border-radius: 14px;
+            border: none;
+            background: linear-gradient(135deg, #f43f5e, #e11d48);
+            color: white;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            box-shadow: 0 6px 20px rgba(244, 63, 94, 0.35);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+
+        .delete-proceed-btn:hover {
+            background: linear-gradient(135deg, #e11d48, #be123c);
+            box-shadow: 0 8px 25px rgba(244, 63, 94, 0.5);
+            transform: translateY(-2px);
+        }
+
+        .delete-proceed-btn:active {
+            transform: translateY(0);
+        }
+
         /* ===== PRINT STYLES ===== */
         #printArea { display: none; }
 
@@ -1069,6 +1232,8 @@
             .filter-row { grid-template-columns: 1fr; }
             .stock-summary { grid-template-columns: 1fr; }
             .stock-detail-grid { grid-template-columns: 1fr; }
+            .delete-confirm-box { padding: 28px 22px 22px; }
+            .delete-confirm-actions { flex-direction: column; }
         }
 
         @media (max-width: 480px) {
@@ -1148,6 +1313,26 @@
     <div id="printArea"></div>
 
     <div class="overlay" id="overlay"></div>
+
+    <!-- ===== CUSTOM DELETE CONFIRMATION MODAL ===== -->
+    <div class="delete-confirm-modal" id="deleteConfirmModal">
+        <div class="delete-confirm-box">
+            <div class="delete-confirm-icon-wrap">🗑️</div>
+            <div class="delete-confirm-title">Hapus Data?</div>
+            <div class="delete-confirm-subtitle" id="deleteConfirmSubtitle">Data ini akan dihapus secara permanen.</div>
+            <div class="delete-confirm-id" id="deleteConfirmId"></div>
+            <div class="delete-warning-note">
+                <span>⚠️</span>
+                <span>Tindakan ini tidak dapat dibatalkan. Pastikan Anda yakin sebelum melanjutkan.</span>
+            </div>
+            <div class="delete-confirm-actions">
+                <button class="delete-cancel-btn" id="deleteCancelBtn">Batal</button>
+                <button class="delete-proceed-btn" id="deleteConfirmBtn">
+                    <span>🗑️</span> Ya, Hapus
+                </button>
+            </div>
+        </div>
+    </div>
 
     <aside class="sidebar" id="sidebar">
         <div class="logo-section">
@@ -1442,7 +1627,6 @@
                         <span class="detail-value" id="modalTrackingNumber">JNE0012345678</span>
                     </div>
                 </div>
-                <!-- Edit Pesanan button REMOVED. Only Close + Print remain -->
                 <div class="modal-actions">
                     <button class="action-btn-secondary" id="closeModalBtn">✕ Tutup</button>
                     <button class="action-btn-primary" id="printOrderBtn">🖨️ Cetak Detail Pesanan</button>
@@ -1489,9 +1673,9 @@
                     <h4>Riwayat Mutasi Stok</h4>
                     <div id="sdHistory"></div>
                 </div>
+                <!-- Tombol Update Stok dihapus; hanya tombol Tutup -->
                 <div class="modal-actions">
-                    <button class="action-btn-secondary" id="closeStockModalBtn">Tutup</button>
-                    <button class="action-btn-primary" id="editStockBtn">✏️ Update Stok</button>
+                    <button class="action-btn-secondary" id="closeStockModalBtn">✕ Tutup</button>
                 </div>
             </div>
         </div>
@@ -1676,6 +1860,35 @@
         // ===== TRACK CURRENT ORDER FOR PRINT =====
         let currentPrintOrderId = null;
 
+        // ===== CUSTOM DELETE MODAL LOGIC =====
+        let deleteCallback = null;
+
+        function showDeleteModal({ title, subtitle, idLabel, onConfirm }) {
+            document.getElementById('deleteConfirmSubtitle').textContent = subtitle || 'Data ini akan dihapus secara permanen.';
+            document.getElementById('deleteConfirmId').textContent = idLabel || '';
+            deleteCallback = onConfirm;
+            document.getElementById('deleteConfirmModal').classList.add('active');
+        }
+
+        document.getElementById('deleteCancelBtn').addEventListener('click', () => {
+            document.getElementById('deleteConfirmModal').classList.remove('active');
+            deleteCallback = null;
+        });
+
+        document.getElementById('deleteConfirmBtn').addEventListener('click', () => {
+            document.getElementById('deleteConfirmModal').classList.remove('active');
+            if (typeof deleteCallback === 'function') deleteCallback();
+            deleteCallback = null;
+        });
+
+        // Close on backdrop click
+        document.getElementById('deleteConfirmModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                this.classList.remove('active');
+                deleteCallback = null;
+            }
+        });
+
         // ===== PRINT DETAIL PESANAN =====
         function doPrintOrder(orderId) {
             const order = orderData[orderId];
@@ -1698,8 +1911,6 @@
 
             const html = `
                 <div style="max-width:680px;margin:0 auto;font-family:'Segoe UI',Arial,sans-serif;color:#1e293b;">
-
-                    <!-- Kop Surat -->
                     <div style="display:flex;justify-content:space-between;align-items:flex-start;padding-bottom:18px;border-bottom:3px solid #0e7490;margin-bottom:24px;">
                         <div>
                             <div style="font-size:32px;margin-bottom:4px;">🎣</div>
@@ -1713,8 +1924,6 @@
                             <p style="margin:6px 0 0;font-size:11px;color:#94a3b8;">Dicetak: ${printDate}</p>
                         </div>
                     </div>
-
-                    <!-- Info Grid -->
                     <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:24px;">
                         <div style="background:#f8fafc;padding:16px;border-radius:12px;border:1px solid #e2e8f0;">
                             <p style="margin:0 0 10px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:#0e7490;">Informasi Pesanan</p>
@@ -1735,8 +1944,6 @@
                             </table>
                         </div>
                     </div>
-
-                    <!-- Produk -->
                     <div style="margin-bottom:20px;">
                         <p style="margin:0 0 10px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:#0e7490;">Produk Dipesan</p>
                         <table style="width:100%;border-collapse:collapse;">
@@ -1750,24 +1957,18 @@
                             <tbody>${productRows}</tbody>
                         </table>
                     </div>
-
-                    <!-- Ringkasan Harga -->
                     <div style="background:#f0f9ff;padding:16px 20px;border-radius:12px;border:1px solid #bae6fd;margin-bottom:20px;">
                         <div style="display:flex;justify-content:space-between;margin-bottom:8px;font-size:14px;">
-                            <span style="color:#64748b;">Subtotal</span>
-                            <span style="font-weight:600;">${order.subtotal}</span>
+                            <span style="color:#64748b;">Subtotal</span><span style="font-weight:600;">${order.subtotal}</span>
                         </div>
                         <div style="display:flex;justify-content:space-between;margin-bottom:14px;font-size:14px;">
-                            <span style="color:#64748b;">Biaya Pengiriman</span>
-                            <span style="font-weight:600;">${order.shipping}</span>
+                            <span style="color:#64748b;">Biaya Pengiriman</span><span style="font-weight:600;">${order.shipping}</span>
                         </div>
                         <div style="display:flex;justify-content:space-between;padding-top:14px;border-top:2px dashed #bae6fd;">
                             <span style="font-size:17px;font-weight:800;color:#0c4a6e;">Total</span>
                             <span style="font-size:20px;font-weight:800;color:#059669;">${order.total}</span>
                         </div>
                     </div>
-
-                    <!-- Info Pengiriman -->
                     <div style="margin-bottom:24px;">
                         <p style="margin:0 0 10px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:#0e7490;">Informasi Pengiriman</p>
                         <div style="background:#f8fafc;padding:16px;border-radius:12px;border:1px solid #e2e8f0;font-size:13px;">
@@ -1785,8 +1986,6 @@
                             </div>
                         </div>
                     </div>
-
-                    <!-- Footer -->
                     <div style="text-align:center;padding-top:18px;border-top:2px dashed #e2e8f0;color:#94a3b8;font-size:12px;">
                         <p style="margin:0 0 4px;">Terima kasih telah berbelanja di <strong style="color:#0e7490;">Mekar Jaya</strong></p>
                         <p style="margin:0;">Simpan dokumen ini sebagai bukti pembelian Anda.</p>
@@ -1904,7 +2103,6 @@
             document.getElementById('orderModal').classList.add('active');
         }
 
-        // Close modal
         document.getElementById('closeModal').addEventListener('click', () => {
             document.getElementById('orderModal').classList.remove('active');
         });
@@ -1916,7 +2114,6 @@
                 document.getElementById('orderModal').classList.remove('active');
         });
 
-        // Print button inside modal
         document.getElementById('printOrderBtn').addEventListener('click', () => {
             if (currentPrintOrderId) doPrintOrder(currentPrintOrderId);
         });
@@ -1946,30 +2143,33 @@
                 tbody.appendChild(row);
             });
 
-            // Lihat → buka modal
             document.querySelectorAll('.view-btn').forEach(btn => {
                 btn.addEventListener('click', function () {
                     openOrderModal(this.getAttribute('data-id'));
                 });
             });
 
-            // Cetak langsung dari baris tabel (tanpa buka modal)
             document.querySelectorAll('.print-row-btn').forEach(btn => {
                 btn.addEventListener('click', function () {
                     doPrintOrder(this.getAttribute('data-id'));
                 });
             });
 
-            // Hapus baris
+            // Hapus pesanan — pakai custom modal
             document.querySelectorAll('.delete-btn').forEach(btn => {
                 btn.addEventListener('click', function () {
-                    if (confirm(`Hapus pesanan ${this.getAttribute('data-id')}?`)) {
-                        const row = this.closest('tr');
-                        row.style.opacity = '0';
-                        row.style.transform = 'scale(0.9) translateX(-20px)';
-                        row.style.transition = 'all 0.4s ease';
-                        setTimeout(() => row.remove(), 400);
-                    }
+                    const id = this.getAttribute('data-id');
+                    const row = this.closest('tr');
+                    showDeleteModal({
+                        subtitle: 'Pesanan ini akan dihapus secara permanen dari daftar.',
+                        idLabel: `Pesanan #${id}`,
+                        onConfirm: () => {
+                            row.style.opacity = '0';
+                            row.style.transform = 'scale(0.9) translateX(-20px)';
+                            row.style.transition = 'all 0.4s ease';
+                            setTimeout(() => row.remove(), 400);
+                        }
+                    });
                 });
             });
         }
@@ -2007,7 +2207,6 @@
             if (e.target === document.getElementById('stockDetailModal'))
                 document.getElementById('stockDetailModal').classList.remove('active');
         });
-        document.getElementById('editStockBtn').addEventListener('click', () => alert('Fitur update stok akan segera tersedia!'));
 
         // ===== LOAD TABEL STOK =====
         function loadStockTable(products) {
@@ -2053,7 +2252,7 @@
                     <td><span class="status-badge ${statusClass}">${statusLabel}</span></td>
                     <td>
                         <button class="action-btn btn-view view-stock-btn" data-id="${p.id}">👁️ Detail</button>
-                        <button class="action-btn btn-delete del-stock-btn" data-id="${p.id}">🗑️ Hapus</button>
+                        <button class="action-btn btn-delete del-stock-btn" data-id="${p.id}" data-name="${p.name}">🗑️ Hapus</button>
                     </td>
                 `;
                 tbody.appendChild(row);
@@ -2066,15 +2265,21 @@
                 });
             });
 
+            // Hapus stok — pakai custom modal
             document.querySelectorAll('.del-stock-btn').forEach(btn => {
                 btn.addEventListener('click', function () {
-                    if (confirm('Hapus data stok produk ini?')) {
-                        const row = this.closest('tr');
-                        row.style.opacity = '0';
-                        row.style.transform = 'scale(0.9) translateX(-20px)';
-                        row.style.transition = 'all 0.4s ease';
-                        setTimeout(() => row.remove(), 400);
-                    }
+                    const name = this.getAttribute('data-name');
+                    const row = this.closest('tr');
+                    showDeleteModal({
+                        subtitle: 'Data stok produk ini akan dihapus secara permanen.',
+                        idLabel: name,
+                        onConfirm: () => {
+                            row.style.opacity = '0';
+                            row.style.transform = 'scale(0.9) translateX(-20px)';
+                            row.style.transition = 'all 0.4s ease';
+                            setTimeout(() => row.remove(), 400);
+                        }
+                    });
                 });
             });
         }

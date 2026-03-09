@@ -38,7 +38,6 @@
         .header-left p { color: #64748b; font-size: 15px; }
         .menu-toggle { display: none; background: linear-gradient(135deg, #0e7490, #06b6d4); border: none; color: white; padding: 12px 18px; border-radius: 15px; cursor: pointer; font-size: 20px; }
 
-        /* Edit mode banner */
         .edit-banner {
             display: none; background: linear-gradient(135deg, #f59e0b, #d97706);
             color: white; padding: 13px 20px; border-radius: 14px; margin-bottom: 18px;
@@ -57,7 +56,7 @@
         .search-product { position: relative; margin-bottom: 15px; flex-shrink: 0; }
         .search-product input { width: 100%; padding: 13px 20px 13px 50px; border: 2px solid rgba(14,116,144,0.2); border-radius: 15px; font-size: 15px; transition: all 0.3s; background: rgba(255,255,255,0.9); }
         .search-product input:focus { outline: none; border-color: #0e7490; box-shadow: 0 0 0 4px rgba(14,116,144,0.1); }
-        .search-product .icon { position: absolute; left: 18px; top: 50%; transform: translateY(-50%); font-size: 20px; color: #64748b; }
+        .search-product .icon { position: absolute; left: 18px; top: 50%; transform: translateY(-50%); font-size: 20px; }
         .category-filter-wrap { margin-bottom: 15px; flex-shrink: 0; display: flex; align-items: center; gap: 10px; }
         .cat-dropdown-wrapper { position: relative; }
         .cat-dropdown-trigger { display: inline-flex; align-items: center; gap: 8px; padding: 10px 18px; border-radius: 50px; border: 2px solid rgba(14,116,144,0.25); background: white; color: #0e7490; font-size: 14px; font-weight: 700; cursor: pointer; transition: all 0.25s; white-space: nowrap; user-select: none; }
@@ -79,13 +78,33 @@
         .active-cat-pill.visible { display: inline-flex; }
         .active-cat-pill-x { cursor: pointer; font-size: 14px; opacity: 0.6; transition: opacity 0.2s; }
         .active-cat-pill-x:hover { opacity: 1; }
+
+        /* Product grid */
         .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 15px; overflow-y: auto; flex: 1; padding-right: 5px; padding-bottom: 5px; }
-        .product-card { background: white; border: 2px solid rgba(14,116,144,0.1); border-radius: 5px; cursor: pointer; transition: all 0.3s; display: flex; flex-direction: column; overflow: hidden; min-height: 210px; position: relative; }
+        .product-card { background: white; border: 2px solid rgba(14,116,144,0.1); border-radius: 16px; cursor: pointer; transition: all 0.3s; display: flex; flex-direction: column; overflow: hidden; min-height: 210px; position: relative; }
         .product-card:hover { transform: translateY(-6px); box-shadow: 0 12px 30px rgba(14,116,144,0.2); border-color: #0e7490; }
-        .product-card:hover .product-img-wrap img { transform: scale(1.08); }
-        .product-img-wrap { width: 100%; height: 130px; overflow: hidden; background: linear-gradient(135deg, #e0f2fe, #f0f9ff); position: relative; flex-shrink: 0; }
-        .product-img-wrap img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.4s; }
-        .product-img-wrap .img-fallback { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; font-size: 44px; background: linear-gradient(135deg, #e0f2fe, #bae6fd); }
+
+        /* ===== GAMBAR PRODUK — pakai emoji besar dengan background gradient ===== */
+        .product-img-wrap {
+            width: 100%; height: 130px; overflow: hidden; position: relative; flex-shrink: 0;
+            display: flex; align-items: center; justify-content: center;
+        }
+        /* Setiap kategori punya warna background berbeda */
+        .product-img-wrap.cat-joran     { background: linear-gradient(135deg, #bae6fd, #e0f2fe); }
+        .product-img-wrap.cat-reel      { background: linear-gradient(135deg, #d1fae5, #ecfdf5); }
+        .product-img-wrap.cat-umpan     { background: linear-gradient(135deg, #fef9c3, #fefce8); }
+        .product-img-wrap.cat-aksesoris { background: linear-gradient(135deg, #ede9fe, #f5f3ff); }
+        .product-img-wrap.cat-kail      { background: linear-gradient(135deg, #fee2e2, #fff1f2); }
+        .product-img-wrap.cat-default   { background: linear-gradient(135deg, #e0f2fe, #f0f9ff); }
+
+        .product-emoji {
+            font-size: 58px;
+            line-height: 1;
+            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.15));
+            transition: transform 0.3s;
+        }
+        .product-card:hover .product-emoji { transform: scale(1.15) rotate(-5deg); }
+
         .product-badge { position: absolute; top: 8px; right: 8px; background: linear-gradient(135deg, #0e7490, #06b6d4); color: white; font-size: 10px; font-weight: 700; padding: 3px 8px; border-radius: 20px; }
         .product-stock-badge { position: absolute; top: 8px; left: 8px; font-size: 10px; font-weight: 700; padding: 3px 8px; border-radius: 20px; }
         .product-stock-badge.low { background: rgba(251,191,36,0.9); color: #78350f; }
@@ -143,8 +162,6 @@
         .change-label { font-size: 13px; color: #64748b; font-weight: 600; }
         .change-value { font-size: 18px; font-weight: 800; color: #10b981; }
         .change-value.negative { color: #e11d48; }
-
-        /* Action buttons at the bottom of cart */
         .checkout-btn { width: 100%; background: linear-gradient(135deg, #10b981, #059669); border: none; color: white; padding: 16px; border-radius: 15px; font-size: 16px; font-weight: 700; cursor: pointer; transition: all 0.3s; box-shadow: 0 4px 15px rgba(16,185,129,0.3); }
         .checkout-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(16,185,129,0.4); }
         .checkout-btn:disabled { background: linear-gradient(135deg, #94a3b8, #64748b); cursor: not-allowed; transform: none; box-shadow: none; }
@@ -152,7 +169,6 @@
         .save-edit-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(245,158,11,0.5); }
         .save-edit-btn.show { display: block; }
 
-        /* Modal */
         .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(12,74,110,0.8); backdrop-filter: blur(5px); z-index: 2000; align-items: center; justify-content: center; }
         .modal.active { display: flex; }
         .modal-content { background: white; padding: 35px; border-radius: 20px; max-width: 450px; width: 90%; max-height: 90vh; overflow-y: auto; box-shadow: 0 10px 40px rgba(0,0,0,0.3); }
@@ -180,7 +196,6 @@
         ::-webkit-scrollbar-thumb { background: linear-gradient(180deg, #0e7490, #06b6d4); border-radius: 10px; }
         .overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(12,74,110,0.7); backdrop-filter: blur(5px); z-index: 999; }
         .overlay.active { display: block; }
-
         .logout-modal { position: fixed; inset: 0; background: rgba(12,74,110,0.7); backdrop-filter: blur(6px); display: none; align-items: center; justify-content: center; z-index: 3000; }
         .logout-modal.active { display: flex; }
         .logout-box { background: rgba(255,255,255,0.95); padding: 35px; border-radius: 25px; text-align: center; width: 350px; box-shadow: 0 15px 40px rgba(0,0,0,0.3); }
@@ -233,7 +248,6 @@
             <button class="menu-toggle" id="menuToggle">☰</button>
         </div>
 
-        <!-- Edit mode banner -->
         <div class="edit-banner" id="editBanner">
             <div class="edit-banner-left">
                 <span class="icon">✏️</span>
@@ -246,7 +260,6 @@
         </div>
 
         <div class="kasir-container">
-            <!-- Product Section -->
             <div class="product-section">
                 <div class="search-product">
                     <span class="icon">🔍</span>
@@ -278,7 +291,6 @@
                 <div class="product-grid" id="productGrid"></div>
             </div>
 
-            <!-- Cart Section -->
             <div class="cart-section" id="cartSection">
                 <div class="cart-header">
                     <h3 id="cartTitle">Keranjang Belanja</h3>
@@ -405,19 +417,20 @@
 
     <script>
     // ===== PRODUCTS DATA =====
+    // image dihapus, gunakan emoji + warna background per kategori
     const productsData = [
-        { id:1,  name:'Joran Carbon Pro X1',     category:'joran',     price:1250000, stock:25, icon:'🎣', image:'/public/images/pancingan.jpg' },
-        { id:2,  name:'Reel Shimano 5000',        category:'reel',      price:850000,  stock:42, icon:'⚙️', image:'/public/images/reel2.png' },
-        { id:3,  name:'Umpan Set Premium',        category:'umpan',     price:450000,  stock:8,  icon:'🐟', image:'/public/images/reel.png' },
-        { id:4,  name:'Tas Pancing Waterproof',   category:'aksesoris', price:675000,  stock:31, icon:'🎒', image:'/public/images/reel2.png' },
-        { id:5,  name:'Kail Set Professional',    category:'kail',      price:350000,  stock:56, icon:'🪝', image:'/public/images/senar.png' },
-        { id:6,  name:'Joran Telescopic',         category:'joran',     price:550000,  stock:18, icon:'🎣', image:'/public/images/tegek.png' },
-        { id:7,  name:'Reel Daiwa 3000',          category:'reel',      price:750000,  stock:22, icon:'⚙️', image:'/public/images/pancingan.jpg' },
-        { id:8,  name:'Umpan Buatan Lure',        category:'umpan',     price:125000,  stock:64, icon:'🐟', image:'/public/images/reel.png' },
-        { id:9,  name:'Kotak Pancing Tackle Box', category:'aksesoris', price:280000,  stock:15, icon:'📦', image:'/public/images/tegek.png' },
-        { id:10, name:'Senar PE 50lb',            category:'aksesoris', price:180000,  stock:45, icon:'🧵', image:'/public/images/reel2.png' },
-        { id:11, name:'Joran Casting Heavy',      category:'joran',     price:980000,  stock:12, icon:'🎣', image:'/public/images/pancingan.jpg' },
-        { id:12, name:'Reel Baitcasting',         category:'reel',      price:1100000, stock:9,  icon:'⚙️', image:'/public/images/tegek.png' },
+        { id:1,  name:'Joran Carbon Pro X1',     category:'joran',     price:1250000, stock:25, icon:'🎣', image:'/MekarJayaProject/public/images/pancingan.jpg' },
+        { id:2,  name:'Reel Shimano 5000',        category:'reel',      price:850000,  stock:42, icon:'⚙️', image:'/MekarJayaProject/public/images/reel2.png' },
+        { id:3,  name:'Umpan Set Premium',        category:'umpan',     price:450000,  stock:8,  icon:'🐟', image:'/MekarJayaProject/public/images/reel.png' },
+        { id:4,  name:'Tas Pancing Waterproof',   category:'aksesoris', price:675000,  stock:31, icon:'🎒', image:'/MekarJayaProject/public/images/reel2.png' },
+        { id:5,  name:'Kail Set Professional',    category:'kail',      price:350000,  stock:56, icon:'🪝', image:'/MekarJayaProject/public/images/senar.png' },
+        { id:6,  name:'Joran Telescopic',         category:'joran',     price:550000,  stock:18, icon:'🎣', image:'/MekarJayaProject/public/images/tegek.png' },
+        { id:7,  name:'Reel Daiwa 3000',          category:'reel',      price:750000,  stock:22, icon:'⚙️', image:'/MekarJayaProject/public/images/pancingan.jpg' },
+        { id:8,  name:'Umpan Buatan Lure',        category:'umpan',     price:125000,  stock:64, icon:'🐟', image:'/MekarJayaProject/public/images/reel.png' },
+        { id:9,  name:'Kotak Pancing Tackle Box', category:'aksesoris', price:280000,  stock:15, icon:'📦', image:'/MekarJayaProject/public/images/tegek.png' },
+        { id:10, name:'Senar PE 50lb',            category:'aksesoris', price:180000,  stock:45, icon:'🧵', image:'/MekarJayaProject/public/images/reel2.png' },
+        { id:11, name:'Joran Casting Heavy',      category:'joran',     price:980000,  stock:12, icon:'🎣', image:'/MekarJayaProject/public/images/pancingan.jpg' },
+        { id:12, name:'Reel Baitcasting',         category:'reel',      price:1100000, stock:9,  icon:'⚙️', image:'/MekarJayaProject/public/images/tegek.png' },
     ];
 
     // ===== STATE =====
@@ -445,21 +458,17 @@
     function fmt(n) { return 'Rp ' + Number(n).toLocaleString('id-ID'); }
     function calcTotal(items) { return items.reduce((s,i) => s + i.price * i.quantity, 0); }
 
+    // ===== BUILD IMAGE (fallback ke emoji jika gagal) =====
     function buildImgEl(product) {
-        const wrap = document.createElement('div'); wrap.className = 'product-img-wrap';
-        const exts = ['jpg','jpeg','png','webp'];
-        const hasExt = /\.(jpg|jpeg|png|webp)$/i.test(product.image);
-        const paths = hasExt ? [product.image] : exts.map(e => `${product.image}.${e}`);
-        let idx = 0;
-        function tryNext() {
-            if (idx < paths.length) {
-                const img = new Image(); img.alt = product.name; img.className = 'product-img';
-                img.onload = () => { wrap.innerHTML = ''; wrap.appendChild(img); };
-                img.onerror = () => { idx++; tryNext(); };
-                img.src = paths[idx++];
-            } else wrap.innerHTML = `<div class="img-fallback">${product.icon}</div>`;
+        const wrap = document.createElement('div');
+        wrap.className = `product-img-wrap cat-${product.category || 'default'}`;
+        wrap.innerHTML = `<span class="product-emoji">${product.icon}</span>`;
+        if (product.image) {
+            const img = new Image();
+            img.style.cssText = 'width:100%;height:100%;object-fit:cover;display:block;transition:transform 0.4s;';
+            img.onload = () => { wrap.innerHTML = ''; wrap.appendChild(img); };
+            img.src = product.image;
         }
-        wrap.innerHTML = `<div class="img-fallback">${product.icon}</div>`; tryNext();
         return wrap;
     }
 
@@ -497,16 +506,39 @@
     // ===== RENDER PRODUCTS =====
     function renderProducts(products) {
         const grid = document.getElementById('productGrid'); grid.innerHTML = '';
-        if (!products.length) { grid.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:40px;color:#94a3b8;"><div style="font-size:50px;margin-bottom:10px;">🔍</div><p>Produk tidak ditemukan</p></div>`; return; }
+        if (!products.length) {
+            grid.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:40px;color:#94a3b8;"><div style="font-size:50px;margin-bottom:10px;">🔍</div><p>Produk tidak ditemukan</p></div>`;
+            return;
+        }
         const catNames = { joran:'Joran', reel:'Reel', umpan:'Umpan', aksesoris:'Aksesoris', kail:'Kail' };
         products.forEach(p => {
-            const card = document.createElement('div'); card.className = 'product-card'; card.onclick = () => addToCart(p.id);
-            let stockBadge = p.stock === 0 ? `<div class="product-stock-badge out">Habis</div>` : p.stock <= 10 ? `<div class="product-stock-badge low">Sisa ${p.stock}</div>` : '';
+            const card = document.createElement('div');
+            card.className = 'product-card';
+            card.onclick = () => addToCart(p.id);
+
+            const stockBadge = p.stock === 0
+                ? `<div class="product-stock-badge out">Habis</div>`
+                : p.stock <= 10
+                    ? `<div class="product-stock-badge low">Sisa ${p.stock}</div>`
+                    : '';
+
+            // Wrapper gambar: pakai gambar asli, fallback ke emoji
             const imgWrap = buildImgEl(p);
-            imgWrap.insertAdjacentHTML('beforeend', stockBadge + `<div class="product-badge">${catNames[p.category]||p.category}</div>`);
-            const info = document.createElement('div'); info.className = 'product-info';
-            info.innerHTML = `<div class="product-name">${p.name}</div><div class="product-meta"><div class="product-price">${fmt(p.price)}</div><div class="product-stock-text">Stok: ${p.stock}</div></div>`;
-            card.appendChild(imgWrap); card.appendChild(info); grid.appendChild(card);
+            imgWrap.insertAdjacentHTML('beforeend',
+                stockBadge + `<div class="product-badge">${catNames[p.category] || p.category}</div>`);
+
+            const info = document.createElement('div');
+            info.className = 'product-info';
+            info.innerHTML = `
+                <div class="product-name">${p.name}</div>
+                <div class="product-meta">
+                    <div class="product-price">${fmt(p.price)}</div>
+                    <div class="product-stock-text">Stok: ${p.stock}</div>
+                </div>`;
+
+            card.appendChild(imgWrap);
+            card.appendChild(info);
+            grid.appendChild(card);
         });
     }
 
@@ -548,10 +580,7 @@
 
     document.getElementById('clearCartBtn').addEventListener('click', () => { if (cart.length && confirm('Kosongkan keranjang?')) { cart=[]; renderCart(); updateSummary(); } });
 
-    function updateSummary() {
-        document.getElementById('totalValue').textContent = fmt(calcTotal(cart));
-        updateChange();
-    }
+    function updateSummary() { document.getElementById('totalValue').textContent = fmt(calcTotal(cart)); updateChange(); }
 
     // ===== PAYMENT =====
     document.querySelectorAll('.payment-method').forEach(m => {
@@ -591,7 +620,7 @@
         const trxId = `TRX-${String(transactionCounter).padStart(4,'0')}`;
         transactionCounter++;
         const now = new Date();
-        transactionHistory.push({ id:trxId, date:now, customer:{name:custName,phone:custPhone}, items:[...cart], payment:selectedPaymentMethod, cashReceived: selectedPaymentMethod==='cash'?cashReceived:null, change: selectedPaymentMethod==='cash'?cashReceived-total:null, total });
+        transactionHistory.push({ id:trxId, date:now, customer:{name:custName,phone:custPhone}, items:[...cart], payment:selectedPaymentMethod, cashReceived:selectedPaymentMethod==='cash'?cashReceived:null, change:selectedPaymentMethod==='cash'?cashReceived-total:null, total });
         cart.forEach(item => { const p = productsData.find(x=>x.id===item.id); if(p) p.stock -= item.quantity; });
         showReceipt({ id:trxId, date:now, customer:{name:custName}, items:[...cart], payment:selectedPaymentMethod, cashReceived:selectedPaymentMethod==='cash'?cashReceived:null, change:selectedPaymentMethod==='cash'?cashReceived-total:null, total });
         document.getElementById('successModal').classList.add('active');
@@ -626,58 +655,42 @@
     }
 
     // ===== EDIT MODE =====
-    // Called from history modal "Edit" button
     function startEditMode(trxId) {
         const trx = transactionHistory.find(t => t.id === trxId);
         if (!trx) return;
         editingTrxId = trxId;
-
-        // Load items into cart
         cart = trx.items.map(i => {
             const product = productsData.find(p => p.id === i.id);
-            return { id:i.id, name:i.name, price:i.price, quantity:i.quantity, maxStock: (product ? product.stock : 0) + i.quantity };
+            return { id:i.id, name:i.name, price:i.price, quantity:i.quantity, maxStock:(product?product.stock:0)+i.quantity };
         });
-
-        // Fill customer info
         document.getElementById('customerName').value  = trx.customer.name !== 'Umum' ? trx.customer.name : '';
         document.getElementById('customerPhone').value = trx.customer.phone !== '-'   ? trx.customer.phone : '';
-
-        // Set payment method buttons
         document.querySelectorAll('.payment-method').forEach(m => m.classList.toggle('active', m.dataset.method === trx.payment));
         selectedPaymentMethod = trx.payment;
         document.getElementById('cashPaymentSection').classList.toggle('active', trx.payment === 'cash');
-        document.getElementById('cashInput').value = '';
-        cashReceived = 0;
-
-        // Activate edit UI
+        document.getElementById('cashInput').value = ''; cashReceived = 0;
         document.getElementById('editBanner').classList.add('active');
         document.getElementById('editBannerTrxId').textContent = trxId;
         document.getElementById('cartSection').classList.add('editing');
         document.getElementById('cartTitle').textContent = '✏️ Edit Transaksi';
         document.getElementById('checkoutBtn').style.display = 'none';
         document.getElementById('saveEditBtn').classList.add('show');
-
         renderCart(); updateSummary();
         closeHistoryModal();
-
-        // Scroll cart into view
         setTimeout(() => document.getElementById('cartSection').scrollIntoView({ behavior:'smooth', block:'nearest' }), 100);
     }
 
     function cancelEditMode() {
-        editingTrxId = null;
-        cart=[]; cashReceived=0;
+        editingTrxId = null; cart=[]; cashReceived=0;
         document.getElementById('cashInput').value='';
         document.getElementById('customerName').value='';
         document.getElementById('customerPhone').value='';
-
         document.getElementById('editBanner').classList.remove('active');
         document.getElementById('cartSection').classList.remove('editing');
         document.getElementById('cartTitle').textContent = 'Keranjang Belanja';
         document.getElementById('checkoutBtn').style.display = '';
         document.getElementById('checkoutBtn').disabled = true;
         document.getElementById('saveEditBtn').classList.remove('show');
-
         renderCart(); updateSummary();
     }
 
@@ -686,20 +699,15 @@
         if (!cart.length) { alert('⚠️ Minimal harus ada 1 item!'); return; }
         const trx = transactionHistory.find(t => t.id === editingTrxId);
         if (!trx) return;
-
         const custName  = document.getElementById('customerName').value.trim() || 'Umum';
         const custPhone = document.getElementById('customerPhone').value.trim() || '-';
         const total = calcTotal(cart);
-
         trx.customer = { name:custName, phone:custPhone };
         trx.payment  = selectedPaymentMethod;
         trx.items    = cart.map(i => ({ id:i.id, name:i.name, price:i.price, quantity:i.quantity }));
         trx.total    = total;
-        if (selectedPaymentMethod === 'cash') {
-            trx.cashReceived = cashReceived > 0 ? cashReceived : total;
-            trx.change = trx.cashReceived - total;
-        } else { trx.cashReceived = null; trx.change = null; }
-
+        if (selectedPaymentMethod === 'cash') { trx.cashReceived = cashReceived > 0 ? cashReceived : total; trx.change = trx.cashReceived - total; }
+        else { trx.cashReceived = null; trx.change = null; }
         showNotif('✅ Transaksi ' + editingTrxId + ' berhasil diperbarui!', 'success');
         cancelEditMode();
     });
@@ -716,7 +724,6 @@
         const filtered = transactionHistory.filter(t =>
             (t.id.toLowerCase().includes(q) || t.customer.name.toLowerCase().includes(q)) && (pf==='all'||t.payment===pf)
         ).sort((a,b)=>b.date-a.date);
-
         if (!filtered.length) {
             listEl.innerHTML = `<div style="text-align:center;padding:60px 20px;color:#94a3b8;"><div style="font-size:60px;margin-bottom:15px;">📭</div><p style="font-size:16px;font-weight:600;">Tidak ada transaksi</p></div>`;
         } else {
@@ -730,14 +737,8 @@
                             <div style="font-size:12px;color:#64748b;">🕒 ${ds}</div>
                         </div>
                         <div style="display:flex;gap:8px;">
-                            <button onclick="startEditMode('${trx.id}')"
-                                style="background:linear-gradient(135deg,#f59e0b,#d97706);border:none;color:white;padding:8px 16px;border-radius:10px;cursor:pointer;font-size:13px;font-weight:700;transition:all 0.2s;"
-                                onmouseover="this.style.transform='translateY(-2px)'"
-                                onmouseout="this.style.transform='none'">✏️ Edit</button>
-                            <button onclick="deleteTransaction('${trx.id}')"
-                                style="background:linear-gradient(135deg,#f43f5e,#e11d48);border:none;color:white;padding:8px 16px;border-radius:10px;cursor:pointer;font-size:13px;font-weight:700;transition:all 0.2s;"
-                                onmouseover="this.style.transform='translateY(-2px)'"
-                                onmouseout="this.style.transform='none'">🗑️ Hapus</button>
+                            <button onclick="startEditMode('${trx.id}')" style="background:linear-gradient(135deg,#f59e0b,#d97706);border:none;color:white;padding:8px 16px;border-radius:10px;cursor:pointer;font-size:13px;font-weight:700;">✏️ Edit</button>
+                            <button onclick="deleteTransaction('${trx.id}')" style="background:linear-gradient(135deg,#f43f5e,#e11d48);border:none;color:white;padding:8px 16px;border-radius:10px;cursor:pointer;font-size:13px;font-weight:700;">🗑️ Hapus</button>
                         </div>
                     </div>
                     <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:12px;padding:15px;background:rgba(14,116,144,0.03);border-radius:10px;margin-bottom:15px;">
@@ -749,16 +750,16 @@
                         ${trx.items.map(i=>`<div style="display:flex;justify-content:space-between;font-size:12px;color:#475569;margin-bottom:4px;"><span>${i.name} <span style="color:#94a3b8;">x${i.quantity}</span></span><span style="font-weight:600;color:#0c4a6e;">${fmt(i.price*i.quantity)}</span></div>`).join('')}
                     </div>
                     <div style="padding-top:12px;border-top:2px dashed rgba(14,116,144,0.2);">
-                        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:${trx.payment==='cash'?'8px':'0'};">
+                        <div style="display:flex;justify-content:space-between;align-items:center;">
                             <span style="font-size:13px;color:#64748b;font-weight:600;">Total Pembayaran</span>
                             <span style="font-size:18px;font-weight:800;color:#10b981;">${fmt(trx.total)}</span>
                         </div>
                         ${trx.payment==='cash'&&trx.cashReceived!=null?`
-                        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;padding:8px 12px;background:rgba(14,116,144,0.06);border-radius:8px;">
+                        <div style="display:flex;justify-content:space-between;margin-top:8px;padding:8px 12px;background:rgba(14,116,144,0.06);border-radius:8px;">
                             <span style="font-size:12px;color:#64748b;font-weight:600;">💵 Uang Diterima</span>
                             <span style="font-size:14px;font-weight:700;color:#0e7490;">${fmt(trx.cashReceived)}</span>
                         </div>
-                        <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 12px;background:rgba(16,185,129,0.08);border-radius:8px;border:1px solid rgba(16,185,129,0.2);">
+                        <div style="display:flex;justify-content:space-between;margin-top:6px;padding:8px 12px;background:rgba(16,185,129,0.08);border-radius:8px;border:1px solid rgba(16,185,129,0.2);">
                             <span style="font-size:12px;color:#64748b;font-weight:600;">↩️ Kembalian</span>
                             <span style="font-size:14px;font-weight:700;color:#059669;">${fmt(trx.change)}</span>
                         </div>`:''}
@@ -779,7 +780,6 @@
         if (i !== -1) { transactionHistory.splice(i,1); renderHistory(); showNotif('🗑️ Transaksi berhasil dihapus!','danger'); }
     }
 
-    // ===== NOTIFICATION =====
     function showNotif(msg, type='success') {
         const n = document.createElement('div');
         n.textContent = msg;
@@ -793,12 +793,11 @@
     document.getElementById('successModal').addEventListener('click', e => { if (e.target===document.getElementById('successModal')) document.getElementById('successModal').classList.remove('active'); });
     document.getElementById('historyModal').addEventListener('click', e => { if (e.target===document.getElementById('historyModal')) closeHistoryModal(); });
     document.addEventListener('keydown', e => { if (e.key==='Escape') { document.getElementById('successModal').classList.remove('active'); closeHistoryModal(); } });
-
     document.querySelector('.logout-btn').addEventListener('click', e => { e.preventDefault(); document.getElementById('logoutModal').classList.add('active'); });
     document.getElementById('cancelLogout').addEventListener('click', () => document.getElementById('logoutModal').classList.remove('active'));
     document.getElementById('confirmLogout').addEventListener('click', () => { try{localStorage.removeItem('userLogin');localStorage.removeItem('userRole');}catch(e){} window.location.href='../../pages/login.html'; });
 
-    // Init render
+    // Init
     renderProducts(productsData);
     </script>
 </body>

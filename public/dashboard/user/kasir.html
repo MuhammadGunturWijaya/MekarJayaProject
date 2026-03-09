@@ -1,1074 +1,228 @@
 <!DOCTYPE html>
 <html lang="id">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kasir - Mekar Jaya</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html,
-        body {
-            height: 100%;
-            overflow-x: hidden;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html, body { height: 100%; overflow-x: hidden; }
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
             background: linear-gradient(135deg, #0c4a6e 0%, #0e7490 50%, #06b6d4 100%);
             background-attachment: fixed;
         }
-
         .sidebar {
-            position: fixed;
-            left: 0;
-            top: 0;
-            width: 280px;
-            height: 100vh;
+            position: fixed; left: 0; top: 0; width: 280px; height: 100vh;
             background: linear-gradient(180deg, #164e63 0%, #0e7490 100%);
-            padding: 25px 20px;
-            z-index: 1000;
-            transition: transform 0.3s ease;
-            overflow-y: auto;
-            box-shadow: 4px 0 20px rgba(0, 0, 0, 0.2);
+            padding: 25px 20px; z-index: 1000; transition: transform 0.3s ease;
+            overflow-y: auto; box-shadow: 4px 0 20px rgba(0,0,0,0.2);
         }
-
-        .sidebar.hidden {
-            transform: translateX(-100%);
-        }
-
         .logo-section {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            padding: 20px 15px;
-            margin-bottom: 35px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 20px;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-
-        .logo-section .icon {
-            font-size: 36px;
-            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
-        }
-
-        .logo-section h2 {
-            color: white;
-            font-size: 22px;
-            font-weight: 700;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-        }
-
-        .logo-section .badge {
-            background: linear-gradient(135deg, #22d3ee, #06b6d4);
-            color: white;
-            font-size: 10px;
-            padding: 4px 10px;
-            border-radius: 8px;
-            font-weight: 700;
-            box-shadow: 0 2px 8px rgba(34, 211, 238, 0.4);
-        }
-
-        .menu-section {
-            margin-bottom: 30px;
-        }
-
-        .menu-label {
-            color: rgba(255, 255, 255, 0.5);
-            font-size: 11px;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            padding: 0 15px;
-            margin-bottom: 12px;
-        }
-
-        .menu-item {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            padding: 14px 18px;
-            color: rgba(255, 255, 255, 0.8);
-            text-decoration: none;
-            border-radius: 15px;
-            margin-bottom: 6px;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            cursor: pointer;
-            font-size: 15px;
-            position: relative;
-        }
-
-        .menu-item:hover {
-            background: rgba(255, 255, 255, 0.15);
-            color: white;
-            transform: translateX(5px);
-        }
-
-        .menu-item.active {
-            background: linear-gradient(135deg, rgba(34, 211, 238, 0.3), rgba(6, 182, 212, 0.2));
-            color: white;
-            font-weight: 600;
-            box-shadow: 0 4px 15px rgba(34, 211, 238, 0.3);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-
-        .menu-item .icon {
-            font-size: 22px;
-            width: 28px;
-            text-align: center;
-        }
-
-        .main-content {
-            margin-left: 280px;
-            padding: 25px;
-            min-height: 100vh;
-            transition: margin-left 0.3s ease;
-        }
-
-        .main-content.expanded {
-            margin-left: 0;
-        }
-
-        .header {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            padding: 25px 30px;
-            border-radius: 20px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-            margin-bottom: 25px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border: 1px solid rgba(255, 255, 255, 0.5);
-        }
-
-        .header-left h1 {
-            background: linear-gradient(135deg, #0c4a6e, #06b6d4);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            font-size: 28px;
-            margin-bottom: 6px;
-            font-weight: 800;
-        }
-
-        .header-left p {
-            color: #64748b;
-            font-size: 15px;
-        }
-
-        .menu-toggle {
-            display: none;
-            background: linear-gradient(135deg, #0e7490, #06b6d4);
-            border: none;
-            color: white;
-            padding: 12px 18px;
-            border-radius: 15px;
-            cursor: pointer;
-            font-size: 20px;
-            box-shadow: 0 4px 15px rgba(14, 116, 144, 0.3);
-        }
-
-        .kasir-container {
-            display: grid;
-            grid-template-columns: 2fr 1fr;
-            gap: 20px;
-            height: calc(100vh - 180px);
-            max-height: calc(100vh - 180px);
-        }
-
-        .product-section {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            padding: 25px;
-            border-radius: 20px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.5);
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
-        }
-
-        .search-product {
-            position: relative;
-            margin-bottom: 20px;
-            flex-shrink: 0;
-        }
-
-        .search-product input {
-            width: 100%;
-            padding: 15px 20px 15px 50px;
-            border: 2px solid rgba(14, 116, 144, 0.2);
-            border-radius: 15px;
-            font-size: 15px;
-            transition: all 0.3s;
-            background: rgba(255, 255, 255, 0.9);
-        }
-
-        .search-product input:focus {
-            outline: none;
-            border-color: #0e7490;
-            box-shadow: 0 0 0 4px rgba(14, 116, 144, 0.1);
-        }
-
-        .search-product .icon {
-            position: absolute;
-            left: 18px;
-            top: 50%;
-            transform: translateY(-50%);
-            font-size: 20px;
-            color: #64748b;
-        }
-
-        .category-tabs {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 20px;
-            overflow-x: auto;
-            padding-bottom: 5px;
-            flex-shrink: 0;
-        }
-
-        .category-tab {
-            padding: 10px 20px;
-            border: 2px solid rgba(14, 116, 144, 0.2);
-            border-radius: 12px;
-            background: white;
-            cursor: pointer;
-            transition: all 0.3s;
-            white-space: nowrap;
-            font-size: 14px;
-            font-weight: 600;
-            color: #475569;
-        }
-
-        .category-tab:hover {
-            border-color: #0e7490;
-            background: rgba(14, 116, 144, 0.05);
-        }
-
-        .category-tab.active {
-            background: linear-gradient(135deg, #0e7490, #06b6d4);
-            color: white;
-            border-color: transparent;
-            box-shadow: 0 4px 15px rgba(14, 116, 144, 0.3);
-        }
-
-        .product-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-            gap: 15px;
-            overflow-y: auto;
-            flex: 1;
-            padding-right: 5px;
-        }
-
-
-
-        .product-card {
-            background: white;
-            border: 2px solid rgba(14, 116, 144, 0.1);
-            border-radius: 15px;
-            padding: 15px;
-            cursor: pointer;
-            transition: all 0.3s;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            min-height: 180px;
-            max-height: 180px;
-        }
-
-        .product-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 25px rgba(14, 116, 144, 0.2);
-            border-color: #0e7490;
-        }
-
-        .product-icon {
-            font-size: 40px;
-            text-align: center;
-            margin-bottom: 8px;
-        }
-
-        .logout-modal {
-            position: fixed;
-            inset: 0;
-            background: rgba(12, 74, 110, 0.7);
-            backdrop-filter: blur(6px);
-            display: none;
-            align-items: center;
-            justify-content: center;
-            z-index: 3000;
-        }
-
-        .logout-modal.active {
-            display: flex;
-            animation: fadeIn 0.3s ease;
-        }
-
-        .logout-box {
-            background: rgba(255, 255, 255, 0.95);
-            padding: 35px;
-            border-radius: 25px;
-            text-align: center;
-            width: 350px;
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
-            animation: slideUp 0.3s ease;
-        }
-
-        .logout-icon {
-            font-size: 55px;
-            margin-bottom: 15px;
-        }
-
-        .logout-box h3 {
-            color: #0c4a6e;
-            font-size: 20px;
-            margin-bottom: 10px;
-        }
-
-        .logout-box p {
-            color: #64748b;
-            font-size: 14px;
-            margin-bottom: 25px;
-        }
-
-        .logout-actions {
-            display: flex;
-            gap: 10px;
-        }
-
-        .logout-actions button {
-            flex: 1;
-            padding: 12px;
-            border-radius: 12px;
-            font-weight: 600;
-            cursor: pointer;
-            border: none;
-            transition: 0.3s;
-        }
-
-        .btn-cancel {
-            background: rgba(148, 163, 184, 0.2);
-            color: #475569;
-        }
-
-        .btn-cancel:hover {
-            background: rgba(148, 163, 184, 0.4);
-        }
-
-        .btn-confirm {
-            background: linear-gradient(135deg, #ef4444, #dc2626);
-            color: white;
-            box-shadow: 0 6px 20px rgba(239, 68, 68, 0.4);
-        }
-
-        .btn-confirm:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(239, 68, 68, 0.5);
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-
-            to {
-                opacity: 1;
-            }
-        }
-
-        @keyframes slideUp {
-            from {
-                transform: translateY(40px);
-                opacity: 0;
-            }
-
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
-        }
-
-        .product-name {
-            font-size: 13px;
-            font-weight: 600;
-            color: #0c4a6e;
-            margin-bottom: 6px;
-            text-align: center;
-            line-height: 1.3;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-        }
-
-        .product-price {
-            font-size: 14px;
-            font-weight: 700;
-            color: #0e7490;
-            text-align: center;
-            margin-bottom: 4px;
-        }
-
-        .product-stock {
-            font-size: 11px;
-            color: #64748b;
-            text-align: center;
-        }
-
-        .cart-section {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            padding: 25px;
-            border-radius: 20px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.5);
-            display: flex;
-            flex-direction: column;
-            max-height: 100%;
-            overflow: hidden;
-            overflow-y: auto;
-            scrollbar-width: none;
-        }
-
-        .cart-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-            flex-shrink: 0;
-        }
-
-        .cart-header h3 {
-            color: #0c4a6e;
-            font-size: 20px;
-            font-weight: 800;
-        }
-
-        .clear-cart-btn {
-            background: rgba(244, 63, 94, 0.1);
-            border: none;
-            color: #e11d48;
-            padding: 8px 15px;
-            border-radius: 10px;
-            cursor: pointer;
-            font-size: 13px;
-            font-weight: 600;
-            transition: all 0.3s;
-        }
-
-        .clear-cart-btn:hover {
-            background: rgba(244, 63, 94, 0.2);
-            transform: scale(1.05);
-        }
-
-        .cart-items {
-            flex: 1;
-            overflow-y: auto;
-            margin-bottom: 20px;
-            padding-right: 5px;
-            min-height: 200px;
-        }
-
-        .cart-item {
-            background: white;
-            border: 1px solid rgba(14, 116, 144, 0.1);
-            border-radius: 12px;
-            padding: 12px;
-            margin-bottom: 10px;
-            transition: all 0.3s;
-        }
-
-        .cart-item:hover {
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-        }
-
-        .cart-item-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: start;
-            margin-bottom: 10px;
-        }
-
-        .cart-item-name {
-            font-size: 14px;
-            font-weight: 600;
-            color: #0c4a6e;
-        }
-
-        .cart-item-price {
-            font-size: 13px;
-            color: #0e7490;
-            font-weight: 700;
-        }
-
-        .cart-item-controls {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .quantity-control {
-            display: flex;
-            gap: 8px;
-            align-items: center;
-        }
-
-        .qty-btn {
-            background: linear-gradient(135deg, #0e7490, #06b6d4);
-            border: none;
-            color: white;
-            width: 28px;
-            height: 28px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 16px;
-            font-weight: 700;
-            transition: all 0.3s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .qty-btn:hover {
-            transform: scale(1.1);
-            box-shadow: 0 4px 12px rgba(14, 116, 144, 0.3);
-        }
-
-        .qty-display {
-            font-size: 14px;
-            font-weight: 600;
-            color: #0c4a6e;
-            min-width: 30px;
-            text-align: center;
-        }
-
-        .remove-item-btn {
-            background: rgba(244, 63, 94, 0.1);
-            border: none;
-            color: #e11d48;
-            padding: 6px 10px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 12px;
-            font-weight: 600;
-            transition: all 0.3s;
-        }
-
-        .remove-item-btn:hover {
-            background: rgba(244, 63, 94, 0.2);
-        }
-
-        .cart-item-subtotal {
-            font-size: 13px;
-            color: #64748b;
-            font-weight: 600;
-        }
-
-        .cart-empty {
-            text-align: center;
-            padding: 40px 20px;
-            color: #94a3b8;
-        }
-
-        .cart-empty-icon {
-            font-size: 60px;
-            margin-bottom: 15px;
-        }
-
-        .cart-summary {
-            border-top: 2px solid rgba(14, 116, 144, 0.1);
-            padding-top: 20px;
-            flex-shrink: 0;
-        }
-
-        .summary-row {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 12px;
-            font-size: 14px;
-        }
-
-        .summary-row.total {
-            font-size: 18px;
-            font-weight: 800;
-            color: #0c4a6e;
-            padding-top: 12px;
-            border-top: 2px solid rgba(14, 116, 144, 0.2);
-        }
-
-        .summary-label {
-            color: #64748b;
-        }
-
-        .summary-value {
-            color: #0e7490;
-            font-weight: 600;
-        }
-
-        .checkout-section {
-            margin-top: 15px;
-            flex-shrink: 0;
-        }
-
-        .customer-info {
-            background: rgba(14, 116, 144, 0.05);
-            padding: 15px;
-            border-radius: 12px;
-            margin-bottom: 15px;
-        }
-
-        .customer-info input {
-            width: 100%;
-            padding: 10px 15px;
-            border: 2px solid rgba(14, 116, 144, 0.2);
-            border-radius: 10px;
-            font-size: 14px;
-            margin-bottom: 10px;
-            transition: all 0.3s;
-        }
-
-        .customer-info input:last-child {
-            margin-bottom: 0;
-        }
-
-        .customer-info input:focus {
-            outline: none;
-            border-color: #0e7490;
-            box-shadow: 0 0 0 4px rgba(14, 116, 144, 0.1);
-        }
-
-        .payment-methods {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-            margin-bottom: 15px;
-        }
-
-        .payment-method {
-            padding: 12px;
-            border: 2px solid rgba(14, 116, 144, 0.2);
-            border-radius: 12px;
-            cursor: pointer;
-            transition: all 0.3s;
-            text-align: center;
-            font-size: 13px;
-            font-weight: 600;
-            color: #475569;
-            background: white;
-        }
-
-        .payment-method:hover {
-            border-color: #0e7490;
-            background: rgba(14, 116, 144, 0.05);
-        }
-
-        .payment-method.active {
-            background: linear-gradient(135deg, #0e7490, #06b6d4);
-            color: white;
-            border-color: transparent;
-            box-shadow: 0 4px 15px rgba(14, 116, 144, 0.3);
-        }
-
-        .payment-method .icon {
-            font-size: 20px;
-            margin-bottom: 5px;
-        }
-
-        .cash-payment-section {
-            display: none;
-            background: rgba(34, 211, 238, 0.1);
-            padding: 15px;
-            border-radius: 12px;
-            margin-bottom: 15px;
-            border: 2px solid rgba(34, 211, 238, 0.3);
-        }
-
-        .cash-payment-section.active {
-            display: block;
-            animation: slideDown 0.3s ease;
-        }
-
-        @keyframes slideDown {
-            from {
-                opacity: 0;
-                transform: translateY(-10px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .cash-input-group {
-            margin-bottom: 12px;
-        }
-
-        .cash-input-label {
-            font-size: 12px;
-            color: #0c4a6e;
-            font-weight: 600;
-            margin-bottom: 6px;
-            display: block;
-        }
-
-        .cash-input {
-            width: 100%;
-            padding: 12px 15px;
-            border: 2px solid rgba(14, 116, 144, 0.3);
-            border-radius: 10px;
-            font-size: 16px;
-            font-weight: 700;
-            color: #0c4a6e;
-            transition: all 0.3s;
-        }
-
-        .cash-input:focus {
-            outline: none;
-            border-color: #0e7490;
-            box-shadow: 0 0 0 4px rgba(14, 116, 144, 0.1);
-        }
-
-        .cash-change-display {
-            background: white;
-            padding: 12px 15px;
-            border-radius: 10px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border: 2px solid rgba(16, 185, 129, 0.3);
-        }
-
-        .change-label {
-            font-size: 13px;
-            color: #64748b;
-            font-weight: 600;
-        }
-
-        .change-value {
-            font-size: 18px;
-            font-weight: 800;
-            color: #10b981;
-        }
-
-        .change-value.negative {
-            color: #e11d48;
-        }
-
-        .checkout-btn {
-            width: 100%;
-            background: linear-gradient(135deg, #10b981, #059669);
-            border: none;
-            color: white;
-            padding: 16px;
-            border-radius: 15px;
-            font-size: 16px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.3s;
-            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
-        }
-
-        .checkout-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
-        }
-
-        .checkout-btn:disabled {
-            background: linear-gradient(135deg, #94a3b8, #64748b);
-            cursor: not-allowed;
-            transform: none;
-            box-shadow: none;
-        }
-
-        /* Modal */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(12, 74, 110, 0.8);
-            backdrop-filter: blur(5px);
-            z-index: 2000;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .modal.active {
-            display: flex;
-        }
-
-        .modal-content {
-            background: white;
-            padding: 35px;
-            border-radius: 20px;
-            max-width: 450px;
-            width: 90%;
-            max-height: 90vh;
-            overflow-y: auto;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
-            animation: modalSlideIn 0.3s ease;
-        }
-
-        @keyframes modalSlideIn {
-            from {
-                transform: translateY(-50px);
-                opacity: 0;
-            }
-
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
-        }
-
-        .modal-header {
-            text-align: center;
-            margin-bottom: 25px;
-        }
-
-        .modal-icon {
-            font-size: 60px;
-            margin-bottom: 15px;
-        }
-
-        .modal-title {
-            font-size: 24px;
-            font-weight: 800;
-            color: #0c4a6e;
-            margin-bottom: 8px;
-        }
-
-        .modal-subtitle {
-            color: #64748b;
-            font-size: 14px;
-        }
-
-        .receipt {
-            background: rgba(14, 116, 144, 0.05);
-            padding: 20px;
-            border-radius: 15px;
-            margin-bottom: 20px;
-        }
-
-        .receipt-row {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 10px;
-            font-size: 14px;
-        }
-
-        .receipt-row.highlight {
-            font-size: 18px;
-            font-weight: 800;
-            color: #0c4a6e;
-            padding-top: 12px;
-            border-top: 2px dashed rgba(14, 116, 144, 0.3);
-        }
-
-        .receipt-items {
-            margin: 15px 0;
-            padding: 15px 0;
-            border-top: 1px dashed rgba(14, 116, 144, 0.3);
-            border-bottom: 1px dashed rgba(14, 116, 144, 0.3);
-        }
-
-        .receipt-item {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 8px;
-            font-size: 13px;
-            color: #475569;
-        }
-
-        .receipt-item-name {
-            flex: 1;
-        }
-
-        .receipt-item-qty {
-            margin: 0 10px;
-            color: #64748b;
-        }
-
-        .receipt-item-price {
-            font-weight: 600;
-            color: #0c4a6e;
-        }
-
-        .modal-actions {
-            display: flex;
-            gap: 10px;
-        }
-
-        .modal-btn {
-            flex: 1;
-            padding: 14px;
-            border: none;
-            border-radius: 12px;
-            font-size: 15px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .modal-btn.primary {
-            background: linear-gradient(135deg, #0e7490, #06b6d4);
-            color: white;
-            box-shadow: 0 4px 15px rgba(14, 116, 144, 0.3);
-        }
-
-        .modal-btn.primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(14, 116, 144, 0.4);
-        }
-
-        .modal-btn.secondary {
-            background: rgba(14, 116, 144, 0.1);
-            color: #0e7490;
-        }
-
-        .modal-btn.secondary:hover {
-            background: rgba(14, 116, 144, 0.2);
-        }
-
-        @media print {
-            body * {
-                visibility: hidden;
-            }
-
-            .receipt,
-            .receipt * {
-                visibility: visible;
-            }
-
-            .receipt {
-                position: absolute;
-                left: 0;
-                top: 0;
-                width: 100%;
-                background: white;
-            }
-
-            .modal-actions {
-                display: none;
-            }
-        }
-
-        ::-webkit-scrollbar {
-            width: 8px;
-            height: 8px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 10px;
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: linear-gradient(180deg, #0e7490, #06b6d4);
-            border-radius: 10px;
-        }
-
-        .overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(12, 74, 110, 0.7);
-            backdrop-filter: blur(5px);
-            z-index: 999;
-        }
-
-        .overlay.active {
-            display: block;
-        }
-
-        @media (max-width: 1024px) {
-            .kasir-container {
-                grid-template-columns: 1fr;
-                height: auto;
-            }
-
-            .product-section {
-                height: 400px;
-            }
-
-            .cart-section {
-                height: 500px;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .sidebar {
-                transform: translateX(-100%);
-            }
-
-            .sidebar.active {
-                transform: translateX(0);
-            }
-
-            .main-content {
-                margin-left: 0;
-                padding: 18px;
-            }
-
-            .menu-toggle {
-                display: block;
-            }
-
-            .header {
-                flex-direction: column;
-                gap: 18px;
-                padding: 20px;
-            }
-
-            .product-grid {
-                grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
-            }
-
-            .payment-methods {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        @keyframes slideIn {
-            from {
-                transform: translateX(100%);
-                opacity: 0;
-            }
-
-            to {
-                transform: translateX(0);
-                opacity: 1;
-            }
-        }
+            display: flex; align-items: center; gap: 15px; padding: 20px 15px;
+            margin-bottom: 35px; background: rgba(255,255,255,0.1); border-radius: 20px;
+            backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.2);
+        }
+        .logo-section .icon { font-size: 36px; }
+        .logo-section h2 { color: white; font-size: 22px; font-weight: 700; }
+        .logo-section .badge { background: linear-gradient(135deg, #22d3ee, #06b6d4); color: white; font-size: 10px; padding: 4px 10px; border-radius: 8px; font-weight: 700; }
+        .menu-section { margin-bottom: 30px; }
+        .menu-label { color: rgba(255,255,255,0.5); font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; padding: 0 15px; margin-bottom: 12px; }
+        .menu-item { display: flex; align-items: center; gap: 15px; padding: 14px 18px; color: rgba(255,255,255,0.8); text-decoration: none; border-radius: 15px; margin-bottom: 6px; transition: all 0.3s; cursor: pointer; font-size: 15px; }
+        .menu-item:hover { background: rgba(255,255,255,0.15); color: white; transform: translateX(5px); }
+        .menu-item.active { background: linear-gradient(135deg, rgba(34,211,238,0.3), rgba(6,182,212,0.2)); color: white; font-weight: 600; box-shadow: 0 4px 15px rgba(34,211,238,0.3); border: 1px solid rgba(255,255,255,0.2); }
+        .menu-item .icon { font-size: 22px; width: 28px; text-align: center; }
+        .main-content { margin-left: 280px; padding: 25px; min-height: 100vh; transition: margin-left 0.3s ease; }
+        .header { background: rgba(255,255,255,0.95); backdrop-filter: blur(10px); padding: 25px 30px; border-radius: 20px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); margin-bottom: 25px; display: flex; justify-content: space-between; align-items: center; border: 1px solid rgba(255,255,255,0.5); }
+        .header-left h1 { background: linear-gradient(135deg, #0c4a6e, #06b6d4); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-size: 28px; margin-bottom: 6px; font-weight: 800; }
+        .header-left p { color: #64748b; font-size: 15px; }
+        .menu-toggle { display: none; background: linear-gradient(135deg, #0e7490, #06b6d4); border: none; color: white; padding: 12px 18px; border-radius: 15px; cursor: pointer; font-size: 20px; }
+
+        .edit-banner {
+            display: none; background: linear-gradient(135deg, #f59e0b, #d97706);
+            color: white; padding: 13px 20px; border-radius: 14px; margin-bottom: 18px;
+            font-size: 14px; font-weight: 700; align-items: center; justify-content: space-between; gap: 12px;
+        }
+        .edit-banner.active { display: flex; }
+        .edit-banner-left { display: flex; align-items: center; gap: 10px; }
+        .edit-banner-left span.icon { font-size: 22px; }
+        .edit-banner-info strong { display: block; font-size: 15px; }
+        .edit-banner-info small { font-size: 12px; font-weight: 500; opacity: 0.85; }
+        .cancel-edit-btn { background: rgba(255,255,255,0.25); border: 2px solid rgba(255,255,255,0.5); color: white; padding: 8px 18px; border-radius: 10px; cursor: pointer; font-size: 13px; font-weight: 700; transition: all 0.2s; white-space: nowrap; }
+        .cancel-edit-btn:hover { background: rgba(255,255,255,0.4); }
+
+        .kasir-container { display: grid; grid-template-columns: 2fr 1fr; gap: 20px; height: calc(100vh - 195px); max-height: calc(100vh - 195px); }
+        .product-section { background: rgba(255,255,255,0.95); backdrop-filter: blur(10px); padding: 25px; border-radius: 20px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); border: 1px solid rgba(255,255,255,0.5); display: flex; flex-direction: column; overflow: hidden; }
+        .search-product { position: relative; margin-bottom: 15px; flex-shrink: 0; }
+        .search-product input { width: 100%; padding: 13px 20px 13px 50px; border: 2px solid rgba(14,116,144,0.2); border-radius: 15px; font-size: 15px; transition: all 0.3s; background: rgba(255,255,255,0.9); }
+        .search-product input:focus { outline: none; border-color: #0e7490; box-shadow: 0 0 0 4px rgba(14,116,144,0.1); }
+        .search-product .icon { position: absolute; left: 18px; top: 50%; transform: translateY(-50%); font-size: 20px; }
+        .category-filter-wrap { margin-bottom: 15px; flex-shrink: 0; display: flex; align-items: center; gap: 10px; }
+        .cat-dropdown-wrapper { position: relative; }
+        .cat-dropdown-trigger { display: inline-flex; align-items: center; gap: 8px; padding: 10px 18px; border-radius: 50px; border: 2px solid rgba(14,116,144,0.25); background: white; color: #0e7490; font-size: 14px; font-weight: 700; cursor: pointer; transition: all 0.25s; white-space: nowrap; user-select: none; }
+        .cat-dropdown-trigger:hover, .cat-dropdown-trigger.open { border-color: #0e7490; background: rgba(14,116,144,0.06); }
+        .cat-dropdown-trigger.has-active { background: linear-gradient(135deg, #0e7490, #06b6d4); border-color: transparent; color: white; }
+        .cat-trigger-chevron { font-size: 11px; transition: transform 0.25s; opacity: 0.7; }
+        .cat-dropdown-trigger.open .cat-trigger-chevron { transform: rotate(180deg); }
+        .cat-dropdown-panel { position: absolute; top: calc(100% + 8px); left: 0; min-width: 200px; background: white; border-radius: 16px; border: 2px solid rgba(14,116,144,0.15); box-shadow: 0 12px 40px rgba(14,116,144,0.18); z-index: 500; padding: 8px; opacity: 0; pointer-events: none; transform: translateY(-6px) scale(0.97); transition: opacity 0.2s, transform 0.2s; transform-origin: top left; }
+        .cat-dropdown-panel.open { opacity: 1; pointer-events: auto; transform: translateY(0) scale(1); }
+        .cat-option { display: flex; align-items: center; gap: 10px; padding: 10px 14px; border-radius: 10px; cursor: pointer; font-size: 13.5px; font-weight: 600; color: #475569; transition: all 0.18s; user-select: none; }
+        .cat-option:hover { background: rgba(14,116,144,0.07); color: #0e7490; }
+        .cat-option.active { background: linear-gradient(135deg, rgba(14,116,144,0.12), rgba(6,182,212,0.08)); color: #0e7490; }
+        .cat-option.active::after { content: '✓'; margin-left: auto; font-size: 13px; color: #0e7490; font-weight: 800; }
+        .cat-option-icon { font-size: 16px; width: 22px; text-align: center; }
+        .cat-divider { height: 1px; background: rgba(14,116,144,0.1); margin: 6px 8px; }
+        .cat-btn-history { display: inline-flex; align-items: center; gap: 6px; padding: 10px 18px; border-radius: 50px; border: none; background: linear-gradient(135deg, #7c3aed, #8b5cf6); color: white; font-size: 13px; font-weight: 700; cursor: pointer; transition: all 0.25s; box-shadow: 0 4px 15px rgba(124,58,237,0.3); margin-left: auto; white-space: nowrap; }
+        .cat-btn-history:hover { background: linear-gradient(135deg, #6d28d9, #7c3aed); }
+        .active-cat-pill { display: none; align-items: center; gap: 6px; padding: 6px 12px; background: rgba(14,116,144,0.08); border-radius: 50px; font-size: 12px; font-weight: 600; color: #0e7490; border: 1px solid rgba(14,116,144,0.2); }
+        .active-cat-pill.visible { display: inline-flex; }
+        .active-cat-pill-x { cursor: pointer; font-size: 14px; opacity: 0.6; transition: opacity 0.2s; }
+        .active-cat-pill-x:hover { opacity: 1; }
+
+        /* Product grid */
+        .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 15px; overflow-y: auto; flex: 1; padding-right: 5px; padding-bottom: 5px; }
+        .product-card { background: white; border: 2px solid rgba(14,116,144,0.1); border-radius: 16px; cursor: pointer; transition: all 0.3s; display: flex; flex-direction: column; overflow: hidden; min-height: 210px; position: relative; }
+        .product-card:hover { transform: translateY(-6px); box-shadow: 0 12px 30px rgba(14,116,144,0.2); border-color: #0e7490; }
+
+        /* ===== GAMBAR PRODUK — pakai emoji besar dengan background gradient ===== */
+        .product-img-wrap {
+            width: 100%; height: 130px; overflow: hidden; position: relative; flex-shrink: 0;
+            display: flex; align-items: center; justify-content: center;
+        }
+        /* Setiap kategori punya warna background berbeda */
+        .product-img-wrap.cat-joran     { background: linear-gradient(135deg, #bae6fd, #e0f2fe); }
+        .product-img-wrap.cat-reel      { background: linear-gradient(135deg, #d1fae5, #ecfdf5); }
+        .product-img-wrap.cat-umpan     { background: linear-gradient(135deg, #fef9c3, #fefce8); }
+        .product-img-wrap.cat-aksesoris { background: linear-gradient(135deg, #ede9fe, #f5f3ff); }
+        .product-img-wrap.cat-kail      { background: linear-gradient(135deg, #fee2e2, #fff1f2); }
+        .product-img-wrap.cat-default   { background: linear-gradient(135deg, #e0f2fe, #f0f9ff); }
+
+        .product-emoji {
+            font-size: 58px;
+            line-height: 1;
+            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.15));
+            transition: transform 0.3s;
+        }
+        .product-card:hover .product-emoji { transform: scale(1.15) rotate(-5deg); }
+
+        .product-badge { position: absolute; top: 8px; right: 8px; background: linear-gradient(135deg, #0e7490, #06b6d4); color: white; font-size: 10px; font-weight: 700; padding: 3px 8px; border-radius: 20px; }
+        .product-stock-badge { position: absolute; top: 8px; left: 8px; font-size: 10px; font-weight: 700; padding: 3px 8px; border-radius: 20px; }
+        .product-stock-badge.low { background: rgba(251,191,36,0.9); color: #78350f; }
+        .product-stock-badge.out { background: rgba(239,68,68,0.9); color: white; }
+        .product-info { padding: 12px 13px 14px; flex: 1; display: flex; flex-direction: column; }
+        .product-name { font-size: 12.5px; font-weight: 700; color: #0c4a6e; margin-bottom: 5px; line-height: 1.35; overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; flex: 1; }
+        .product-meta { display: flex; justify-content: space-between; align-items: center; margin-top: 6px; }
+        .product-price { font-size: 13px; font-weight: 800; color: #0e7490; }
+        .product-stock-text { font-size: 10.5px; color: #94a3b8; font-weight: 600; }
+
+        /* Cart */
+        .cart-section { background: rgba(255,255,255,0.95); backdrop-filter: blur(10px); padding: 25px; border-radius: 20px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); border: 2px solid rgba(255,255,255,0.5); display: flex; flex-direction: column; max-height: 100%; overflow: hidden; overflow-y: auto; scrollbar-width: none; transition: border-color 0.3s, box-shadow 0.3s; }
+        .cart-section.editing { border-color: #f59e0b; box-shadow: 0 4px 25px rgba(245,158,11,0.3); }
+        .cart-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-shrink: 0; }
+        .cart-header h3 { color: #0c4a6e; font-size: 20px; font-weight: 800; }
+        .clear-cart-btn { background: rgba(244,63,94,0.1); border: none; color: #e11d48; padding: 8px 15px; border-radius: 10px; cursor: pointer; font-size: 13px; font-weight: 600; transition: all 0.3s; }
+        .clear-cart-btn:hover { background: rgba(244,63,94,0.2); }
+        .cart-items { flex: 1; overflow-y: auto; margin-bottom: 20px; padding-right: 5px; min-height: 200px; }
+        .cart-item { background: white; border: 1px solid rgba(14,116,144,0.1); border-radius: 12px; padding: 12px; margin-bottom: 10px; transition: all 0.3s; }
+        .cart-item:hover { box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        .cart-item-header { display: flex; justify-content: space-between; align-items: start; margin-bottom: 10px; }
+        .cart-item-name { font-size: 14px; font-weight: 600; color: #0c4a6e; }
+        .cart-item-price { font-size: 13px; color: #0e7490; font-weight: 700; }
+        .cart-item-controls { display: flex; justify-content: space-between; align-items: center; }
+        .quantity-control { display: flex; gap: 8px; align-items: center; }
+        .qty-btn { background: linear-gradient(135deg, #0e7490, #06b6d4); border: none; color: white; width: 28px; height: 28px; border-radius: 8px; cursor: pointer; font-size: 16px; font-weight: 700; transition: all 0.3s; display: flex; align-items: center; justify-content: center; }
+        .qty-btn:hover { transform: scale(1.1); }
+        .qty-display { font-size: 14px; font-weight: 600; color: #0c4a6e; min-width: 30px; text-align: center; }
+        .remove-item-btn { background: rgba(244,63,94,0.1); border: none; color: #e11d48; padding: 6px 10px; border-radius: 8px; cursor: pointer; font-size: 12px; font-weight: 600; transition: all 0.3s; }
+        .remove-item-btn:hover { background: rgba(244,63,94,0.2); }
+        .cart-item-subtotal { font-size: 13px; color: #64748b; font-weight: 600; }
+        .cart-empty { text-align: center; padding: 40px 20px; color: #94a3b8; }
+        .cart-empty-icon { font-size: 60px; margin-bottom: 15px; }
+        .cart-summary { border-top: 2px solid rgba(14,116,144,0.1); padding-top: 20px; flex-shrink: 0; }
+        .summary-row { display: flex; justify-content: space-between; margin-bottom: 12px; font-size: 14px; }
+        .summary-row.total { font-size: 18px; font-weight: 800; color: #0c4a6e; }
+        .summary-label { color: #64748b; }
+        .summary-value { color: #0e7490; font-weight: 600; }
+        .checkout-section { margin-top: 15px; flex-shrink: 0; }
+        .customer-info { background: rgba(14,116,144,0.05); padding: 15px; border-radius: 12px; margin-bottom: 15px; }
+        .customer-info input { width: 100%; padding: 10px 15px; border: 2px solid rgba(14,116,144,0.2); border-radius: 10px; font-size: 14px; margin-bottom: 10px; transition: all 0.3s; }
+        .customer-info input:last-child { margin-bottom: 0; }
+        .customer-info input:focus { outline: none; border-color: #0e7490; box-shadow: 0 0 0 4px rgba(14,116,144,0.1); }
+        .payment-methods { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 15px; }
+        .payment-method { padding: 12px; border: 2px solid rgba(14,116,144,0.2); border-radius: 12px; cursor: pointer; transition: all 0.3s; text-align: center; font-size: 13px; font-weight: 600; color: #475569; background: white; }
+        .payment-method:hover { border-color: #0e7490; background: rgba(14,116,144,0.05); }
+        .payment-method.active { background: linear-gradient(135deg, #0e7490, #06b6d4); color: white; border-color: transparent; box-shadow: 0 4px 15px rgba(14,116,144,0.3); }
+        .payment-method .icon { font-size: 20px; margin-bottom: 5px; }
+        .cash-payment-section { display: none; background: rgba(34,211,238,0.1); padding: 15px; border-radius: 12px; margin-bottom: 15px; border: 2px solid rgba(34,211,238,0.3); }
+        .cash-payment-section.active { display: block; }
+        .cash-input-label { font-size: 12px; color: #0c4a6e; font-weight: 600; margin-bottom: 6px; display: block; }
+        .cash-input { width: 100%; padding: 12px 15px; border: 2px solid rgba(14,116,144,0.3); border-radius: 10px; font-size: 16px; font-weight: 700; color: #0c4a6e; margin-bottom: 12px; transition: all 0.3s; }
+        .cash-input:focus { outline: none; border-color: #0e7490; box-shadow: 0 0 0 4px rgba(14,116,144,0.1); }
+        .cash-change-display { background: white; padding: 12px 15px; border-radius: 10px; display: flex; justify-content: space-between; align-items: center; border: 2px solid rgba(16,185,129,0.3); }
+        .change-label { font-size: 13px; color: #64748b; font-weight: 600; }
+        .change-value { font-size: 18px; font-weight: 800; color: #10b981; }
+        .change-value.negative { color: #e11d48; }
+        .checkout-btn { width: 100%; background: linear-gradient(135deg, #10b981, #059669); border: none; color: white; padding: 16px; border-radius: 15px; font-size: 16px; font-weight: 700; cursor: pointer; transition: all 0.3s; box-shadow: 0 4px 15px rgba(16,185,129,0.3); }
+        .checkout-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(16,185,129,0.4); }
+        .checkout-btn:disabled { background: linear-gradient(135deg, #94a3b8, #64748b); cursor: not-allowed; transform: none; box-shadow: none; }
+        .save-edit-btn { display: none; width: 100%; background: linear-gradient(135deg, #f59e0b, #d97706); border: none; color: white; padding: 16px; border-radius: 15px; font-size: 16px; font-weight: 700; cursor: pointer; transition: all 0.3s; box-shadow: 0 4px 15px rgba(245,158,11,0.35); margin-top: 10px; }
+        .save-edit-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(245,158,11,0.5); }
+        .save-edit-btn.show { display: block; }
+
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(12,74,110,0.8); backdrop-filter: blur(5px); z-index: 2000; align-items: center; justify-content: center; }
+        .modal.active { display: flex; }
+        .modal-content { background: white; padding: 35px; border-radius: 20px; max-width: 450px; width: 90%; max-height: 90vh; overflow-y: auto; box-shadow: 0 10px 40px rgba(0,0,0,0.3); }
+        .modal-header { text-align: center; margin-bottom: 25px; }
+        .modal-icon { font-size: 60px; margin-bottom: 15px; }
+        .modal-title { font-size: 24px; font-weight: 800; color: #0c4a6e; margin-bottom: 8px; }
+        .modal-subtitle { color: #64748b; font-size: 14px; }
+        .receipt { background: rgba(14,116,144,0.05); padding: 20px; border-radius: 15px; margin-bottom: 20px; }
+        .receipt-row { display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 14px; }
+        .receipt-row.highlight { font-size: 18px; font-weight: 800; color: #0c4a6e; padding-top: 12px; border-top: 2px dashed rgba(14,116,144,0.3); }
+        .receipt-items { margin: 15px 0; padding: 15px 0; border-top: 1px dashed rgba(14,116,144,0.3); border-bottom: 1px dashed rgba(14,116,144,0.3); }
+        .receipt-item { display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 13px; color: #475569; }
+        .receipt-item-name { flex: 1; }
+        .receipt-item-qty { margin: 0 10px; color: #64748b; }
+        .receipt-item-price { font-weight: 600; color: #0c4a6e; }
+        .modal-actions { display: flex; gap: 10px; }
+        .modal-btn { flex: 1; padding: 14px; border: none; border-radius: 12px; font-size: 15px; font-weight: 700; cursor: pointer; transition: all 0.3s; }
+        .modal-btn.primary { background: linear-gradient(135deg, #0e7490, #06b6d4); color: white; }
+        .modal-btn.primary:hover { transform: translateY(-2px); }
+        .modal-btn.secondary { background: rgba(14,116,144,0.1); color: #0e7490; }
+        .modal-btn.secondary:hover { background: rgba(14,116,144,0.2); }
+
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: rgba(255,255,255,0.1); border-radius: 10px; }
+        ::-webkit-scrollbar-thumb { background: linear-gradient(180deg, #0e7490, #06b6d4); border-radius: 10px; }
+        .overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(12,74,110,0.7); backdrop-filter: blur(5px); z-index: 999; }
+        .overlay.active { display: block; }
+        .logout-modal { position: fixed; inset: 0; background: rgba(12,74,110,0.7); backdrop-filter: blur(6px); display: none; align-items: center; justify-content: center; z-index: 3000; }
+        .logout-modal.active { display: flex; }
+        .logout-box { background: rgba(255,255,255,0.95); padding: 35px; border-radius: 25px; text-align: center; width: 350px; box-shadow: 0 15px 40px rgba(0,0,0,0.3); }
+        .logout-icon { font-size: 55px; margin-bottom: 15px; }
+        .logout-box h3 { color: #0c4a6e; font-size: 20px; margin-bottom: 10px; }
+        .logout-box p { color: #64748b; font-size: 14px; margin-bottom: 25px; }
+        .logout-actions { display: flex; gap: 10px; }
+        .logout-actions button { flex: 1; padding: 12px; border-radius: 12px; font-weight: 600; cursor: pointer; border: none; transition: 0.3s; }
+        .btn-cancel { background: rgba(148,163,184,0.2); color: #475569; }
+        .btn-cancel:hover { background: rgba(148,163,184,0.4); }
+        .btn-confirm { background: linear-gradient(135deg, #ef4444, #dc2626); color: white; }
+        .btn-confirm:hover { transform: translateY(-3px); }
+
+        @media (max-width: 1024px) { .kasir-container { grid-template-columns: 1fr; height: auto; } .product-section { height: 400px; } .cart-section { height: 500px; } }
+        @media (max-width: 768px) { .sidebar { transform: translateX(-100%); } .sidebar.active { transform: translateX(0); } .main-content { margin-left: 0; padding: 18px; } .menu-toggle { display: block; } .header { flex-direction: column; gap: 18px; padding: 20px; } .product-grid { grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); } .payment-methods { grid-template-columns: 1fr; } }
+        @media print { body * { visibility: hidden; } .receipt, .receipt * { visibility: visible; } .receipt { position: absolute; left: 0; top: 0; width: 100%; background: white; } .modal-actions { display: none; } }
     </style>
 </head>
-
 <body>
     <div class="overlay" id="overlay"></div>
 
-    <aside class="sidebar" id="sidebar">
+     <aside class="sidebar" id="sidebar">
         <div class="logo-section">
             <span class="icon">🎣</span>
             <div>
                 <h2>Mekar Jaya</h2>
-                <span class="badge">USER</span>
+                <span class="badge">User</span>
             </div>
         </div>
         <a href="../user/kasir.html" class="menu-item active" data-loading="true">
@@ -1076,20 +230,18 @@
         </a>
         <div class="menu-section">
             <div class="menu-label">Menu Utama</div>
-
-            <a href="../user/barang_masuk.html" class="menu-item " data-loading="true">
+            <a href="../user/barang_masuk.html" class="menu-item" data-loading="true">
                 <span class="icon">🚚</span><span>Barang Masuk</span>
             </a>
-
+            <a href="../user/barang_keluar.html" class="menu-item " data-loading="true">
+                <span class="icon">📦</span><span>Barang Keluar</span>
+            </a>
         </div>
         <div class="menu-section">
             <div class="menu-label">Manajemen</div>
             <a href="../user/pengaturan.html" class="menu-item" data-loading="true">
                 <span class="icon">⚙️</span><span>Pengaturan</span>
             </a>
-            <!-- <a href="../admin/notifikasi.html" class="menu-item" data-loading="true">
-                <span class="icon">🔔</span><span>Notifikasi</span>
-            </a> -->
             <a href="#" class="menu-item logout-btn">
                 <span class="icon">🚪</span><span>Logout</span>
             </a>
@@ -1105,121 +257,103 @@
             <button class="menu-toggle" id="menuToggle">☰</button>
         </div>
 
+        <div class="edit-banner" id="editBanner">
+            <div class="edit-banner-left">
+                <span class="icon">✏️</span>
+                <div class="edit-banner-info">
+                    <strong>Mode Edit — <span id="editBannerTrxId"></span></strong>
+                    <small>Ubah item, qty, pelanggan, atau metode bayar lalu klik Simpan Perubahan</small>
+                </div>
+            </div>
+            <button class="cancel-edit-btn" onclick="cancelEditMode()">✕ Batal</button>
+        </div>
+
         <div class="kasir-container">
-            <!-- Product Section -->
             <div class="product-section">
                 <div class="search-product">
                     <span class="icon">🔍</span>
                     <input type="text" id="searchInput" placeholder="Cari produk...">
                 </div>
-
-                <div class="category-tabs">
-                    <div class="category-tab active" data-category="all">Semua</div>
-                    <div class="category-tab" data-category="joran">Joran</div>
-                    <div class="category-tab" data-category="reel">Reel</div>
-                    <div class="category-tab" data-category="umpan">Umpan</div>
-                    <div class="category-tab" data-category="aksesoris">Aksesoris</div>
-                    <div class="category-tab" data-category="kail">Kail</div>
-                    <div class="category-tab" id="historyTabBtn"
-                        style="background: linear-gradient(135deg, #8b5cf6, #7c3aed); color: white; border: none; margin-left: auto;">
-                        📜 Riwayat Transaksi
+                <div class="category-filter-wrap">
+                    <div class="cat-dropdown-wrapper" id="catDropdownWrapper">
+                        <button class="cat-dropdown-trigger" id="catDropdownTrigger">
+                            <span id="catTriggerIcon">🏪</span>
+                            <span id="catTriggerLabel">Semua Kategori</span>
+                            <span class="cat-trigger-chevron">▼</span>
+                        </button>
+                        <div class="cat-dropdown-panel" id="catDropdownPanel">
+                            <div class="cat-option active" data-category="all"><span class="cat-option-icon">🏪</span><span>Semua Produk</span></div>
+                            <div class="cat-divider"></div>
+                            <div class="cat-option" data-category="joran"><span class="cat-option-icon">🎣</span><span>Joran</span></div>
+                            <div class="cat-option" data-category="reel"><span class="cat-option-icon">⚙️</span><span>Reel</span></div>
+                            <div class="cat-option" data-category="umpan"><span class="cat-option-icon">🐟</span><span>Umpan</span></div>
+                            <div class="cat-option" data-category="aksesoris"><span class="cat-option-icon">🎒</span><span>Aksesoris</span></div>
+                            <div class="cat-option" data-category="kail"><span class="cat-option-icon">🪝</span><span>Kail</span></div>
+                        </div>
                     </div>
+                    <div class="active-cat-pill" id="activeCatPill">
+                        <span id="activeCatPillText"></span>
+                        <span class="active-cat-pill-x" id="activeCatPillX">✕</span>
+                    </div>
+                    <button class="cat-btn-history" id="historyTabBtn">📜 Riwayat</button>
                 </div>
-
                 <div class="product-grid" id="productGrid"></div>
             </div>
 
-            <!-- Cart Section -->
-            <div class="cart-section">
+            <div class="cart-section" id="cartSection">
                 <div class="cart-header">
-                    <h3>Keranjang Belanja</h3>
+                    <h3 id="cartTitle">Keranjang Belanja</h3>
                     <button class="clear-cart-btn" id="clearCartBtn">🗑️ Kosongkan</button>
                 </div>
-
                 <div class="cart-items" id="cartItems">
-                    <div class="cart-empty">
-                        <div class="cart-empty-icon">🛒</div>
-                        <p>Keranjang masih kosong</p>
-                    </div>
+                    <div class="cart-empty"><div class="cart-empty-icon">🛒</div><p>Keranjang masih kosong</p></div>
                 </div>
-
                 <div class="cart-summary">
-                    <div class="summary-row">
-                        <span class="summary-label">Subtotal:</span>
-                        <span class="summary-value" id="subtotalValue">Rp 0</span>
-                    </div>
-                    <div class="summary-row">
-                        <span class="summary-label">Pajak (10%):</span>
-                        <span class="summary-value" id="taxValue">Rp 0</span>
-                    </div>
                     <div class="summary-row total">
-                        <span>Total:</span>
+                        <span class="summary-label">Total:</span>
                         <span id="totalValue">Rp 0</span>
                     </div>
                 </div>
-
                 <div class="checkout-section">
                     <div class="customer-info">
                         <input type="text" id="customerName" placeholder="Nama Pelanggan (Opsional)">
                         <input type="tel" id="customerPhone" placeholder="No. Telepon (Opsional)">
                     </div>
-
                     <div class="payment-methods">
-                        <div class="payment-method active" data-method="cash">
-                            <div class="icon">💵</div>
-                            <div>Tunai</div>
-                        </div>
-                        <div class="payment-method" data-method="card">
-                            <div class="icon">💳</div>
-                            <div>Kartu</div>
-                        </div>
-                        <div class="payment-method" data-method="transfer">
-                            <div class="icon">🏦</div>
-                            <div>Transfer</div>
-                        </div>
-                        <div class="payment-method" data-method="ewallet">
-                            <div class="icon">📱</div>
-                            <div>E-Wallet</div>
-                        </div>
+                        <div class="payment-method active" data-method="cash"><div class="icon">💵</div><div>Tunai</div></div>
+                        <div class="payment-method" data-method="card"><div class="icon">💳</div><div>Kartu</div></div>
+                        <div class="payment-method" data-method="transfer"><div class="icon">🏦</div><div>Transfer</div></div>
+                        <div class="payment-method" data-method="ewallet"><div class="icon">📱</div><div>E-Wallet</div></div>
                     </div>
-
                     <div class="cash-payment-section active" id="cashPaymentSection">
-                        <div class="cash-input-group">
-                            <label class="cash-input-label">💵 Jumlah Uang Diterima</label>
-                            <input type="text" class="cash-input" id="cashInput" placeholder="0" inputmode="numeric">
-                        </div>
+                        <label class="cash-input-label">💵 Jumlah Uang Diterima</label>
+                        <input type="text" class="cash-input" id="cashInput" placeholder="0" inputmode="numeric">
                         <div class="cash-change-display">
                             <span class="change-label">Kembalian:</span>
                             <span class="change-value" id="changeValue">Rp 0</span>
                         </div>
                     </div>
-
-                    <button class="checkout-btn" id="checkoutBtn" disabled>
-                        💳 Proses Pembayaran
-                    </button>
+                    <button class="checkout-btn" id="checkoutBtn" disabled>💳 Proses Pembayaran</button>
+                    <button class="save-edit-btn" id="saveEditBtn">💾 Simpan Perubahan</button>
                 </div>
             </div>
         </div>
 
-        <!-- Modal Riwayat Transaksi -->
+        <!-- History Modal -->
         <div class="modal" id="historyModal">
-            <div class="modal-content" style="max-width: 900px; max-height: 85vh;">
+            <div class="modal-content" style="max-width:900px;max-height:85vh;">
                 <div class="modal-header">
                     <div class="modal-icon">📜</div>
                     <h3 class="modal-title">Riwayat Transaksi</h3>
                     <p class="modal-subtitle">Daftar semua transaksi yang telah dilakukan</p>
                 </div>
-
-                <div style="margin-bottom: 20px;">
-                    <div style="display: flex; gap: 10px; margin-bottom: 15px;">
-                        <div style="flex: 1; position: relative;">
-                            <span
-                                style="position: absolute; left: 15px; top: 50%; transform: translateY(-50%); font-size: 18px;">🔍</span>
-                            <input type="text" id="historySearchInput" placeholder="Cari transaksi..."
-                                style="width: 100%; padding: 12px 15px 12px 45px; border: 2px solid rgba(14,116,144,0.2); border-radius: 12px; font-size: 14px;">
+                <div style="margin-bottom:20px;">
+                    <div style="display:flex;gap:10px;margin-bottom:15px;">
+                        <div style="flex:1;position:relative;">
+                            <span style="position:absolute;left:15px;top:50%;transform:translateY(-50%);font-size:18px;">🔍</span>
+                            <input type="text" id="historySearchInput" placeholder="Cari transaksi..." style="width:100%;padding:12px 15px 12px 45px;border:2px solid rgba(14,116,144,0.2);border-radius:12px;font-size:14px;">
                         </div>
-                        <select id="historyFilterPayment"
-                            style="padding: 12px 15px; border: 2px solid rgba(14,116,144,0.2); border-radius: 12px; font-size: 14px; cursor: pointer;">
+                        <select id="historyFilterPayment" style="padding:12px 15px;border:2px solid rgba(14,116,144,0.2);border-radius:12px;font-size:14px;cursor:pointer;">
                             <option value="all">Semua Metode</option>
                             <option value="cash">Tunai</option>
                             <option value="card">Kartu</option>
@@ -1227,17 +361,12 @@
                             <option value="ewallet">E-Wallet</option>
                         </select>
                     </div>
-                    <div
-                        style="display: flex; justify-content: space-between; align-items: center; padding: 10px 15px; background: rgba(14,116,144,0.05); border-radius: 10px;">
-                        <span style="font-size: 13px; color: #64748b;">Total Transaksi: <strong
-                                id="totalTransactions">0</strong></span>
-                        <span style="font-size: 13px; color: #64748b;">Total Pendapatan: <strong id="totalRevenue"
-                                style="color: #10b981;">Rp 0</strong></span>
+                    <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 15px;background:rgba(14,116,144,0.05);border-radius:10px;">
+                        <span style="font-size:13px;color:#64748b;">Total Transaksi: <strong id="totalTransactions">0</strong></span>
+                        <span style="font-size:13px;color:#64748b;">Total Pendapatan: <strong id="totalRevenue" style="color:#10b981;">Rp 0</strong></span>
                     </div>
                 </div>
-
-                <div id="historyList" style="max-height: 450px; overflow-y: auto; margin-bottom: 20px;"></div>
-
+                <div id="historyList" style="max-height:450px;overflow-y:auto;margin-bottom:20px;"></div>
                 <div class="modal-actions">
                     <button class="modal-btn secondary" onclick="closeHistoryModal()">✖️ Tutup</button>
                 </div>
@@ -1245,7 +374,7 @@
         </div>
     </main>
 
-    <!-- Modal Sukses -->
+    <!-- Success Modal -->
     <div class="modal" id="successModal">
         <div class="modal-content">
             <div class="modal-header">
@@ -1253,64 +382,28 @@
                 <h3 class="modal-title">Transaksi Berhasil!</h3>
                 <p class="modal-subtitle">Pembayaran telah berhasil diproses</p>
             </div>
-
             <div class="receipt" id="receiptContent">
-                <div
-                    style="text-align: center; margin-bottom: 20px; border-bottom: 2px dashed rgba(14,116,144,0.3); padding-bottom: 15px;">
-                    <h2 style="margin: 0; color: #0c4a6e; font-size: 20px;">🎣 Mekar Jaya</h2>
-                    <p style="margin: 5px 0; font-size: 12px; color: #64748b;">Toko Alat Pancing Terpercaya</p>
-                    <p style="margin: 0; font-size: 11px; color: #94a3b8;">Jl. Mancing No. 123, Kota Ikan</p>
+                <div style="text-align:center;margin-bottom:20px;border-bottom:2px dashed rgba(14,116,144,0.3);padding-bottom:15px;">
+                    <h2 style="margin:0;color:#0c4a6e;font-size:20px;">🎣 Mekar Jaya</h2>
+                    <p style="margin:5px 0;font-size:12px;color:#64748b;">Toko Alat Pancing Terpercaya</p>
+                    <p style="margin:0;font-size:11px;color:#94a3b8;">Jl. Mancing No. 123, Kota Ikan</p>
                 </div>
-                <div class="receipt-row">
-                    <span>No. Transaksi:</span>
-                    <strong id="transactionId">#TRX-001</strong>
-                </div>
-                <div class="receipt-row">
-                    <span>Tanggal:</span>
-                    <strong id="transactionDate">-</strong>
-                </div>
-                <div class="receipt-row">
-                    <span>Kasir:</span>
-                    <strong>Admin</strong>
-                </div>
-                <div class="receipt-row">
-                    <span>Pelanggan:</span>
-                    <strong id="customerNameReceipt">-</strong>
-                </div>
+                <div class="receipt-row"><span>No. Transaksi:</span><strong id="transactionId"></strong></div>
+                <div class="receipt-row"><span>Tanggal:</span><strong id="transactionDate"></strong></div>
+                <div class="receipt-row"><span>Kasir:</span><strong>Admin</strong></div>
+                <div class="receipt-row"><span>Pelanggan:</span><strong id="customerNameReceipt"></strong></div>
                 <div class="receipt-items" id="receiptItems"></div>
-                <div class="receipt-row">
-                    <span>Subtotal:</span>
-                    <strong id="receiptSubtotal">Rp 0</strong>
+                <div class="receipt-row highlight"><span>Total:</span><strong id="receiptTotal"></strong></div>
+                <div class="receipt-row" style="margin-top:15px;padding-top:15px;border-top:2px dashed rgba(14,116,144,0.3);">
+                    <span>Metode Bayar:</span><strong id="paymentMethodText"></strong>
                 </div>
-                <div class="receipt-row">
-                    <span>Pajak (10%):</span>
-                    <strong id="receiptTax">Rp 0</strong>
-                </div>
-                <div class="receipt-row highlight">
-                    <span>Total:</span>
-                    <strong id="receiptTotal">Rp 0</strong>
-                </div>
-                <div class="receipt-row"
-                    style="margin-top: 15px; padding-top: 15px; border-top: 2px dashed rgba(14,116,144,0.3);">
-                    <span>Metode Bayar:</span>
-                    <strong id="paymentMethodText">Tunai</strong>
-                </div>
-                <div class="receipt-row" id="cashPaymentRow">
-                    <span>Uang Diterima:</span>
-                    <strong id="cashReceivedText">Rp 0</strong>
-                </div>
-                <div class="receipt-row" id="changeRow">
-                    <span>Kembalian:</span>
-                    <strong id="changeReceivedText" style="color: #10b981;">Rp 0</strong>
-                </div>
-                <div
-                    style="text-align: center; margin-top: 20px; padding-top: 15px; border-top: 2px dashed rgba(14,116,144,0.3);">
-                    <p style="font-size: 12px; color: #64748b; margin: 5px 0;">Terima kasih atas kunjungan Anda!</p>
-                    <p style="font-size: 11px; color: #94a3b8; margin: 0;">Barang yang sudah dibeli tidak dapat ditukar
-                    </p>
+                <div class="receipt-row" id="cashPaymentRow"><span>Uang Diterima:</span><strong id="cashReceivedText"></strong></div>
+                <div class="receipt-row" id="changeRow"><span>Kembalian:</span><strong id="changeReceivedText" style="color:#10b981;"></strong></div>
+                <div style="text-align:center;margin-top:20px;padding-top:15px;border-top:2px dashed rgba(14,116,144,0.3);">
+                    <p style="font-size:12px;color:#64748b;margin:5px 0;">Terima kasih atas kunjungan Anda!</p>
+                    <p style="font-size:11px;color:#94a3b8;margin:0;">Barang yang sudah dibeli tidak dapat ditukar</p>
                 </div>
             </div>
-
             <div class="modal-actions">
                 <button class="modal-btn secondary" id="printBtn">🖨️ Cetak Struk</button>
                 <button class="modal-btn primary" id="newTransactionBtn">✨ Transaksi Baru</button>
@@ -1318,424 +411,7 @@
         </div>
     </div>
 
-    <script>
-        const productsData = [
-            { id: 1, name: 'Joran Carbon Pro X1', category: 'joran', price: 1250000, stock: 25, icon: '🎣' },
-            { id: 2, name: 'Reel Shimano 5000', category: 'reel', price: 850000, stock: 42, icon: '⚙️' },
-            { id: 3, name: 'Umpan Set Premium', category: 'umpan', price: 450000, stock: 8, icon: '🐟' },
-            { id: 4, name: 'Tas Pancing Waterproof', category: 'aksesoris', price: 675000, stock: 31, icon: '🎒' },
-            { id: 5, name: 'Kail Set Professional', category: 'kail', price: 350000, stock: 56, icon: '🪝' },
-            { id: 6, name: 'Joran Telescopic', category: 'joran', price: 550000, stock: 18, icon: '🎣' },
-            { id: 7, name: 'Reel Daiwa 3000', category: 'reel', price: 750000, stock: 22, icon: '⚙️' },
-            { id: 8, name: 'Umpan Buatan Lure', category: 'umpan', price: 125000, stock: 64, icon: '🐟' },
-            { id: 9, name: 'Kotak Pancing Tackle Box', category: 'aksesoris', price: 280000, stock: 15, icon: '📦' },
-            { id: 10, name: 'Senar PE 50lb', category: 'aksesoris', price: 180000, stock: 45, icon: '🧵' },
-            { id: 11, name: 'Joran Casting Heavy', category: 'joran', price: 980000, stock: 12, icon: '🎣' },
-            { id: 12, name: 'Reel Baitcasting', category: 'reel', price: 1100000, stock: 9, icon: '⚙️' },
-        ];
-
-        let cart = [];
-        let selectedPaymentMethod = 'cash';
-        let transactionCounter = 1;
-        let cashReceived = 0;
-
-        let transactionHistory = [
-            {
-                id: 'TRX-0001',
-                date: new Date('2024-01-15T10:30:00'),
-                customer: { name: 'Budi Santoso', phone: '081234567890' },
-                items: [
-                    { id: 1, name: 'Joran Carbon Pro X1', price: 1250000, quantity: 1 },
-                    { id: 5, name: 'Kail Set Professional', price: 350000, quantity: 2 }
-                ],
-                payment: 'cash', cashReceived: 2000000, change: 50000,
-                subtotal: 1950000, tax: 195000, total: 2145000
-            },
-            {
-                id: 'TRX-0002',
-                date: new Date('2024-01-15T14:45:00'),
-                customer: { name: 'Siti Nurhaliza', phone: '082345678901' },
-                items: [
-                    { id: 2, name: 'Reel Shimano 5000', price: 850000, quantity: 1 },
-                    { id: 3, name: 'Umpan Set Premium', price: 450000, quantity: 1 },
-                    { id: 10, name: 'Senar PE 50lb', price: 180000, quantity: 3 }
-                ],
-                payment: 'card', cashReceived: null, change: null,
-                subtotal: 1840000, tax: 184000, total: 2024000
-            }
-        ];
-
-        // DOM refs
-        const productGrid = document.getElementById('productGrid');
-        const cartItems = document.getElementById('cartItems');
-        const searchInput = document.getElementById('searchInput');
-        const categoryTabs = document.querySelectorAll('.category-tab');
-        const paymentMethods = document.querySelectorAll('.payment-method');
-        const checkoutBtn = document.getElementById('checkoutBtn');
-        const clearCartBtn = document.getElementById('clearCartBtn');
-        const successModal = document.getElementById('successModal');
-        const newTransactionBtn = document.getElementById('newTransactionBtn');
-        const printBtn = document.getElementById('printBtn');
-        const menuToggle = document.getElementById('menuToggle');
-        const sidebar = document.getElementById('sidebar');
-        const overlay = document.getElementById('overlay');
-        const cashPaymentSection = document.getElementById('cashPaymentSection');
-        const cashInput = document.getElementById('cashInput');
-        const historyModal = document.getElementById('historyModal');
-
-        // Init
-        renderProducts(productsData);
-
-        function renderProducts(products) {
-            productGrid.innerHTML = products.map(product => `
-                <div class="product-card" onclick="addToCart(${product.id})">
-                    <div class="product-icon">${product.icon}</div>
-                    <div class="product-name">${product.name}</div>
-                    <div class="product-price">${formatCurrency(product.price)}</div>
-                    <div class="product-stock">Stok: ${product.stock}</div>
-                </div>
-            `).join('');
-        }
-
-        function addToCart(productId) {
-            const product = productsData.find(p => p.id === productId);
-            if (!product || product.stock === 0) { alert('Stok produk habis!'); return; }
-
-            const existingItem = cart.find(item => item.id === productId);
-            if (existingItem) {
-                if (existingItem.quantity < product.stock) { existingItem.quantity++; }
-                else { alert('Stok tidak mencukupi!'); return; }
-            } else {
-                cart.push({ id: product.id, name: product.name, price: product.price, quantity: 1, maxStock: product.stock });
-            }
-            renderCart();
-            updateSummary();
-        }
-
-        function renderCart() {
-            if (cart.length === 0) {
-                cartItems.innerHTML = `<div class="cart-empty"><div class="cart-empty-icon">🛒</div><p>Keranjang masih kosong</p></div>`;
-                checkoutBtn.disabled = true;
-                return;
-            }
-            checkoutBtn.disabled = false;
-            cartItems.innerHTML = cart.map((item, index) => `
-                <div class="cart-item">
-                    <div class="cart-item-header">
-                        <div class="cart-item-name">${item.name}</div>
-                        <div class="cart-item-price">${formatCurrency(item.price)}</div>
-                    </div>
-                    <div class="cart-item-controls">
-                        <div class="quantity-control">
-                            <button class="qty-btn" onclick="decreaseQuantity(${index})">-</button>
-                            <div class="qty-display">${item.quantity}</div>
-                            <button class="qty-btn" onclick="increaseQuantity(${index})">+</button>
-                        </div>
-                        <div class="cart-item-subtotal">${formatCurrency(item.price * item.quantity)}</div>
-                        <button class="remove-item-btn" onclick="removeFromCart(${index})">Hapus</button>
-                    </div>
-                </div>
-            `).join('');
-        }
-
-        function increaseQuantity(index) {
-            if (cart[index].quantity < cart[index].maxStock) { cart[index].quantity++; renderCart(); updateSummary(); }
-            else alert('Stok tidak mencukupi!');
-        }
-        function decreaseQuantity(index) {
-            if (cart[index].quantity > 1) { cart[index].quantity--; renderCart(); updateSummary(); }
-        }
-        function removeFromCart(index) { cart.splice(index, 1); renderCart(); updateSummary(); }
-
-        clearCartBtn.addEventListener('click', () => {
-            if (cart.length === 0) return;
-            if (confirm('Kosongkan keranjang belanja?')) { cart = []; renderCart(); updateSummary(); }
-        });
-
-        function updateSummary() {
-            const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-            const tax = subtotal * 0.1;
-            const total = subtotal + tax;
-            document.getElementById('subtotalValue').textContent = formatCurrency(subtotal);
-            document.getElementById('taxValue').textContent = formatCurrency(tax);
-            document.getElementById('totalValue').textContent = formatCurrency(total);
-            updateChange();
-        }
-
-        function formatCurrency(amount) {
-            return 'Rp ' + amount.toLocaleString('id-ID');
-        }
-
-        // Category tabs
-        categoryTabs.forEach(tab => {
-            tab.addEventListener('click', () => {
-                if (tab.id === 'historyTabBtn') return;
-                categoryTabs.forEach(t => { if (t.id !== 'historyTabBtn') t.classList.remove('active'); });
-                tab.classList.add('active');
-                const category = tab.dataset.category;
-                renderProducts(category === 'all' ? productsData : productsData.filter(p => p.category === category));
-            });
-        });
-
-        searchInput.addEventListener('input', (e) => {
-            const query = e.target.value.toLowerCase();
-            renderProducts(productsData.filter(p => p.name.toLowerCase().includes(query)));
-        });
-
-        // Payment methods
-        paymentMethods.forEach(method => {
-            method.addEventListener('click', () => {
-                paymentMethods.forEach(m => m.classList.remove('active'));
-                method.classList.add('active');
-                selectedPaymentMethod = method.dataset.method;
-                cashPaymentSection.classList.toggle('active', selectedPaymentMethod === 'cash');
-                updateChange();
-            });
-        });
-
-        cashInput.addEventListener('input', (e) => {
-            const cursorPos = e.target.selectionStart;
-            const oldLen = e.target.value.length;
-            const raw = e.target.value.replace(/\./g, '');
-            const formatted = raw.replace(/\D/g, '').replace(/\B(?=(\d{3})+(?!\d))/g, '.');
-            e.target.value = formatted;
-            const newCursor = cursorPos + (formatted.length - oldLen);
-            e.target.setSelectionRange(newCursor, newCursor);
-            cashReceived = parseFloat(formatted.replace(/\./g, '')) || 0;
-            updateChange();
-        });
-
-        function updateChange() {
-            const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-            const total = subtotal * 1.1;
-            const change = cashReceived - total;
-            const changeEl = document.getElementById('changeValue');
-            if (change < 0) {
-                changeEl.classList.add('negative');
-                changeEl.textContent = '- ' + formatCurrency(Math.abs(change));
-            } else {
-                changeEl.classList.remove('negative');
-                changeEl.textContent = formatCurrency(change);
-            }
-            if (selectedPaymentMethod === 'cash' && cart.length > 0) checkoutBtn.disabled = change < 0;
-        }
-
-        // Checkout
-        checkoutBtn.addEventListener('click', () => {
-            if (cart.length === 0) return;
-            const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-            const tax = subtotal * 0.1;
-            const total = subtotal + tax;
-
-            if (selectedPaymentMethod === 'cash' && cashReceived < total) {
-                alert('Uang yang diterima kurang dari total pembayaran!');
-                return;
-            }
-
-            const customerName = document.getElementById('customerName').value || 'Umum';
-            const customerPhone = document.getElementById('customerPhone').value || '-';
-            const transactionId = `TRX-${String(transactionCounter).padStart(4, '0')}`;
-            transactionCounter++;
-
-            const now = new Date();
-            const dateStr = now.toLocaleDateString('id-ID', { day: '2-digit', month: 'long', year: 'numeric', hour: '2-digit', minute: '2-digit' });
-
-            document.getElementById('transactionId').textContent = transactionId;
-            document.getElementById('transactionDate').textContent = dateStr;
-            document.getElementById('customerNameReceipt').textContent = customerName;
-            document.getElementById('receiptSubtotal').textContent = formatCurrency(subtotal);
-            document.getElementById('receiptTax').textContent = formatCurrency(tax);
-            document.getElementById('receiptTotal').textContent = formatCurrency(total);
-            document.getElementById('receiptItems').innerHTML = cart.map(item => `
-                <div class="receipt-item">
-                    <span class="receipt-item-name">${item.name}</span>
-                    <span class="receipt-item-qty">x${item.quantity}</span>
-                    <span class="receipt-item-price">${formatCurrency(item.price * item.quantity)}</span>
-                </div>
-            `).join('');
-
-            const paymentNames = { cash: 'Tunai', card: 'Kartu Debit/Kredit', transfer: 'Transfer Bank', ewallet: 'E-Wallet' };
-            document.getElementById('paymentMethodText').textContent = paymentNames[selectedPaymentMethod];
-
-            const cashPaymentRow = document.getElementById('cashPaymentRow');
-            const changeRow = document.getElementById('changeRow');
-            if (selectedPaymentMethod === 'cash') {
-                cashPaymentRow.style.display = 'flex';
-                changeRow.style.display = 'flex';
-                document.getElementById('cashReceivedText').textContent = formatCurrency(cashReceived);
-                document.getElementById('changeReceivedText').textContent = formatCurrency(cashReceived - total);
-            } else {
-                cashPaymentRow.style.display = 'none';
-                changeRow.style.display = 'none';
-            }
-
-            successModal.classList.add('active');
-            cart.forEach(item => {
-                const product = productsData.find(p => p.id === item.id);
-                if (product) product.stock -= item.quantity;
-            });
-
-            transactionHistory.push({
-                id: transactionId, date: now,
-                customer: { name: customerName, phone: customerPhone },
-                items: [...cart], payment: selectedPaymentMethod,
-                cashReceived: selectedPaymentMethod === 'cash' ? cashReceived : null,
-                change: selectedPaymentMethod === 'cash' ? cashReceived - total : null,
-                subtotal, tax, total
-            });
-        });
-
-        newTransactionBtn.addEventListener('click', () => {
-            cart = []; cashReceived = 0; cashInput.value = '';
-            document.getElementById('customerName').value = '';
-            document.getElementById('customerPhone').value = '';
-            renderCart(); updateSummary();
-            successModal.classList.remove('active');
-            renderProducts(productsData);
-        });
-
-        printBtn.addEventListener('click', () => window.print());
-
-        menuToggle.addEventListener('click', () => { sidebar.classList.toggle('active'); overlay.classList.toggle('active'); });
-        overlay.addEventListener('click', () => { sidebar.classList.remove('active'); overlay.classList.remove('active'); });
-        successModal.addEventListener('click', (e) => { if (e.target === successModal) successModal.classList.remove('active'); });
-
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && successModal.classList.contains('active')) successModal.classList.remove('active');
-            if (e.key === 'F9' && !checkoutBtn.disabled) { e.preventDefault(); checkoutBtn.click(); }
-        });
-
-        // ===== HISTORY =====
-        const historyTabBtn = document.getElementById('historyTabBtn');
-        if (historyTabBtn) {
-            historyTabBtn.addEventListener('click', (e) => { e.stopPropagation(); openHistoryModal(); });
-        }
-
-        function openHistoryModal() {
-            historyModal.classList.add('active');
-            renderTransactionHistory();
-            sidebar.classList.remove('active');
-            overlay.classList.remove('active');
-        }
-
-        function closeHistoryModal() {
-            historyModal.classList.remove('active');
-        }
-
-        function renderTransactionHistory() {
-            const historyList = document.getElementById('historyList');
-            const searchQ = document.getElementById('historySearchInput').value.toLowerCase();
-            const paymentFilter = document.getElementById('historyFilterPayment').value;
-
-            let filtered = transactionHistory.filter(trx => {
-                const matchSearch = trx.id.toLowerCase().includes(searchQ) || trx.customer.name.toLowerCase().includes(searchQ);
-                const matchPayment = paymentFilter === 'all' || trx.payment === paymentFilter;
-                return matchSearch && matchPayment;
-            }).sort((a, b) => b.date - a.date);
-
-            if (filtered.length === 0) {
-                historyList.innerHTML = `
-                    <div style="text-align: center; padding: 60px 20px; color: #94a3b8;">
-                        <div style="font-size: 60px; margin-bottom: 15px;">📭</div>
-                        <p style="font-size: 16px; font-weight: 600; margin-bottom: 5px;">Tidak ada transaksi</p>
-                        <p style="font-size: 14px;">Belum ada riwayat transaksi yang tersimpan</p>
-                    </div>`;
-            } else {
-                const paymentIcons = { cash: '💵', card: '💳', transfer: '🏦', ewallet: '📱' };
-                const paymentNames = { cash: 'Tunai', card: 'Kartu', transfer: 'Transfer', ewallet: 'E-Wallet' };
-
-                historyList.innerHTML = filtered.map(trx => {
-                    const dateStr = trx.date.toLocaleDateString('id-ID', { day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' });
-                    return `
-                        <div style="background: white; border: 2px solid rgba(14,116,144,0.1); border-radius: 15px; padding: 20px; margin-bottom: 12px; transition: all 0.3s;">
-                            <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 15px;">
-                                <div>
-                                    <div style="font-size: 16px; font-weight: 700; color: #0c4a6e; margin-bottom: 4px;">${trx.id}</div>
-                                    <div style="font-size: 12px; color: #64748b;">🕒 ${dateStr}</div>
-                                </div>
-                                <button onclick="deleteTransaction('${trx.id}')"
-                                    style="background: linear-gradient(135deg, #f43f5e, #e11d48); border: none; color: white; padding: 8px 16px; border-radius: 10px; cursor: pointer; font-size: 13px; font-weight: 600; transition: all 0.3s;"
-                                    onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 4px 12px rgba(244,63,94,0.4)';"
-                                    onmouseout="this.style.transform='none'; this.style.boxShadow='none';">
-                                    🗑️ Hapus
-                                </button>
-                            </div>
-
-                            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; padding: 15px; background: rgba(14,116,144,0.03); border-radius: 10px; margin-bottom: 15px;">
-                                <div>
-                                    <div style="font-size: 11px; color: #64748b; margin-bottom: 3px;">Pelanggan</div>
-                                    <div style="font-size: 13px; font-weight: 600; color: #0c4a6e;">👤 ${trx.customer.name}</div>
-                                </div>
-                                <div>
-                                    <div style="font-size: 11px; color: #64748b; margin-bottom: 3px;">Pembayaran</div>
-                                    <div style="font-size: 13px; font-weight: 600; color: #0c4a6e;">${paymentIcons[trx.payment]} ${paymentNames[trx.payment]}</div>
-                                </div>
-                            </div>
-
-                            <div style="background: rgba(34,211,238,0.05); padding: 12px; border-radius: 10px; margin-bottom: 12px;">
-                                <div style="font-size: 11px; color: #64748b; margin-bottom: 8px; font-weight: 600;">📦 Item (${trx.items.length})</div>
-                                ${trx.items.map(item => `
-                                    <div style="display: flex; justify-content: space-between; font-size: 12px; color: #475569; margin-bottom: 4px;">
-                                        <span>${item.name} <span style="color: #94a3b8;">x${item.quantity}</span></span>
-                                        <span style="font-weight: 600; color: #0c4a6e;">${formatCurrency(item.price * item.quantity)}</span>
-                                    </div>
-                                `).join('')}
-                            </div>
-
-                            <div style="padding-top: 12px; border-top: 2px dashed rgba(14,116,144,0.2);">
-                                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: ${trx.payment === 'cash' ? '8px' : '0'};">
-                                    <span style="font-size: 13px; color: #64748b; font-weight: 600;">Total Pembayaran</span>
-                                    <span style="font-size: 18px; font-weight: 800; color: #10b981;">${formatCurrency(trx.total)}</span>
-                                </div>
-                                ${trx.payment === 'cash' && trx.cashReceived != null ? `
-                                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; padding: 8px 12px; background: rgba(14,116,144,0.06); border-radius: 8px;">
-                                    <span style="font-size: 12px; color: #64748b; font-weight: 600;">💵 Uang Diterima</span>
-                                    <span style="font-size: 14px; font-weight: 700; color: #0e7490;">${formatCurrency(trx.cashReceived)}</span>
-                                </div>
-                                <div style="display: flex; justify-content: space-between; align-items: center; padding: 8px 12px; background: rgba(16,185,129,0.08); border-radius: 8px; border: 1px solid rgba(16,185,129,0.2);">
-                                    <span style="font-size: 12px; color: #64748b; font-weight: 600;">↩️ Kembalian</span>
-                                    <span style="font-size: 14px; font-weight: 700; color: #059669;">${formatCurrency(trx.change)}</span>
-                                </div>
-                                ` : ''}
-                            </div>
-                        </div>
-                    `;
-                }).join('');
-            }
-
-            const totalRevenue = filtered.reduce((sum, trx) => sum + trx.total, 0);
-            document.getElementById('totalTransactions').textContent = filtered.length;
-            document.getElementById('totalRevenue').textContent = formatCurrency(totalRevenue);
-        }
-
-        function deleteTransaction(id) {
-            if (!confirm('Yakin ingin menghapus transaksi ini?')) return;
-            const index = transactionHistory.findIndex(trx => trx.id === id);
-            if (index === -1) return;
-            transactionHistory.splice(index, 1);
-            renderTransactionHistory();
-            showNotification('🗑️ Transaksi berhasil dihapus!', 'danger');
-        }
-
-        function showNotification(message, type = 'success') {
-            const n = document.createElement('div');
-            n.textContent = message;
-            n.style.cssText = `
-                position: fixed; top: 20px; right: 20px;
-                background: ${type === 'success' ? 'linear-gradient(135deg, #10b981, #059669)' : 'linear-gradient(135deg, #e11d48, #be123c)'};
-                color: white; padding: 16px 24px; border-radius: 15px;
-                font-size: 14px; font-weight: 600; box-shadow: 0 8px 25px rgba(0,0,0,0.2);
-                z-index: 9999; animation: slideIn 0.3s ease;
-            `;
-            document.body.appendChild(n);
-            setTimeout(() => n.remove(), 3000);
-        }
-
-        document.getElementById('historySearchInput').addEventListener('input', renderTransactionHistory);
-        document.getElementById('historyFilterPayment').addEventListener('change', renderTransactionHistory);
-        historyModal.addEventListener('click', (e) => { if (e.target === historyModal) closeHistoryModal(); });
-    </script>
-
+    <!-- Logout Modal -->
     <div class="logout-modal" id="logoutModal">
         <div class="logout-box">
             <div class="logout-icon">🚪</div>
@@ -1749,27 +425,389 @@
     </div>
 
     <script>
-        const logoutBtn = document.querySelector('.logout-btn');
-        const logoutModal = document.getElementById('logoutModal');
-        const cancelLogout = document.getElementById('cancelLogout');
-        const confirmLogout = document.getElementById('confirmLogout');
+    // ===== PRODUCTS DATA =====
+    // image dihapus, gunakan emoji + warna background per kategori
+    const productsData = [
+        { id:1,  name:'Joran Carbon Pro X1',     category:'joran',     price:1250000, stock:25, icon:'🎣', image:'/MekarJayaProject/public/images/pancingan.jpg' },
+        { id:2,  name:'Reel Shimano 5000',        category:'reel',      price:850000,  stock:42, icon:'⚙️', image:'/MekarJayaProject/public/images/reel2.png' },
+        { id:3,  name:'Umpan Set Premium',        category:'umpan',     price:450000,  stock:8,  icon:'🐟', image:'/MekarJayaProject/public/images/reel.png' },
+        { id:4,  name:'Tas Pancing Waterproof',   category:'aksesoris', price:675000,  stock:31, icon:'🎒', image:'/MekarJayaProject/public/images/reel2.png' },
+        { id:5,  name:'Kail Set Professional',    category:'kail',      price:350000,  stock:56, icon:'🪝', image:'/MekarJayaProject/public/images/senar.png' },
+        { id:6,  name:'Joran Telescopic',         category:'joran',     price:550000,  stock:18, icon:'🎣', image:'/MekarJayaProject/public/images/tegek.png' },
+        { id:7,  name:'Reel Daiwa 3000',          category:'reel',      price:750000,  stock:22, icon:'⚙️', image:'/MekarJayaProject/public/images/pancingan.jpg' },
+        { id:8,  name:'Umpan Buatan Lure',        category:'umpan',     price:125000,  stock:64, icon:'🐟', image:'/MekarJayaProject/public/images/reel.png' },
+        { id:9,  name:'Kotak Pancing Tackle Box', category:'aksesoris', price:280000,  stock:15, icon:'📦', image:'/MekarJayaProject/public/images/tegek.png' },
+        { id:10, name:'Senar PE 50lb',            category:'aksesoris', price:180000,  stock:45, icon:'🧵', image:'/MekarJayaProject/public/images/reel2.png' },
+        { id:11, name:'Joran Casting Heavy',      category:'joran',     price:980000,  stock:12, icon:'🎣', image:'/MekarJayaProject/public/images/pancingan.jpg' },
+        { id:12, name:'Reel Baitcasting',         category:'reel',      price:1100000, stock:9,  icon:'⚙️', image:'/MekarJayaProject/public/images/tegek.png' },
+    ];
 
-        logoutBtn.addEventListener('click', function (e) {
-            e.preventDefault();
-            logoutModal.classList.add('active');
+    // ===== STATE =====
+    let cart = [];
+    let selectedPaymentMethod = 'cash';
+    let transactionCounter = 3;
+    let cashReceived = 0;
+    let currentCategory = 'all';
+    let editingTrxId = null;
+
+    const paymentNames = { cash:'Tunai', card:'Kartu Debit/Kredit', transfer:'Transfer Bank', ewallet:'E-Wallet' };
+    const paymentIcons = { cash:'💵', card:'💳', transfer:'🏦', ewallet:'📱' };
+    const CATEGORIES = {
+        all:{ label:'Semua Produk', icon:'🏪' }, joran:{ label:'Joran', icon:'🎣' },
+        reel:{ label:'Reel', icon:'⚙️' }, umpan:{ label:'Umpan', icon:'🐟' },
+        aksesoris:{ label:'Aksesoris', icon:'🎒' }, kail:{ label:'Kail', icon:'🪝' },
+    };
+
+    let transactionHistory = [
+        { id:'TRX-0001', date:new Date('2024-01-15T10:30:00'), customer:{ name:'Budi Santoso', phone:'081234567890' }, items:[{ id:1, name:'Joran Carbon Pro X1', price:1250000, quantity:1 },{ id:5, name:'Kail Set Professional', price:350000, quantity:2 }], payment:'cash', cashReceived:2200000, change:250000, total:1950000 },
+        { id:'TRX-0002', date:new Date('2024-01-15T14:45:00'), customer:{ name:'Siti Nurhaliza', phone:'082345678901' }, items:[{ id:2, name:'Reel Shimano 5000', price:850000, quantity:1 },{ id:3, name:'Umpan Set Premium', price:450000, quantity:1 },{ id:10, name:'Senar PE 50lb', price:180000, quantity:3 }], payment:'card', cashReceived:null, change:null, total:1840000 }
+    ];
+
+    // ===== HELPERS =====
+    function fmt(n) { return 'Rp ' + Number(n).toLocaleString('id-ID'); }
+    function calcTotal(items) { return items.reduce((s,i) => s + i.price * i.quantity, 0); }
+
+    // ===== BUILD IMAGE (fallback ke emoji jika gagal) =====
+    function buildImgEl(product) {
+        const wrap = document.createElement('div');
+        wrap.className = `product-img-wrap cat-${product.category || 'default'}`;
+        wrap.innerHTML = `<span class="product-emoji">${product.icon}</span>`;
+        if (product.image) {
+            const img = new Image();
+            img.style.cssText = 'width:100%;height:100%;object-fit:cover;display:block;transition:transform 0.4s;';
+            img.onload = () => { wrap.innerHTML = ''; wrap.appendChild(img); };
+            img.src = product.image;
+        }
+        return wrap;
+    }
+
+    // ===== CATEGORY DROPDOWN =====
+    const catDropWrapper = document.getElementById('catDropdownWrapper');
+    const catDropTrigger = document.getElementById('catDropdownTrigger');
+    const catDropPanel   = document.getElementById('catDropdownPanel');
+    const catOptions     = catDropPanel.querySelectorAll('.cat-option');
+
+    catDropTrigger.addEventListener('click', e => { e.stopPropagation(); catDropTrigger.classList.toggle('open'); catDropPanel.classList.toggle('open'); });
+    document.addEventListener('click', e => { if (!catDropWrapper.contains(e.target)) { catDropTrigger.classList.remove('open'); catDropPanel.classList.remove('open'); } });
+    catOptions.forEach(opt => opt.addEventListener('click', () => { selectCategory(opt.dataset.category); catDropTrigger.classList.remove('open'); catDropPanel.classList.remove('open'); }));
+    document.getElementById('activeCatPillX').addEventListener('click', () => selectCategory('all'));
+
+    function selectCategory(cat) {
+        currentCategory = cat;
+        catOptions.forEach(o => o.classList.toggle('active', o.dataset.category === cat));
+        const info = CATEGORIES[cat] || CATEGORIES.all;
+        document.getElementById('catTriggerIcon').textContent = info.icon;
+        document.getElementById('catTriggerLabel').textContent = info.label;
+        const pill = document.getElementById('activeCatPill');
+        if (cat === 'all') { catDropTrigger.classList.remove('has-active'); pill.classList.remove('visible'); }
+        else { catDropTrigger.classList.add('has-active'); document.getElementById('activeCatPillText').textContent = `${info.icon} ${info.label}`; pill.classList.add('visible'); }
+        filterAndRender();
+    }
+
+    document.getElementById('searchInput').addEventListener('input', filterAndRender);
+    function filterAndRender() {
+        const q = document.getElementById('searchInput').value.toLowerCase();
+        let filtered = currentCategory === 'all' ? productsData : productsData.filter(p => p.category === currentCategory);
+        if (q) filtered = filtered.filter(p => p.name.toLowerCase().includes(q));
+        renderProducts(filtered);
+    }
+
+    // ===== RENDER PRODUCTS =====
+    function renderProducts(products) {
+        const grid = document.getElementById('productGrid'); grid.innerHTML = '';
+        if (!products.length) {
+            grid.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:40px;color:#94a3b8;"><div style="font-size:50px;margin-bottom:10px;">🔍</div><p>Produk tidak ditemukan</p></div>`;
+            return;
+        }
+        const catNames = { joran:'Joran', reel:'Reel', umpan:'Umpan', aksesoris:'Aksesoris', kail:'Kail' };
+        products.forEach(p => {
+            const card = document.createElement('div');
+            card.className = 'product-card';
+            card.onclick = () => addToCart(p.id);
+
+            const stockBadge = p.stock === 0
+                ? `<div class="product-stock-badge out">Habis</div>`
+                : p.stock <= 10
+                    ? `<div class="product-stock-badge low">Sisa ${p.stock}</div>`
+                    : '';
+
+            // Wrapper gambar: pakai gambar asli, fallback ke emoji
+            const imgWrap = buildImgEl(p);
+            imgWrap.insertAdjacentHTML('beforeend',
+                stockBadge + `<div class="product-badge">${catNames[p.category] || p.category}</div>`);
+
+            const info = document.createElement('div');
+            info.className = 'product-info';
+            info.innerHTML = `
+                <div class="product-name">${p.name}</div>
+                <div class="product-meta">
+                    <div class="product-price">${fmt(p.price)}</div>
+                    <div class="product-stock-text">Stok: ${p.stock}</div>
+                </div>`;
+
+            card.appendChild(imgWrap);
+            card.appendChild(info);
+            grid.appendChild(card);
         });
+    }
 
-        cancelLogout.addEventListener('click', function () {
-            logoutModal.classList.remove('active');
+    // ===== CART =====
+    function addToCart(productId) {
+        const p = productsData.find(x => x.id === productId);
+        if (!p || p.stock === 0) { alert('Stok produk habis!'); return; }
+        const ex = cart.find(i => i.id === productId);
+        if (ex) { if (ex.quantity < ex.maxStock) ex.quantity++; else { alert('Stok tidak mencukupi!'); return; } }
+        else cart.push({ id:p.id, name:p.name, price:p.price, quantity:1, maxStock:p.stock });
+        renderCart(); updateSummary();
+    }
+
+    function renderCart() {
+        const el = document.getElementById('cartItems');
+        if (!cart.length) { el.innerHTML = `<div class="cart-empty"><div class="cart-empty-icon">🛒</div><p>Keranjang masih kosong</p></div>`; document.getElementById('checkoutBtn').disabled = true; return; }
+        if (!editingTrxId) document.getElementById('checkoutBtn').disabled = false;
+        el.innerHTML = cart.map((item,i) => `
+            <div class="cart-item">
+                <div class="cart-item-header">
+                    <div class="cart-item-name">${item.name}</div>
+                    <div class="cart-item-price">${fmt(item.price)}</div>
+                </div>
+                <div class="cart-item-controls">
+                    <div class="quantity-control">
+                        <button class="qty-btn" onclick="decQty(${i})">−</button>
+                        <div class="qty-display">${item.quantity}</div>
+                        <button class="qty-btn" onclick="incQty(${i})">+</button>
+                    </div>
+                    <div class="cart-item-subtotal">${fmt(item.price * item.quantity)}</div>
+                    <button class="remove-item-btn" onclick="removeItem(${i})">Hapus</button>
+                </div>
+            </div>`).join('');
+    }
+
+    function incQty(i) { if (cart[i].quantity < cart[i].maxStock) { cart[i].quantity++; renderCart(); updateSummary(); } else alert('Stok tidak mencukupi!'); }
+    function decQty(i) { if (cart[i].quantity > 1) { cart[i].quantity--; renderCart(); updateSummary(); } }
+    function removeItem(i) { cart.splice(i,1); renderCart(); updateSummary(); }
+
+    document.getElementById('clearCartBtn').addEventListener('click', () => { if (cart.length && confirm('Kosongkan keranjang?')) { cart=[]; renderCart(); updateSummary(); } });
+
+    function updateSummary() { document.getElementById('totalValue').textContent = fmt(calcTotal(cart)); updateChange(); }
+
+    // ===== PAYMENT =====
+    document.querySelectorAll('.payment-method').forEach(m => {
+        m.addEventListener('click', () => {
+            document.querySelectorAll('.payment-method').forEach(x => x.classList.remove('active'));
+            m.classList.add('active');
+            selectedPaymentMethod = m.dataset.method;
+            document.getElementById('cashPaymentSection').classList.toggle('active', selectedPaymentMethod === 'cash');
+            updateChange();
         });
+    });
 
-        confirmLogout.addEventListener('click', function () {
-            localStorage.removeItem('userLogin');
-            localStorage.removeItem('userRole');
+    document.getElementById('cashInput').addEventListener('input', e => {
+        const raw = e.target.value.replace(/\./g,'').replace(/\D/g,'');
+        e.target.value = raw.replace(/\B(?=(\d{3})+(?!\d))/g,'.');
+        cashReceived = parseFloat(raw) || 0;
+        updateChange();
+    });
 
-             window.location.href = '../../pages/login.html';
+    function updateChange() {
+        const total = calcTotal(cart);
+        const change = cashReceived - total;
+        const el = document.getElementById('changeValue');
+        el.classList.toggle('negative', change < 0);
+        el.textContent = change < 0 ? '− ' + fmt(Math.abs(change)) : fmt(change);
+        if (!editingTrxId && selectedPaymentMethod === 'cash' && cart.length > 0)
+            document.getElementById('checkoutBtn').disabled = change < 0;
+    }
+
+    // ===== CHECKOUT =====
+    document.getElementById('checkoutBtn').addEventListener('click', () => {
+        if (!cart.length) return;
+        const total = calcTotal(cart);
+        if (selectedPaymentMethod === 'cash' && cashReceived < total) { alert('Uang yang diterima kurang!'); return; }
+        const custName  = document.getElementById('customerName').value || 'Umum';
+        const custPhone = document.getElementById('customerPhone').value || '-';
+        const trxId = `TRX-${String(transactionCounter).padStart(4,'0')}`;
+        transactionCounter++;
+        const now = new Date();
+        transactionHistory.push({ id:trxId, date:now, customer:{name:custName,phone:custPhone}, items:[...cart], payment:selectedPaymentMethod, cashReceived:selectedPaymentMethod==='cash'?cashReceived:null, change:selectedPaymentMethod==='cash'?cashReceived-total:null, total });
+        cart.forEach(item => { const p = productsData.find(x=>x.id===item.id); if(p) p.stock -= item.quantity; });
+        showReceipt({ id:trxId, date:now, customer:{name:custName}, items:[...cart], payment:selectedPaymentMethod, cashReceived:selectedPaymentMethod==='cash'?cashReceived:null, change:selectedPaymentMethod==='cash'?cashReceived-total:null, total });
+        document.getElementById('successModal').classList.add('active');
+    });
+
+    function showReceipt(trx) {
+        document.getElementById('transactionId').textContent   = trx.id;
+        document.getElementById('transactionDate').textContent = trx.date.toLocaleDateString('id-ID',{day:'2-digit',month:'long',year:'numeric',hour:'2-digit',minute:'2-digit'});
+        document.getElementById('customerNameReceipt').textContent = trx.customer.name;
+        document.getElementById('receiptTotal').textContent = fmt(trx.total);
+        document.getElementById('receiptItems').innerHTML = trx.items.map(i=>`<div class="receipt-item"><span class="receipt-item-name">${i.name}</span><span class="receipt-item-qty">x${i.quantity}</span><span class="receipt-item-price">${fmt(i.price*i.quantity)}</span></div>`).join('');
+        document.getElementById('paymentMethodText').textContent = paymentNames[trx.payment];
+        const cr = document.getElementById('cashPaymentRow'), ch = document.getElementById('changeRow');
+        if (trx.payment==='cash' && trx.cashReceived!=null) {
+            cr.style.display='flex'; ch.style.display='flex';
+            document.getElementById('cashReceivedText').textContent = fmt(trx.cashReceived);
+            document.getElementById('changeReceivedText').textContent = fmt(trx.change);
+        } else { cr.style.display='none'; ch.style.display='none'; }
+    }
+
+    document.getElementById('newTransactionBtn').addEventListener('click', resetToNormal);
+    document.getElementById('printBtn').addEventListener('click', () => window.print());
+
+    function resetToNormal() {
+        cart=[]; cashReceived=0;
+        document.getElementById('cashInput').value='';
+        document.getElementById('customerName').value='';
+        document.getElementById('customerPhone').value='';
+        renderCart(); updateSummary();
+        document.getElementById('successModal').classList.remove('active');
+        renderProducts(productsData);
+    }
+
+    // ===== EDIT MODE =====
+    function startEditMode(trxId) {
+        const trx = transactionHistory.find(t => t.id === trxId);
+        if (!trx) return;
+        editingTrxId = trxId;
+        cart = trx.items.map(i => {
+            const product = productsData.find(p => p.id === i.id);
+            return { id:i.id, name:i.name, price:i.price, quantity:i.quantity, maxStock:(product?product.stock:0)+i.quantity };
         });
+        document.getElementById('customerName').value  = trx.customer.name !== 'Umum' ? trx.customer.name : '';
+        document.getElementById('customerPhone').value = trx.customer.phone !== '-'   ? trx.customer.phone : '';
+        document.querySelectorAll('.payment-method').forEach(m => m.classList.toggle('active', m.dataset.method === trx.payment));
+        selectedPaymentMethod = trx.payment;
+        document.getElementById('cashPaymentSection').classList.toggle('active', trx.payment === 'cash');
+        document.getElementById('cashInput').value = ''; cashReceived = 0;
+        document.getElementById('editBanner').classList.add('active');
+        document.getElementById('editBannerTrxId').textContent = trxId;
+        document.getElementById('cartSection').classList.add('editing');
+        document.getElementById('cartTitle').textContent = '✏️ Edit Transaksi';
+        document.getElementById('checkoutBtn').style.display = 'none';
+        document.getElementById('saveEditBtn').classList.add('show');
+        renderCart(); updateSummary();
+        closeHistoryModal();
+        setTimeout(() => document.getElementById('cartSection').scrollIntoView({ behavior:'smooth', block:'nearest' }), 100);
+    }
+
+    function cancelEditMode() {
+        editingTrxId = null; cart=[]; cashReceived=0;
+        document.getElementById('cashInput').value='';
+        document.getElementById('customerName').value='';
+        document.getElementById('customerPhone').value='';
+        document.getElementById('editBanner').classList.remove('active');
+        document.getElementById('cartSection').classList.remove('editing');
+        document.getElementById('cartTitle').textContent = 'Keranjang Belanja';
+        document.getElementById('checkoutBtn').style.display = '';
+        document.getElementById('checkoutBtn').disabled = true;
+        document.getElementById('saveEditBtn').classList.remove('show');
+        renderCart(); updateSummary();
+    }
+
+    document.getElementById('saveEditBtn').addEventListener('click', () => {
+        if (!editingTrxId) return;
+        if (!cart.length) { alert('⚠️ Minimal harus ada 1 item!'); return; }
+        const trx = transactionHistory.find(t => t.id === editingTrxId);
+        if (!trx) return;
+        const custName  = document.getElementById('customerName').value.trim() || 'Umum';
+        const custPhone = document.getElementById('customerPhone').value.trim() || '-';
+        const total = calcTotal(cart);
+        trx.customer = { name:custName, phone:custPhone };
+        trx.payment  = selectedPaymentMethod;
+        trx.items    = cart.map(i => ({ id:i.id, name:i.name, price:i.price, quantity:i.quantity }));
+        trx.total    = total;
+        if (selectedPaymentMethod === 'cash') { trx.cashReceived = cashReceived > 0 ? cashReceived : total; trx.change = trx.cashReceived - total; }
+        else { trx.cashReceived = null; trx.change = null; }
+        showNotif('✅ Transaksi ' + editingTrxId + ' berhasil diperbarui!', 'success');
+        cancelEditMode();
+    });
+
+    // ===== HISTORY MODAL =====
+    document.getElementById('historyTabBtn').addEventListener('click', e => { e.stopPropagation(); openHistoryModal(); });
+    function openHistoryModal() { document.getElementById('historyModal').classList.add('active'); renderHistory(); }
+    function closeHistoryModal() { document.getElementById('historyModal').classList.remove('active'); }
+
+    function renderHistory() {
+        const listEl = document.getElementById('historyList');
+        const q  = document.getElementById('historySearchInput').value.toLowerCase();
+        const pf = document.getElementById('historyFilterPayment').value;
+        const filtered = transactionHistory.filter(t =>
+            (t.id.toLowerCase().includes(q) || t.customer.name.toLowerCase().includes(q)) && (pf==='all'||t.payment===pf)
+        ).sort((a,b)=>b.date-a.date);
+        if (!filtered.length) {
+            listEl.innerHTML = `<div style="text-align:center;padding:60px 20px;color:#94a3b8;"><div style="font-size:60px;margin-bottom:15px;">📭</div><p style="font-size:16px;font-weight:600;">Tidak ada transaksi</p></div>`;
+        } else {
+            listEl.innerHTML = filtered.map(trx => {
+                const ds = trx.date.toLocaleDateString('id-ID',{day:'2-digit',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'});
+                return `
+                <div style="background:white;border:2px solid rgba(14,116,144,0.1);border-radius:15px;padding:20px;margin-bottom:12px;">
+                    <div style="display:flex;justify-content:space-between;align-items:start;margin-bottom:15px;">
+                        <div>
+                            <div style="font-size:16px;font-weight:700;color:#0c4a6e;margin-bottom:4px;">${trx.id}</div>
+                            <div style="font-size:12px;color:#64748b;">🕒 ${ds}</div>
+                        </div>
+                        <div style="display:flex;gap:8px;">
+                            <button onclick="startEditMode('${trx.id}')" style="background:linear-gradient(135deg,#f59e0b,#d97706);border:none;color:white;padding:8px 16px;border-radius:10px;cursor:pointer;font-size:13px;font-weight:700;">✏️ Edit</button>
+                            <button onclick="deleteTransaction('${trx.id}')" style="background:linear-gradient(135deg,#f43f5e,#e11d48);border:none;color:white;padding:8px 16px;border-radius:10px;cursor:pointer;font-size:13px;font-weight:700;">🗑️ Hapus</button>
+                        </div>
+                    </div>
+                    <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:12px;padding:15px;background:rgba(14,116,144,0.03);border-radius:10px;margin-bottom:15px;">
+                        <div><div style="font-size:11px;color:#64748b;margin-bottom:3px;">Pelanggan</div><div style="font-size:13px;font-weight:600;color:#0c4a6e;">👤 ${trx.customer.name}</div></div>
+                        <div><div style="font-size:11px;color:#64748b;margin-bottom:3px;">Pembayaran</div><div style="font-size:13px;font-weight:600;color:#0c4a6e;">${paymentIcons[trx.payment]} ${paymentNames[trx.payment]}</div></div>
+                    </div>
+                    <div style="background:rgba(34,211,238,0.05);padding:12px;border-radius:10px;margin-bottom:12px;">
+                        <div style="font-size:11px;color:#64748b;margin-bottom:8px;font-weight:600;">📦 Item (${trx.items.length})</div>
+                        ${trx.items.map(i=>`<div style="display:flex;justify-content:space-between;font-size:12px;color:#475569;margin-bottom:4px;"><span>${i.name} <span style="color:#94a3b8;">x${i.quantity}</span></span><span style="font-weight:600;color:#0c4a6e;">${fmt(i.price*i.quantity)}</span></div>`).join('')}
+                    </div>
+                    <div style="padding-top:12px;border-top:2px dashed rgba(14,116,144,0.2);">
+                        <div style="display:flex;justify-content:space-between;align-items:center;">
+                            <span style="font-size:13px;color:#64748b;font-weight:600;">Total Pembayaran</span>
+                            <span style="font-size:18px;font-weight:800;color:#10b981;">${fmt(trx.total)}</span>
+                        </div>
+                        ${trx.payment==='cash'&&trx.cashReceived!=null?`
+                        <div style="display:flex;justify-content:space-between;margin-top:8px;padding:8px 12px;background:rgba(14,116,144,0.06);border-radius:8px;">
+                            <span style="font-size:12px;color:#64748b;font-weight:600;">💵 Uang Diterima</span>
+                            <span style="font-size:14px;font-weight:700;color:#0e7490;">${fmt(trx.cashReceived)}</span>
+                        </div>
+                        <div style="display:flex;justify-content:space-between;margin-top:6px;padding:8px 12px;background:rgba(16,185,129,0.08);border-radius:8px;border:1px solid rgba(16,185,129,0.2);">
+                            <span style="font-size:12px;color:#64748b;font-weight:600;">↩️ Kembalian</span>
+                            <span style="font-size:14px;font-weight:700;color:#059669;">${fmt(trx.change)}</span>
+                        </div>`:''}
+                    </div>
+                </div>`;
+            }).join('');
+        }
+        document.getElementById('totalTransactions').textContent = filtered.length;
+        document.getElementById('totalRevenue').textContent = fmt(filtered.reduce((s,t)=>s+t.total,0));
+    }
+
+    document.getElementById('historySearchInput').addEventListener('input', renderHistory);
+    document.getElementById('historyFilterPayment').addEventListener('change', renderHistory);
+
+    function deleteTransaction(id) {
+        if (!confirm('Yakin ingin menghapus transaksi ini?')) return;
+        const i = transactionHistory.findIndex(t => t.id === id);
+        if (i !== -1) { transactionHistory.splice(i,1); renderHistory(); showNotif('🗑️ Transaksi berhasil dihapus!','danger'); }
+    }
+
+    function showNotif(msg, type='success') {
+        const n = document.createElement('div');
+        n.textContent = msg;
+        n.style.cssText = `position:fixed;top:20px;right:20px;background:${type==='success'?'linear-gradient(135deg,#10b981,#059669)':'linear-gradient(135deg,#e11d48,#be123c)'};color:white;padding:16px 24px;border-radius:15px;font-size:14px;font-weight:600;box-shadow:0 8px 25px rgba(0,0,0,0.2);z-index:9999;`;
+        document.body.appendChild(n); setTimeout(()=>n.remove(),3000);
+    }
+
+    // ===== EVENTS =====
+    document.getElementById('menuToggle').addEventListener('click', () => { document.getElementById('sidebar').classList.toggle('active'); document.getElementById('overlay').classList.toggle('active'); });
+    document.getElementById('overlay').addEventListener('click', () => { document.getElementById('sidebar').classList.remove('active'); document.getElementById('overlay').classList.remove('active'); catDropTrigger.classList.remove('open'); catDropPanel.classList.remove('open'); });
+    document.getElementById('successModal').addEventListener('click', e => { if (e.target===document.getElementById('successModal')) document.getElementById('successModal').classList.remove('active'); });
+    document.getElementById('historyModal').addEventListener('click', e => { if (e.target===document.getElementById('historyModal')) closeHistoryModal(); });
+    document.addEventListener('keydown', e => { if (e.key==='Escape') { document.getElementById('successModal').classList.remove('active'); closeHistoryModal(); } });
+    document.querySelector('.logout-btn').addEventListener('click', e => { e.preventDefault(); document.getElementById('logoutModal').classList.add('active'); });
+    document.getElementById('cancelLogout').addEventListener('click', () => document.getElementById('logoutModal').classList.remove('active'));
+    document.getElementById('confirmLogout').addEventListener('click', () => { try{localStorage.removeItem('userLogin');localStorage.removeItem('userRole');}catch(e){} window.location.href='../../pages/login.html'; });
+
+    // Init
+    renderProducts(productsData);
     </script>
 </body>
-
 </html>

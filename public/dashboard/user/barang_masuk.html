@@ -318,6 +318,60 @@
             box-shadow: 0 0 0 4px rgba(14, 116, 144, 0.1);
         }
 
+        /* ===== AUTOFILLED FIELD HIGHLIGHT ===== */
+        .form-group input.autofilled,
+        .form-group select.autofilled {
+            border-color: rgba(16, 185, 129, 0.5);
+            background: rgba(16, 185, 129, 0.04);
+            animation: autofillPulse 0.5s ease;
+        }
+
+        @keyframes autofillPulse {
+            0%   { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4); }
+            70%  { box-shadow: 0 0 0 8px rgba(16, 185, 129, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+        }
+
+        /* ===== PRICE SYNC INDICATOR ===== */
+        .price-sync-badge {
+            display: none;
+            font-size: 11px;
+            color: #f59e0b;
+            font-weight: 600;
+            margin-top: 5px;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .price-sync-badge.visible {
+            display: flex;
+        }
+
+        /* ===== AUTOFILL INFO BANNER ===== */
+        .autofill-banner {
+            display: none;
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.12), rgba(5, 150, 105, 0.08));
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            border-radius: 12px;
+            padding: 10px 15px;
+            margin-bottom: 15px;
+            font-size: 13px;
+            color: #059669;
+            font-weight: 600;
+            align-items: center;
+            gap: 8px;
+            animation: slideDown 0.3s ease;
+        }
+
+        .autofill-banner.visible {
+            display: flex;
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-8px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
         .form-actions {
             display: flex;
             gap: 12px;
@@ -381,6 +435,16 @@
             background: rgba(14, 116, 144, 0.1);
             padding: 2px 8px;
             border-radius: 8px;
+        }
+
+        .autocomplete-item .item-price {
+            font-size: 11px;
+            color: #059669;
+            font-weight: 600;
+            background: rgba(16, 185, 129, 0.1);
+            padding: 2px 8px;
+            border-radius: 8px;
+            white-space: nowrap;
         }
 
         .autocomplete-hint {
@@ -628,6 +692,17 @@
             border-bottom: none;
         }
 
+        /* ===== PRICE UPDATED HIGHLIGHT ===== */
+        .item-row.price-updated {
+            animation: rowPriceFlash 1.2s ease;
+        }
+
+        @keyframes rowPriceFlash {
+            0%   { background: rgba(245, 158, 11, 0.0); }
+            30%  { background: rgba(245, 158, 11, 0.15); }
+            100% { background: rgba(245, 158, 11, 0.0); }
+        }
+
         .item-actions {
             display: flex;
             gap: 6px;
@@ -813,6 +888,25 @@
             gap: 12px;
         }
 
+        /* ===== PRICE SYNC MODAL NOTICE ===== */
+        .price-sync-notice {
+            display: none;
+            background: linear-gradient(135deg, rgba(245, 158, 11, 0.12), rgba(217, 119, 6, 0.08));
+            border: 1px solid rgba(245, 158, 11, 0.4);
+            border-radius: 12px;
+            padding: 12px 15px;
+            margin-bottom: 20px;
+            font-size: 13px;
+            color: #92400e;
+            font-weight: 600;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .price-sync-notice.visible {
+            display: flex;
+        }
+
         /* Loading */
         .loading-overlay {
             position: fixed;
@@ -854,30 +948,13 @@
             animation: pulseDots 1.2s infinite ease-in-out;
         }
 
-        .dots span:nth-child(1) {
-            animation-delay: 0s;
-        }
-
-        .dots span:nth-child(2) {
-            animation-delay: 0.2s;
-        }
-
-        .dots span:nth-child(3) {
-            animation-delay: 0.4s;
-        }
+        .dots span:nth-child(1) { animation-delay: 0s; }
+        .dots span:nth-child(2) { animation-delay: 0.2s; }
+        .dots span:nth-child(3) { animation-delay: 0.4s; }
 
         @keyframes pulseDots {
-
-            0%,
-            100% {
-                transform: scale(0.6);
-                opacity: 0.5
-            }
-
-            40% {
-                transform: scale(1.2);
-                opacity: 1
-            }
+            0%, 100% { transform: scale(0.6); opacity: 0.5 }
+            40% { transform: scale(1.2); opacity: 1 }
         }
 
         .loading-title {
@@ -950,6 +1027,138 @@
             display: inline-block;
         }
 
+        /* ========================
+           IMAGE UPLOAD STYLES
+        ======================== */
+        .image-upload-area {
+            border: 2px dashed rgba(14, 116, 144, 0.35);
+            border-radius: 14px;
+            padding: 20px 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: rgba(14, 116, 144, 0.03);
+            position: relative;
+            min-height: 110px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .image-upload-area:hover {
+            border-color: #0e7490;
+            background: rgba(14, 116, 144, 0.07);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(14, 116, 144, 0.12);
+        }
+
+        .image-upload-area.dragover {
+            border-color: #06b6d4;
+            background: rgba(6, 182, 212, 0.1);
+            box-shadow: 0 0 0 4px rgba(6, 182, 212, 0.15);
+        }
+
+        .image-upload-area.has-image {
+            border-style: solid;
+            border-color: rgba(16, 185, 129, 0.5);
+            background: rgba(16, 185, 129, 0.04);
+            padding: 10px;
+        }
+
+        .upload-icon {
+            font-size: 28px;
+            line-height: 1;
+        }
+
+        .upload-label-text {
+            font-size: 13px;
+            font-weight: 600;
+            color: #0e7490;
+        }
+
+        .upload-sub-text {
+            font-size: 11px;
+            color: #94a3b8;
+        }
+
+        .upload-btn-trigger {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            background: linear-gradient(135deg, #0e7490, #06b6d4);
+            color: white;
+            padding: 8px 18px;
+            border-radius: 10px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            transition: all 0.3s;
+            box-shadow: 0 3px 12px rgba(14, 116, 144, 0.3);
+            margin-top: 4px;
+        }
+
+        .upload-btn-trigger:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 18px rgba(14, 116, 144, 0.4);
+        }
+
+        #fotoBarang {
+            display: none;
+        }
+
+        /* Image preview */
+        .image-preview-wrap {
+            position: relative;
+            width: 100%;
+        }
+
+        .image-preview-wrap img {
+            width: 100%;
+            max-height: 130px;
+            object-fit: contain;
+            border-radius: 10px;
+            display: block;
+        }
+
+        .image-remove-btn {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: linear-gradient(135deg, #f43f5e, #e11d48);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 26px;
+            height: 26px;
+            font-size: 13px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 8px rgba(244, 63, 94, 0.4);
+            transition: transform 0.2s;
+            line-height: 1;
+        }
+
+        .image-remove-btn:hover {
+            transform: scale(1.15);
+        }
+
+        .image-filename {
+            font-size: 11px;
+            color: #059669;
+            font-weight: 600;
+            margin-top: 6px;
+            text-align: center;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 100%;
+        }
+
         @media (max-width: 768px) {
             .sidebar {
                 transform: translateX(-100%);
@@ -988,6 +1197,283 @@
             }
 
             .form-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* ========================
+           TAMBAH MODAL STYLES
+        ======================== */
+        .btn-tambah {
+            background: linear-gradient(135deg, #10b981, #059669);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 12px;
+            font-size: 13px;
+            color: white;
+            cursor: pointer;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.35);
+            transition: all 0.3s;
+        }
+
+        .btn-tambah:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(16, 185, 129, 0.45);
+        }
+
+        .modal-tambah-wide {
+            max-width: 980px !important;
+            width: 95% !important;
+        }
+
+        /* Global row (date + supplier) */
+        .tambah-global-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr auto;
+            gap: 15px;
+            background: rgba(14, 116, 144, 0.06);
+            border: 1px solid rgba(14, 116, 144, 0.15);
+            border-radius: 14px;
+            padding: 15px 18px;
+            margin-bottom: 8px;
+        }
+
+        .btn-apply-global {
+            background: linear-gradient(135deg, #0e7490, #06b6d4);
+            color: white;
+            border: none;
+            padding: 10px 18px;
+            border-radius: 10px;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.2s;
+        }
+
+        .btn-apply-global:hover {
+            transform: scale(1.04);
+        }
+
+        /* Product row card */
+        .product-row-card {
+            border: 1.5px solid rgba(14, 116, 144, 0.2);
+            border-radius: 16px;
+            padding: 16px 18px;
+            margin-bottom: 12px;
+            background: rgba(255, 255, 255, 0.7);
+            position: relative;
+            transition: all 0.25s;
+            animation: rowSlideIn 0.3s ease;
+        }
+
+        @keyframes rowSlideIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        .product-row-card:hover {
+            border-color: rgba(14, 116, 144, 0.4);
+            box-shadow: 0 4px 15px rgba(14, 116, 144, 0.1);
+        }
+
+        .product-row-card.row-error {
+            border-color: rgba(244, 63, 94, 0.5);
+            background: rgba(244, 63, 94, 0.03);
+        }
+
+        .product-row-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 13px;
+        }
+
+        .product-row-number {
+            font-size: 12px;
+            font-weight: 800;
+            color: #0e7490;
+            background: rgba(14, 116, 144, 0.1);
+            padding: 4px 12px;
+            border-radius: 20px;
+        }
+
+        .btn-remove-row {
+            background: rgba(244, 63, 94, 0.1);
+            border: none;
+            color: #e11d48;
+            font-size: 14px;
+            font-weight: 700;
+            padding: 5px 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .btn-remove-row:hover {
+            background: rgba(244, 63, 94, 0.18);
+            transform: scale(1.05);
+        }
+
+        /* The row fields grid — compact */
+        .product-row-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+        }
+
+        .product-row-grid .fg {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .product-row-grid .fg label {
+            font-size: 11px;
+            font-weight: 700;
+            color: #64748b;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .product-row-grid .fg input,
+        .product-row-grid .fg select {
+            padding: 9px 11px;
+            border: 1.5px solid rgba(14, 116, 144, 0.2);
+            border-radius: 10px;
+            font-size: 13px;
+            width: 100%;
+            transition: all 0.2s;
+            background: white;
+        }
+
+        .product-row-grid .fg input:focus,
+        .product-row-grid .fg select:focus {
+            outline: none;
+            border-color: #0e7490;
+            box-shadow: 0 0 0 3px rgba(14, 116, 144, 0.1);
+        }
+
+        .product-row-grid .fg input.autofilled,
+        .product-row-grid .fg select.autofilled {
+            border-color: rgba(16, 185, 129, 0.5);
+            background: rgba(16, 185, 129, 0.04);
+            animation: autofillPulse 0.5s ease;
+        }
+
+        /* Autocomplete inside modal row */
+        .row-autocomplete-wrapper {
+            position: relative;
+        }
+
+        .row-autocomplete-dropdown {
+            position: absolute;
+            top: calc(100% + 4px);
+            left: 0;
+            right: 0;
+            background: white;
+            border: 2px solid #0e7490;
+            border-radius: 10px;
+            z-index: 500;
+            max-height: 200px;
+            overflow-y: auto;
+            box-shadow: 0 8px 25px rgba(14, 116, 144, 0.2);
+            display: none;
+        }
+
+        .row-autocomplete-dropdown.open {
+            display: block;
+        }
+
+        .row-ac-item {
+            padding: 9px 13px;
+            cursor: pointer;
+            font-size: 13px;
+            color: #0c4a6e;
+            border-bottom: 1px solid rgba(14, 116, 144, 0.08);
+            transition: background 0.15s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .row-ac-item:last-child { border-bottom: none; }
+
+        .row-ac-item:hover { background: rgba(14, 116, 144, 0.07); }
+
+        .row-ac-item.new-item { color: #059669; font-weight: 600; }
+
+        .row-ac-item .ac-price {
+            font-size: 11px;
+            color: #059669;
+            background: rgba(16, 185, 129, 0.1);
+            padding: 2px 7px;
+            border-radius: 7px;
+            margin-left: auto;
+            white-space: nowrap;
+        }
+
+        /* Row sync badge */
+        .row-sync-hint {
+            font-size: 10px;
+            color: #f59e0b;
+            font-weight: 600;
+            display: none;
+            margin-top: 3px;
+        }
+
+        .row-sync-hint.visible { display: block; }
+
+        /* Add row button */
+        .btn-add-row {
+            width: 100%;
+            padding: 13px;
+            border: 2px dashed rgba(14, 116, 144, 0.3);
+            background: rgba(14, 116, 144, 0.04);
+            border-radius: 14px;
+            font-size: 14px;
+            font-weight: 700;
+            color: #0e7490;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.25s;
+            margin-top: 5px;
+        }
+
+        .btn-add-row:hover {
+            background: rgba(14, 116, 144, 0.09);
+            border-color: #0e7490;
+            transform: translateY(-1px);
+        }
+
+        /* Summary */
+        .tambah-summary {
+            margin-top: 15px;
+            padding: 13px 18px;
+            background: rgba(14, 116, 144, 0.07);
+            border-radius: 12px;
+            display: flex;
+            justify-content: space-between;
+            font-size: 14px;
+            font-weight: 700;
+            color: #0c4a6e;
+        }
+
+        @media (max-width: 768px) {
+            .product-row-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            .tambah-global-row {
                 grid-template-columns: 1fr;
             }
         }
@@ -1071,25 +1557,13 @@
         }
 
         @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-
-            to {
-                opacity: 1;
-            }
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
 
         @keyframes slideUp {
-            from {
-                transform: translateY(40px);
-                opacity: 0;
-            }
-
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
+            from { transform: translateY(40px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
         }
     </style>
 </head>
@@ -1145,85 +1619,12 @@
             </div>
         </div>
 
-        <!-- Form Input Barang Masuk -->
-        <div class="form-container">
-            <h2 style="color:#0c4a6e;margin-bottom:20px;font-size:18px;font-weight:800;">➕ Tambah Barang Masuk</h2>
-            <form id="barangMasukForm" autocomplete="off">
-                <div class="form-grid">
-                    <!-- Nama Barang with Autocomplete -->
-                    <div class="form-group">
-                        <label for="namaBarang">Nama Barang</label>
-                        <div class="autocomplete-wrapper">
-                            <input type="text" id="namaBarang" placeholder="Ketik atau pilih nama barang..." required>
-                            <div class="autocomplete-dropdown" id="autocompleteDropdown"></div>
-                        </div>
-                        <div class="autocomplete-hint">💡 Ketik untuk mencari barang terdaftar, atau ketik nama baru
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="kategori">Kategori</label>
-                        <select id="kategori" required>
-                            <option value="">Pilih kategori</option>
-                            <option value="pancing">Alat Pancing</option>
-                            <option value="umpan">Umpan</option>
-                            <option value="aksesoris">Aksesoris</option>
-                            <option value="pakaian">Pakaian</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="jumlah">Jumlah</label>
-                        <input type="number" id="jumlah" placeholder="0" min="1" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="satuan">Satuan</label>
-                        <select id="satuan" required>
-                            <option value="">Pilih satuan</option>
-                            <option value="pcs">Pcs</option>
-                            <option value="pack">Pack</option>
-                            <option value="lusin">Lusin</option>
-                            <option value="kg">Kg</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="supplier">Supplier</label>
-                        <select id="supplier" required>
-                            <option value="">Pilih supplier</option>
-                            <option value="supplier1">PT. Alat Pancing Indonesia</option>
-                            <option value="supplier2">CV. Umpan Jaya</option>
-                            <option value="supplier3">Toko Aksesoris Laut</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="tanggalMasuk">Tanggal Masuk</label>
-                        <input type="date" id="tanggalMasuk" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="hargaBeli">Harga Beli (Rp)</label>
-                        <input type="number" id="hargaBeli" placeholder="0" min="0" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="hargaJual">Harga Jual (Rp)</label>
-                        <input type="number" id="hargaJual" placeholder="0" min="0" required>
-                    </div>
-                </div>
-                <div class="form-actions">
-                    <button type="reset" class="btn btn-secondary" id="resetBtn">
-                        <span>🔄</span> Reset
-                    </button>
-                    <button type="submit" class="btn btn-primary">
-                        <span>💾</span> Simpan Barang Masuk
-                    </button>
-                </div>
-            </form>
-        </div>
-
         <!-- Daftar Barang Masuk -->
         <div class="card">
             <div class="card-header">
                 <h3>📋 Daftar Barang Masuk</h3>
                 <div style="display:flex;gap:10px;">
-                    <!-- <button class="print-btn" id="printBtn">🖨️ Cetak Laporan</button> -->
+                    <button class="btn-tambah" id="openTambahModal">➕ Tambah Barang</button>
                     <button class="filter-btn" id="filterToggleBtn">🔍 Filter</button>
                 </div>
             </div>
@@ -1307,13 +1708,37 @@
             </div>
 
             <div class="pagination" id="pagination"></div>
-
-            <div class="total-summary">
-                <div>Total Ditampilkan: <strong id="totalItems">0</strong> item</div>
-                <div>Total Nilai Beli: <strong id="totalValue">Rp 0</strong></div>
-            </div>
         </div>
     </main>
+
+    <!-- ===================== TAMBAH BARANG MASUK MODAL ===================== -->
+    <div class="modal" id="tambahModal">
+        <div class="modal-content modal-tambah-wide">
+            <div class="modal-header">
+                <div>
+                    <h3>➕ Tambah Barang Masuk</h3>
+                    <div style="font-size:12px;opacity:0.85;margin-top:3px;">Bisa tambah lebih dari 1 produk sekaligus</div>
+                </div>
+                <button class="modal-close" id="closeTambahModal">✕</button>
+            </div>
+            <div class="modal-body" style="padding:20px 25px;">
+
+                <!-- Product rows container -->
+                <div id="productRowsContainer"></div>
+
+                <!-- Add row button -->
+                <button class="btn-add-row" id="addRowBtn">
+                    <span style="font-size:18px;">➕</span> Tambah Produk Lagi
+                </button>
+
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" id="cancelTambah">Batal</button>
+                <button class="btn btn-primary" id="saveTambah">💾 Simpan Semua Barang</button>
+            </div>
+        </div>
+    </div>
+    <!-- ================================================================ -->
 
     <!-- Edit Modal -->
     <div class="modal" id="editModal">
@@ -1323,6 +1748,12 @@
                 <button class="modal-close" id="closeEditModal">✕</button>
             </div>
             <div class="modal-body">
+                <!-- Price sync notice in edit modal -->
+                <div class="price-sync-notice" id="editPriceSyncNotice">
+                    <span>⚠️</span>
+                    <span id="editPriceSyncText">Harga diubah — data master barang "<span id="editPriceSyncName"></span>" akan ikut diperbarui.</span>
+                </div>
+
                 <form id="editBarangForm" autocomplete="off">
                     <div class="form-grid">
                         <div class="form-group">
@@ -1392,8 +1823,7 @@
                 <button class="modal-close" id="closeDeleteModal">✕</button>
             </div>
             <div class="modal-body">
-                <p style="color:#64748b;margin-bottom:12px;">Apakah Anda yakin ingin menghapus data barang masuk ini?
-                </p>
+                <p style="color:#64748b;margin-bottom:12px;">Apakah Anda yakin ingin menghapus data barang masuk ini?</p>
                 <p style="font-weight:700;color:#0c4a6e;font-size:16px;" id="itemToDeleteName"></p>
             </div>
             <div class="modal-footer">
@@ -1431,30 +1861,33 @@
             pcs: 'Pcs', pack: 'Pack', lusin: 'Lusin', kg: 'Kg'
         };
 
-        // Daftar nama barang terdaftar (master data)
+        // ========================
+        // MASTER BARANG
+        // Sekarang menyimpan detail lengkap: satuan, supplier, hargaBeli, hargaJual
+        // ========================
         let masterBarang = [
-            { nama: 'Joran Ultralight', kategori: 'pancing' },
-            { nama: 'Joran Carbon 2m', kategori: 'pancing' },
-            { nama: 'Reel Spinning 3000', kategori: 'pancing' },
-            { nama: 'Senar Fluorocarbon 0.3mm', kategori: 'pancing' },
-            { nama: 'Umpan Pelet Ikan Mas', kategori: 'umpan' },
-            { nama: 'Umpan Cacing Kering', kategori: 'umpan' },
-            { nama: 'Umpan Udang Beku', kategori: 'umpan' },
-            { nama: 'Kail Ukuran 10', kategori: 'aksesoris' },
-            { nama: 'Kail Ukuran 8', kategori: 'aksesoris' },
-            { nama: 'Pelampung Oval', kategori: 'aksesoris' },
-            { nama: 'Tackle Box Medium', kategori: 'aksesoris' },
-            { nama: 'Rompi Pancing', kategori: 'pakaian' },
-            { nama: 'Topi Pancing UV Protection', kategori: 'pakaian' },
-            { nama: 'Sarung Tangan Pancing', kategori: 'pakaian' },
+            { nama: 'Joran Ultralight',         kategori: 'pancing',   satuan: 'pcs',  supplier: 'supplier1', hargaBeli: 150000, hargaJual: 200000 },
+            { nama: 'Joran Carbon 2m',           kategori: 'pancing',   satuan: 'pcs',  supplier: 'supplier1', hargaBeli: 180000, hargaJual: 250000 },
+            { nama: 'Reel Spinning 3000',        kategori: 'pancing',   satuan: 'pcs',  supplier: 'supplier1', hargaBeli: 200000, hargaJual: 280000 },
+            { nama: 'Senar Fluorocarbon 0.3mm',  kategori: 'pancing',   satuan: 'pack', supplier: 'supplier1', hargaBeli: 35000,  hargaJual: 55000  },
+            { nama: 'Umpan Pelet Ikan Mas',      kategori: 'umpan',     satuan: 'kg',   supplier: 'supplier2', hargaBeli: 25000,  hargaJual: 35000  },
+            { nama: 'Umpan Cacing Kering',       kategori: 'umpan',     satuan: 'pack', supplier: 'supplier2', hargaBeli: 15000,  hargaJual: 22000  },
+            { nama: 'Umpan Udang Beku',          kategori: 'umpan',     satuan: 'pack', supplier: 'supplier2', hargaBeli: 20000,  hargaJual: 30000  },
+            { nama: 'Kail Ukuran 10',            kategori: 'aksesoris', satuan: 'pcs',  supplier: 'supplier3', hargaBeli: 5000,   hargaJual: 8000   },
+            { nama: 'Kail Ukuran 8',             kategori: 'aksesoris', satuan: 'pcs',  supplier: 'supplier3', hargaBeli: 5000,   hargaJual: 8000   },
+            { nama: 'Pelampung Oval',            kategori: 'aksesoris', satuan: 'pcs',  supplier: 'supplier3', hargaBeli: 8000,   hargaJual: 13000  },
+            { nama: 'Tackle Box Medium',         kategori: 'aksesoris', satuan: 'pcs',  supplier: 'supplier3', hargaBeli: 45000,  hargaJual: 70000  },
+            { nama: 'Rompi Pancing',             kategori: 'pakaian',   satuan: 'pcs',  supplier: 'supplier1', hargaBeli: 120000, hargaJual: 180000 },
+            { nama: 'Topi Pancing UV Protection',kategori: 'pakaian',   satuan: 'pcs',  supplier: 'supplier1', hargaBeli: 55000,  hargaJual: 85000  },
+            { nama: 'Sarung Tangan Pancing',     kategori: 'pakaian',   satuan: 'pcs',  supplier: 'supplier1', hargaBeli: 30000,  hargaJual: 50000  },
         ];
 
         let barangMasukData = [
-            { id: 1, nama: 'Joran Ultralight', kategori: 'pancing', jumlah: 15, satuan: 'pcs', hargaBeli: 150000, hargaJual: 200000, supplier: 'supplier1', tanggalMasuk: '2023-11-12', status: 'aman' },
-            { id: 2, nama: 'Umpan Pelet Ikan Mas', kategori: 'umpan', jumlah: 5, satuan: 'kg', hargaBeli: 25000, hargaJual: 35000, supplier: 'supplier2', tanggalMasuk: '2023-11-10', status: 'menipis' },
-            { id: 3, nama: 'Kail Ukuran 10', kategori: 'aksesoris', jumlah: 0, satuan: 'pcs', hargaBeli: 5000, hargaJual: 8000, supplier: 'supplier3', tanggalMasuk: '2023-11-08', status: 'habis' },
-            { id: 4, nama: 'Rompi Pancing', kategori: 'pakaian', jumlah: 10, satuan: 'pcs', hargaBeli: 120000, hargaJual: 180000, supplier: 'supplier1', tanggalMasuk: '2023-11-05', status: 'aman' },
-            { id: 5, nama: 'Reel Spinning 3000', kategori: 'pancing', jumlah: 8, satuan: 'pcs', hargaBeli: 200000, hargaJual: 280000, supplier: 'supplier1', tanggalMasuk: '2023-11-01', status: 'aman' },
+            { id: 1, nama: 'Joran Ultralight',    kategori: 'pancing',   jumlah: 15, satuan: 'pcs', hargaBeli: 150000, hargaJual: 200000, supplier: 'supplier1', tanggalMasuk: '2023-11-12', status: 'aman' },
+            { id: 2, nama: 'Umpan Pelet Ikan Mas',kategori: 'umpan',     jumlah: 5,  satuan: 'kg',  hargaBeli: 25000,  hargaJual: 35000,  supplier: 'supplier2', tanggalMasuk: '2023-11-10', status: 'menipis' },
+            { id: 3, nama: 'Kail Ukuran 10',      kategori: 'aksesoris', jumlah: 0,  satuan: 'pcs', hargaBeli: 5000,   hargaJual: 8000,   supplier: 'supplier3', tanggalMasuk: '2023-11-08', status: 'habis' },
+            { id: 4, nama: 'Rompi Pancing',        kategori: 'pakaian',   jumlah: 10, satuan: 'pcs', hargaBeli: 120000, hargaJual: 180000, supplier: 'supplier1', tanggalMasuk: '2023-11-05', status: 'aman' },
+            { id: 5, nama: 'Reel Spinning 3000',   kategori: 'pancing',   jumlah: 8,  satuan: 'pcs', hargaBeli: 200000, hargaJual: 280000, supplier: 'supplier1', tanggalMasuk: '2023-11-01', status: 'aman' },
         ];
 
         let nextId = 6;
@@ -1473,7 +1906,7 @@
             const t = document.getElementById('toast');
             t.textContent = (type === 'success' ? '✅ ' : type === 'error' ? '❌ ' : '⚠️ ') + msg;
             t.className = `toast ${type} show`;
-            setTimeout(() => t.classList.remove('show'), 3000);
+            setTimeout(() => t.classList.remove('show'), 3500);
         }
 
         // ========================
@@ -1502,60 +1935,378 @@
         }
 
         // ========================
-        // AUTOCOMPLETE
+        // AUTOFILL HELPERS
         // ========================
-        const namaBarangInput = document.getElementById('namaBarang');
-        const dropdown = document.getElementById('autocompleteDropdown');
+        function setAutofillClass(el) {
+            el.classList.add('autofilled');
+            setTimeout(() => el.classList.remove('autofilled'), 800);
+        }
 
-        namaBarangInput.addEventListener('input', function () {
-            const val = this.value.trim().toLowerCase();
-            if (!val) { dropdown.classList.remove('open'); return; }
-
-            const matched = masterBarang.filter(b => b.nama.toLowerCase().includes(val));
-            const isExact = masterBarang.some(b => b.nama.toLowerCase() === val);
-
-            let html = '';
-            matched.forEach(b => {
-                html += `<div class="autocomplete-item" data-nama="${b.nama}" data-kat="${b.kategori}">
-            <span>📦</span> ${b.nama}
-            <span class="item-cat">${kategoriMap[b.kategori] || b.kategori}</span>
-        </div>`;
-            });
-
-            if (!isExact && this.value.trim().length >= 2) {
-                html += `<div class="autocomplete-item new-item" data-nama="${this.value.trim()}" data-kat="">
-            <span>➕</span> Tambah baru: "<strong>${this.value.trim()}</strong>"
-        </div>`;
+        // ========================
+        // SYNC MASTER HARGA
+        // Update harga di masterBarang berdasarkan nama barang
+        // ========================
+        function syncMasterHarga(nama, hargaBeli, hargaJual) {
+            const idx = masterBarang.findIndex(b => b.nama === nama);
+            if (idx >= 0) {
+                let changed = false;
+                if (masterBarang[idx].hargaBeli !== hargaBeli) {
+                    masterBarang[idx].hargaBeli = hargaBeli;
+                    changed = true;
+                }
+                if (masterBarang[idx].hargaJual !== hargaJual) {
+                    masterBarang[idx].hargaJual = hargaJual;
+                    changed = true;
+                }
+                return changed;
             }
+            return false;
+        }
 
-            if (!html) { dropdown.classList.remove('open'); return; }
-            dropdown.innerHTML = html;
-            dropdown.classList.add('open');
+        // Sync semua baris di barangMasukData yang memiliki nama sama
+        function syncAllRowHarga(nama, hargaBeli, hargaJual) {
+            let count = 0;
+            barangMasukData.forEach(item => {
+                if (item.nama === nama) {
+                    item.hargaBeli = hargaBeli;
+                    item.hargaJual = hargaJual;
+                    count++;
+                }
+            });
+            return count;
+        }
 
-            dropdown.querySelectorAll('.autocomplete-item').forEach(item => {
-                item.addEventListener('click', function () {
-                    const nama = this.getAttribute('data-nama');
-                    const kat = this.getAttribute('data-kat');
-                    namaBarangInput.value = nama;
-                    if (kat) document.getElementById('kategori').value = kat;
-                    dropdown.classList.remove('open');
+        // ========================
+        // MULTI-ROW TAMBAH MODAL
+        // ========================
+        let rowCounter = 0;
 
-                    // If new item, add to master
-                    if (!masterBarang.find(b => b.nama === nama)) {
-                        masterBarang.push({ nama, kategori: kat });
-                    }
+        function todayStr() {
+            return new Date().toISOString().split('T')[0];
+        }
+
+        function satuanOptions(sel = '') {
+            const opts = [['', 'Pilih satuan'], ['pcs', 'Pcs'], ['pack', 'Pack'], ['lusin', 'Lusin'], ['kg', 'Kg']];
+            return opts.map(([v, l]) => `<option value="${v}" ${sel === v ? 'selected' : ''}>${l}</option>`).join('');
+        }
+        function supplierOptions(sel = '') {
+            const opts = [['', 'Pilih supplier'], ['supplier1', 'PT. Alat Pancing Indonesia'], ['supplier2', 'CV. Umpan Jaya'], ['supplier3', 'Toko Aksesoris Laut']];
+            return opts.map(([v, l]) => `<option value="${v}" ${sel === v ? 'selected' : ''}>${l}</option>`).join('');
+        }
+        function kategoriOptions(sel = '') {
+            const opts = [['', 'Pilih kategori'], ['pancing', 'Alat Pancing'], ['umpan', 'Umpan'], ['aksesoris', 'Aksesoris'], ['pakaian', 'Pakaian']];
+            return opts.map(([v, l]) => `<option value="${v}" ${sel === v ? 'selected' : ''}>${l}</option>`).join('');
+        }
+
+        function createProductRow(index) {
+            rowCounter++;
+            const rid = rowCounter;
+            const container = document.getElementById('productRowsContainer');
+            const div = document.createElement('div');
+            div.className = 'product-row-card';
+            div.dataset.rowId = rid;
+
+            div.innerHTML = `
+                <div class="product-row-header">
+                    <span class="product-row-number">Produk #${index}</span>
+                    <button type="button" class="btn-remove-row" onclick="removeProductRow(${rid})">🗑️ Hapus</button>
+                </div>
+                <div class="product-row-grid">
+                    <div class="fg">
+                        <label>Nama Barang <span style="color:#e11d48">*</span></label>
+                        <div class="row-autocomplete-wrapper">
+                            <input type="text" class="row-nama" data-rid="${rid}" placeholder="Ketik nama barang..." autocomplete="off">
+                            <div class="row-autocomplete-dropdown" id="rowDd_${rid}"></div>
+                        </div>
+                    </div>
+                    <div class="fg">
+                        <label>Kategori <span style="color:#e11d48">*</span></label>
+                        <select class="row-kategori" data-rid="${rid}">
+                            ${kategoriOptions()}
+                        </select>
+                    </div>
+                    <div class="fg">
+                        <label>Jumlah <span style="color:#e11d48">*</span></label>
+                        <input type="number" class="row-jumlah" data-rid="${rid}" placeholder="0" min="1">
+                    </div>
+                    <div class="fg">
+                        <label>Satuan <span style="color:#e11d48">*</span></label>
+                        <select class="row-satuan" data-rid="${rid}">
+                            ${satuanOptions()}
+                        </select>
+                    </div>
+                    <div class="fg">
+                        <label>Harga Beli (Rp) <span style="color:#e11d48">*</span></label>
+                        <input type="number" class="row-harga-beli" data-rid="${rid}" placeholder="0" min="0">
+                        <div class="row-sync-hint" id="syncHintBeli_${rid}">🔄 Harga master akan diperbarui</div>
+                    </div>
+                    <div class="fg">
+                        <label>Harga Jual (Rp) <span style="color:#e11d48">*</span></label>
+                        <input type="number" class="row-harga-jual" data-rid="${rid}" placeholder="0" min="0">
+                        <div class="row-sync-hint" id="syncHintJual_${rid}">🔄 Harga master akan diperbarui</div>
+                    </div>
+                    <div class="fg">
+                        <label>Supplier <span style="color:#e11d48">*</span></label>
+                        <select class="row-supplier" data-rid="${rid}">
+                            ${supplierOptions()}
+                        </select>
+                    </div>
+                    <div class="fg">
+                        <label>Tanggal Masuk <span style="color:#e11d48">*</span></label>
+                        <input type="date" class="row-tanggal" data-rid="${rid}" value="${todayStr()}">
+                    </div>
+                </div>
+            `;
+            container.appendChild(div);
+
+            // Setup autocomplete for this row
+            setupRowAutocomplete(rid);
+            // Setup price sync hints
+            setupRowPriceSync(rid);
+        }
+
+        function removeProductRow(rid) {
+            const el = document.querySelector(`.product-row-card[data-row-id="${rid}"]`);
+            if (el) {
+                el.style.animation = 'none';
+                el.style.transition = 'all 0.25s ease';
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(-8px)';
+                setTimeout(() => {
+                    el.remove();
+                    renumberRows();
+                }, 230);
+            }
+        }
+
+        function renumberRows() {
+            document.querySelectorAll('.product-row-card').forEach((card, i) => {
+                const badge = card.querySelector('.product-row-number');
+                if (badge) badge.textContent = `Produk #${i + 1}`;
+            });
+        }
+
+        function setupRowAutocomplete(rid) {
+            const input = document.querySelector(`.row-nama[data-rid="${rid}"]`);
+            const dd    = document.getElementById(`rowDd_${rid}`);
+            if (!input || !dd) return;
+
+            let originalHargaBeli = null;
+            let originalHargaJual = null;
+            let rowAutofilled = false;
+
+            input.addEventListener('input', function () {
+                const val = this.value.trim().toLowerCase();
+                rowAutofilled = false;
+                originalHargaBeli = null;
+                originalHargaJual = null;
+                document.getElementById(`syncHintBeli_${rid}`)?.classList.remove('visible');
+                document.getElementById(`syncHintJual_${rid}`)?.classList.remove('visible');
+
+                if (!val) { dd.classList.remove('open'); return; }
+
+                const matched = masterBarang.filter(b => b.nama.toLowerCase().includes(val));
+                const isExact = masterBarang.some(b => b.nama.toLowerCase() === val);
+
+                let html = '';
+                matched.forEach(b => {
+                    html += `<div class="row-ac-item"
+                        data-nama="${b.nama}"
+                        data-kat="${b.kategori || ''}"
+                        data-satuan="${b.satuan || ''}"
+                        data-supplier="${b.supplier || ''}"
+                        data-hb="${b.hargaBeli || ''}"
+                        data-hj="${b.hargaJual || ''}">
+                        <span>📦</span> ${b.nama}
+                        ${b.hargaJual ? `<span class="ac-price">Jual: ${formatRp(b.hargaJual)}</span>` : ''}
+                    </div>`;
+                });
+
+                if (!isExact && this.value.trim().length >= 2) {
+                    html += `<div class="row-ac-item new-item"
+                        data-nama="${this.value.trim()}"
+                        data-kat="" data-satuan="" data-supplier="" data-hb="" data-hj="">
+                        <span>➕</span> Tambah baru: "<strong>${this.value.trim()}</strong>"
+                    </div>`;
+                }
+
+                if (!html) { dd.classList.remove('open'); return; }
+                dd.innerHTML = html;
+                dd.classList.add('open');
+
+                dd.querySelectorAll('.row-ac-item').forEach(item => {
+                    item.addEventListener('mousedown', function (e) {
+                        e.preventDefault();
+                        const nama     = this.dataset.nama;
+                        const kat      = this.dataset.kat;
+                        const satuan   = this.dataset.satuan;
+                        const supplier = this.dataset.supplier;
+                        const hb       = this.dataset.hb;
+                        const hj       = this.dataset.hj;
+
+                        input.value = nama;
+                        dd.classList.remove('open');
+
+                        const card = document.querySelector(`.product-row-card[data-row-id="${rid}"]`);
+                        if (!card) return;
+
+                        const autofill = (cls, val) => {
+                            const el = card.querySelector(cls);
+                            if (el && val) { el.value = val; setAutofillClass(el); }
+                        };
+
+                        autofill('.row-kategori', kat);
+                        autofill('.row-satuan', satuan);
+                        autofill('.row-supplier', supplier);
+                        autofill('.row-harga-beli', hb);
+                        autofill('.row-harga-jual', hj);
+
+                        if (hb) { originalHargaBeli = parseInt(hb); rowAutofilled = true; }
+                        if (hj) { originalHargaJual = parseInt(hj); rowAutofilled = true; }
+
+                        if (!masterBarang.find(b => b.nama === nama)) {
+                            masterBarang.push({ nama, kategori: kat, satuan, supplier, hargaBeli: parseInt(hb)||0, hargaJual: parseInt(hj)||0 });
+                        }
+                    });
                 });
             });
+
+            input.addEventListener('focus', function () {
+                if (this.value.trim().length >= 1) this.dispatchEvent(new Event('input'));
+            });
+
+            input.addEventListener('blur', function () {
+                setTimeout(() => dd.classList.remove('open'), 150);
+            });
+
+            // Expose originalHarga per-row via closure — accessed in price sync
+            input._getOriginalHb = () => originalHargaBeli;
+            input._getOriginalHj = () => originalHargaJual;
+            input._isAutofilled  = () => rowAutofilled;
+        }
+
+        function setupRowPriceSync(rid) {
+            const card = () => document.querySelector(`.product-row-card[data-row-id="${rid}"]`);
+            const namaInput = () => card()?.querySelector('.row-nama');
+            const hbInput = () => card()?.querySelector('.row-harga-beli');
+            const hjInput = () => card()?.querySelector('.row-harga-jual');
+
+            const check = () => {
+                const ni = namaInput();
+                if (!ni || !ni._isAutofilled?.()) return;
+                const hbNow = parseInt(hbInput()?.value) || 0;
+                const hjNow = parseInt(hjInput()?.value) || 0;
+                document.getElementById(`syncHintBeli_${rid}`)?.classList.toggle('visible', hbNow !== (ni._getOriginalHb() || hbNow));
+                document.getElementById(`syncHintJual_${rid}`)?.classList.toggle('visible', hjNow !== (ni._getOriginalHj() || hjNow));
+            };
+
+            setTimeout(() => {
+                hbInput()?.addEventListener('input', check);
+                hjInput()?.addEventListener('input', check);
+            }, 50);
+        }
+
+        // Open tambah modal
+        document.getElementById('openTambahModal').addEventListener('click', function () {
+            rowCounter = 0;
+            document.getElementById('productRowsContainer').innerHTML = '';
+            document.getElementById('tambahModal').classList.add('active');
+            createProductRow(1);
         });
 
+        function closeTambahModal() {
+            document.getElementById('tambahModal').classList.remove('active');
+        }
+
+        document.getElementById('closeTambahModal').addEventListener('click', closeTambahModal);
+        document.getElementById('cancelTambah').addEventListener('click', closeTambahModal);
+
+        // Add row button
+        document.getElementById('addRowBtn').addEventListener('click', function () {
+            const count = document.querySelectorAll('.product-row-card').length;
+            createProductRow(count + 1);
+            // Scroll to new row
+            setTimeout(() => {
+                const cards = document.querySelectorAll('.product-row-card');
+                cards[cards.length - 1]?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }, 100);
+        });
+
+        // Save all products
+        document.getElementById('saveTambah').addEventListener('click', function () {
+            const cards = document.querySelectorAll('.product-row-card');
+            if (cards.length === 0) { showToast('Tambahkan minimal 1 produk!', 'error'); return; }
+
+            let hasError = false;
+            const items = [];
+
+            cards.forEach((card, idx) => {
+                card.classList.remove('row-error');
+                const nama     = card.querySelector('.row-nama')?.value.trim();
+                const kategori = card.querySelector('.row-kategori')?.value;
+                const jumlah   = parseInt(card.querySelector('.row-jumlah')?.value);
+                const satuan   = card.querySelector('.row-satuan')?.value;
+                const hargaBeli= parseInt(card.querySelector('.row-harga-beli')?.value);
+                const hargaJual= parseInt(card.querySelector('.row-harga-jual')?.value);
+                const supplier = card.querySelector('.row-supplier')?.value;
+                const tanggal  = card.querySelector('.row-tanggal')?.value;
+
+                if (!nama || !kategori || !jumlah || !satuan || !hargaBeli || !hargaJual || !supplier || !tanggal) {
+                    card.classList.add('row-error');
+                    hasError = true;
+                    return;
+                }
+                items.push({ nama, kategori, jumlah, satuan, hargaBeli, hargaJual, supplier, tanggalMasuk: tanggal });
+            });
+
+            if (hasError) { showToast('Lengkapi semua field yang wajib diisi (ditandai merah)!', 'error'); return; }
+
+            showLoading();
+            setTimeout(() => {
+                hideLoading();
+                let priceUpdatedCount = 0;
+
+                items.forEach(item => {
+                    // Sync harga master jika berubah
+                    const mIdx = masterBarang.findIndex(b => b.nama === item.nama);
+                    if (mIdx >= 0) {
+                        const hbChanged = masterBarang[mIdx].hargaBeli !== item.hargaBeli;
+                        const hjChanged = masterBarang[mIdx].hargaJual !== item.hargaJual;
+                        if (hbChanged || hjChanged) {
+                            syncMasterHarga(item.nama, item.hargaBeli, item.hargaJual);
+                            syncAllRowHarga(item.nama, item.hargaBeli, item.hargaJual);
+                            priceUpdatedCount++;
+                        }
+                        masterBarang[mIdx].satuan = item.satuan;
+                        masterBarang[mIdx].supplier = item.supplier;
+                    } else {
+                        masterBarang.push({ nama: item.nama, kategori: item.kategori, satuan: item.satuan, supplier: item.supplier, hargaBeli: item.hargaBeli, hargaJual: item.hargaJual });
+                    }
+
+                    barangMasukData.unshift({
+                        id: nextId++,
+                        ...item,
+                        status: getStatus(item.jumlah)
+                    });
+                });
+
+                closeTambahModal();
+                currentPage = 1;
+                renderTable();
+
+                if (priceUpdatedCount > 0) {
+                    showToast(`${items.length} barang disimpan, ${priceUpdatedCount} harga master diperbarui!`, 'warning');
+                } else {
+                    showToast(`${items.length} barang berhasil ditambahkan!`, 'success');
+                }
+            }, 900);
+        });
+
+        // Close dropdown on outside click
         document.addEventListener('click', function (e) {
-            if (!e.target.closest('.autocomplete-wrapper')) {
-                dropdown.classList.remove('open');
+            if (!e.target.closest('.row-autocomplete-wrapper')) {
+                document.querySelectorAll('.row-autocomplete-dropdown').forEach(dd => dd.classList.remove('open'));
             }
-        });
-
-        namaBarangInput.addEventListener('focus', function () {
-            if (this.value.trim().length >= 1) this.dispatchEvent(new Event('input'));
         });
 
         // ========================
@@ -1564,7 +2315,6 @@
         function getFilteredData() {
             let data = [...barangMasukData];
 
-            // Search
             if (searchKeyword) {
                 const kw = searchKeyword.toLowerCase();
                 data = data.filter(d =>
@@ -1574,22 +2324,11 @@
                 );
             }
 
-            // Filters
-            if (activeFilters.tanggalDari) {
-                data = data.filter(d => d.tanggalMasuk >= activeFilters.tanggalDari);
-            }
-            if (activeFilters.tanggalSampai) {
-                data = data.filter(d => d.tanggalMasuk <= activeFilters.tanggalSampai);
-            }
-            if (activeFilters.kategori) {
-                data = data.filter(d => d.kategori === activeFilters.kategori);
-            }
-            if (activeFilters.supplier) {
-                data = data.filter(d => d.supplier === activeFilters.supplier);
-            }
-            if (activeFilters.status) {
-                data = data.filter(d => d.status === activeFilters.status);
-            }
+            if (activeFilters.tanggalDari) data = data.filter(d => d.tanggalMasuk >= activeFilters.tanggalDari);
+            if (activeFilters.tanggalSampai) data = data.filter(d => d.tanggalMasuk <= activeFilters.tanggalSampai);
+            if (activeFilters.kategori) data = data.filter(d => d.kategori === activeFilters.kategori);
+            if (activeFilters.supplier) data = data.filter(d => d.supplier === activeFilters.supplier);
+            if (activeFilters.status) data = data.filter(d => d.status === activeFilters.status);
             if (activeFilters.jumlahMin !== undefined && activeFilters.jumlahMin !== '') {
                 data = data.filter(d => d.jumlah >= parseInt(activeFilters.jumlahMin));
             }
@@ -1608,34 +2347,28 @@
             const body = document.getElementById('tableBody');
             if (filtered.length === 0) {
                 body.innerHTML = `<div class="empty-state">
-            <span class="icon">📭</span>
-            <p>Tidak ada data yang sesuai dengan pencarian atau filter.</p>
-        </div>`;
+                    <span class="icon">📭</span>
+                    <p>Tidak ada data yang sesuai dengan pencarian atau filter.</p>
+                </div>`;
             } else {
                 body.innerHTML = pageData.map(item => `
-            <div class="item-row" data-id="${item.id}">
-                <div><strong>${item.nama}</strong></div>
-                <div>${kategoriMap[item.kategori] || item.kategori}</div>
-                <div>${item.jumlah} ${satuanMap[item.satuan] || item.satuan}</div>
-                <div class="harga">${formatRp(item.hargaBeli)}</div>
-                <div class="harga">${formatRp(item.hargaJual)}</div>
-                <div>${supplierMap[item.supplier] || item.supplier}</div>
-                <div>${formatDate(item.tanggalMasuk)}</div>
-                <div><span class="status-badge ${item.status}">${statusLabel(item.status)}</span></div>
-                <div class="item-actions">
-                    <button class="btn-icon btn-edit" onclick="openEdit(${item.id})">✏️</button>
-                    <button class="btn-icon btn-delete" onclick="openDelete(${item.id})">🗑️</button>
-                </div>
-            </div>
-        `).join('');
+                    <div class="item-row" data-id="${item.id}">
+                        <div><strong>${item.nama}</strong></div>
+                        <div>${kategoriMap[item.kategori] || item.kategori}</div>
+                        <div>${item.jumlah} ${satuanMap[item.satuan] || item.satuan}</div>
+                        <div class="harga">${formatRp(item.hargaBeli)}</div>
+                        <div class="harga">${formatRp(item.hargaJual)}</div>
+                        <div>${supplierMap[item.supplier] || item.supplier}</div>
+                        <div>${formatDate(item.tanggalMasuk)}</div>
+                        <div><span class="status-badge ${item.status}">${statusLabel(item.status)}</span></div>
+                        <div class="item-actions">
+                            <button class="btn-icon btn-edit" onclick="openEdit(${item.id})">✏️</button>
+                            <button class="btn-icon btn-delete" onclick="openDelete(${item.id})">🗑️</button>
+                        </div>
+                    </div>
+                `).join('');
             }
 
-            // Summary
-            const totalNilai = filtered.reduce((s, d) => s + (d.hargaBeli * d.jumlah), 0);
-            document.getElementById('totalItems').textContent = filtered.length;
-            document.getElementById('totalValue').textContent = formatRp(totalNilai);
-
-            // Result count
             const rc = document.getElementById('resultCount');
             if (searchKeyword || Object.keys(activeFilters).some(k => activeFilters[k] !== '' && activeFilters[k] !== undefined)) {
                 rc.style.display = 'inline-block';
@@ -1664,6 +2397,17 @@
             if (p < 1 || p > totalPages) return;
             currentPage = p;
             renderTable();
+        }
+
+        // Flash animasi pada baris yang harganya berubah
+        function flashUpdatedRows(nama) {
+            document.querySelectorAll('.item-row').forEach(row => {
+                const nameCell = row.querySelector('div:first-child strong');
+                if (nameCell && nameCell.textContent === nama) {
+                    row.classList.add('price-updated');
+                    setTimeout(() => row.classList.remove('price-updated'), 1500);
+                }
+            });
         }
 
         // ========================
@@ -1710,70 +2454,57 @@
         });
 
         // ========================
-        // FORM SUBMIT (ADD)
-        // ========================
-        document.getElementById('barangMasukForm').addEventListener('submit', function (e) {
-            e.preventDefault();
-            const nama = document.getElementById('namaBarang').value.trim();
-            const kategori = document.getElementById('kategori').value;
-            const jumlah = parseInt(document.getElementById('jumlah').value);
-            const satuan = document.getElementById('satuan').value;
-            const supplier = document.getElementById('supplier').value;
-            const tanggalMasuk = document.getElementById('tanggalMasuk').value;
-            const hargaBeli = parseInt(document.getElementById('hargaBeli').value);
-            const hargaJual = parseInt(document.getElementById('hargaJual').value);
-
-            if (!nama || !kategori || !jumlah || !satuan || !supplier || !tanggalMasuk || !hargaBeli || !hargaJual) {
-                showToast('Harap lengkapi semua field!', 'error'); return;
-            }
-
-            showLoading();
-            setTimeout(() => {
-                hideLoading();
-                const newItem = {
-                    id: nextId++,
-                    nama, kategori, jumlah, satuan, supplier, tanggalMasuk, hargaBeli, hargaJual,
-                    status: getStatus(jumlah)
-                };
-                barangMasukData.unshift(newItem);
-
-                // Add to master if new
-                if (!masterBarang.find(b => b.nama === nama)) {
-                    masterBarang.push({ nama, kategori });
-                }
-
-                document.getElementById('barangMasukForm').reset();
-                document.getElementById('tanggalMasuk').valueAsDate = new Date();
-                currentPage = 1;
-                renderTable();
-                showToast(`Barang "${nama}" berhasil ditambahkan!`, 'success');
-            }, 1000);
-        });
-
-        document.getElementById('resetBtn').addEventListener('click', function () {
-            setTimeout(() => { document.getElementById('tanggalMasuk').valueAsDate = new Date(); }, 10);
-        });
-
-        // ========================
         // EDIT
         // ========================
+        let editOriginalHargaBeli = null;
+        let editOriginalHargaJual = null;
+        let editOriginalNama = null;
+
         function openEdit(id) {
             const item = barangMasukData.find(d => d.id === id);
             if (!item) return;
             currentEditId = id;
-            document.getElementById('editNamaBarang').value = item.nama;
-            document.getElementById('editKategori').value = item.kategori;
-            document.getElementById('editJumlah').value = item.jumlah;
-            document.getElementById('editSatuan').value = item.satuan;
-            document.getElementById('editSupplier').value = item.supplier;
-            document.getElementById('editTanggalMasuk').value = item.tanggalMasuk;
-            document.getElementById('editHargaBeli').value = item.hargaBeli;
-            document.getElementById('editHargaJual').value = item.hargaJual;
+
+            document.getElementById('editNamaBarang').value  = item.nama;
+            document.getElementById('editKategori').value    = item.kategori;
+            document.getElementById('editJumlah').value      = item.jumlah;
+            document.getElementById('editSatuan').value      = item.satuan;
+            document.getElementById('editSupplier').value    = item.supplier;
+            document.getElementById('editTanggalMasuk').value= item.tanggalMasuk;
+            document.getElementById('editHargaBeli').value   = item.hargaBeli;
+            document.getElementById('editHargaJual').value   = item.hargaJual;
+
+            // Simpan nilai original untuk deteksi perubahan harga
+            editOriginalHargaBeli = item.hargaBeli;
+            editOriginalHargaJual = item.hargaJual;
+            editOriginalNama      = item.nama;
+
+            // Sembunyikan notice dulu
+            document.getElementById('editPriceSyncNotice').classList.remove('visible');
+
             document.getElementById('editModal').classList.add('active');
         }
 
+        // Deteksi perubahan harga di modal edit
+        ['editHargaBeli', 'editHargaJual'].forEach(id => {
+            document.getElementById(id).addEventListener('input', function() {
+                const hbNow = parseInt(document.getElementById('editHargaBeli').value) || 0;
+                const hjNow = parseInt(document.getElementById('editHargaJual').value) || 0;
+                const hbChanged = hbNow !== editOriginalHargaBeli;
+                const hjChanged = hjNow !== editOriginalHargaJual;
+
+                if (hbChanged || hjChanged) {
+                    document.getElementById('editPriceSyncName').textContent = editOriginalNama;
+                    document.getElementById('editPriceSyncNotice').classList.add('visible');
+                } else {
+                    document.getElementById('editPriceSyncNotice').classList.remove('visible');
+                }
+            });
+        });
+
         function closeEditModal() {
             document.getElementById('editModal').classList.remove('active');
+            document.getElementById('editPriceSyncNotice').classList.remove('visible');
             currentEditId = null;
         }
 
@@ -1782,28 +2513,52 @@
 
         document.getElementById('saveEdit').addEventListener('click', function () {
             if (!currentEditId) return;
-            const jumlah = parseInt(document.getElementById('editJumlah').value);
+            const jumlah    = parseInt(document.getElementById('editJumlah').value);
+            const hargaBeli = parseInt(document.getElementById('editHargaBeli').value);
+            const hargaJual = parseInt(document.getElementById('editHargaJual').value);
+            const nama      = document.getElementById('editNamaBarang').value.trim();
+
             showLoading();
             setTimeout(() => {
                 hideLoading();
+
                 const idx = barangMasukData.findIndex(d => d.id === currentEditId);
                 if (idx >= 0) {
                     barangMasukData[idx] = {
                         ...barangMasukData[idx],
-                        nama: document.getElementById('editNamaBarang').value.trim(),
-                        kategori: document.getElementById('editKategori').value,
+                        nama,
+                        kategori:    document.getElementById('editKategori').value,
                         jumlah,
-                        satuan: document.getElementById('editSatuan').value,
-                        supplier: document.getElementById('editSupplier').value,
-                        tanggalMasuk: document.getElementById('editTanggalMasuk').value,
-                        hargaBeli: parseInt(document.getElementById('editHargaBeli').value),
-                        hargaJual: parseInt(document.getElementById('editHargaJual').value),
+                        satuan:      document.getElementById('editSatuan').value,
+                        supplier:    document.getElementById('editSupplier').value,
+                        tanggalMasuk:document.getElementById('editTanggalMasuk').value,
+                        hargaBeli,
+                        hargaJual,
                         status: getStatus(jumlah)
                     };
                 }
+
+                // ===== SYNC HARGA MASTER & SEMUA BARIS =====
+                const hbChanged = hargaBeli !== editOriginalHargaBeli;
+                const hjChanged = hargaJual !== editOriginalHargaJual;
+                let priceChanged = hbChanged || hjChanged;
+
+                if (priceChanged) {
+                    // Update masterBarang
+                    syncMasterHarga(nama, hargaBeli, hargaJual);
+                    // Sync semua baris lain yang sama namanya
+                    syncAllRowHarga(nama, hargaBeli, hargaJual);
+                }
+
                 closeEditModal();
                 renderTable();
-                showToast('Data berhasil diperbarui!', 'success');
+
+                if (priceChanged) {
+                    setTimeout(() => flashUpdatedRows(nama), 100);
+                    showToast(`Data diperbarui & harga master "${nama}" disinkronkan!`, 'warning');
+                } else {
+                    showToast('Data berhasil diperbarui!', 'success');
+                }
             }, 800);
         });
 
@@ -1840,14 +2595,6 @@
         });
 
         // ========================
-        // PRINT
-        // ========================
-        // document.getElementById('printBtn').addEventListener('click', function() {
-        //     showLoading();
-        //     setTimeout(() => { hideLoading(); window.print(); }, 800);
-        // });
-
-        // ========================
         // SIDEBAR TOGGLE
         // ========================
         document.getElementById('menuToggle').addEventListener('click', function () {
@@ -1862,7 +2609,6 @@
         // ========================
         // INIT
         // ========================
-        document.getElementById('tanggalMasuk').valueAsDate = new Date();
         renderTable();
     </script>
 
@@ -1894,11 +2640,8 @@
         });
 
         confirmLogout.addEventListener('click', function () {
-            // Hapus session login
             localStorage.removeItem('userLogin');
             localStorage.removeItem('userRole');
-
-            // Redirect (PATH TERBARU)
             window.location.href = '../../pages/login.html';
         });
     </script>
